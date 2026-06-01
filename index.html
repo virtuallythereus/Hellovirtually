@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello, Virtually! — VA Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #2C1A2E;
+    --coral: #E8603C;
+    --lime: #C8D832;
+    --sky: #A8D4DC;
+    --blush: #F0C4B4;
+    --lilac: #C4B4DC;
+    --mint: #B4DCC8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── STRIPE PATTERN UTILITY ── */
+  .stripes-lime {
+    background: repeating-linear-gradient(90deg, var(--lime) 0px, var(--lime) 6px, transparent 6px, transparent 18px);
+  }
+  .stripes-sky {
+    background: repeating-linear-gradient(90deg, var(--sky) 0px, var(--sky) 6px, transparent 6px, transparent 18px);
+  }
+  .stripes-coral {
+    background: repeating-linear-gradient(90deg, var(--coral) 0px, var(--coral) 5px, transparent 5px, transparent 16px);
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1.5px solid var(--dark);
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+  .logo span { font-style: italic; color: var(--coral); }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--dark);
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--coral); }
+  .nav-cta {
+    background: var(--lilac);
+    border: 1.5px solid var(--dark);
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--dark);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--coral); color: #fff; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 90vh;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .hero-left {
+    padding: 60px 48px 60px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1.5px solid var(--dark);
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--lime);
+    border: 1.5px solid var(--dark);
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 28px;
+    width: fit-content;
+    transform: rotate(-1deg);
+  }
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    color: var(--coral);
+  }
+  .hero-handwrite {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--coral);
+    margin-bottom: 28px;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 420px;
+    color: #4a3a4c;
+    margin-bottom: 36px;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--coral);
+    color: #fff;
+    border: 1.5px solid var(--dark);
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--dark); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid var(--dark);
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: var(--lime); }
+
+  /* floating icons in hero */
+  .float-icons {
+    position: absolute;
+    right: -20px;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2;
+  }
+  .float-icon {
+    width: 42px;
+    height: 42px;
+    border: 1.5px solid var(--dark);
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 3px 3px 0 var(--dark);
+    animation: bob 3s ease-in-out infinite;
+  }
+  .float-icon:nth-child(2) { animation-delay: 0.5s; }
+  .float-icon:nth-child(3) { animation-delay: 1s; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-stripe-panel {
+    flex: 1;
+    background: repeating-linear-gradient(90deg, var(--sky) 0px, var(--sky) 8px, transparent 8px, transparent 22px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-bottom: 1.5px solid var(--dark);
+    position: relative;
+  }
+  .hero-card {
+    background: var(--cream);
+    border: 1.5px solid var(--dark);
+    padding: 28px 32px;
+    max-width: 340px;
+    box-shadow: 6px 6px 0 var(--dark);
+    text-align: center;
+    position: relative;
+  }
+  .hero-card-emoji { font-size: 2.5rem; margin-bottom: 12px; }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .hero-card p { font-size: 0.85rem; color: #5a4a5c; line-height: 1.6; }
+  .sticker {
+    background: var(--lime);
+    border: 1.5px solid var(--dark);
+    padding: 4px 10px;
+    font-family: 'Caveat', cursive;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    transform: rotate(4deg);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1.5px solid var(--dark);
+  }
+  .stat {
+    padding: 28px;
+    border-right: 1.5px solid var(--dark);
+    text-align: center;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--coral);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #6a5a6c;
+    margin-top: 4px;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-bar {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 14px 0;
+    overflow: hidden;
+    border-bottom: 1.5px solid var(--dark);
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: scroll 22s linear infinite;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 32px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .marquee-dot { color: var(--coral); font-size: 1.2rem; }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .about-left {
+    padding: 72px 48px;
+    border-right: 1.5px solid var(--dark);
+  }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--coral);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--coral);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--coral); }
+  .about-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #4a3a4c;
+    margin-bottom: 20px;
+  }
+  .handwrite-accent {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--dark);
+    background: var(--lime);
+    display: inline-block;
+    padding: 4px 12px;
+    transform: rotate(-1.5deg);
+    margin: 12px 0;
+  }
+
+  .about-right {
+    background: repeating-linear-gradient(90deg, var(--lime) 0px, var(--lime) 7px, transparent 7px, transparent 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+  .about-card-stack {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+  .acard {
+    position: absolute;
+    background: var(--cream);
+    border: 1.5px solid var(--dark);
+    padding: 24px;
+    box-shadow: 4px 4px 0 var(--dark);
+  }
+  .acard:nth-child(1) { width: 260px; top: 0; left: 20px; transform: rotate(-3deg); }
+  .acard:nth-child(2) { width: 240px; top: 60px; left: 0; transform: rotate(2deg); background: var(--blush); }
+  .acard:nth-child(3) { width: 220px; top: 130px; left: 30px; transform: rotate(-1deg); background: var(--lilac); }
+  .acard-emoji { font-size: 1.6rem; margin-bottom: 8px; }
+  .acard-text { font-size: 0.8rem; line-height: 1.5; color: var(--dark); font-weight: 500; }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 80px 48px;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    margin-bottom: 56px;
+    gap: 40px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1.5px solid var(--dark);
+  }
+  .service-card {
+    padding: 36px 28px;
+    border-right: 1.5px solid var(--dark);
+    border-bottom: 1.5px solid var(--dark);
+    position: relative;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--blush); }
+  .service-card:nth-child(3n) { border-right: none; }
+  .service-card:nth-child(n+4) { border-bottom: none; }
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+    background: var(--cream);
+    box-shadow: 3px 3px 0 var(--dark);
+  }
+  .service-card:hover .service-icon { background: var(--lime); }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .service-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #5a4a5c;
+  }
+  .service-num {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    color: #9a8a9c;
+    font-weight: 600;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .how-left {
+    background: var(--sky);
+    padding: 72px 40px;
+    border-right: 1.5px solid var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .how-left::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,0.35) 0px, rgba(255,255,255,0.35) 5px, transparent 5px, transparent 14px);
+  }
+  .how-left .section-title { font-size: 2.4rem; position: relative; z-index: 1; }
+  .how-right { padding: 72px 48px; }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1.5px dashed #c4b8c8;
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border: 1.5px solid var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: var(--cream);
+    box-shadow: 3px 3px 0 var(--dark);
+    flex-shrink: 0;
+  }
+  .step:nth-child(odd) .step-num { background: var(--lime); }
+  .step:nth-child(even) .step-num { background: var(--blush); }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .step-desc { font-size: 0.85rem; line-height: 1.7; color: #5a4a5c; }
+
+  /* ── PRICING / CTA ── */
+  .cta-band {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    border-bottom: 1.5px solid var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, rgba(200,216,50,0.08) 0px, rgba(200,216,50,0.08) 6px, transparent 6px, transparent 20px);
+  }
+  .cta-band > * { position: relative; z-index: 1; }
+  .cta-band .section-label { color: var(--lime); }
+  .cta-band .section-label::before { background: var(--lime); }
+  .cta-band .section-title { color: var(--cream); }
+  .cta-band .section-title em { color: var(--lime); }
+  .cta-text { font-size: 0.95rem; line-height: 1.8; color: #c4b8c8; }
+  .cta-right { display: flex; flex-direction: column; gap: 16px; }
+  .cta-card {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .cta-card:hover { background: rgba(200,216,50,0.1); border-color: var(--lime); }
+  .cta-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .cta-card-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+  .cta-card-desc { font-size: 0.78rem; color: #a898ac; }
+
+  /* ── TESTIMONIAL ── */
+  .testimonials {
+    padding: 80px 48px;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .testi-header { text-align: center; margin-bottom: 56px; }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testi-card {
+    border: 1.5px solid var(--dark);
+    padding: 28px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-card:nth-child(1) { background: var(--blush); }
+  .testi-card:nth-child(2) { background: var(--lime); }
+  .testi-card:nth-child(3) { background: var(--lilac); }
+  .testi-quote {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--dark);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 12px;
+  }
+  .testi-text {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #3a2a3c;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .testi-name { font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .testi-role { font-size: 0.72rem; color: #6a5a6c; }
+  .speech-bubble {
+    position: absolute;
+    top: -14px;
+    right: 20px;
+    background: var(--cream);
+    border: 1.5px solid var(--dark);
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1.5px solid var(--dark);
+  }
+  .contact-left {
+    padding: 80px 48px;
+    border-right: 1.5px solid var(--dark);
+    background: var(--lime);
+  }
+  .contact-left .section-title em { color: var(--dark); text-decoration: underline; text-underline-offset: 6px; }
+  .contact-details { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .contact-item-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--dark);
+    color: var(--lime);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-right { padding: 80px 48px; }
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--dark);
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus { border-color: var(--coral); box-shadow: 3px 3px 0 var(--coral); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%;
+    background: var(--coral);
+    color: #fff;
+    border: 1.5px solid var(--dark);
+    padding: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--dark);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .form-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+  .footer-logo span { color: var(--coral); font-style: italic; }
+  .footer-copy { font-size: 0.78rem; color: #7a6a7c; }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-size: 0.78rem;
+    text-decoration: none;
+    color: #5a4a5c;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .footer-links a:hover { color: var(--coral); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    nav { padding: 16px 24px; }
+    .hero, .about, .how, .contact { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 1.5px solid var(--dark); }
+    .about-left { border-right: none; border-bottom: 1.5px solid var(--dark); }
+    .how-left { border-right: none; border-bottom: 1.5px solid var(--dark); }
+    .contact-left { border-right: none; border-bottom: 1.5px solid var(--dark); }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .services-header { grid-template-columns: 1fr; }
+    .cta-band { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .services, .testimonials { padding: 60px 24px; }
+    .hero-left, .about-left, .how-right, .contact-left, .contact-right, .cta-band { padding: 48px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Hello, <span>Virtually!</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Call →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ Virtual Assistant Agency</div>
+    <h1 class="hero-h1">We bring the<br><em>human touch</em><br>back to business.</h1>
+    <p class="hero-handwrite">...so you can focus on closing! 🤝</p>
+    <p class="hero-desc">Hello, Virtually! handles your leads, emails, admin, and more — delivering ready-to-close prospects to your inbox twice a day.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Get Started ✦</a>
+      <a href="#services" class="btn-secondary">See Services</a>
+    </div>
+    <div class="float-icons">
+      <div class="float-icon">💬</div>
+      <div class="float-icon">📎</div>
+      <div class="float-icon">⋯</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-stripe-panel">
+        <div class="hero-card">
+          <div class="sticker">✨ fresh leads!</div>
+          <div class="hero-card-emoji">📋</div>
+          <h3>Lead Report Ready</h3>
+          <p>Your qualified leads report has been delivered. 12 prospects ready to call and close today.</p>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">2×</div>
+          <div class="stat-label">Daily Lead Reports</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Services Offered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Lead Qualification</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Email Management</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Estimate Templates</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Blog Posting</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Google Business Setup</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> WhatsApp Business</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Website Setup</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Contract Templates</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Lead Qualification</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Email Management</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Estimate Templates</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Blog Posting</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Google Business Setup</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> WhatsApp Business</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Website Setup</span>
+    <span class="marquee-item"><span class="marquee-dot">✦</span> Contract Templates</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="section-label">About Us</div>
+    <h2 class="section-title">Your business,<br><em>supported</em> with heart.</h2>
+    <p class="about-text">We're not just task-doers — we're your behind-the-scenes partners. Hello, Virtually! was built on the belief that every business deserves a human touch, even in the most automated processes.</p>
+    <div class="handwrite-accent">We've got your back! 💛</div>
+    <p class="about-text" style="margin-top:16px">From qualifying your leads and organizing your inbox, to setting up your entire digital presence — we handle it all so you can show up, connect, and close.</p>
+  </div>
+  <div class="about-right">
+    <div class="about-card-stack">
+      <div class="acard">
+        <div class="acard-emoji">📬</div>
+        <div class="acard-text">Inbox zero? We make it happen every day.</div>
+      </div>
+      <div class="acard">
+        <div class="acard-emoji">🎯</div>
+        <div class="acard-text">Qualified leads delivered 2× daily — just call & close!</div>
+      </div>
+      <div class="acard">
+        <div class="acard-emoji">✍️</div>
+        <div class="acard-text">Professional templates for estimates & contracts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Everything your<br><em>business needs</em>.</h2>
+    </div>
+    <p style="font-size:0.9rem; line-height:1.8; color:#5a4a5c;">From lead gen to digital setup — we cover every corner of your operations so you never drop the ball again.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">🎯</div>
+      <div class="service-name">Lead Qualification</div>
+      <div class="service-desc">We research, contact, and qualify potential clients so you only speak to ready-to-buy prospects.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">📋</div>
+      <div class="service-name">2× Daily Lead Reports</div>
+      <div class="service-desc">Receive a curated report of qualified leads twice a day — morning and afternoon, ready to call.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">📝</div>
+      <div class="service-name">Estimate & Contract Templates</div>
+      <div class="service-desc">Polished, professional templates tailored to your brand so every quote looks top-tier.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">📧</div>
+      <div class="service-name">Email Management</div>
+      <div class="service-desc">Inbox organization, responses, follow-ups, and filtering — we keep your communication on point.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <div class="service-icon">✍️</div>
+      <div class="service-name">Blog Posting</div>
+      <div class="service-desc">Content creation and publishing to boost your SEO and establish your authority online.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <div class="service-icon">🌐</div>
+      <div class="service-name">Website Setup</div>
+      <div class="service-desc">Full website creation and setup so your digital home reflects the quality of your business.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">07</span>
+      <div class="service-icon">📍</div>
+      <div class="service-name">Google Business Profile</div>
+      <div class="service-desc">Complete setup and optimization of your Google Business listing so local clients find you first.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">08</span>
+      <div class="service-icon">💬</div>
+      <div class="service-name">WhatsApp Business</div>
+      <div class="service-desc">Professional WhatsApp Business setup with auto-replies, catalogues, and branded messaging.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">09</span>
+      <div class="service-icon">⚙️</div>
+      <div class="service-name">Admin & More</div>
+      <div class="service-desc">Scheduling, data entry, research, and any other task that eats your time — we've got it covered.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-left">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">Simple.<br><em>Seamless.</em><br>Done.</h2>
+  </div>
+  <div class="how-right">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Book a Discovery Call</div>
+          <div class="step-desc">We get to know your business, your goals, and the tasks that are slowing you down most. No fluff — just clarity.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">We Build Your System</div>
+          <div class="step-desc">We set up your workflows, templates, email management, and lead pipeline — all customized to your brand.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Leads Hit Your Inbox</div>
+          <div class="step-desc">Every morning and afternoon, a fresh report of qualified prospects lands in your inbox, ready for you to call.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">You Close the Deals</div>
+          <div class="step-desc">You focus on what you do best — selling and delivering. We handle everything else behind the scenes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div>
+    <div class="section-label">Ready to grow?</div>
+    <h2 class="section-title">Let's take tasks<br><em>off your plate.</em></h2>
+    <p class="cta-text" style="margin-top:20px">Whether you need one service or a full VA partnership, we have a plan that fits your business and your budget.</p>
+  </div>
+  <div class="cta-right">
+    <div class="cta-card">
+      <div class="cta-card-icon">🚀</div>
+      <div>
+        <div class="cta-card-title">Starter Package</div>
+        <div class="cta-card-desc">Lead qualification + daily reports + email management</div>
+      </div>
+    </div>
+    <div class="cta-card">
+      <div class="cta-card-icon">💼</div>
+      <div>
+        <div class="cta-card-title">Growth Package</div>
+        <div class="cta-card-desc">Everything in Starter + templates, blog, Google & WhatsApp setup</div>
+      </div>
+    </div>
+    <div class="cta-card">
+      <div class="cta-card-icon">✦</div>
+      <div>
+        <div class="cta-card-title">Full Partnership</div>
+        <div class="cta-card-desc">Complete VA support — fully custom to your business needs</div>
+      </div>
+    </div>
+    <a href="#contact" class="btn-primary" style="margin-top:8px; display:inline-flex; width:100%; justify-content:center;">Book Your Free Consultation →</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testi-header">
+    <div class="section-label" style="justify-content:center">Kind Words</div>
+    <h2 class="section-title" style="font-size:2.4rem">What our clients <em>say.</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="speech-bubble">⭐⭐⭐⭐⭐</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">My inbox went from chaos to completely organized in one week. I had no idea how much time I was wasting on emails until it just... disappeared.</p>
+      <div class="testi-name">Maria T.</div>
+      <div class="testi-role">Interior Designer</div>
+    </div>
+    <div class="testi-card">
+      <div class="speech-bubble">⭐⭐⭐⭐⭐</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The lead reports are a game changer. I get a list every morning and by noon I've already booked two calls. Best investment I've made for my business.</p>
+      <div class="testi-name">Carlos R.</div>
+      <div class="testi-role">HVAC Business Owner</div>
+    </div>
+    <div class="testi-card">
+      <div class="speech-bubble">⭐⭐⭐⭐⭐</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">They set up my Google Business, WhatsApp, and website in under two weeks. I finally look as professional as I actually am!</p>
+      <div class="testi-name">Sandra M.</div>
+      <div class="testi-role">Cleaning Services Owner</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's talk about your<br><em>business.</em></h2>
+    <p style="font-size:0.9rem; line-height:1.8; margin-top:16px; color:#3a2a3c">Book a free discovery call and let's figure out exactly how we can take work off your plate.</p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <div class="contact-item-icon">💬</div>
+        <span>WhatsApp Business Available</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📧</div>
+        <span>hello@hellovirtually.com</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <span>Response within 24 hours</span>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input type="text" class="form-input" placeholder="Jane Smith">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" placeholder="jane@yourbusiness.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Business Type</label>
+      <input type="text" class="form-input" placeholder="e.g. HVAC, Cleaning, Real Estate...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">How Can We Help?</label>
+      <textarea class="form-input" placeholder="Tell us about your biggest challenge right now..."></textarea>
+    </div>
+    <button class="form-submit">Send Message ✦</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Hello, <span>Virtually!</span></div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Hello, Virtually! — All rights reserved.</p>
+</footer>
+
+</body>
+</html>
