@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hello, Virtually!</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Caveat:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 :root {
   --plum:  #4B1F3D;
   --coral: #FF6B4A;
@@ -19,399 +18,388 @@
   --taupe: #E7DED4;
   --blush: #FFE4EE;
   --white: #FFFFFF;
+  --border: 2px dashed rgba(75,31,61,.22);
 }
-
 html { scroll-behavior:smooth; }
-body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--plum); overflow-x:hidden; }
+body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--plum); overflow-x:hidden; }
+
+/* ── STRIPE PATTERNS ── */
+.stripe-lime { background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px); }
+.stripe-pink { background: repeating-linear-gradient(90deg, var(--pink) 0,var(--pink) 7px, transparent 7px, transparent 20px); }
+.stripe-blue { background: repeating-linear-gradient(90deg, var(--blue) 0,var(--blue) 7px, transparent 7px, transparent 20px); }
+.stripe-lav  { background: repeating-linear-gradient(90deg, var(--lav)  0,var(--lav)  7px, transparent 7px, transparent 20px); }
+.stripe-coral{ background: repeating-linear-gradient(90deg, rgba(255,107,74,.18) 0,rgba(255,107,74,.18) 6px, transparent 6px, transparent 18px); }
+.stripe-diag { background: repeating-linear-gradient(45deg, var(--lime) 0,var(--lime) 5px, transparent 5px, transparent 14px); }
+
+/* ── WHITE FRAMED BOX ── */
+.frame-box {
+  background: var(--white);
+  border: 2.5px solid var(--plum);
+  border-radius: 14px;
+  padding: 36px 32px;
+  position: relative;
+}
+.frame-box::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed rgba(75,31,61,.18);
+  border-radius: 10px;
+  pointer-events: none;
+}
 
 /* ── REVEAL ── */
-[data-reveal] { opacity:0; transition:opacity .65s ease, transform .65s ease; }
-[data-reveal="up"]    { transform:translateY(32px); }
-[data-reveal="left"]  { transform:translateX(-32px); }
-[data-reveal="right"] { transform:translateX(32px); }
-[data-reveal].in      { opacity:1; transform:none; }
-
-/* ── FLOATING STICKER ANIMATIONS ── */
-@keyframes floatA {
-  0%,100% { transform:translateY(0px) rotate(-6deg); }
-  50%      { transform:translateY(-14px) rotate(-3deg); }
-}
-@keyframes floatB {
-  0%,100% { transform:translateY(0px) rotate(4deg); }
-  50%      { transform:translateY(-10px) rotate(7deg); }
-}
-@keyframes floatC {
-  0%,100% { transform:translateY(0px) rotate(-2deg); }
-  50%      { transform:translateY(-18px) rotate(2deg); }
-}
-@keyframes floatD {
-  0%,100% { transform:translateY(0px) rotate(8deg); }
-  50%      { transform:translateY(-8px) rotate(4deg); }
-}
-@keyframes floatE {
-  0%,100% { transform:translateY(0px) rotate(-10deg); }
-  50%      { transform:translateY(-12px) rotate(-6deg); }
-}
-@keyframes floatF {
-  0%,100% { transform:translateY(0px) rotate(3deg); }
-  50%      { transform:translateY(-16px) rotate(6deg); }
-}
+[data-reveal] { opacity:0; transition:opacity .7s ease, transform .7s ease; }
+[data-reveal="up"]   { transform:translateY(32px); }
+[data-reveal="left"] { transform:translateX(-32px); }
+[data-reveal="right"]{ transform:translateX(32px); }
+[data-reveal].in     { opacity:1; transform:none; }
 
 /* ── NAV ── */
 nav {
   position:sticky; top:0; z-index:200;
-  background:var(--cream); border-bottom:2px solid var(--plum);
+  background:var(--cream);
+  border-bottom: 3px solid var(--coral);
   display:flex; align-items:center; justify-content:space-between;
-  padding:18px 56px;
+  padding:16px 56px;
 }
-.nav-logo { font-family:'Rubik',sans-serif; font-size:1.5rem; font-weight:900; color:var(--plum); }
-.nav-logo em { font-style:italic; }
+.nav-logo { font-family:'Nunito',sans-serif; font-size:1.5rem; font-weight:900; color:var(--plum); }
+.nav-logo em { font-style:italic; color:var(--coral); }
 nav ul { list-style:none; display:flex; gap:28px; }
-nav ul a { font-size:0.75rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:var(--plum); transition:color .2s; }
+nav ul a { font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:var(--plum); transition:color .2s; }
 nav ul a:hover { color:var(--coral); }
-.nav-btn {
-  background:var(--coral); color:var(--white);
-  border:2px solid var(--plum); border-radius:60px;
-  padding:11px 26px; font-family:'Rubik',sans-serif; font-size:0.82rem; font-weight:700;
-  text-decoration:none; transition:background .2s, transform .2s;
-}
+.nav-btn { background:var(--coral); color:var(--white); border:none; border-radius:60px; padding:11px 26px; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; text-decoration:none; transition:background .2s, transform .2s; }
 .nav-btn:hover { background:var(--plum); transform:translateY(-1px); }
 
 /* ── TICKER ── */
-.ticker { background:var(--plum); overflow:hidden; white-space:nowrap; padding:12px 0; border-bottom:2px solid var(--plum); }
+.ticker { background:var(--plum); overflow:hidden; white-space:nowrap; padding:11px 0; }
 .ticker-inner { display:inline-flex; animation:tick 32s linear infinite; }
-.tick-item { display:inline-flex; align-items:center; gap:10px; padding:0 20px; font-family:'Rubik',sans-serif; font-size:0.73rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--cream); }
-.tick-sep { color:var(--pink); }
+.tick-item { display:inline-flex; align-items:center; gap:10px; padding:0 20px; font-family:'Nunito',sans-serif; font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--cream); }
+.tick-sep { color:var(--lime); }
 @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
 /* ── HERO ── */
 .hero {
-  background:var(--blush);
-  border-bottom:2px solid var(--plum);
   display:grid; grid-template-columns:1fr 1fr;
-  min-height:92vh; align-items:center;
-  padding:80px 56px 60px; gap:40px;
+  min-height:88vh;
   position:relative; overflow:hidden;
 }
-/* right half soft pink blob */
-.hero::after {
+.hero-left {
+  background:var(--blush);
+  padding:80px 56px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+  border-right: 4px dotted rgba(255,107,74,.4);
+}
+/* stripe accent bottom-left */
+.hero-left::after {
   content:'';
-  position:absolute; top:0; right:0; width:52%; height:100%;
-  background:var(--pink);
-  clip-path:ellipse(90% 110% at 100% 50%);
-  z-index:0;
+  position:absolute; bottom:0; left:0; right:0; height:28%;
+  background: repeating-linear-gradient(90deg, rgba(255,193,224,.35) 0,rgba(255,193,224,.35) 6px, transparent 6px, transparent 18px);
+  pointer-events:none;
 }
-.hero-left { position:relative; z-index:2; }
-.hero-pill {
-  display:inline-block; background:var(--lime); color:var(--plum);
-  border:2px solid var(--plum); border-radius:60px;
-  padding:7px 18px; font-family:'Rubik',sans-serif;
-  font-size:0.7rem; font-weight:800; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:28px;
+.hero-eyebrow {
+  font-size:.7rem; font-weight:800; letter-spacing:3px; text-transform:uppercase;
+  color:var(--coral); margin-bottom:22px; display:flex; align-items:center; gap:8px;
 }
+.hero-eyebrow::before { content:''; width:20px; height:2px; background:var(--coral); border-radius:2px; }
 .hero h1 {
-  font-family:'Rubik',sans-serif; font-size:clamp(3rem,5.5vw,5.6rem);
-  font-weight:900; line-height:1.0; color:var(--plum); margin-bottom:20px;
+  font-family:'Nunito',sans-serif;
+  font-size:clamp(3rem,5.2vw,5.4rem);
+  font-weight:900; line-height:.98; color:var(--plum); margin-bottom:22px;
 }
-.hero h1 .accent { color:var(--coral); }
-.hero-sub { font-family:'Rubik',sans-serif; font-style:italic; font-size:1.15rem; font-weight:500; color:var(--plum); opacity:.7; margin-bottom:22px; }
-.hero-desc { font-size:.97rem; line-height:1.8; color:var(--plum); max-width:430px; margin-bottom:36px; opacity:.85; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
-.btn-plum {
-  background:var(--plum); color:var(--white); border:2px solid var(--plum);
-  border-radius:60px; padding:14px 30px; font-family:'Rubik',sans-serif;
-  font-size:0.88rem; font-weight:700; text-decoration:none;
-  transition:background .2s, transform .2s;
-}
+.hero h1 .accent { color:var(--coral); font-style:italic; }
+.hero-desc { font-size:1rem; line-height:1.8; color:var(--plum); max-width:440px; margin-bottom:36px; opacity:.82; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; position:relative; z-index:2; }
+.btn-plum { background:var(--plum); color:var(--white); border-radius:60px; padding:14px 30px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; text-decoration:none; transition:background .2s, transform .2s; }
 .btn-plum:hover { background:var(--coral); transform:translateY(-2px); }
-.btn-outline {
-  background:transparent; color:var(--plum); border:2px solid var(--plum);
-  border-radius:60px; padding:14px 30px; font-family:'Rubik',sans-serif;
-  font-size:0.88rem; font-weight:700; text-decoration:none;
-  transition:background .2s, color .2s, transform .2s;
-}
+.btn-outline { background:transparent; color:var(--plum); border:2.5px solid var(--plum); border-radius:60px; padding:14px 30px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; text-decoration:none; transition:background .2s, color .2s, transform .2s; }
 .btn-outline:hover { background:var(--plum); color:var(--white); transform:translateY(-2px); }
 
-/* ── STICKER CLUSTER in hero ── */
+/* HERO RIGHT — striped + white box */
 .hero-right {
-  position:relative; z-index:2;
-  height:480px;
+  background: repeating-linear-gradient(90deg, var(--pink) 0,var(--pink) 8px, transparent 8px, transparent 22px);
+  background-color: var(--blush);
+  display:flex; align-items:center; justify-content:center;
+  padding:60px 48px;
+  position:relative;
 }
-.s-wrap {
-  position:absolute;
-  filter:drop-shadow(2px 4px 8px rgba(75,31,61,.18));
+.hero-card {
+  background:var(--white);
+  border:2.5px solid var(--plum);
+  border-radius:16px;
+  padding:40px 36px;
+  width:100%;
+  max-width:380px;
+  position:relative;
 }
-.s-wrap img { display:block; }
-/* "you're in good hands" — large, center */
-.s1 { width:280px; top:40px; left:50%; transform:translateX(-50%); animation:floatA 6s ease-in-out infinite; }
-/* "on it!" — top right */
-.s2 { width:160px; top:0; right:0; animation:floatB 5s ease-in-out infinite; }
-/* "responsive & reliable" badge — bottom left */
-.s3 { width:170px; bottom:20px; left:0; animation:floatC 7s ease-in-out infinite; }
-/* envelope — bottom right */
-.s4 { width:180px; bottom:10px; right:10px; animation:floatD 5.5s ease-in-out infinite; }
-/* paperclip — top left accent */
-.s5 { width:90px; top:10px; left:10px; animation:floatE 4.5s ease-in-out infinite; }
-/* paper plane — mid right */
-.s6 { width:130px; top:180px; right:-10px; animation:floatF 6.5s ease-in-out infinite; }
+/* inner dashed frame */
+.hero-card::before {
+  content:'';
+  position:absolute; inset:7px;
+  border:1.5px dashed rgba(75,31,61,.2);
+  border-radius:10px;
+  pointer-events:none;
+}
+.hero-card-label {
+  font-size:.65rem; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:var(--coral); margin-bottom:18px; display:block;
+}
+.hero-stat { font-family:'Nunito',sans-serif; font-size:3.8rem; font-weight:900; color:var(--plum); line-height:1; margin-bottom:4px; }
+.hero-stat-sub { font-size:.82rem; font-weight:700; color:var(--plum); opacity:.65; margin-bottom:24px; }
+.hero-divider {
+  height:1px;
+  background: repeating-linear-gradient(90deg, var(--coral) 0,var(--coral) 6px, transparent 6px, transparent 14px);
+  margin:20px 0;
+}
+.check-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.check-list li { display:flex; align-items:flex-start; gap:10px; font-size:.85rem; font-weight:600; color:var(--plum); line-height:1.4; }
+.ck { width:20px; height:20px; background:var(--lime); border:1.5px solid var(--plum); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.ck svg { width:10px; height:10px; }
 
-/* ── SECTION HELPERS ── */
-.sec-label { font-family:'Rubik',sans-serif; font-size:.68rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--coral); margin-bottom:14px; display:block; }
-h2.title { font-family:'Rubik',sans-serif; font-size:clamp(2.2rem,3.8vw,3.4rem); font-weight:900; line-height:1.08; }
-h2.title em { font-style:italic; color:var(--coral); }
-
-/* ── WAVE SVG ── */
+/* ── WAVE ── */
 .wave { display:block; width:100%; overflow:hidden; line-height:0; }
 
-/* ── PROBLEM ── */
-.problem { display:grid; grid-template-columns:1fr 1fr; border-bottom:2px solid var(--plum); }
-.prob-left { background:var(--coral); padding:88px 56px; border-right:2px solid var(--plum); display:flex; flex-direction:column; justify-content:center; }
-.prob-left h2.title { color:var(--white); }
-.prob-left h2.title em { color:var(--lime); }
-.prob-left p { font-size:.97rem; line-height:1.8; color:rgba(255,255,255,.88); margin-top:18px; }
-.callout { background:var(--white); border:2px solid var(--plum); border-radius:10px; padding:16px 20px; margin-top:28px; font-family:'Rubik',sans-serif; font-size:.95rem; font-weight:700; color:var(--plum); }
-.prob-right { background:var(--cream); padding:88px 56px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
-/* paperclip accent in problem section */
-.prob-right .sticker-accent {
-  position:absolute; bottom:-10px; right:-10px;
-  width:100px; opacity:.35;
-  filter:drop-shadow(1px 2px 4px rgba(75,31,61,.15));
-  animation:floatB 6s ease-in-out infinite;
-}
-.prob-right h3 { font-family:'Rubik',sans-serif; font-size:1.5rem; font-weight:700; font-style:italic; color:var(--plum); margin-bottom:28px; }
-.stat-row { display:flex; gap:20px; align-items:flex-start; padding:22px 16px; border-bottom:1.5px dashed var(--taupe); border-radius:8px; transition:background .2s; }
-.stat-row:hover { background:var(--pink); }
-.stat-row:last-child { border-bottom:none; }
-.stat-num { font-family:'Rubik',sans-serif; font-size:2.6rem; font-weight:900; color:var(--coral); flex-shrink:0; line-height:1; }
-.stat-text { font-size:.88rem; line-height:1.65; color:var(--plum); padding-top:6px; }
+/* ── SECTION HELPERS ── */
+.sec-label { font-family:'Nunito',sans-serif; font-size:.68rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--coral); margin-bottom:14px; display:block; }
+h2.title { font-family:'Nunito',sans-serif; font-size:clamp(2.2rem,3.8vw,3.4rem); font-weight:900; line-height:1.08; }
+h2.title em { font-style:italic; color:var(--coral); }
 
-/* ── HOW ── */
-.how { padding:96px 56px; border-bottom:2px solid var(--plum); background:var(--cream); position:relative; }
-/* plane accent */
-.how .sticker-float {
-  position:absolute; top:40px; right:60px;
-  width:120px; opacity:.5;
-  filter:drop-shadow(1px 2px 4px rgba(75,31,61,.12));
-  animation:floatF 7s ease-in-out infinite;
-}
-.how-top { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:end; margin-bottom:52px; }
-.how-top p { font-size:.95rem; line-height:1.8; color:var(--plum); opacity:.72; }
-.steps { display:grid; grid-template-columns:repeat(4,1fr); border:2px solid var(--plum); border-radius:12px; overflow:hidden; }
-.step { padding:40px 26px 36px; border-right:2px solid var(--plum); position:relative; transition:transform .25s ease; }
-.step:hover { transform:translateY(-5px); z-index:2; }
-.step:last-child { border-right:none; }
-.step:nth-child(1){ background:var(--lime); }
-.step:nth-child(2){ background:var(--blue); }
-.step:nth-child(3){ background:var(--pink); }
-.step:nth-child(4){ background:var(--lav); }
-.step-n { font-family:'Rubik',sans-serif; font-size:4.5rem; font-weight:900; color:var(--plum); opacity:.09; position:absolute; top:10px; right:14px; line-height:1; }
-.step-chip { display:inline-block; background:var(--plum); color:var(--white); border-radius:60px; padding:4px 12px; font-family:'Rubik',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:14px; }
-.step-title { font-family:'Rubik',sans-serif; font-size:1.05rem; font-weight:900; margin-bottom:10px; color:var(--plum); }
-.step-desc { font-size:.82rem; line-height:1.72; color:var(--plum); opacity:.8; }
+/* dashed divider (replaces solid plum borders) */
+.dash-div { border:none; border-top: 2px dashed rgba(75,31,61,.18); margin:0; }
 
-/* ── SERVICES ── */
-.services { border-bottom:2px solid var(--plum); }
-.svc-head { padding:72px 56px 48px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; border-bottom:2px solid var(--plum); position:relative; }
-/* "on it" sticker accent */
-.svc-head .sticker-float {
-  position:absolute; bottom:-30px; right:40px;
-  width:110px; z-index:3;
-  filter:drop-shadow(2px 3px 6px rgba(75,31,61,.2));
-  animation:floatB 5s ease-in-out infinite;
+/* ── INTRO ── */
+.intro {
+  display:grid; grid-template-columns:1fr 1fr;
+  border-top: 3px solid var(--coral);
+  border-bottom: 3px dashed rgba(75,31,61,.15);
 }
+.intro-left {
+  background:var(--coral); padding:80px 56px;
+  border-right: 4px dotted rgba(255,255,255,.3);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.intro-left h2 { font-family:'Nunito',sans-serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:900; color:var(--white); line-height:1.1; }
+.intro-left h2 em { font-style:italic; color:var(--lime); }
+.intro-left p { font-size:.97rem; line-height:1.8; color:rgba(255,255,255,.88); margin-top:20px; }
+.callout {
+  background:var(--white); border-radius:12px;
+  padding:16px 20px; margin-top:28px;
+  font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; color:var(--plum);
+  border-left: 4px solid var(--lime);
+}
+.intro-right { background:var(--cream); padding:80px 56px; display:flex; flex-direction:column; justify-content:center; gap:0; }
+.intro-right h3 { font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:800; font-style:italic; color:var(--plum); margin-bottom:24px; }
+.val-row { display:flex; gap:20px; align-items:flex-start; padding:20px 14px; border-bottom: 2px dashed rgba(75,31,61,.12); border-radius:8px; transition:background .2s; }
+.val-row:hover { background:var(--pink); }
+.val-row:last-child { border-bottom:none; }
+.val-icon { width:40px; height:40px; border-radius:50%; border:2px solid var(--plum); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1.1rem; }
+.val-title { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; margin-bottom:3px; }
+.val-text { font-size:.82rem; line-height:1.6; opacity:.72; }
+
+/* ── HOW IT WORKS — striped bg + white box ── */
+.how {
+  position:relative; overflow:hidden;
+  border-top: 3px dashed rgba(75,31,61,.15);
+  border-bottom: 3px dashed rgba(75,31,61,.15);
+}
+.how-stripe-bg {
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg, var(--blue) 0,var(--blue) 8px, transparent 8px, transparent 22px);
+  background-color: var(--cream);
+  opacity:.5;
+}
+.how-inner {
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:48px; padding:80px 56px;
+  align-items:center;
+}
+.how-left-text {}
+.how-left-text p { font-size:.95rem; line-height:1.8; color:var(--plum); opacity:.72; margin-top:20px; }
+.how-box { background:var(--white); border:2.5px solid var(--plum); border-radius:16px; padding:40px 36px; position:relative; }
+.how-box::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.18); border-radius:10px; pointer-events:none; }
+.timeline { display:flex; flex-direction:column; }
+.tl-item { display:flex; gap:20px; align-items:flex-start; padding:20px 0; border-bottom: 2px dashed rgba(75,31,61,.12); }
+.tl-item:last-child { border-bottom:none; padding-bottom:0; }
+.tl-num { width:38px; height:38px; background:var(--plum); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:900; flex-shrink:0; transition:background .2s; }
+.tl-item:hover .tl-num { background:var(--coral); }
+.tl-num:nth-child(1){}
+.tl-title { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; margin-bottom:4px; }
+.tl-desc { font-size:.8rem; line-height:1.68; opacity:.72; }
+
+/* ── SERVICES — clean 2-col ── */
+.services { border-bottom: 3px dashed rgba(75,31,61,.15); }
+.svc-head {
+  padding:72px 56px 52px; background:var(--cream);
+  border-bottom: 2px dashed rgba(75,31,61,.15);
+}
+.svc-head-inner { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; }
 .svc-head p { font-size:.95rem; line-height:1.8; color:var(--plum); opacity:.72; }
-.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); }
-.svc { padding:38px 30px; border-right:2px solid var(--plum); border-bottom:2px solid var(--plum); position:relative; transition:transform .22s ease, box-shadow .22s; cursor:default; }
-.svc:hover { transform:scale(1.03); z-index:2; box-shadow:0 8px 28px rgba(75,31,61,.13); }
-.svc:nth-child(3n){ border-right:none; }
-.svc:nth-child(n+7){ border-bottom:none; }
-.svc:nth-child(1){ background:var(--cream); }
-.svc:nth-child(2){ background:var(--blue); }
-.svc:nth-child(3){ background:var(--lime); }
-.svc:nth-child(4){ background:var(--pink); }
-.svc:nth-child(5){ background:var(--lav); }
-.svc:nth-child(6){ background:var(--taupe); }
-.svc:nth-child(7){ background:var(--blush); }
-.svc:nth-child(8){ background:var(--coral); }
-.svc:nth-child(9){ background:var(--plum); }
-.svc-n { position:absolute; top:14px; right:18px; font-size:.65rem; letter-spacing:2px; font-weight:700; opacity:.28; font-family:'Rubik',sans-serif; }
-.svc-name { font-family:'Rubik',sans-serif; font-size:1rem; font-weight:800; margin-bottom:9px; }
-.svc-desc { font-size:.8rem; line-height:1.65; opacity:.8; }
-.svc:nth-child(8) .svc-name,.svc:nth-child(9) .svc-name { color:var(--white); }
-.svc:nth-child(8) .svc-desc,.svc:nth-child(9) .svc-desc { color:rgba(255,255,255,.75); }
-.svc:nth-child(8) .svc-n,.svc:nth-child(9) .svc-n { color:rgba(255,255,255,.4); }
-
-/* ── STATUS STRIP ── */
-.status-strip { background:var(--blue); border-top:2px solid var(--plum); border-bottom:2px solid var(--plum); overflow:hidden; padding:20px 0; }
-.strip-inner { display:inline-flex; gap:14px; animation:stripScroll 24s linear infinite; white-space:nowrap; }
-.strip-inner:hover { animation-play-state:paused; }
-.chip { flex-shrink:0; font-family:'Rubik',sans-serif; font-weight:700; border:2px solid var(--plum); padding:9px 20px; border-radius:60px; font-size:.76rem; background:var(--white); color:var(--plum); transition:transform .2s; }
-.chip:hover { transform:scale(1.06); }
-.chip.coral { background:var(--coral); color:var(--white); }
-.chip.lime  { background:var(--lime);  color:var(--plum); }
-.chip.pink  { background:var(--pink);  color:var(--plum); }
-.chip.lav   { background:var(--lav);   color:var(--plum); }
-@keyframes stripScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* ── LEAD FLOW ── */
-.leadflow { display:grid; grid-template-columns:1fr 1fr; border-bottom:2px solid var(--plum); }
-.lf-left { background:var(--plum); padding:88px 56px; border-right:2px solid var(--plum); display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
-.lf-left::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,rgba(215,242,106,.06) 0,rgba(215,242,106,.06) 4px,transparent 4px,transparent 16px); pointer-events:none; }
-/* envelope sticker in leadflow */
-.lf-left .sticker-float {
-  position:absolute; bottom:20px; right:20px;
-  width:130px; opacity:.45;
-  filter:drop-shadow(2px 3px 6px rgba(0,0,0,.2));
-  animation:floatA 6s ease-in-out infinite;
+.svc-list { display:grid; grid-template-columns:1fr 1fr; }
+.svc-item {
+  padding:32px 40px; border-right: 2px dashed rgba(75,31,61,.15); border-bottom: 2px dashed rgba(75,31,61,.15);
+  display:flex; gap:18px; align-items:flex-start;
+  transition:background .22s;
+  position:relative;
 }
-.lf-left > * { position:relative; z-index:1; }
-.lf-left .sec-label { color:var(--lime); }
-.lf-left h2.title { color:var(--white); }
-.lf-left h2.title em { color:var(--lime); }
-.lf-left p { font-size:.95rem; line-height:1.8; color:rgba(255,255,255,.72); margin-top:16px; }
-.lf-btn { display:inline-block; margin-top:28px; background:var(--lime); color:var(--plum); border:2px solid var(--plum); border-radius:60px; padding:13px 28px; font-family:'Rubik',sans-serif; font-size:.85rem; font-weight:700; text-decoration:none; transition:background .2s, transform .2s; }
-.lf-btn:hover { background:var(--coral); color:var(--white); transform:translateY(-2px); }
-.lf-right { background:var(--cream); padding:88px 56px; display:flex; flex-direction:column; justify-content:center; }
-.fsteps { display:flex; flex-direction:column; }
-.fstep { display:flex; gap:20px; align-items:flex-start; padding:22px 16px; border-bottom:1.5px dashed var(--taupe); border-radius:8px; transition:background .2s, padding-left .22s; }
-.fstep:hover { background:var(--blush); padding-left:22px; }
-.fstep:last-child { border-bottom:none; }
-.fstep-num { font-family:'Rubik',sans-serif; font-size:1.5rem; font-weight:900; color:var(--coral); flex-shrink:0; line-height:1; width:30px; }
-.fstep-title { font-family:'Rubik',sans-serif; font-size:.95rem; font-weight:800; margin-bottom:4px; }
-.fstep-desc { font-size:.82rem; line-height:1.68; opacity:.72; }
+.svc-item:hover { background:var(--blush); }
+.svc-item:nth-child(2n){ border-right:none; }
+.svc-item:nth-last-child(-n+2){ border-bottom:none; }
+.svc-accent { width:4px; flex-shrink:0; border-radius:4px; min-height:40px; align-self:stretch; }
+.svc-item:nth-child(1) .svc-accent { background:var(--coral); }
+.svc-item:nth-child(2) .svc-accent { background:var(--lav); }
+.svc-item:nth-child(3) .svc-accent { background:var(--lime); }
+.svc-item:nth-child(4) .svc-accent { background:var(--blue); }
+.svc-item:nth-child(5) .svc-accent { background:var(--pink); }
+.svc-item:nth-child(6) .svc-accent { background:var(--coral); }
+.svc-item:nth-child(7) .svc-accent { background:var(--lav); }
+.svc-item:nth-child(8) .svc-accent { background:var(--lime); }
+.svc-n { position:absolute; top:14px; right:18px; font-size:.62rem; letter-spacing:2px; font-weight:700; opacity:.2; font-family:'Nunito',sans-serif; }
+.svc-name { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:900; margin-bottom:6px; }
+.svc-desc { font-size:.8rem; line-height:1.65; opacity:.72; }
 
-/* ── PACKAGES ── */
-.packages { padding:96px 56px; border-bottom:2px solid var(--plum); background:var(--pink); position:relative; overflow:hidden; }
-.packages::before {
-  content:''; position:absolute; inset:0; opacity:.1; pointer-events:none;
-  background-image:linear-gradient(45deg,var(--plum) 25%,transparent 25%),linear-gradient(-45deg,var(--plum) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,var(--plum) 75%),linear-gradient(-45deg,transparent 75%,var(--plum) 75%);
-  background-size:26px 26px; background-position:0 0,0 13px,13px -13px,-13px 0;
+/* ── PACKAGES — striped bg + framed cards ── */
+.packages {
+  padding:88px 56px;
+  border-bottom: 3px dashed rgba(75,31,61,.15);
+  position:relative; overflow:hidden;
 }
-/* good hands sticker in packages */
-.packages .sticker-float {
-  position:absolute; top:-20px; right:80px;
-  width:200px;
-  filter:drop-shadow(2px 4px 8px rgba(75,31,61,.2));
-  animation:floatC 7s ease-in-out infinite;
-  z-index:2;
+.packages-stripe {
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px);
+  background-color: var(--pink);
+  opacity:.35;
 }
-.packages > * { position:relative; z-index:1; }
-.pkg-head { margin-bottom:60px; }
-.pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.pkg { background:var(--white); border:2px solid var(--plum); border-radius:14px; padding:40px 30px; display:flex; flex-direction:column; gap:16px; transition:transform .28s ease; }
+.packages > *:not(.packages-stripe) { position:relative; z-index:1; }
+.pkg-head { margin-bottom:48px; }
+.pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.pkg {
+  background:var(--white); border:2.5px solid var(--plum); border-radius:16px;
+  padding:38px 28px; display:flex; flex-direction:column; gap:16px;
+  transition:transform .28s ease;
+  position:relative;
+}
+.pkg::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.15); border-radius:10px; pointer-events:none; }
 .pkg:hover { transform:translateY(-7px); }
 .pkg:nth-child(2){ background:var(--plum); }
-.pkg-num { font-family:'Rubik',sans-serif; font-size:2.6rem; font-weight:900; color:var(--coral); line-height:1; }
+.pkg:nth-child(2)::before { border-color:rgba(255,255,255,.12); }
+.pkg-num { font-family:'Nunito',sans-serif; font-size:2.4rem; font-weight:900; color:var(--coral); line-height:1; }
 .pkg:nth-child(2) .pkg-num { color:var(--lime); }
-.pkg-name { font-family:'Rubik',sans-serif; font-size:1.15rem; font-weight:900; line-height:1.2; }
+.pkg-name { font-family:'Nunito',sans-serif; font-size:1.1rem; font-weight:900; line-height:1.2; }
 .pkg:nth-child(2) .pkg-name { color:var(--white); }
-.pkg-badge { display:inline-block; background:var(--lime); color:var(--plum); border:1.5px solid var(--plum); border-radius:60px; padding:4px 12px; font-size:.65rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; width:fit-content; }
+.pkg-badge { display:inline-block; background:var(--lime); color:var(--plum); border-radius:60px; padding:4px 12px; font-size:.65rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; width:fit-content; }
 .pkg-desc { font-size:.82rem; line-height:1.72; flex:1; }
 .pkg:nth-child(2) .pkg-desc { color:rgba(255,255,255,.78); }
-.pkg-btn { display:block; text-align:center; background:var(--coral); color:var(--white); border:2px solid var(--plum); border-radius:60px; padding:13px; font-family:'Rubik',sans-serif; font-size:.82rem; font-weight:700; text-decoration:none; transition:background .2s, transform .2s; }
-.pkg-btn:hover { background:var(--plum); transform:translateY(-1px); }
+.pkg-btn { display:block; text-align:center; background:var(--coral); color:var(--white); border-radius:60px; padding:12px; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; text-decoration:none; transition:background .2s; position:relative; z-index:2; }
+.pkg-btn:hover { background:var(--plum); }
 .pkg:nth-child(2) .pkg-btn { background:var(--lime); color:var(--plum); }
 .pkg:nth-child(2) .pkg-btn:hover { background:var(--white); }
 
-/* ── TESTI ── */
-.testi { padding:96px 56px; border-bottom:2px solid var(--plum); background:var(--cream); position:relative; }
-/* reliable badge sticker */
-.testi .sticker-float {
-  position:absolute; top:40px; right:56px;
-  width:150px; opacity:.6;
-  filter:drop-shadow(2px 3px 6px rgba(75,31,61,.15));
-  animation:floatD 6s ease-in-out infinite;
+/* ── TESTI — lavender stripe bg + white boxes ── */
+.testi {
+  padding:88px 56px;
+  border-bottom: 3px dashed rgba(75,31,61,.15);
+  position:relative; overflow:hidden;
 }
+.testi-stripe {
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg, var(--lav) 0,var(--lav) 7px, transparent 7px, transparent 20px);
+  background-color: var(--cream);
+  opacity:.3;
+}
+.testi > *:not(.testi-stripe) { position:relative; z-index:1; }
 .testi-head { margin-bottom:44px; }
-.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.tcard { border:2px solid var(--plum); border-radius:14px; padding:34px 28px; display:flex; flex-direction:column; transition:transform .28s ease; }
-.tcard:hover { transform:translateY(-6px); }
+.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.tcard {
+  background:var(--white); border:2.5px solid var(--plum); border-radius:16px;
+  padding:32px 26px; display:flex; flex-direction:column;
+  transition:transform .28s ease;
+  position:relative;
+}
+.tcard::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.15); border-radius:10px; pointer-events:none; }
+.tcard:hover { transform:translateY(-5px); }
 .tcard:nth-child(1){ background:var(--lav); }
 .tcard:nth-child(2){ background:var(--lime); }
 .tcard:nth-child(3){ background:var(--pink); }
-.tcard-badge { display:inline-block; background:var(--plum); color:var(--white); border-radius:60px; padding:4px 12px; font-family:'Rubik',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:16px; width:fit-content; }
+.tcard:nth-child(1)::before,.tcard:nth-child(2)::before,.tcard:nth-child(3)::before { border-color:rgba(75,31,61,.12); }
+.tcard-badge { display:inline-block; background:var(--plum); color:var(--white); border-radius:60px; padding:4px 12px; font-family:'Nunito',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:14px; width:fit-content; }
 .tcard-stars { color:var(--coral); letter-spacing:2px; font-size:.82rem; margin-bottom:10px; }
-.tcard-q { font-family:'Rubik',sans-serif; font-size:2.2rem; line-height:.85; opacity:.15; margin-bottom:6px; }
-.tcard-text { font-family:'Rubik',sans-serif; font-style:italic; font-size:.93rem; line-height:1.72; color:var(--plum); margin-bottom:22px; flex:1; }
-.tcard-name { font-family:'Rubik',sans-serif; font-weight:800; font-size:.78rem; letter-spacing:.5px; text-transform:uppercase; }
+.tcard-q { font-family:'Nunito',sans-serif; font-size:2rem; line-height:.85; opacity:.15; margin-bottom:6px; }
+.tcard-text { font-family:'Nunito',sans-serif; font-style:italic; font-size:.92rem; line-height:1.72; color:var(--plum); margin-bottom:20px; flex:1; }
+.tcard-name { font-family:'Nunito',sans-serif; font-weight:900; font-size:.78rem; letter-spacing:.5px; text-transform:uppercase; }
 .tcard-role { font-size:.72rem; opacity:.6; margin-top:2px; }
 
 /* ── CONTACT ── */
-.contact { display:grid; grid-template-columns:1fr 1fr; border-bottom:2px solid var(--plum); }
-.contact-left { background:var(--lime); padding:88px 56px; border-right:2px solid var(--plum); display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
-.contact-left::after { content:''; position:absolute; bottom:0; left:0; right:0; height:30%; background:repeating-linear-gradient(90deg,rgba(75,31,61,.1) 0,rgba(75,31,61,.1) 4px,transparent 4px,transparent 14px); }
-/* paperclip accent */
-.contact-left .sticker-float {
-  position:absolute; top:30px; right:30px;
-  width:80px; opacity:.5;
-  filter:drop-shadow(1px 2px 4px rgba(75,31,61,.15));
-  animation:floatE 5s ease-in-out infinite;
+.contact { display:grid; grid-template-columns:1fr 1fr; border-bottom: 3px dashed rgba(75,31,61,.15); }
+.contact-left {
+  padding:80px 56px; border-right: 4px dotted rgba(75,31,61,.18);
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+  background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px);
+  background-color: var(--cream);
 }
-.contact-left > * { position:relative; z-index:1; }
-.contact-left h2.title em { font-style:italic; color:var(--plum); text-decoration:underline; text-underline-offset:5px; }
+.contact-left-inner { background:rgba(255,248,240,.92); border-radius:16px; border:2px dashed rgba(75,31,61,.18); padding:40px 36px; position:relative; z-index:2; }
+.contact-left h2.title em { font-style:italic; }
 .contact-left p { font-size:.95rem; line-height:1.8; margin-top:14px; color:var(--plum); max-width:400px; opacity:.85; }
 .cpills { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
-.cpill { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.6); border:1.5px solid var(--plum); border-radius:10px; padding:11px 16px; font-size:.88rem; font-weight:600; color:var(--plum); transition:background .2s, transform .2s; }
-.cpill:hover { background:var(--white); transform:translateX(4px); }
+.cpill { display:flex; align-items:center; gap:12px; background:var(--white); border:1.5px dashed rgba(75,31,61,.25); border-radius:10px; padding:11px 16px; font-size:.88rem; font-weight:700; color:var(--plum); transition:background .2s, transform .2s; }
+.cpill:hover { background:var(--lime); transform:translateX(4px); }
 .cpill-icon { width:28px; height:28px; background:var(--plum); color:var(--lime); display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:800; flex-shrink:0; border-radius:6px; }
-.contact-right { padding:88px 56px; background:var(--cream); }
-.contact-right h3 { font-family:'Rubik',sans-serif; font-size:1.7rem; font-weight:900; margin-bottom:26px; }
+.contact-right { padding:80px 56px; background:var(--cream); }
+.contact-right h3 { font-family:'Nunito',sans-serif; font-size:1.7rem; font-weight:900; margin-bottom:26px; }
 .fg { margin-bottom:15px; }
-.fl { display:block; font-family:'Rubik',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
-.fi { width:100%; padding:12px 15px; border:2px solid var(--plum); border-radius:8px; background:var(--white); font-family:'Inter',sans-serif; font-size:.9rem; color:var(--plum); outline:none; transition:border-color .2s, box-shadow .2s; }
-.fi:focus { border-color:var(--coral); box-shadow:0 0 0 3px rgba(255,107,74,.15); }
+.fl { display:block; font-family:'Nunito',sans-serif; font-size:.65rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.fi { width:100%; padding:12px 15px; border:2px dashed rgba(75,31,61,.3); border-radius:10px; background:var(--white); font-family:'Nunito',sans-serif; font-size:.9rem; color:var(--plum); outline:none; transition:border-color .2s, box-shadow .2s; }
+.fi:focus { border-color:var(--coral); border-style:solid; box-shadow:0 0 0 3px rgba(255,107,74,.12); }
 textarea.fi { resize:vertical; min-height:100px; }
 select.fi { cursor:pointer; }
-.fsub { width:100%; background:var(--coral); color:var(--white); border:2px solid var(--plum); border-radius:60px; padding:15px; font-family:'Rubik',sans-serif; font-size:.9rem; font-weight:700; cursor:pointer; letter-spacing:.5px; text-transform:uppercase; transition:background .2s, transform .2s; }
+.fsub { width:100%; background:var(--coral); color:var(--white); border:none; border-radius:60px; padding:15px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; cursor:pointer; letter-spacing:.5px; text-transform:uppercase; transition:background .2s, transform .2s; }
 .fsub:hover { background:var(--plum); transform:translateY(-1px); }
 
 /* ── BOTTOM BAR ── */
-.bottom-bar { background:var(--plum); display:grid; grid-template-columns:repeat(6,1fr); }
-.bb { padding:17px 8px; text-align:center; border-right:1px solid rgba(255,255,255,.1); font-family:'Rubik',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.7); display:flex; align-items:center; justify-content:center; gap:6px; }
+.bottom-bar { background:var(--plum); display:grid; grid-template-columns:repeat(6,1fr); border-top:3px solid var(--coral); }
+.bb { padding:16px 8px; text-align:center; border-right:1px dashed rgba(255,255,255,.15); font-family:'Nunito',sans-serif; font-size:.67rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.65); display:flex; align-items:center; justify-content:center; gap:6px; }
 .bb:last-child { border-right:none; }
-.bb-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.bb-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
 
 /* ── FOOTER ── */
-footer { background:var(--plum); color:var(--white); padding:34px 56px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; border-top:1.5px solid rgba(255,255,255,.1); }
-.footer-logo { font-family:'Rubik',sans-serif; font-size:1.3rem; font-weight:900; }
+footer { background:var(--plum); color:var(--white); padding:32px 56px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; border-top:1px dashed rgba(255,255,255,.15); }
+.footer-logo { font-family:'Nunito',sans-serif; font-size:1.3rem; font-weight:900; }
 .footer-logo em { font-style:italic; color:var(--coral); }
 footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 .flinks { list-style:none; display:flex; gap:22px; }
-.flinks a { font-size:.72rem; color:rgba(255,255,255,.55); text-decoration:none; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
+.flinks a { font-size:.72rem; color:rgba(255,255,255,.55); text-decoration:none; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
 .flinks a:hover { color:var(--lime); }
 
-/* ── RESPONSIVE ── */
+/* ── SVG INLINE STICKERS ── */
+@keyframes fA { 0%,100%{transform:translateY(0) rotate(-4deg);}  50%{transform:translateY(-10px) rotate(-1deg);} }
+@keyframes fB { 0%,100%{transform:translateY(0) rotate(5deg);}   50%{transform:translateY(-8px) rotate(8deg);} }
+@keyframes fC { 0%,100%{transform:translateY(0) rotate(-8deg);}  50%{transform:translateY(-12px) rotate(-4deg);} }
+.stk-float { position:absolute; pointer-events:none; filter:drop-shadow(2px 4px 8px rgba(75,31,61,.18)); }
+
 @media(max-width:900px){
   nav { padding:14px 20px; } nav ul { display:none; }
-  .hero { grid-template-columns:1fr; padding:52px 24px 40px; min-height:auto; gap:0; }
-  .hero::after { display:none; }
-  .hero-right { height:320px; margin-top:20px; }
-  .s1 { width:200px; } .s2 { width:110px; } .s3 { width:120px; }
-  .s4 { width:130px; } .s5 { width:65px; } .s6 { width:90px; }
-  .problem,.leadflow,.contact { grid-template-columns:1fr; }
-  .prob-left { border-right:none; border-bottom:2px solid var(--plum); padding:60px 24px; }
-  .prob-right { padding:60px 24px; }
-  .how,.testi,.packages { padding:60px 24px; }
-  .how-top { grid-template-columns:1fr; gap:20px; }
-  .steps { grid-template-columns:1fr 1fr; border-radius:8px; }
-  .step:nth-child(1),.step:nth-child(2){ border-bottom:2px solid var(--plum); }
-  .step:nth-child(2){ border-right:none; }
-  .step:nth-child(3){ border-right:2px solid var(--dark,#000); }
-  .svc-head { grid-template-columns:1fr; gap:16px; padding:48px 24px 32px; }
-  .svc-grid { grid-template-columns:1fr 1fr; }
-  .svc:nth-child(3n){ border-right:2px solid var(--plum); }
-  .svc:nth-child(2n){ border-right:none; }
-  .svc:nth-child(n+7){ border-bottom:2px solid var(--plum); }
-  .svc:last-child { border-bottom:none; }
-  .leadflow .lf-left { border-right:none; border-bottom:2px solid var(--plum); padding:60px 24px; }
-  .leadflow .lf-right { padding:60px 24px; }
+  .hero { grid-template-columns:1fr; min-height:auto; }
+  .hero-left { border-right:none; border-bottom:3px dashed rgba(255,107,74,.3); padding:52px 24px; }
+  .hero-right { padding:40px 24px; min-height:360px; }
+  .intro,.how-inner,.contact { grid-template-columns:1fr; }
+  .intro-left { border-right:none; border-bottom:3px dashed rgba(255,255,255,.25); padding:60px 24px; }
+  .intro-right { padding:60px 24px; }
+  .how-inner { padding:60px 24px; gap:32px; }
+  .svc-head { padding:48px 24px 36px; }
+  .svc-head-inner { grid-template-columns:1fr; gap:16px; }
+  .svc-list { grid-template-columns:1fr; }
+  .svc-item:nth-child(2n){ border-right:none; }
+  .svc-item:nth-last-child(-n+2){ border-bottom:2px dashed rgba(75,31,61,.12); }
+  .svc-item:last-child { border-bottom:none; }
+  .packages,.testi { padding:60px 24px; }
   .pkg-grid,.tgrid { grid-template-columns:1fr; }
-  .contact-left { border-right:none; border-bottom:2px solid var(--plum); padding:60px 24px; }
+  .contact-left { border-right:none; border-bottom:3px dashed rgba(75,31,61,.15); padding:60px 24px; }
   .contact-right { padding:60px 24px; }
   .bottom-bar { grid-template-columns:repeat(3,1fr); }
   footer { padding:26px 20px; flex-direction:column; text-align:center; }
-  .sticker-float { display:none; }
-  .how .sticker-float,.testi .sticker-float { display:none; }
+  .stk-float { display:none; }
 }
 </style>
 </head>
@@ -433,9 +421,9 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 <div class="ticker">
   <div class="ticker-inner">
     <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Client Care</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Lead Qualification</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Client Follow-Up</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> 2x Daily Reports</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Follow-Up</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Social Monitoring</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Google Business</span>
     <span class="tick-item"><span class="tick-sep">✦</span> WhatsApp Setup</span>
@@ -443,9 +431,9 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     <span class="tick-item"><span class="tick-sep">✦</span> Ad Campaigns</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Website Setup</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Client Care</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Lead Qualification</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Client Follow-Up</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> 2x Daily Reports</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Follow-Up</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Social Monitoring</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Google Business</span>
     <span class="tick-item"><span class="tick-sep">✦</span> WhatsApp Setup</span>
@@ -458,159 +446,204 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left" data-reveal="up">
-    <div class="hero-pill">Virtual Assistant Agency</div>
-    <h1>We handle<br>the details.<br><span class="accent">You do you.</span></h1>
-    <p class="hero-sub">No bots. No scripts. Just real people.</p>
-    <p class="hero-desc">We take care of your inbox, qualify your leads, respond to your clients — and send you a curated list of warm, ready-to-close prospects twice a day. You just show up and close.</p>
+    <span class="hero-eyebrow">Virtual Assistant Agency</span>
+    <h1>Your business,<br>handled with<br><span class="accent">real care.</span></h1>
+    <p class="hero-desc">We're the team behind the scenes — managing your inbox, responding to clients, organizing your admin, and making sure nothing falls through the cracks. You focus on your work. We handle everything else.</p>
     <div class="hero-btns">
       <a href="#contact" class="btn-plum">Work With Us</a>
       <a href="#how" class="btn-outline">See How It Works</a>
     </div>
   </div>
-  <div class="hero-right">
-    <!-- Real sticker PNGs floating -->
-    <div class="s-wrap s1"><img src="sticker-goodhands.png" alt="You're in good hands"></div>
-    <div class="s-wrap s2"><img src="sticker-onit.png" alt="On it!"></div>
-    <div class="s-wrap s3"><img src="sticker-reliable.png" alt="Responsive and Reliable"></div>
-    <div class="s-wrap s4"><img src="sticker-envelope.png" alt="Inbox"></div>
-    <div class="s-wrap s5"><img src="sticker-paperclip.png" alt="Paperclip"></div>
-    <div class="s-wrap s6"><img src="sticker-plane.png" alt="Paper plane"></div>
+  <div class="hero-right" data-reveal="right">
+    <!-- SVG sticker: "You're in good hands" floating -->
+    <svg class="stk-float" style="width:170px;top:-16px;right:20px;animation:fB 5.5s ease-in-out infinite;" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16,22 Q16,8 30,8 L150,8 Q164,8 164,22 L164,82 Q164,96 150,96 L90,96 L74,114 L66,96 L30,96 Q16,96 16,82 Z" fill="white" stroke="#4B1F3D" stroke-width="2.5"/>
+      <path d="M22,25 Q22,14 32,14 L148,14 Q158,14 158,25 L158,79 Q158,90 148,90 L92,90 L77,106 L70,90 L32,90 Q22,90 22,79 Z" fill="#FFF8F0"/>
+      <path d="M90,20 L92,15 L94,20 L99,22 L94,24 L92,29 L90,24 L85,22 Z" fill="#FF6B4A"/>
+      <text x="90" y="52" font-family="'Caveat',cursive" font-size="14" font-weight="700" fill="#4B1F3D" text-anchor="middle">You're in</text>
+      <text x="90" y="70" font-family="'Caveat',cursive" font-size="17" font-weight="700" fill="#4B1F3D" text-anchor="middle">good hands</text>
+      <line x1="52" y1="74" x2="128" y2="74" stroke="#FF6B4A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M150,38 L152,33 L154,38 L159,40 L154,42 L152,47 L150,42 L145,40 Z" fill="#D7F26A"/>
+    </svg>
+
+    <div class="hero-card">
+      <span class="hero-card-label">Your new reality</span>
+      <div class="hero-stat">100%</div>
+      <div class="hero-stat-sub">Human. Every message. Every time.</div>
+      <div class="hero-divider"></div>
+      <ul class="check-list">
+        <li>
+          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Inbox organized and under control
+        </li>
+        <li>
+          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Every client gets a warm, real response
+        </li>
+        <li>
+          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Follow-ups handled so nothing slips
+        </li>
+        <li>
+          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Your digital presence — fully set up
+        </li>
+      </ul>
+    </div>
+
+    <!-- SVG sticker: paperclip bottom left -->
+    <svg class="stk-float" style="width:70px;bottom:30px;left:20px;animation:fC 6s ease-in-out infinite;" viewBox="0 0 70 110" xmlns="http://www.w3.org/2000/svg">
+      <path d="M35,8 C46,8 54,18 54,30 L54,72 C54,88 44,98 30,98 C16,98 8,88 8,74 L8,28" fill="none" stroke="#4B1F3D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M35,8 C26,8 20,16 20,27 L20,70 C20,78 25,83 31,83 C37,83 42,78 42,70 L42,32" fill="none" stroke="#C7B5FF" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M29,20 C29,18 32,16 31,19 C30,16 33,18 33,20 C33,23 31,25 31,25 C31,25 29,23 29,20 Z" fill="#FF6B4A"/>
+      <path d="M46,88 L47,84 L48,88 L52,89 L48,90 L47,94 L46,90 L42,89 Z" fill="#C7B5FF"/>
+    </svg>
   </div>
 </section>
 
-<!-- SCALLOP -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 52" preserveAspectRatio="none" style="background:var(--blush);">
-  <path d="M0,0 C60,52 120,0 180,26 C240,52 300,0 360,26 C420,52 480,0 540,26 C600,52 660,0 720,26 C780,52 840,0 900,26 C960,52 1020,0 1080,26 C1140,52 1200,0 1260,26 C1320,52 1380,0 1440,26 L1440,52 L0,52 Z" fill="#FF6B4A"/>
+<!-- WAVE -->
+<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--blush);">
+  <path d="M0,0 C60,48 120,0 180,24 C240,48 300,0 360,24 C420,48 480,0 540,24 C600,48 660,0 720,24 C780,48 840,0 900,24 C960,48 1020,0 1080,24 C1140,48 1200,0 1260,24 C1320,48 1380,0 1440,24 L1440,48 L0,48 Z" fill="#FF6B4A"/>
 </svg>
 
-<!-- PROBLEM -->
-<section class="problem">
-  <div class="prob-left" data-reveal="left">
-    <h2 class="title">Stop losing leads<br>to <em>slow responses.</em></h2>
-    <p>Someone DMs you, fills out your form, or sends an email — and by the time you see it, they've already hired someone else. Sound familiar?</p>
-    <p style="margin-top:14px">The business that responds first wins. And right now, that might not be you.</p>
-    <div class="callout">78% of customers go with whoever responds first. Let's make sure that's always you.</div>
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-left" data-reveal="left">
+    <h2>Running a business is <em>a lot.</em> You shouldn't have to do it all alone.</h2>
+    <p>Most business owners are brilliant at what they do — but buried in emails, missed messages, and admin tasks that eat their day. That's exactly where we come in.</p>
+    <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and take care of it like it's our own.</p>
+    <div class="callout">Think of us as your remote, always-on office manager — minus the overhead.</div>
   </div>
-  <div class="prob-right" data-reveal="right">
-    <img src="sticker-paperclip.png" alt="" class="sticker-accent">
-    <h3>Here's what we bring to the table.</h3>
-    <div class="stat-row"><div class="stat-num">2×</div><div class="stat-text">Qualified lead reports in your inbox every day — morning and afternoon. No chasing, no guessing.</div></div>
-    <div class="stat-row"><div class="stat-num">100%</div><div class="stat-text">Human responses to every inquiry — no bots, no templates. Real people representing your brand.</div></div>
-    <div class="stat-row"><div class="stat-num">0</div><div class="stat-text">Leads left behind. We follow up until every prospect is warm and ready for you to close.</div></div>
+  <div class="intro-right" data-reveal="right">
+    <h3>What that looks like in practice:</h3>
+    <div class="val-row">
+      <div class="val-icon" style="background:var(--lime)">📬</div>
+      <div><div class="val-title">Your inbox, managed daily</div><div class="val-text">We sort, respond, and organize so you never open to chaos again. Clients feel heard — fast.</div></div>
+    </div>
+    <div class="val-row">
+      <div class="val-icon" style="background:var(--pink)">🤝</div>
+      <div><div class="val-title">Real human communication</div><div class="val-text">Every message your clients receive feels personal, warm, and on-brand — because it is.</div></div>
+    </div>
+    <div class="val-row">
+      <div class="val-icon" style="background:var(--blue)">📋</div>
+      <div><div class="val-title">Admin you don't have to touch</div><div class="val-text">Estimates, contracts, scheduling, follow-ups — handled and off your plate.</div></div>
+    </div>
+    <div class="val-row">
+      <div class="val-icon" style="background:var(--lav)">🌐</div>
+      <div><div class="val-title">Your full digital presence</div><div class="val-text">Website, Google Business, WhatsApp, social — set up properly so you're easy to find.</div></div>
+    </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
-  <img src="sticker-plane.png" alt="" class="sticker-float">
-  <div class="how-top">
-    <div data-reveal="up"><span class="sec-label">The Process</span><h2 class="title">Four steps.<br><em>Zero stress.</em></h2></div>
-    <p data-reveal="up">We plug into your business fast — no long onboarding, no tech headaches. Most clients are up and running within a week.</p>
-  </div>
-  <div class="steps">
-    <div class="step" data-reveal="up"><div class="step-n">01</div><div class="step-chip">Step 01</div><div class="step-title">We talk.</div><div class="step-desc">A quick discovery call where we learn your business, your clients, and how you want to show up. This is where we learn to sound like you.</div></div>
-    <div class="step" data-reveal="up"><div class="step-n">02</div><div class="step-chip">Step 02</div><div class="step-title">We build your system.</div><div class="step-desc">Custom lead form, email setup, social monitoring — all tailored to your brand and ready in days, not weeks.</div></div>
-    <div class="step" data-reveal="up"><div class="step-n">03</div><div class="step-chip">Step 03</div><div class="step-title">We handle it.</div><div class="step-desc">Every DM, email, and inquiry gets a warm human response. We qualify, follow up, and keep leads engaged until they're ready for you.</div></div>
-    <div class="step" data-reveal="up"><div class="step-n">04</div><div class="step-chip">Step 04</div><div class="step-title">You close deals.</div><div class="step-desc">You get a clean list of warm, qualified prospects twice a day. Show up, connect, close. That's your only job now.</div></div>
-  </div>
-</section>
+  <div class="how-stripe-bg"></div>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="svc-head">
-    <div data-reveal="up"><span class="sec-label">What We Do</span><h2 class="title">Everything your<br>business <em>needs.</em></h2></div>
-    <p data-reveal="up">From your inbox to your full digital presence — we handle the background work so you can stay focused on what actually matters.</p>
-    <img src="sticker-onit.png" alt="" class="sticker-float">
-  </div>
-  <div class="svc-grid">
-    <div class="svc" data-reveal="up"><span class="svc-n">01</span><div class="svc-name">Lead Qualification</div><div class="svc-desc">We filter every inquiry so you only talk to people who are actually ready to buy.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">02</span><div class="svc-name">Custom Lead Forms</div><div class="svc-desc">Branded intake forms that capture budget, service type, and contact info — built for your business.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">03</span><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions — checked twice daily so nothing falls through the cracks.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">04</span><div class="svc-name">Email Management</div><div class="svc-desc">Inbox organization, human replies, follow-ups — your email stays clean and clients feel heard.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">05</span><div class="svc-name">Lead Follow-Up</div><div class="svc-desc">We stay in touch with every prospect until they're warm and ready. You focus on closing, not chasing.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">06</span><div class="svc-name">Estimates & Contracts</div><div class="svc-desc">Professional, branded templates so every quote and contract you send looks sharp.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">07</span><div class="svc-name">Website Setup</div><div class="svc-desc">Your online presence, built properly. Websites that represent your work the way it deserves.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">08</span><div class="svc-name">Google Business & SEO</div><div class="svc-desc">We set up and optimize your Google listing so local clients find you — not your competition.</div></div>
-    <div class="svc" data-reveal="up"><span class="svc-n">09</span><div class="svc-name">WhatsApp, Blog & Ads</div><div class="svc-desc">WhatsApp Business setup, blog writing, ad campaigns — your full digital presence, handled.</div></div>
-  </div>
-</section>
+  <!-- Floating sticker: "On it!" -->
+  <svg class="stk-float" style="width:120px;top:30px;right:60px;animation:fA 5s ease-in-out infinite;z-index:3;" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M65,8 C90,5 118,22 120,48 C123,74 106,108 80,115 C54,122 18,105 11,80 C4,55 18,14 42,9 Z" fill="white" stroke="#4B1F3D" stroke-width="2.5"/>
+    <path d="M65,14 C88,11 113,26 115,50 C118,72 103,103 79,110 C55,117 22,101 16,78 C10,55 22,18 44,14 Z" fill="#C7B5FF"/>
+    <rect x="80" y="5" width="42" height="16" rx="3" fill="#FFC1E0" stroke="#4B1F3D" stroke-width="1.5" transform="rotate(15,101,13)"/>
+    <line x1="84" y1="9" x2="84" y2="18" stroke="#FF6B4A" stroke-width="1.8" opacity=".5" transform="rotate(15,101,13)"/>
+    <line x1="90" y1="9" x2="90" y2="18" stroke="#FF6B4A" stroke-width="1.8" opacity=".5" transform="rotate(15,101,13)"/>
+    <path d="M32,58 L34,53 L36,58 L41,60 L36,62 L34,67 L32,62 L27,60 Z" fill="#D7F26A"/>
+    <path d="M94,92 L95,88 L96,92 L100,93 L96,94 L95,98 L94,94 L90,93 Z" fill="#D7F26A"/>
+    <text x="65" y="66" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#4B1F3D" text-anchor="middle">On</text>
+    <text x="65" y="94" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#4B1F3D" text-anchor="middle">it!</text>
+  </svg>
 
-<!-- STATUS CHIP SCROLL -->
-<div class="status-strip">
-  <div class="strip-inner">
-    <span class="chip coral">Followed Up ✓</span>
-    <span class="chip lime">Completed ✓</span>
-    <span class="chip pink">Waiting on Info</span>
-    <span class="chip lav">Important ☆</span>
-    <span class="chip coral">Replied ←</span>
-    <span class="chip">Urgent !</span>
-    <span class="chip lime">On it!</span>
-    <span class="chip pink">Got it!</span>
-    <span class="chip lav">Scheduled ✓</span>
-    <span class="chip coral">Lead Qualified</span>
-    <span class="chip">Warm Lead</span>
-    <span class="chip lime">Ready to Close</span>
-    <span class="chip coral">Followed Up ✓</span>
-    <span class="chip lime">Completed ✓</span>
-    <span class="chip pink">Waiting on Info</span>
-    <span class="chip lav">Important ☆</span>
-    <span class="chip coral">Replied ←</span>
-    <span class="chip">Urgent !</span>
-    <span class="chip lime">On it!</span>
-    <span class="chip pink">Got it!</span>
-    <span class="chip lav">Scheduled ✓</span>
-    <span class="chip coral">Lead Qualified</span>
-    <span class="chip">Warm Lead</span>
-    <span class="chip lime">Ready to Close</span>
-  </div>
-</div>
-
-<!-- LEAD FLOW -->
-<section class="leadflow">
-  <div class="lf-left" data-reveal="left">
-    <img src="sticker-envelope.png" alt="" class="sticker-float">
-    <span class="sec-label">Our Lead System</span>
-    <h2 class="title">Qualified leads,<br><em>twice a day.</em><br>Every day.</h2>
-    <p>No cold calls. No random lists. Just warm, pre-qualified people who already showed interest — organized, reviewed by a human, and handed straight to you.</p>
-    <a href="#contact" class="lf-btn">Start Getting Leads</a>
-  </div>
-  <div class="lf-right" data-reveal="right">
-    <div class="fsteps">
-      <div class="fstep"><div class="fstep-num">01</div><div><div class="fstep-title">Someone reaches out.</div><div class="fstep-desc">A prospect fills out your form, DMs you, or sends an email. We catch it immediately across every channel.</div></div></div>
-      <div class="fstep"><div class="fstep-num">02</div><div><div class="fstep-title">A real person responds.</div><div class="fstep-desc">Not a bot. Not a template. A real human who knows your business and responds warmly on your behalf.</div></div></div>
-      <div class="fstep"><div class="fstep-num">03</div><div><div class="fstep-title">We qualify them.</div><div class="fstep-desc">Budget, service need, timeline, contact info — gathered through your custom form before they ever reach you.</div></div></div>
-      <div class="fstep"><div class="fstep-num">04</div><div><div class="fstep-title">You get the report.</div><div class="fstep-desc">Twice a day, a clean list of ready-to-close prospects lands in your inbox. Just call and close.</div></div></div>
+  <div class="how-inner">
+    <div class="how-left-text" data-reveal="left">
+      <span class="sec-label">The Process</span>
+      <h2 class="title">Simple to start.<br><em>Easy to love.</em></h2>
+      <p>We make it genuinely easy to hand things off. No complicated onboarding, no long contracts. Just a conversation and we get to work.</p>
+    </div>
+    <div class="how-box" data-reveal="right">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num">01</div>
+          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate — so we can sound like you.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">02</div>
+          <div><div class="tl-title">We set everything up.</div><div class="tl-desc">Custom forms, email templates, monitoring across all your channels — ready in days, not weeks.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">03</div>
+          <div><div class="tl-title">We take care of it daily.</div><div class="tl-desc">Every inquiry, every DM, every follow-up — handled by a real person who genuinely cares about your clients.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">04</div>
+          <div><div class="tl-title">You stay informed, not overwhelmed.</div><div class="tl-desc">We send organized summaries so you always know what's happening — without digging through messages yourself.</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SCALLOP -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 52" preserveAspectRatio="none" style="background:var(--cream);">
-  <path d="M0,52 C60,0 120,52 180,26 C240,0 300,52 360,26 C420,0 480,52 540,26 C600,0 660,52 720,26 C780,0 840,52 900,26 C960,0 1020,52 1080,26 C1140,0 1200,52 1260,26 C1320,0 1380,52 1440,26 L1440,0 L0,0 Z" fill="#FFC1E0"/>
+<!-- WAVE -->
+<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--cream);">
+  <path d="M0,48 C60,0 120,48 180,24 C240,0 300,48 360,24 C420,0 480,48 540,24 C600,0 660,48 720,24 C780,0 840,48 900,24 C960,0 1020,48 1080,24 C1140,0 1200,48 1260,24 C1320,0 1380,48 1440,24 L1440,0 L0,0 Z" fill="#BDE3F7"/>
 </svg>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="svc-head">
+    <div class="svc-head-inner">
+      <div data-reveal="up"><span class="sec-label">What We Do</span><h2 class="title">More than a VA.<br><em>A full team.</em></h2></div>
+      <p data-reveal="up">Pick what you need or hand us everything. Either way, it gets done — properly, promptly, and with care.</p>
+    </div>
+  </div>
+  <div class="svc-list">
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Inbox & Email Management</div><div class="svc-desc">We sort, respond, and organize your inbox daily. Clients always get a warm, real response — fast.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Client Follow-Up</div><div class="svc-desc">We check in with clients and prospects so no conversation gets forgotten and every relationship stays warm.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We talk to your inquiries first, understand what they need, and bring you the ones who are genuinely ready.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms — checked daily so no one waits too long to hear from you.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates & Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed effortless.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call — so every conversation starts informed.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Google Business & SEO</div><div class="svc-desc">We set up and optimize your Google presence so people in your area can actually find you when it matters.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp & More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns — your entire online presence, handled.</div></div></div>
+  </div>
+</section>
 
 <!-- PACKAGES -->
 <section class="packages" id="packages">
-  <img src="sticker-goodhands.png" alt="" class="sticker-float">
-  <div class="pkg-head" data-reveal="up"><span class="sec-label">Our Packages</span><h2 class="title">Pick your <em>level.</em></h2></div>
+  <div class="packages-stripe"></div>
+
+  <!-- Floating badge sticker -->
+  <svg class="stk-float" style="width:140px;top:-10px;right:80px;animation:fB 6s ease-in-out infinite;z-index:2;" viewBox="0 0 145 145" xmlns="http://www.w3.org/2000/svg">
+    <path d="M72,5 C78,5 82,9 82,14 C88,11 95,13 97,18 C103,16 109,20 109,26 C115,26 119,32 117,38 C122,40 124,47 120,52 C124,56 124,63 120,67 C123,72 121,79 116,81 C117,87 113,92 108,90 C105,95 99,98 94,95 C90,99 84,100 80,97 C76,100 70,99 66,95 C62,98 56,95 53,90 C48,92 44,87 45,81 C40,79 38,72 41,67 C37,63 37,56 41,52 C37,47 39,40 44,38 C42,32 46,26 51,26 C51,20 57,16 62,18 C65,13 72,11 68,14 C68,9 66,5 72,5 Z" fill="white" stroke="#4B1F3D" stroke-width="2"/>
+    <path d="M72,11 C77,11 80,14 80,18 C85,15 90,17 93,22 C97,20 102,24 102,30 C106,30 110,35 108,40 C112,42 114,48 111,52 C114,56 114,62 111,65 C113,70 112,76 107,78 C108,84 105,88 100,86 C97,91 92,94 88,91 C85,94 80,95 76,92 C72,95 67,94 64,91 C60,94 55,91 52,86 C48,88 44,84 45,78 C40,76 39,70 41,65 C38,62 38,56 41,52 C38,48 40,42 44,40 C42,35 46,30 50,30 C50,24 55,20 60,22 C63,17 68,15 73,18 C73,14 68,11 72,11 Z" fill="#FFF8F0"/>
+    <path id="barc" d="M30,75 A42,42 0 0,1 115,75" fill="none"/>
+    <text font-family="Nunito,sans-serif" font-size="8" font-weight="800" letter-spacing="1.5" fill="#4B1F3D" text-anchor="middle">
+      <textPath href="#barc" startOffset="50%">HELLO, VIRTUALLY!</textPath>
+    </text>
+    <text x="72" y="58" font-family="Nunito,sans-serif" font-size="11" font-weight="900" fill="#4B1F3D" text-anchor="middle">Responsive</text>
+    <text x="72" y="70" font-family="Nunito,sans-serif" font-size="9" font-weight="700" fill="#FF6B4A" text-anchor="middle">&amp;</text>
+    <text x="72" y="82" font-family="Nunito,sans-serif" font-size="11" font-weight="900" fill="#4B1F3D" text-anchor="middle">Reliable</text>
+    <ellipse cx="72" cy="102" rx="11" ry="10" fill="#FFC1E0" stroke="#4B1F3D" stroke-width="1.5"/>
+    <path d="M68,100 C68,98 71,96 70,99 C69,96 72,98 72,100 C72,103 70,105 70,105 C70,105 68,103 68,100 Z" fill="#4B1F3D"/>
+  </svg>
+
+  <div class="pkg-head" data-reveal="up"><span class="sec-label">Our Packages</span><h2 class="title">Start where<br>you <em>need to.</em></h2></div>
   <div class="pkg-grid">
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">01</div>
-      <div class="pkg-name">Starter — Lead Machine</div>
-      <div class="pkg-desc">You're ready to stop chasing leads. We handle your inbox, build your custom lead form, send 2x daily reports, and follow up with every inquiry. You just call and close.</div>
+      <div class="pkg-name">Essentials — Daily Support</div>
+      <div class="pkg-desc">Inbox management, client responses, follow-ups, and a daily summary. Perfect for businesses that need consistent, reliable admin support without the overhead of a full hire.</div>
       <a href="#contact" class="pkg-btn">Get Started</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">02</div>
       <div class="pkg-name">Growth — Full Front Desk</div>
       <div class="pkg-badge">Most Popular</div>
-      <div class="pkg-desc">Everything in Starter, plus social media monitoring, Google Business optimization, WhatsApp Business, and blog writing. Your whole digital front desk, covered.</div>
+      <div class="pkg-desc">Everything in Essentials, plus social media monitoring, lead qualification, custom intake forms, Google Business, and WhatsApp Business. Your full client-facing operation, covered.</div>
       <a href="#contact" class="pkg-btn">Most Popular</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">03</div>
       <div class="pkg-name">Full Partner</div>
-      <div class="pkg-desc">We run it all. Website, ad campaigns, contract and estimate templates, social media management — completely custom to how your business operates.</div>
+      <div class="pkg-desc">We handle it all — website, ads, blog content, contract templates, social management, and everything that keeps your business running smoothly. Fully custom.</div>
       <a href="#contact" class="pkg-btn">Let's Talk</a>
     </div>
   </div>
@@ -618,49 +651,50 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 
 <!-- TESTIMONIALS -->
 <section class="testi" id="testimonials">
-  <img src="sticker-reliable.png" alt="" class="sticker-float">
-  <div class="testi-head" data-reveal="up"><span class="sec-label">Client Love</span><h2 class="title">Don't take<br>our word for it.</h2></div>
+  <div class="testi-stripe"></div>
+  <div class="testi-head" data-reveal="up"><span class="sec-label">Client Love</span><h2 class="title">What it actually<br><em>feels like.</em></h2></div>
   <div class="tgrid">
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">HVAC Owner</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">I used to spend two hours a day just on my inbox. Now I get a list twice a day and by noon I've already booked three calls. The leads are actually qualified — that's what got me.</p>
+      <p class="tcard-text">I used to spend two hours a day just dealing with messages. Now someone handles it and I actually get to focus on my jobs. My clients tell me I'm more responsive than ever.</p>
       <div class="tcard-name">Carlos R.</div><div class="tcard-role">HVAC Business Owner</div>
     </div>
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">Interior Designer</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Clients were getting auto-replies and bouncing. Since hello, virtually! took over, every response feels personal. People actually stay engaged until I call them. Total game changer.</p>
+      <p class="tcard-text">Every email sounds like me, every follow-up is warm and personal. I didn't expect it to feel this seamless — it genuinely feels like I hired someone who gets it.</p>
       <div class="tcard-name">Maria T.</div><div class="tcard-role">Interior Designer</div>
     </div>
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">Cleaning Services</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Google Business, WhatsApp, website — all set up in two weeks. I finally look as professional online as I am in person. Leads started coming in within days.</p>
+      <p class="tcard-text">Within two weeks they had my Google Business, WhatsApp, and website all set up properly. I went from invisible online to getting found every day. The difference was immediate.</p>
       <div class="tcard-name">Sandra M.</div><div class="tcard-role">Cleaning Services Owner</div>
     </div>
   </div>
 </section>
 
-<!-- SCALLOP -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 52" preserveAspectRatio="none" style="background:var(--cream);">
-  <path d="M0,0 C60,52 120,0 180,26 C240,52 300,0 360,26 C420,52 480,0 540,26 C600,52 660,0 720,26 C780,52 840,0 900,26 C960,52 1020,0 1080,26 C1140,52 1200,0 1260,26 C1320,52 1380,0 1440,26 L1440,52 L0,52 Z" fill="#D7F26A"/>
+<!-- WAVE -->
+<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--cream);">
+  <path d="M0,0 C60,48 120,0 180,24 C240,48 300,0 360,24 C420,48 480,0 540,24 C600,48 660,0 720,24 C780,48 840,0 900,24 C960,48 1020,0 1080,24 C1140,48 1200,0 1260,24 C1320,48 1380,0 1440,24 L1440,48 L0,48 Z" fill="#D7F26A"/>
 </svg>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="contact-left" data-reveal="left">
-    <img src="sticker-paperclip.png" alt="" class="sticker-float">
-    <span class="sec-label">Get In Touch</span>
-    <h2 class="title">Ready to<br>simplify your <em>life?</em></h2>
-    <p>Book a free discovery call. No sales pitch, no pressure — just a conversation about what's on your plate and how we can take it off.</p>
-    <div class="cpills">
-      <div class="cpill"><div class="cpill-icon">WA</div>WhatsApp Business Available</div>
-      <div class="cpill"><div class="cpill-icon">@</div>hello@itshellovirtually.com</div>
-      <div class="cpill"><div class="cpill-icon">24h</div>You hear back from a human, fast</div>
+    <div class="contact-left-inner">
+      <span class="sec-label">Get In Touch</span>
+      <h2 class="title">Let's make your<br>life a little <em>easier.</em></h2>
+      <p>Book a free call. We'll talk through what's on your plate, what's been falling through, and what would actually help. No pressure, no pitch.</p>
+      <div class="cpills">
+        <div class="cpill"><div class="cpill-icon">WA</div>WhatsApp Business Available</div>
+        <div class="cpill"><div class="cpill-icon">@</div>hello@itshellovirtually.com</div>
+        <div class="cpill"><div class="cpill-icon">24h</div>A real person responds — fast</div>
+      </div>
     </div>
   </div>
   <div class="contact-right" data-reveal="right">
@@ -671,13 +705,14 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     <div class="fg"><label class="fl">What Do You Need Help With?</label>
       <select class="fi">
         <option value="">Pick a service...</option>
-        <option>Lead qualification + daily reports</option>
-        <option>Inbox / email management</option>
+        <option>Inbox & email management</option>
+        <option>Client follow-up & communication</option>
+        <option>Lead qualification</option>
         <option>Social media monitoring</option>
-        <option>Website setup</option>
-        <option>Google Business / WhatsApp setup</option>
+        <option>Website or digital setup</option>
+        <option>Google Business / WhatsApp</option>
         <option>Full VA partnership</option>
-        <option>Not sure yet — let's talk</option>
+        <option>Not sure — let's figure it out</option>
       </select>
     </div>
     <div class="fg"><label class="fl">Tell Us More</label><textarea class="fi" placeholder="What's taking up most of your time right now?"></textarea></div>
@@ -695,7 +730,6 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   <div class="bb"><div class="bb-dot" style="background:var(--lime)"></div>Here to Help</div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">hello, <em>virtually!</em></div>
   <ul class="flinks">
