@@ -425,6 +425,88 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
   .bottom-bar{grid-template-columns:repeat(3,1fr);}
   footer{padding:28px 24px;flex-direction:column;text-align:center;}
 }
+
+/* ===== MULTI-STEP POPUP ===== */
+.modal-overlay, .modal-overlay *{cursor:auto;}
+.modal-overlay .opt, .modal-overlay .mbtn, .modal-overlay .modal-close{cursor:pointer;}
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(75,31,61,.55);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease;
+}
+.modal-overlay.open{opacity:1;visibility:visible;}
+.modal{
+  background:var(--cream);border-radius:28px;
+  width:100%;max-width:540px;position:relative;
+  box-shadow:0 30px 80px rgba(75,31,61,.35);
+  overflow:hidden;
+  transform:translateY(30px) scale(.97);transition:transform .4s cubic-bezier(.22,1,.36,1);
+  max-height:92vh;display:flex;flex-direction:column;
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-bar{height:6px;background:var(--taupe);width:100%;flex-shrink:0;}
+.modal-bar-fill{height:100%;background:var(--coral);width:14%;transition:width .4s cubic-bezier(.22,1,.36,1);border-radius:0 4px 4px 0;}
+.modal-close{
+  position:absolute;top:18px;right:20px;z-index:3;
+  width:34px;height:34px;border-radius:50%;border:none;
+  background:rgba(75,31,61,.08);color:var(--plum);
+  font-size:1.1rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s;line-height:1;
+}
+.modal-close:hover{background:var(--coral);color:#fff;transform:rotate(90deg);}
+.modal-body{padding:44px 40px 36px;overflow-y:auto;}
+.modal-step{display:none;animation:stepIn .45s cubic-bezier(.22,1,.36,1);}
+.modal-step.active{display:block;}
+@keyframes stepIn{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+.step-count{font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:12px;}
+.step-q{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;line-height:1.15;color:var(--plum);margin-bottom:8px;}
+.step-q em{font-style:italic;color:var(--coral);}
+.step-help{font-family:'Nunito',sans-serif;font-size:.9rem;line-height:1.6;color:var(--plum);opacity:.65;margin-bottom:26px;}
+.step-input{
+  width:100%;padding:16px 18px;border:2px solid var(--taupe);border-radius:14px;
+  background:var(--white);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--plum);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.step-input:focus{border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,107,74,.12);}
+textarea.step-input{resize:vertical;min-height:120px;}
+.opt-grid{display:flex;flex-direction:column;gap:10px;}
+.opt{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border:2px solid var(--taupe);border-radius:14px;
+  background:var(--white);cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;color:var(--plum);
+  transition:border-color .2s,background .2s,transform .15s;
+}
+.opt:hover{border-color:var(--coral);transform:translateX(4px);}
+.opt.selected{border-color:var(--coral);background:var(--blush);}
+.opt-check{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--taupe);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;
+}
+.opt.selected .opt-check{background:var(--coral);border-color:var(--coral);color:#fff;font-size:.7rem;}
+.modal-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:30px;}
+.mbtn{
+  font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;
+  border-radius:60px;padding:14px 30px;border:none;cursor:pointer;
+  transition:background .2s,transform .2s,box-shadow .2s,opacity .2s;
+}
+.mbtn-next{background:var(--plum);color:#fff;box-shadow:0 6px 24px rgba(75,31,61,.25);display:inline-flex;align-items:center;gap:8px;}
+.mbtn-next:hover{background:var(--coral);transform:translateY(-2px);}
+.mbtn-back{background:transparent;color:var(--plum);opacity:.55;padding:14px 8px;}
+.mbtn-back:hover{opacity:1;}
+.mbtn-back.hidden{visibility:hidden;}
+.modal-success{text-align:center;padding:20px 10px;}
+.modal-success .succ-emoji{font-size:3rem;margin-bottom:16px;}
+.modal-success h3{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--plum);margin-bottom:12px;}
+.modal-success h3 em{font-style:italic;color:var(--coral);}
+.modal-success p{font-family:'Nunito',sans-serif;font-size:.98rem;line-height:1.7;color:var(--plum);opacity:.75;max-width:380px;margin:0 auto;}
+.err-msg{font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;color:var(--coral);margin-top:10px;min-height:18px;}
+@media(max-width:600px){
+  .modal-body{padding:36px 26px 28px;}
+  .step-q{font-size:1.4rem;}
+}
 </style>
 </head>
 <body>
@@ -447,11 +529,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left" data-reveal="up">
-    <div class="hero-eyebrow">Virtual Assistant Agency</div>
-    <h1>Your business,<br><span class="line2">handled with<br>real care.</span></h1>
-    <p class="hero-sub">We're the team behind the scenes. Managing your inbox, looking after your clients, and making sure nothing gets missed. You focus on your work. We handle everything else.</p>
+    <div class="hero-eyebrow">Real humans · No bots, ever</div>
+    <h1>You run the business.<br><span class="line2">We run<br>the inbox.</span></h1>
+    <p class="hero-sub">Real people answering your WhatsApp, Instagram, and Facebook DMs twice a day — qualifying every lead and handing you a clean report. You just call and close.</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-main">Work With Us <span>→</span></a>
+      <a href="#contact" class="btn-main">Book a Free Call <span>→</span></a>
       <a href="#how" class="btn-ghost">See How It Works</a>
     </div>
   </div>
@@ -461,10 +543,10 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
       <span class="hero-numlabel">Human. Every message. Every time.</span>
     </div>
     <div class="hero-pills">
-      <div class="hpill"><div class="hpill-dot" style="background:var(--lime)"></div>Inbox managed every day</div>
-      <div class="hpill"><div class="hpill-dot" style="background:var(--coral)"></div>Real humans responding</div>
-      <div class="hpill"><div class="hpill-dot" style="background:var(--lav)"></div>Follow-ups, never missed</div>
-      <div class="hpill"><div class="hpill-dot" style="background:var(--blue)"></div>Digital presence, set up right</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--lime)"></div>Inbox checked twice a day</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--coral)"></div>Real humans, never bots</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--lav)"></div>Every lead qualified for you</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--blue)"></div>A clean report, every day</div>
     </div>
   </div>
 </section>
@@ -472,56 +554,56 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Client Care</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Real Humans</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Real Replies</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> No Bots Ever</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Lead Qualification</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Follow-Up</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Social Monitoring</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Daily Reports</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Google Business</span>
     <span class="tick-item"><span class="tick-sep">✦</span> WhatsApp Setup</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Blog Writing</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Ad Campaigns</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Website Setup</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Client Care</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Social Content</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Your Office, Virtually</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Real Humans</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Real Replies</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> No Bots Ever</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Lead Qualification</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Follow-Up</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Social Monitoring</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Daily Reports</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Inbox Management</span>
     <span class="tick-item"><span class="tick-sep">✦</span> Google Business</span>
     <span class="tick-item"><span class="tick-sep">✦</span> WhatsApp Setup</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Blog Writing</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Ad Campaigns</span>
-    <span class="tick-item"><span class="tick-sep">✦</span> Website Setup</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Social Content</span>
+    <span class="tick-item"><span class="tick-sep">✦</span> Your Office, Virtually</span>
   </div>
 </div>
 
 <!-- STATEMENT -->
 <section class="statement">
   <div class="statement-inner" data-reveal="up">
-    <h2>Running a business is <em>a lot.</em><br>You shouldn't have to do it alone.</h2>
+    <h2>Your customers can tell <em>when it's a bot.</em><br>So we never use one.</h2>
     <div class="statement-cols">
       <div>
-        <p>Most business owners are brilliant at what they do, but buried in emails, missed messages, and admin tasks that eat their entire day. That's exactly where we come in.</p>
-        <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and look after it like it's our own.</p>
+        <p>Every missed message is a missed sale. Every automated reply is a lost relationship. Service businesses run on trust, and that trust starts with a real human on the other end of the conversation.</p>
+        <p style="margin-top:16px">We're not a bot, not a call center. We're real people who check your inbox twice a day, carry every conversation, and qualify each lead so it reaches you ready to close.</p>
       </div>
       <div>
-        <div class="statement-callout">Think of us as your remote, always-on office manager. Minus the overhead.</div>
+        <div class="statement-callout">Think of us as your remote front desk. Real, warm, and always on. Minus the overhead.</div>
         <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
             <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-            Your inbox, managed and organized daily
+            Inbox checked twice a day, every day
           </div>
           <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
             <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-            Every client hears from a real, warm person
+            Every reply written by a real human
           </div>
           <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
             <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-            Admin off your plate, completely
+            Every lead qualified before it reaches you
           </div>
           <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
             <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-            Your full digital presence, set up right
+            A clean report waiting every afternoon
           </div>
         </div>
       </div>
@@ -550,19 +632,19 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
   <div class="what-header">
     <div data-reveal="up">
       <span class="sec-label">What We Do</span>
-      <h2 class="title">More than a VA.<br><em>A full team.</em></h2>
+      <h2 class="title">Real humans.<br><em>Real replies.</em></h2>
     </div>
-    <p data-reveal="up">Pick what you need or hand us everything. Either way, it gets done properly, promptly, and with care.</p>
+    <p data-reveal="up">Start with daily inbox care, add a one-time setup, or hand us your content too. Pick what you need, it all gets done by a real person.</p>
   </div>
   <div class="svc-list">
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Inbox and Email Management</div><div class="svc-desc">We sort, respond, and organize your inbox daily. Clients always get a warm, real response.</div></div></div>
-    <div class="svc-item" data-reveal="up" class="d1"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Client Follow-Up</div><div class="svc-desc">We check in with clients and prospects so no conversation gets forgotten and every relationship stays warm.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We talk to your inquiries first, understand what they need, and bring you the ones who are genuinely ready.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms. Checked daily so no one waits too long to hear from you.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates and Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed actually easy.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call, so every conversation starts on the right foot.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Google Business and SEO</div><div class="svc-desc">We set up and optimize your Google presence so people in your area can actually find you when it matters.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp and More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns. Your entire online presence, handled.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Twice-Daily Inbox Check-Ins</div><div class="svc-desc">Every morning and evening, a real human goes through your WhatsApp, Instagram, and Facebook DMs. Every message gets a warm, genuine reply.</div></div></div>
+    <div class="svc-item" data-reveal="up" class="d1"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We don't just say hi and stop. We carry the conversation until we have what you need: what they want, when, and how to reach them.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Daily Lead Reports</div><div class="svc-desc">Every afternoon you get one clean summary: who reached out, what they need, and whether they're hot, warm, or cold. You just call and close.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Appointment Scheduling</div><div class="svc-desc">Once a lead is qualified, we book it straight into your calendar. They go from interested to booked without you lifting a finger.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Google Business & WhatsApp Setup</div><div class="svc-desc">One-time setups that get you found and ready: optimized Google Business Profile and a fully configured WhatsApp Business account.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Estimate & Contract Templates</div><div class="svc-desc">Clean, professional templates built for your business, so sending quotes and getting agreements signed is finally easy.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Social Content & Email</div><div class="svc-desc">Social media posts, blog writing, and email inbox management when you're ready to grow your presence, not just maintain it.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website Design</div><div class="svc-desc">A clean one-page landing or a full multi-page site, set up and ready to turn visitors into the leads we help you answer.</div></div></div>
   </div>
 </section>
 
@@ -578,19 +660,19 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-num">01</div>
-          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate. So we show up sounding like you.</div></div>
+          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn your business, your voice, and exactly what you need to know before a lead is ready. Then we build a custom questionnaire to guide every chat.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">02</div>
-          <div><div class="tl-title">We set everything up.</div><div class="tl-desc">Custom forms, email templates, monitoring across all your channels. Ready in days, not weeks.</div></div>
+          <div><div class="tl-title">We connect, securely.</div><div class="tl-desc">We get access to your inboxes the safe way, no passwords shared. You stay in full control and can revoke access anytime.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">03</div>
-          <div><div class="tl-title">We take care of it daily.</div><div class="tl-desc">Every inquiry, every DM, every follow-up. Handled by a real person who genuinely cares about your clients.</div></div>
+          <div><div class="tl-title">We check in twice a day.</div><div class="tl-desc">Morning and evening, a real person replies to every lead, carries the conversation, and qualifies them, sounding just like you.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">04</div>
-          <div><div class="tl-title">You stay informed, not overwhelmed.</div><div class="tl-desc">We send organized summaries so you always know what's happening. No digging through messages yourself.</div></div>
+          <div><div class="tl-title">You get a clean report.</div><div class="tl-desc">Every afternoon: who reached out, what they need, and their status. No digging through messages. You just call and close.</div></div>
         </div>
       </div>
     </div>
@@ -606,21 +688,21 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
   <div class="pkg-grid">
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">01</div>
-      <div class="pkg-name">Essentials: Daily Support</div>
-      <div class="pkg-desc">Inbox management, client responses, follow-ups, and a daily summary. Great for businesses that want reliable support without the overhead of a full-time hire.</div>
+      <div class="pkg-name">The Setup</div>
+      <div class="pkg-desc">One-time projects that get you ready: Google Business Profile, WhatsApp Business, estimate and contract templates, and website design. The perfect place to start before the leads roll in.</div>
       <a href="#contact" class="pkg-btn">Get Started</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">02</div>
-      <div class="pkg-name">Growth: Full Front Desk</div>
+      <div class="pkg-name">The Daily</div>
       <div class="pkg-badge">Most Popular</div>
-      <div class="pkg-desc">Everything in Essentials, plus social media monitoring, lead qualification, custom intake forms, Google Business, and WhatsApp Business. Your full client-facing operation, taken care of.</div>
+      <div class="pkg-desc">Our core service. Twice-daily inbox check-ins, real human replies, full lead qualification, and a clean daily report. Add all three platforms and appointment scheduling with The Daily+.</div>
       <a href="#contact" class="pkg-btn">Most Popular</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">03</div>
-      <div class="pkg-name">Full Partner</div>
-      <div class="pkg-desc">We handle it all. Website, ads, blog content, contract templates, social management and everything that keeps your business running smoothly. Fully custom to you.</div>
+      <div class="pkg-name">The Studio</div>
+      <div class="pkg-desc">Ready to grow? We handle your content too. Social media posts, blog writing, email management, and content planning, all in your voice. Pair it with The Daily for the full office.</div>
       <a href="#contact" class="pkg-btn">Let's Talk</a>
     </div>
   </div>
@@ -629,30 +711,30 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
 <!-- TESTIMONIALS -->
 <section class="testi" id="testimonials">
   <div class="testi-head" data-reveal="up">
-    <span class="sec-label">Client Love</span>
-    <h2 class="title">What it actually<br><em>feels like.</em></h2>
+    <span class="sec-label">The Promise</span>
+    <h2 class="title">What it'll actually<br><em>feel like.</em></h2>
   </div>
   <div class="tgrid">
     <div class="tcard" data-reveal="up">
-      <div class="tcard-badge">HVAC Owner</div>
-      <div class="tcard-stars">★ ★ ★ ★ ★</div>
+      <div class="tcard-badge">Your Mornings</div>
+      <div class="tcard-stars">✦ ✦ ✦ ✦ ✦</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">I used to spend two hours a day just dealing with messages. Now someone handles it and I actually get to focus on my jobs. My clients say I'm more responsive than ever and I'm doing less.</p>
-      <div class="tcard-name">Carlos R.</div><div class="tcard-role">HVAC Business Owner</div>
+      <p class="tcard-text">No more waking up to a pile of unread DMs. By the time you check your phone, every message already has a real, warm reply, and the leads are already being qualified.</p>
+      <div class="tcard-name">Less Stress</div><div class="tcard-role">From the very first day</div>
     </div>
     <div class="tcard" data-reveal="up">
-      <div class="tcard-badge">Interior Designer</div>
-      <div class="tcard-stars">★ ★ ★ ★ ★</div>
+      <div class="tcard-badge">Your Clients</div>
+      <div class="tcard-stars">✦ ✦ ✦ ✦ ✦</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Every email sounds like me, every follow-up is warm and personal. I didn't expect it to feel this natural. It genuinely feels like I hired someone who just gets it.</p>
-      <div class="tcard-name">Maria T.</div><div class="tcard-role">Interior Designer</div>
+      <p class="tcard-text">Every reply sounds like you, because we learn your voice first. Warm, personal, human. Your customers feel looked after, never like they're talking to a bot.</p>
+      <div class="tcard-name">Real Connection</div><div class="tcard-role">Every conversation</div>
     </div>
     <div class="tcard" data-reveal="up">
-      <div class="tcard-badge">Cleaning Services</div>
-      <div class="tcard-stars">★ ★ ★ ★ ★</div>
+      <div class="tcard-badge">Your Afternoons</div>
+      <div class="tcard-stars">✦ ✦ ✦ ✦ ✦</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Within two weeks they had my Google Business, WhatsApp and website all set up. I went from invisible online to getting found every single day. The difference was immediate.</p>
-      <div class="tcard-name">Sandra M.</div><div class="tcard-role">Cleaning Services Owner</div>
+      <p class="tcard-text">One clean report lands every afternoon. Who reached out, what they need, who's ready to buy. You stop chasing messages and start closing the leads that matter.</p>
+      <div class="tcard-name">Pure Clarity</div><div class="tcard-role">Delivered daily</div>
     </div>
   </div>
 </section>
@@ -662,8 +744,8 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
   <div class="contact-left" data-reveal="left">
     <div class="contact-left-inner">
       <span class="sec-label">Get In Touch</span>
-      <h2>Let's make your<br>life a little <em>easier.</em></h2>
-      <p>Book a free call. We'll talk through what's on your plate and what would actually help. No pressure, no pitch. Just a real conversation.</p>
+      <h2>Ready to stop<br>losing <em>leads?</em></h2>
+      <p>Book a free 15-minute call. We'll talk through what's landing in your inbox and how we can help. No pressure, no pitch. Just a real conversation, human to human.</p>
       <div class="cpills">
         <div class="cpill"><div class="cpill-icon">WA</div>WhatsApp Business Available</div>
         <div class="cpill"><div class="cpill-icon">@</div>hello@itshellovirtually.com</div>
@@ -675,17 +757,15 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
     <h3>Send us a message</h3>
     <div class="fg"><label class="fl">Your Name</label><input type="text" class="fi" placeholder="Jane Smith"></div>
     <div class="fg"><label class="fl">Email Address</label><input type="email" class="fi" placeholder="jane@yourbusiness.com"></div>
-    <div class="fg"><label class="fl">Type of Business</label><input type="text" class="fi" placeholder="e.g. HVAC, Cleaning, Real Estate..."></div>
+    <div class="fg"><label class="fl">Type of Business</label><input type="text" class="fi" placeholder="e.g. Roofing, Med Spa, Salon, Auto Detailing..."></div>
     <div class="fg"><label class="fl">What Do You Need Help With?</label>
       <select class="fi">
         <option value="">Pick a service...</option>
-        <option>Inbox and email management</option>
-        <option>Client follow-up and communication</option>
-        <option>Lead qualification</option>
-        <option>Social media monitoring</option>
-        <option>Website or digital setup</option>
-        <option>Google Business / WhatsApp</option>
-        <option>Full VA partnership</option>
+        <option>The Daily — inbox &amp; lead management</option>
+        <option>The Daily+ — all platforms &amp; scheduling</option>
+        <option>The Setup — Google Business, WhatsApp, templates, web</option>
+        <option>The Studio — social content, blogs, email</option>
+        <option>The Audit — find my missed leads</option>
         <option>Not sure yet, let's figure it out</option>
       </select>
     </div>
@@ -714,6 +794,204 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
   </ul>
   <p>© 2026 hello, virtually!</p>
 </footer>
+
+<!-- MULTI-STEP POPUP FORM -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-bar"><div class="modal-bar-fill" id="barFill"></div></div>
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-body">
+
+      <!-- Step 1: Name -->
+      <div class="modal-step active" data-step="1">
+        <div class="step-count">Question 1 of 6</div>
+        <div class="step-q">First, what's your <em>name?</em></div>
+        <div class="step-help">We like to know who we're talking to. No bots here, remember?</div>
+        <input type="text" class="step-input" id="f_name" placeholder="Jane Smith" autocomplete="name">
+        <div class="err-msg" id="err1"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back hidden">← Back</button>
+          <button class="mbtn mbtn-next" data-next>Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Business -->
+      <div class="modal-step" data-step="2">
+        <div class="step-count">Question 2 of 6</div>
+        <div class="step-q">What kind of <em>business</em> do you run?</div>
+        <div class="step-help">Roofing, med spa, salon, moving company... tell us what you do.</div>
+        <input type="text" class="step-input" id="f_business" placeholder="e.g. Roofing &amp; Exteriors">
+        <div class="err-msg" id="err2"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back">← Back</button>
+          <button class="mbtn mbtn-next" data-next>Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Service -->
+      <div class="modal-step" data-step="3">
+        <div class="step-count">Question 3 of 6</div>
+        <div class="step-q">What are you <em>looking for?</em></div>
+        <div class="step-help">Pick the one that fits best. We'll figure out the details together.</div>
+        <div class="opt-grid" id="serviceOpts">
+          <div class="opt" data-val="The Daily — inbox &amp; lead management"><div class="opt-check">✓</div>The Daily — inbox &amp; lead management</div>
+          <div class="opt" data-val="The Daily+ — all platforms &amp; scheduling"><div class="opt-check">✓</div>The Daily+ — all platforms &amp; scheduling</div>
+          <div class="opt" data-val="The Setup — Google Business, WhatsApp, web"><div class="opt-check">✓</div>The Setup — Google Business, WhatsApp, web</div>
+          <div class="opt" data-val="The Studio — social, blogs, email"><div class="opt-check">✓</div>The Studio — social, blogs, email</div>
+          <div class="opt" data-val="The Audit — find my missed leads"><div class="opt-check">✓</div>The Audit — find my missed leads</div>
+          <div class="opt" data-val="Not sure yet"><div class="opt-check">✓</div>Not sure yet — help me figure it out</div>
+        </div>
+        <div class="err-msg" id="err3"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back">← Back</button>
+          <button class="mbtn mbtn-next" data-next>Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Challenge -->
+      <div class="modal-step" data-step="4">
+        <div class="step-count">Question 4 of 6</div>
+        <div class="step-q">What's your biggest <em>challenge</em> right now?</div>
+        <div class="step-help">Be honest — this helps us understand exactly how to help.</div>
+        <textarea class="step-input" id="f_challenge" placeholder="e.g. I miss messages when I'm on a job and lose leads because I reply too late..."></textarea>
+        <div class="err-msg" id="err4"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back">← Back</button>
+          <button class="mbtn mbtn-next" data-next>Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Email -->
+      <div class="modal-step" data-step="5">
+        <div class="step-count">Question 5 of 6</div>
+        <div class="step-q">Where can we <em>email</em> you?</div>
+        <div class="step-help">We'll send a friendly note to set up your free call.</div>
+        <input type="email" class="step-input" id="f_email" placeholder="jane@yourbusiness.com" autocomplete="email">
+        <div class="err-msg" id="err5"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back">← Back</button>
+          <button class="mbtn mbtn-next" data-next>Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Phone -->
+      <div class="modal-step" data-step="6">
+        <div class="step-count">Question 6 of 6</div>
+        <div class="step-q">And your <em>phone</em> or WhatsApp?</div>
+        <div class="step-help">Prefer to chat on WhatsApp? Drop your number and we'll reach out there.</div>
+        <input type="tel" class="step-input" id="f_phone" placeholder="(787) 555-0123" autocomplete="tel">
+        <div class="err-msg" id="err6"></div>
+        <div class="modal-nav">
+          <button class="mbtn mbtn-back">← Back</button>
+          <button class="mbtn mbtn-next" id="submitBtn">Send it →</button>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="modal-step" data-step="7">
+        <div class="modal-success">
+          <div class="succ-emoji">✦</div>
+          <h3>Talk soon, <em><span id="successName">friend</span>!</em></h3>
+          <p>Your message is on its way to a real human (not a bot). We'll get back to you within 24 hours to set up your free call.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== MULTI-STEP POPUP LOGIC =====
+(function(){
+  const overlay = document.getElementById('modalOverlay');
+  const barFill = document.getElementById('barFill');
+  const steps = [...document.querySelectorAll('.modal-step')];
+  const TOTAL = 6;
+  let current = 1;
+  const data = {};
+
+  function openModal(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+
+  function showStep(n){
+    steps.forEach(s=>s.classList.remove('active'));
+    const el = document.querySelector('.modal-step[data-step="'+n+'"]');
+    if(el) el.classList.add('active');
+    barFill.style.width = (Math.min(n,TOTAL)/TOTAL*100)+'%';
+    current = n;
+    const inp = el && el.querySelector('.step-input');
+    if(inp) setTimeout(()=>inp.focus(),120);
+  }
+
+  function validate(n){
+    const err = document.getElementById('err'+n);
+    if(err) err.textContent='';
+    if(n===1){ const v=document.getElementById('f_name').value.trim(); if(!v){err.textContent='Please enter your name.';return false;} data.name=v; }
+    if(n===2){ const v=document.getElementById('f_business').value.trim(); if(!v){err.textContent='Please tell us your business type.';return false;} data.business=v; }
+    if(n===3){ if(!data.service){document.getElementById('err3').textContent='Please pick one.';return false;} }
+    if(n===4){ const v=document.getElementById('f_challenge').value.trim(); if(!v){err.textContent='A sentence or two is perfect.';return false;} data.challenge=v; }
+    if(n===5){ const v=document.getElementById('f_email').value.trim(); if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){err.textContent='Please enter a valid email.';return false;} data.email=v; }
+    if(n===6){ const v=document.getElementById('f_phone').value.trim(); if(!v){err.textContent='Please add a phone or WhatsApp number.';return false;} data.phone=v; }
+    return true;
+  }
+
+  // Service option selection
+  document.querySelectorAll('#serviceOpts .opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      document.querySelectorAll('#serviceOpts .opt').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      data.service = opt.getAttribute('data-val');
+      document.getElementById('err3').textContent='';
+    });
+  });
+
+  // Next buttons
+  document.querySelectorAll('[data-next]').forEach(btn=>{
+    btn.addEventListener('click',()=>{ if(validate(current)) showStep(current+1); });
+  });
+
+  // Submit
+  document.getElementById('submitBtn').addEventListener('click',()=>{
+    if(!validate(6)) return;
+    // In production this would POST to your email/CRM. For now we capture it.
+    console.log('Lead captured:', data);
+    document.getElementById('successName').textContent = data.name.split(' ')[0] || 'friend';
+    showStep(7);
+    barFill.style.width='100%';
+  });
+
+  // Back buttons
+  document.querySelectorAll('.mbtn-back').forEach(btn=>{
+    btn.addEventListener('click',()=>{ if(current>1) showStep(current-1); });
+  });
+
+  // Enter key advances
+  overlay.addEventListener('keydown',e=>{
+    if(e.key==='Enter' && current<=TOTAL){
+      e.preventDefault();
+      if(current===6){ document.getElementById('submitBtn').click(); }
+      else if(validate(current)){ showStep(current+1); }
+    }
+  });
+
+  // Open triggers — any link/button pointing to #contact opens the popup
+  document.querySelectorAll('a[href="#contact"], .nav-btn, .btn-main').forEach(el=>{
+    el.addEventListener('click',e=>{
+      e.preventDefault();
+      showStep(1);
+      openModal();
+    });
+  });
+  // Also open from the contact form submit button
+  const formSubmit = document.querySelector('.fsub');
+  if(formSubmit){ formSubmit.addEventListener('click',e=>{e.preventDefault(); showStep(1); openModal();}); }
+
+  // Close triggers
+  document.getElementById('modalClose').addEventListener('click',closeModal);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+})();
+</script>
 
 <script>
 // Custom cursor
