@@ -372,11 +372,7 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 .flinks a { font-size:.72rem; color:rgba(255,255,255,.55); text-decoration:none; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
 .flinks a:hover { color:var(--lime); }
 
-/* ── SVG INLINE STICKERS ── */
-@keyframes fA { 0%,100%{transform:translateY(0) rotate(-4deg);}  50%{transform:translateY(-10px) rotate(-1deg);} }
-@keyframes fB { 0%,100%{transform:translateY(0) rotate(5deg);}   50%{transform:translateY(-8px) rotate(8deg);} }
-@keyframes fC { 0%,100%{transform:translateY(0) rotate(-8deg);}  50%{transform:translateY(-12px) rotate(-4deg);} }
-.stk-float { position:absolute; pointer-events:none; filter:drop-shadow(2px 4px 8px rgba(75,31,61,.18)); }
+
 
 @media(max-width:900px){
   nav { padding:14px 20px; } nav ul { display:none; }
@@ -448,7 +444,7 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   <div class="hero-left" data-reveal="up">
     <span class="hero-eyebrow">Virtual Assistant Agency</span>
     <h1>Your business,<br>handled with<br><span class="accent">real care.</span></h1>
-    <p class="hero-desc">We're the team behind the scenes — managing your inbox, responding to clients, organizing your admin, and making sure nothing falls through the cracks. You focus on your work. We handle everything else.</p>
+    <p class="hero-desc">We're the team behind the scenes, managing your inbox, responding to clients, organizing your admin, and making sure nothing gets missed. You focus on your work. We handle everything else.</p>
     <div class="hero-btns">
       <a href="#contact" class="btn-plum">Work With Us</a>
       <a href="#how" class="btn-outline">See How It Works</a>
@@ -456,18 +452,9 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   </div>
   <div class="hero-right" data-reveal="right">
     <!-- SVG sticker: "You're in good hands" floating -->
-    <svg class="stk-float" style="width:170px;top:-16px;right:20px;animation:fB 5.5s ease-in-out infinite;" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16,22 Q16,8 30,8 L150,8 Q164,8 164,22 L164,82 Q164,96 150,96 L90,96 L74,114 L66,96 L30,96 Q16,96 16,82 Z" fill="white" stroke="#4B1F3D" stroke-width="2.5"/>
-      <path d="M22,25 Q22,14 32,14 L148,14 Q158,14 158,25 L158,79 Q158,90 148,90 L92,90 L77,106 L70,90 L32,90 Q22,90 22,79 Z" fill="#FFF8F0"/>
-      <path d="M90,20 L92,15 L94,20 L99,22 L94,24 L92,29 L90,24 L85,22 Z" fill="#FF6B4A"/>
-      <text x="90" y="52" font-family="'Caveat',cursive" font-size="14" font-weight="700" fill="#4B1F3D" text-anchor="middle">You're in</text>
-      <text x="90" y="70" font-family="'Caveat',cursive" font-size="17" font-weight="700" fill="#4B1F3D" text-anchor="middle">good hands</text>
-      <line x1="52" y1="74" x2="128" y2="74" stroke="#FF6B4A" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M150,38 L152,33 L154,38 L159,40 L154,42 L152,47 L150,42 L145,40 Z" fill="#D7F26A"/>
-    </svg>
 
     <div class="hero-card">
-      <span class="hero-card-label">Your new reality</span>
+      <span class="hero-card-label">Here's what changes</span>
       <div class="hero-stat">100%</div>
       <div class="hero-stat-sub">Human. Every message. Every time.</div>
       <div class="hero-divider"></div>
@@ -492,12 +479,6 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     </div>
 
     <!-- SVG sticker: paperclip bottom left -->
-    <svg class="stk-float" style="width:70px;bottom:30px;left:20px;animation:fC 6s ease-in-out infinite;" viewBox="0 0 70 110" xmlns="http://www.w3.org/2000/svg">
-      <path d="M35,8 C46,8 54,18 54,30 L54,72 C54,88 44,98 30,98 C16,98 8,88 8,74 L8,28" fill="none" stroke="#4B1F3D" stroke-width="6" stroke-linecap="round"/>
-      <path d="M35,8 C26,8 20,16 20,27 L20,70 C20,78 25,83 31,83 C37,83 42,78 42,70 L42,32" fill="none" stroke="#C7B5FF" stroke-width="4.5" stroke-linecap="round"/>
-      <path d="M29,20 C29,18 32,16 31,19 C30,16 33,18 33,20 C33,23 31,25 31,25 C31,25 29,23 29,20 Z" fill="#FF6B4A"/>
-      <path d="M46,88 L47,84 L48,88 L52,89 L48,90 L47,94 L46,90 L42,89 Z" fill="#C7B5FF"/>
-    </svg>
   </div>
 </section>
 
@@ -509,28 +490,28 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 <!-- INTRO -->
 <section class="intro">
   <div class="intro-left" data-reveal="left">
-    <h2>Running a business is <em>a lot.</em> You shouldn't have to do it all alone.</h2>
+    <h2>Running a business is <em>a lot.</em> You shouldn't have to do it alone.</h2>
     <p>Most business owners are brilliant at what they do — but buried in emails, missed messages, and admin tasks that eat their day. That's exactly where we come in.</p>
-    <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and take care of it like it's our own.</p>
-    <div class="callout">Think of us as your remote, always-on office manager — minus the overhead.</div>
+    <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and look after it like it's our own.</p>
+    <div class="callout">Think of us as your remote, always-on office manager. Minus the overhead.</div>
   </div>
   <div class="intro-right" data-reveal="right">
     <h3>What that looks like in practice:</h3>
     <div class="val-row">
       <div class="val-icon" style="background:var(--lime)">📬</div>
-      <div><div class="val-title">Your inbox, managed daily</div><div class="val-text">We sort, respond, and organize so you never open to chaos again. Clients feel heard — fast.</div></div>
+      <div><div class="val-title">Your inbox, managed daily</div><div class="val-text">We sort, respond, and organize so you never open to chaos again. Clients always feel heard.</div></div>
     </div>
     <div class="val-row">
       <div class="val-icon" style="background:var(--pink)">🤝</div>
-      <div><div class="val-title">Real human communication</div><div class="val-text">Every message your clients receive feels personal, warm, and on-brand — because it is.</div></div>
+      <div><div class="val-title">Real human communication</div><div class="val-text">Every message your clients receive feels personal, warm, and on-brand. Because it is.</div></div>
     </div>
     <div class="val-row">
       <div class="val-icon" style="background:var(--blue)">📋</div>
-      <div><div class="val-title">Admin you don't have to touch</div><div class="val-text">Estimates, contracts, scheduling, follow-ups — handled and off your plate.</div></div>
+      <div><div class="val-title">Admin you don't have to touch</div><div class="val-text">Estimates, contracts, scheduling, follow-ups. All handled and off your plate.</div></div>
     </div>
     <div class="val-row">
       <div class="val-icon" style="background:var(--lav)">🌐</div>
-      <div><div class="val-title">Your full digital presence</div><div class="val-text">Website, Google Business, WhatsApp, social — set up properly so you're easy to find.</div></div>
+      <div><div class="val-title">Your full digital presence</div><div class="val-text">Website, Google Business, WhatsApp, social. Set up properly so you're easy to find.</div></div>
     </div>
   </div>
 </section>
@@ -540,17 +521,6 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   <div class="how-stripe-bg"></div>
 
   <!-- Floating sticker: "On it!" -->
-  <svg class="stk-float" style="width:120px;top:30px;right:60px;animation:fA 5s ease-in-out infinite;z-index:3;" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
-    <path d="M65,8 C90,5 118,22 120,48 C123,74 106,108 80,115 C54,122 18,105 11,80 C4,55 18,14 42,9 Z" fill="white" stroke="#4B1F3D" stroke-width="2.5"/>
-    <path d="M65,14 C88,11 113,26 115,50 C118,72 103,103 79,110 C55,117 22,101 16,78 C10,55 22,18 44,14 Z" fill="#C7B5FF"/>
-    <rect x="80" y="5" width="42" height="16" rx="3" fill="#FFC1E0" stroke="#4B1F3D" stroke-width="1.5" transform="rotate(15,101,13)"/>
-    <line x1="84" y1="9" x2="84" y2="18" stroke="#FF6B4A" stroke-width="1.8" opacity=".5" transform="rotate(15,101,13)"/>
-    <line x1="90" y1="9" x2="90" y2="18" stroke="#FF6B4A" stroke-width="1.8" opacity=".5" transform="rotate(15,101,13)"/>
-    <path d="M32,58 L34,53 L36,58 L41,60 L36,62 L34,67 L32,62 L27,60 Z" fill="#D7F26A"/>
-    <path d="M94,92 L95,88 L96,92 L100,93 L96,94 L95,98 L94,94 L90,93 Z" fill="#D7F26A"/>
-    <text x="65" y="66" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#4B1F3D" text-anchor="middle">On</text>
-    <text x="65" y="94" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#4B1F3D" text-anchor="middle">it!</text>
-  </svg>
 
   <div class="how-inner">
     <div class="how-left-text" data-reveal="left">
@@ -562,19 +532,19 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-num">01</div>
-          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate — so we can sound like you.</div></div>
+          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate. So we can show up sounding like you.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">02</div>
-          <div><div class="tl-title">We set everything up.</div><div class="tl-desc">Custom forms, email templates, monitoring across all your channels — ready in days, not weeks.</div></div>
+          <div><div class="tl-title">We set everything up.</div><div class="tl-desc">Custom forms, email templates, monitoring across all your channels. Ready in days, not weeks.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">03</div>
-          <div><div class="tl-title">We take care of it daily.</div><div class="tl-desc">Every inquiry, every DM, every follow-up — handled by a real person who genuinely cares about your clients.</div></div>
+          <div><div class="tl-title">We take care of it daily.</div><div class="tl-desc">Every inquiry, every DM, every follow-up. Handled by a real person who genuinely cares about your clients.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">04</div>
-          <div><div class="tl-title">You stay informed, not overwhelmed.</div><div class="tl-desc">We send organized summaries so you always know what's happening — without digging through messages yourself.</div></div>
+          <div><div class="tl-title">You stay informed, not overwhelmed.</div><div class="tl-desc">We send organized summaries so you always know what's happening. No digging through messages yourself.</div></div>
         </div>
       </div>
     </div>
@@ -598,11 +568,11 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Inbox & Email Management</div><div class="svc-desc">We sort, respond, and organize your inbox daily. Clients always get a warm, real response — fast.</div></div></div>
     <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Client Follow-Up</div><div class="svc-desc">We check in with clients and prospects so no conversation gets forgotten and every relationship stays warm.</div></div></div>
     <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We talk to your inquiries first, understand what they need, and bring you the ones who are genuinely ready.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms — checked daily so no one waits too long to hear from you.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates & Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed effortless.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call — so every conversation starts informed.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms. Checked daily so no one waits too long to hear from you.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates & Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed actually easy.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call, so every conversation starts on the right foot.</div></div></div>
     <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Google Business & SEO</div><div class="svc-desc">We set up and optimize your Google presence so people in your area can actually find you when it matters.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp & More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns — your entire online presence, handled.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp & More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns. Your entire online presence, handled.</div></div></div>
   </div>
 </section>
 
@@ -610,40 +580,27 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 <section class="packages" id="packages">
   <div class="packages-stripe"></div>
 
-  <!-- Floating badge sticker -->
-  <svg class="stk-float" style="width:140px;top:-10px;right:80px;animation:fB 6s ease-in-out infinite;z-index:2;" viewBox="0 0 145 145" xmlns="http://www.w3.org/2000/svg">
-    <path d="M72,5 C78,5 82,9 82,14 C88,11 95,13 97,18 C103,16 109,20 109,26 C115,26 119,32 117,38 C122,40 124,47 120,52 C124,56 124,63 120,67 C123,72 121,79 116,81 C117,87 113,92 108,90 C105,95 99,98 94,95 C90,99 84,100 80,97 C76,100 70,99 66,95 C62,98 56,95 53,90 C48,92 44,87 45,81 C40,79 38,72 41,67 C37,63 37,56 41,52 C37,47 39,40 44,38 C42,32 46,26 51,26 C51,20 57,16 62,18 C65,13 72,11 68,14 C68,9 66,5 72,5 Z" fill="white" stroke="#4B1F3D" stroke-width="2"/>
-    <path d="M72,11 C77,11 80,14 80,18 C85,15 90,17 93,22 C97,20 102,24 102,30 C106,30 110,35 108,40 C112,42 114,48 111,52 C114,56 114,62 111,65 C113,70 112,76 107,78 C108,84 105,88 100,86 C97,91 92,94 88,91 C85,94 80,95 76,92 C72,95 67,94 64,91 C60,94 55,91 52,86 C48,88 44,84 45,78 C40,76 39,70 41,65 C38,62 38,56 41,52 C38,48 40,42 44,40 C42,35 46,30 50,30 C50,24 55,20 60,22 C63,17 68,15 73,18 C73,14 68,11 72,11 Z" fill="#FFF8F0"/>
-    <path id="barc" d="M30,75 A42,42 0 0,1 115,75" fill="none"/>
-    <text font-family="Nunito,sans-serif" font-size="8" font-weight="800" letter-spacing="1.5" fill="#4B1F3D" text-anchor="middle">
-      <textPath href="#barc" startOffset="50%">HELLO, VIRTUALLY!</textPath>
-    </text>
-    <text x="72" y="58" font-family="Nunito,sans-serif" font-size="11" font-weight="900" fill="#4B1F3D" text-anchor="middle">Responsive</text>
-    <text x="72" y="70" font-family="Nunito,sans-serif" font-size="9" font-weight="700" fill="#FF6B4A" text-anchor="middle">&amp;</text>
-    <text x="72" y="82" font-family="Nunito,sans-serif" font-size="11" font-weight="900" fill="#4B1F3D" text-anchor="middle">Reliable</text>
-    <ellipse cx="72" cy="102" rx="11" ry="10" fill="#FFC1E0" stroke="#4B1F3D" stroke-width="1.5"/>
-    <path d="M68,100 C68,98 71,96 70,99 C69,96 72,98 72,100 C72,103 70,105 70,105 C70,105 68,103 68,100 Z" fill="#4B1F3D"/>
-  </svg>
+  <!-- sticker removed -->
 
   <div class="pkg-head" data-reveal="up"><span class="sec-label">Our Packages</span><h2 class="title">Start where<br>you <em>need to.</em></h2></div>
   <div class="pkg-grid">
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">01</div>
-      <div class="pkg-name">Essentials — Daily Support</div>
-      <div class="pkg-desc">Inbox management, client responses, follow-ups, and a daily summary. Perfect for businesses that need consistent, reliable admin support without the overhead of a full hire.</div>
+      <div class="pkg-name">Essentials: Daily Support</div>
+      <div class="pkg-desc">Inbox management, client responses, follow-ups, and a daily summary. Great for businesses that want reliable support without the overhead of a full-time hire.</div>
       <a href="#contact" class="pkg-btn">Get Started</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">02</div>
-      <div class="pkg-name">Growth — Full Front Desk</div>
+      <div class="pkg-name">Growth: Full Front Desk</div>
       <div class="pkg-badge">Most Popular</div>
-      <div class="pkg-desc">Everything in Essentials, plus social media monitoring, lead qualification, custom intake forms, Google Business, and WhatsApp Business. Your full client-facing operation, covered.</div>
+      <div class="pkg-desc">Everything in Essentials, plus social media monitoring, lead qualification, custom intake forms, Google Business, and WhatsApp Business. Your full client-facing operation, taken care of.</div>
       <a href="#contact" class="pkg-btn">Most Popular</a>
     </div>
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">03</div>
       <div class="pkg-name">Full Partner</div>
-      <div class="pkg-desc">We handle it all — website, ads, blog content, contract templates, social management, and everything that keeps your business running smoothly. Fully custom.</div>
+      <div class="pkg-desc">We handle it all. Website, ads, blog content, contract templates, social management and everything that keeps your business running smoothly. Fully custom to you.</div>
       <a href="#contact" class="pkg-btn">Let's Talk</a>
     </div>
   </div>
@@ -658,21 +615,21 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
       <div class="tcard-badge">HVAC Owner</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">I used to spend two hours a day just dealing with messages. Now someone handles it and I actually get to focus on my jobs. My clients tell me I'm more responsive than ever.</p>
+      <p class="tcard-text">I used to spend two hours a day just dealing with messages. Now someone handles it and I actually get to focus on my jobs. My clients say I'm more responsive than ever and I'm doing less.</p>
       <div class="tcard-name">Carlos R.</div><div class="tcard-role">HVAC Business Owner</div>
     </div>
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">Interior Designer</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Every email sounds like me, every follow-up is warm and personal. I didn't expect it to feel this seamless — it genuinely feels like I hired someone who gets it.</p>
+      <p class="tcard-text">Every email sounds like me, every follow-up is warm and personal. I didn't expect it to feel this natural. It genuinely feels like I hired someone who just gets it.</p>
       <div class="tcard-name">Maria T.</div><div class="tcard-role">Interior Designer</div>
     </div>
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">Cleaning Services</div>
       <div class="tcard-stars">★ ★ ★ ★ ★</div>
       <div class="tcard-q">"</div>
-      <p class="tcard-text">Within two weeks they had my Google Business, WhatsApp, and website all set up properly. I went from invisible online to getting found every day. The difference was immediate.</p>
+      <p class="tcard-text">Within two weeks they had my Google Business, WhatsApp and website all set up. I went from invisible online to getting found every single day. The difference was immediate.</p>
       <div class="tcard-name">Sandra M.</div><div class="tcard-role">Cleaning Services Owner</div>
     </div>
   </div>
@@ -689,11 +646,11 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     <div class="contact-left-inner">
       <span class="sec-label">Get In Touch</span>
       <h2 class="title">Let's make your<br>life a little <em>easier.</em></h2>
-      <p>Book a free call. We'll talk through what's on your plate, what's been falling through, and what would actually help. No pressure, no pitch.</p>
+      <p>Book a free call. We'll talk through what's on your plate and what would actually help. No pressure, no pitch. Just a real conversation.</p>
       <div class="cpills">
         <div class="cpill"><div class="cpill-icon">WA</div>WhatsApp Business Available</div>
         <div class="cpill"><div class="cpill-icon">@</div>hello@itshellovirtually.com</div>
-        <div class="cpill"><div class="cpill-icon">24h</div>A real person responds — fast</div>
+        <div class="cpill"><div class="cpill-icon">24h</div>A real person gets back to you fast</div>
       </div>
     </div>
   </div>
@@ -712,7 +669,7 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
         <option>Website or digital setup</option>
         <option>Google Business / WhatsApp</option>
         <option>Full VA partnership</option>
-        <option>Not sure — let's figure it out</option>
+        <option>Not sure yet, let's figure it out</option>
       </select>
     </div>
     <div class="fg"><label class="fl">Tell Us More</label><textarea class="fi" placeholder="What's taking up most of your time right now?"></textarea></div>
