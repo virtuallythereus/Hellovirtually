@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hello, Virtually!</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234B1F3D'/%3E%3Cpath d='M26 28 H74 Q82 28 82 36 V60 Q82 68 74 68 H54 L46 80 L42 68 H26 Q18 68 18 60 V36 Q18 28 26 28 Z' fill='none' stroke='%23FFF8F0' stroke-width='4' stroke-linejoin='round'/%3E%3Ctext x='44' y='56' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23FFF8F0' text-anchor='middle'%3Ehv%3C/text%3E%3Ctext x='64' y='56' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23FF6B4A' text-anchor='middle'%3E!%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23FFF8F0'/%3E%3Cpath d='M24 22 H76 Q86 22 86 32 V58 Q86 68 76 68 H56 L48 82 L42 68 H24 Q14 68 14 58 V32 Q14 22 24 22 Z' fill='%234B1F3D'/%3E%3Ctext x='42' y='52' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23FFF8F0' text-anchor='middle'%3Eh%3C/text%3E%3Ctext x='60' y='52' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23FF6B4A' text-anchor='middle'%3E!%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -55,11 +55,11 @@ nav ul a:hover{color:var(--coral);}
 
 /* HERO */
 .hero{
-  min-height:100vh;
+  min-height:calc(100vh - 80px);
   background:var(--blush);
   display:grid;grid-template-columns:1fr 1fr;
   position:relative;overflow:hidden;
-  padding-top:80px;
+  padding-top:88px;
 }
 /* animated stripe bg */
 .hero::before{
@@ -69,7 +69,7 @@ nav ul a:hover{color:var(--coral);}
 }
 @keyframes stripeMove{from{background-position:0 0;}to{background-position:200px 0;}}
 .hero-left{
-  padding:80px 64px;display:flex;flex-direction:column;justify-content:center;
+  padding:40px 64px;display:flex;flex-direction:column;justify-content:center;
   position:relative;z-index:2;
 }
 .hero-eyebrow{
