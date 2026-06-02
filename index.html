@@ -4,414 +4,470 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hello, Virtually!</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Caveat:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --plum:  #4B1F3D;
-  --coral: #FF6B4A;
-  --lav:   #C7B5FF;
-  --blue:  #BDE3F7;
-  --pink:  #FFC1E0;
-  --lime:  #D7F26A;
-  --cream: #FFF8F0;
-  --taupe: #E7DED4;
-  --blush: #FFE4EE;
-  --white: #FFFFFF;
-  --border: 2px dashed rgba(75,31,61,.22);
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --plum:#4B1F3D;
+  --coral:#FF6B4A;
+  --lav:#C7B5FF;
+  --blue:#BDE3F7;
+  --pink:#FFC1E0;
+  --lime:#D7F26A;
+  --cream:#FFF8F0;
+  --blush:#FFE4EE;
+  --white:#FFFFFF;
+  --taupe:#E7DED4;
 }
-html { scroll-behavior:smooth; }
-body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--plum); overflow-x:hidden; }
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--plum);overflow-x:hidden;}
 
-/* ── STRIPE PATTERNS ── */
-.stripe-lime { background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px); }
-.stripe-pink { background: repeating-linear-gradient(90deg, var(--pink) 0,var(--pink) 7px, transparent 7px, transparent 20px); }
-.stripe-blue { background: repeating-linear-gradient(90deg, var(--blue) 0,var(--blue) 7px, transparent 7px, transparent 20px); }
-.stripe-lav  { background: repeating-linear-gradient(90deg, var(--lav)  0,var(--lav)  7px, transparent 7px, transparent 20px); }
-.stripe-coral{ background: repeating-linear-gradient(90deg, rgba(255,107,74,.18) 0,rgba(255,107,74,.18) 6px, transparent 6px, transparent 18px); }
-.stripe-diag { background: repeating-linear-gradient(45deg, var(--lime) 0,var(--lime) 5px, transparent 5px, transparent 14px); }
+/* CURSOR */
+*{cursor:none;}
+.cursor{position:fixed;width:12px;height:12px;background:var(--coral);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:2px solid var(--coral);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .08s,opacity .2s;opacity:.5;}
 
-/* ── WHITE FRAMED BOX ── */
-.frame-box {
-  background: var(--white);
-  border: 2.5px solid var(--plum);
-  border-radius: 14px;
-  padding: 36px 32px;
-  position: relative;
+/* REVEAL */
+[data-reveal]{opacity:0;transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);}
+[data-reveal="up"]{transform:translateY(40px);}
+[data-reveal="left"]{transform:translateX(-40px);}
+[data-reveal="right"]{transform:translateX(40px);}
+[data-reveal="scale"]{transform:scale(.94);}
+[data-reveal].in{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 60px;
+  transition:background .3s,box-shadow .3s;
 }
-.frame-box::before {
-  content: '';
-  position: absolute;
-  inset: 5px;
-  border: 1.5px dashed rgba(75,31,61,.18);
-  border-radius: 10px;
-  pointer-events: none;
-}
+nav.scrolled{background:rgba(255,248,240,.96);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(75,31,61,.08);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--plum);}
+.nav-logo em{font-style:italic;color:var(--coral);}
+nav ul{list-style:none;display:flex;gap:32px;}
+nav ul a{font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:var(--plum);transition:color .2s;}
+nav ul a:hover{color:var(--coral);}
+.nav-btn{background:var(--coral);color:var(--white);border-radius:60px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;text-decoration:none;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(255,107,74,.3);}
+.nav-btn:hover{background:var(--plum);transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,31,61,.25);}
 
-/* ── REVEAL ── */
-[data-reveal] { opacity:0; transition:opacity .7s ease, transform .7s ease; }
-[data-reveal="up"]   { transform:translateY(32px); }
-[data-reveal="left"] { transform:translateX(-32px); }
-[data-reveal="right"]{ transform:translateX(32px); }
-[data-reveal].in     { opacity:1; transform:none; }
-
-/* ── NAV ── */
-nav {
-  position:sticky; top:0; z-index:200;
-  background:var(--cream);
-  border-bottom: 3px solid var(--coral);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:16px 56px;
-}
-.nav-logo { font-family:'Nunito',sans-serif; font-size:1.5rem; font-weight:900; color:var(--plum); }
-.nav-logo em { font-style:italic; color:var(--coral); }
-nav ul { list-style:none; display:flex; gap:28px; }
-nav ul a { font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:var(--plum); transition:color .2s; }
-nav ul a:hover { color:var(--coral); }
-.nav-btn { background:var(--coral); color:var(--white); border:none; border-radius:60px; padding:11px 26px; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; text-decoration:none; transition:background .2s, transform .2s; }
-.nav-btn:hover { background:var(--plum); transform:translateY(-1px); }
-
-/* ── TICKER ── */
-.ticker { background:var(--plum); overflow:hidden; white-space:nowrap; padding:11px 0; }
-.ticker-inner { display:inline-flex; animation:tick 32s linear infinite; }
-.tick-item { display:inline-flex; align-items:center; gap:10px; padding:0 20px; font-family:'Nunito',sans-serif; font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--cream); }
-.tick-sep { color:var(--lime); }
-@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* ── HERO ── */
-.hero {
-  display:grid; grid-template-columns:1fr 1fr;
-  min-height:88vh;
-  position:relative; overflow:hidden;
-}
-.hero-left {
+/* HERO */
+.hero{
+  min-height:100vh;
   background:var(--blush);
-  padding:80px 56px;
-  display:flex; flex-direction:column; justify-content:center;
-  position:relative; overflow:hidden;
-  border-right: 4px dotted rgba(255,107,74,.4);
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+  padding-top:80px;
 }
-/* stripe accent bottom-left */
-.hero-left::after {
-  content:'';
-  position:absolute; bottom:0; left:0; right:0; height:28%;
-  background: repeating-linear-gradient(90deg, rgba(255,193,224,.35) 0,rgba(255,193,224,.35) 6px, transparent 6px, transparent 18px);
-  pointer-events:none;
+/* animated stripe bg */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(255,193,224,.4) 0,rgba(255,193,224,.4) 6px,transparent 6px,transparent 20px);
+  animation:stripeMove 20s linear infinite;
 }
-.hero-eyebrow {
-  font-size:.7rem; font-weight:800; letter-spacing:3px; text-transform:uppercase;
-  color:var(--coral); margin-bottom:22px; display:flex; align-items:center; gap:8px;
+@keyframes stripeMove{from{background-position:0 0;}to{background-position:200px 0;}}
+.hero-left{
+  padding:80px 64px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:2;
 }
-.hero-eyebrow::before { content:''; width:20px; height:2px; background:var(--coral); border-radius:2px; }
-.hero h1 {
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--lime);color:var(--plum);
+  border-radius:60px;padding:6px 16px;
+  font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:32px;width:fit-content;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.5rem,5.5vw,6rem);
+  font-weight:900;line-height:.95;color:var(--plum);
+  margin-bottom:28px;
+}
+.hero h1 .line2{display:block;color:var(--coral);font-style:italic;}
+.hero-sub{
   font-family:'Nunito',sans-serif;
-  font-size:clamp(3rem,5.2vw,5.4rem);
-  font-weight:900; line-height:.98; color:var(--plum); margin-bottom:22px;
+  font-size:1.05rem;line-height:1.8;color:var(--plum);
+  max-width:420px;margin-bottom:44px;opacity:.8;
 }
-.hero h1 .accent { color:var(--coral); font-style:italic; }
-.hero-desc { font-size:1rem; line-height:1.8; color:var(--plum); max-width:440px; margin-bottom:36px; opacity:.82; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; position:relative; z-index:2; }
-.btn-plum { background:var(--plum); color:var(--white); border-radius:60px; padding:14px 30px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; text-decoration:none; transition:background .2s, transform .2s; }
-.btn-plum:hover { background:var(--coral); transform:translateY(-2px); }
-.btn-outline { background:transparent; color:var(--plum); border:2.5px solid var(--plum); border-radius:60px; padding:14px 30px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; text-decoration:none; transition:background .2s, color .2s, transform .2s; }
-.btn-outline:hover { background:var(--plum); color:var(--white); transform:translateY(-2px); }
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-main{
+  background:var(--plum);color:var(--white);border-radius:60px;
+  padding:16px 36px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;
+  text-decoration:none;
+  box-shadow:0 6px 28px rgba(75,31,61,.3);
+  transition:background .2s,transform .2s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.btn-main:hover{background:var(--coral);transform:translateY(-3px);box-shadow:0 12px 36px rgba(255,107,74,.35);}
+.btn-ghost{
+  background:transparent;color:var(--plum);
+  border:2px solid rgba(75,31,61,.3);border-radius:60px;
+  padding:16px 32px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;
+  text-decoration:none;transition:border-color .2s,background .2s,transform .2s;
+}
+.btn-ghost:hover{border-color:var(--plum);background:rgba(75,31,61,.05);transform:translateY(-2px);}
 
-/* HERO RIGHT — striped + white box */
-.hero-right {
-  background: repeating-linear-gradient(90deg, var(--pink) 0,var(--pink) 8px, transparent 8px, transparent 22px);
-  background-color: var(--blush);
-  display:flex; align-items:center; justify-content:center;
-  padding:60px 48px;
-  position:relative;
+/* hero right — big number + pills */
+.hero-right{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:32px;padding:80px 56px;position:relative;z-index:2;
+  background:repeating-linear-gradient(90deg,var(--pink) 0,var(--pink) 8px,transparent 8px,transparent 24px);
+  background-color:var(--blush);
 }
-.hero-card {
-  background:var(--white);
-  border:2.5px solid var(--plum);
-  border-radius:16px;
-  padding:40px 36px;
-  width:100%;
-  max-width:380px;
-  position:relative;
+.hero-numblock{text-align:center;}
+.hero-bignum{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(7rem,12vw,13rem);
+  font-weight:900;color:var(--plum);line-height:1;
+  display:block;
+  animation:numPop .8s cubic-bezier(.22,1,.36,1) both;
 }
-/* inner dashed frame */
-.hero-card::before {
-  content:'';
-  position:absolute; inset:7px;
-  border:1.5px dashed rgba(75,31,61,.2);
-  border-radius:10px;
-  pointer-events:none;
+@keyframes numPop{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
+.hero-numlabel{font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;color:var(--plum);opacity:.65;margin-top:8px;letter-spacing:.3px;}
+.hero-pills{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px;}
+.hpill{
+  background:rgba(255,255,255,.75);backdrop-filter:blur(8px);
+  border-radius:60px;padding:12px 20px;
+  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;color:var(--plum);
+  display:flex;align-items:center;gap:10px;
+  border:1.5px solid rgba(75,31,61,.1);
+  transition:background .2s,transform .2s;
 }
-.hero-card-label {
-  font-size:.65rem; font-weight:800; letter-spacing:2px; text-transform:uppercase;
-  color:var(--coral); margin-bottom:18px; display:block;
-}
-.hero-stat { font-family:'Nunito',sans-serif; font-size:3.8rem; font-weight:900; color:var(--plum); line-height:1; margin-bottom:4px; }
-.hero-stat-sub { font-size:.82rem; font-weight:700; color:var(--plum); opacity:.65; margin-bottom:24px; }
-.hero-divider {
-  height:1px;
-  background: repeating-linear-gradient(90deg, var(--coral) 0,var(--coral) 6px, transparent 6px, transparent 14px);
-  margin:20px 0;
-}
-.check-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
-.check-list li { display:flex; align-items:flex-start; gap:10px; font-size:.85rem; font-weight:600; color:var(--plum); line-height:1.4; }
-.ck { width:20px; height:20px; background:var(--lime); border:1.5px solid var(--plum); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
-.ck svg { width:10px; height:10px; }
+.hpill:hover{background:var(--white);transform:translateX(4px);}
+.hpill-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 
-/* ── WAVE ── */
-.wave { display:block; width:100%; overflow:hidden; line-height:0; }
+/* TICKER */
+.ticker{background:var(--plum);overflow:hidden;white-space:nowrap;padding:13px 0;}
+.ticker-inner{display:inline-flex;animation:tick 30s linear infinite;}
+.tick-item{display:inline-flex;align-items:center;gap:10px;padding:0 24px;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);}
+.tick-sep{color:var(--lime);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── SECTION HELPERS ── */
-.sec-label { font-family:'Nunito',sans-serif; font-size:.68rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--coral); margin-bottom:14px; display:block; }
-h2.title { font-family:'Nunito',sans-serif; font-size:clamp(2.2rem,3.8vw,3.4rem); font-weight:900; line-height:1.08; }
-h2.title em { font-style:italic; color:var(--coral); }
+/* WAVE */
+.wave{display:block;width:100%;overflow:hidden;line-height:0;margin-bottom:-1px;}
 
-/* dashed divider (replaces solid plum borders) */
-.dash-div { border:none; border-top: 2px dashed rgba(75,31,61,.18); margin:0; }
+/* INTRO STATEMENT — full-width editorial */
+.statement{
+  padding:100px 64px;
+  background:var(--coral);
+  position:relative;overflow:hidden;
+}
+.statement::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0,rgba(255,255,255,.08) 5px,transparent 5px,transparent 16px);
+}
+.statement-inner{max-width:900px;position:relative;z-index:1;}
+.statement h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,5vw,5rem);
+  font-weight:900;color:var(--white);line-height:1.1;
+  margin-bottom:32px;
+}
+.statement h2 em{font-style:italic;color:var(--lime);}
+.statement-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.statement p{font-size:1rem;line-height:1.8;color:rgba(255,255,255,.85);}
+.statement-callout{
+  background:var(--white);border-radius:14px;padding:20px 24px;
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;color:var(--plum);
+  border-left:5px solid var(--lime);margin-top:28px;
+}
 
-/* ── INTRO ── */
-.intro {
-  display:grid; grid-template-columns:1fr 1fr;
-  border-top: 3px solid var(--coral);
-  border-bottom: 3px dashed rgba(75,31,61,.15);
+/* WHAT WE DO — editorial grid */
+.what{padding:0;background:var(--cream);}
+.what-header{
+  padding:80px 64px 60px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;
 }
-.intro-left {
-  background:var(--coral); padding:80px 56px;
-  border-right: 4px dotted rgba(255,255,255,.3);
-  display:flex; flex-direction:column; justify-content:center;
+.what-header p{font-size:.97rem;line-height:1.8;opacity:.72;}
+.svc-list{display:grid;grid-template-columns:1fr 1fr;}
+.svc-item{
+  padding:44px 48px;
+  border-top:1px solid rgba(75,31,61,.1);
+  border-right:1px solid rgba(75,31,61,.1);
+  display:flex;gap:20px;align-items:flex-start;
+  transition:background .25s;position:relative;
+  overflow:hidden;
 }
-.intro-left h2 { font-family:'Nunito',sans-serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:900; color:var(--white); line-height:1.1; }
-.intro-left h2 em { font-style:italic; color:var(--lime); }
-.intro-left p { font-size:.97rem; line-height:1.8; color:rgba(255,255,255,.88); margin-top:20px; }
-.callout {
-  background:var(--white); border-radius:12px;
-  padding:16px 20px; margin-top:28px;
-  font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; color:var(--plum);
-  border-left: 4px solid var(--lime);
+.svc-item::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:0;
+  background:var(--coral);transition:height .3s ease;
 }
-.intro-right { background:var(--cream); padding:80px 56px; display:flex; flex-direction:column; justify-content:center; gap:0; }
-.intro-right h3 { font-family:'Nunito',sans-serif; font-size:1.4rem; font-weight:800; font-style:italic; color:var(--plum); margin-bottom:24px; }
-.val-row { display:flex; gap:20px; align-items:flex-start; padding:20px 14px; border-bottom: 2px dashed rgba(75,31,61,.12); border-radius:8px; transition:background .2s; }
-.val-row:hover { background:var(--pink); }
-.val-row:last-child { border-bottom:none; }
-.val-icon { width:40px; height:40px; border-radius:50%; border:2px solid var(--plum); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1.1rem; }
-.val-title { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; margin-bottom:3px; }
-.val-text { font-size:.82rem; line-height:1.6; opacity:.72; }
+.svc-item:hover::before{height:100%;}
+.svc-item:hover{background:var(--blush);}
+.svc-item:nth-child(2n){border-right:none;}
+.svc-accent{width:4px;flex-shrink:0;border-radius:4px;min-height:40px;align-self:stretch;}
+.svc-item:nth-child(1) .svc-accent{background:var(--coral);}
+.svc-item:nth-child(2) .svc-accent{background:var(--lav);}
+.svc-item:nth-child(3) .svc-accent{background:var(--lime);}
+.svc-item:nth-child(4) .svc-accent{background:var(--blue);}
+.svc-item:nth-child(5) .svc-accent{background:var(--pink);}
+.svc-item:nth-child(6) .svc-accent{background:var(--coral);}
+.svc-item:nth-child(7) .svc-accent{background:var(--lav);}
+.svc-item:nth-child(8) .svc-accent{background:var(--lime);}
+.svc-n{position:absolute;top:16px;right:20px;font-size:.6rem;letter-spacing:2px;font-weight:700;opacity:.18;}
+.svc-name{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;margin-bottom:6px;}
+.svc-desc{font-size:.82rem;line-height:1.68;opacity:.7;}
 
-/* ── HOW IT WORKS — striped bg + white box ── */
-.how {
-  position:relative; overflow:hidden;
-  border-top: 3px dashed rgba(75,31,61,.15);
-  border-bottom: 3px dashed rgba(75,31,61,.15);
+/* HOW IT WORKS */
+.how{
+  position:relative;overflow:hidden;
+  padding:100px 64px;
+  background:repeating-linear-gradient(90deg,var(--blue) 0,var(--blue) 7px,transparent 7px,transparent 22px);
+  background-color:var(--cream);
 }
-.how-stripe-bg {
-  position:absolute; inset:0;
-  background: repeating-linear-gradient(90deg, var(--blue) 0,var(--blue) 8px, transparent 8px, transparent 22px);
-  background-color: var(--cream);
-  opacity:.5;
+.how-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start;position:relative;z-index:2;}
+.how-label{display:block;}
+.how-left p{font-size:.97rem;line-height:1.8;opacity:.72;margin-top:20px;}
+.how-box{
+  background:var(--white);border-radius:20px;padding:48px 44px;
+  box-shadow:0 24px 60px rgba(75,31,61,.08);
 }
-.how-inner {
-  position:relative; z-index:2;
-  display:grid; grid-template-columns:1fr 1.4fr;
-  gap:48px; padding:80px 56px;
-  align-items:center;
+.timeline{display:flex;flex-direction:column;}
+.tl-item{
+  display:flex;gap:22px;align-items:flex-start;
+  padding:24px 0;border-bottom:1px dashed rgba(75,31,61,.12);
 }
-.how-left-text {}
-.how-left-text p { font-size:.95rem; line-height:1.8; color:var(--plum); opacity:.72; margin-top:20px; }
-.how-box { background:var(--white); border:2.5px solid var(--plum); border-radius:16px; padding:40px 36px; position:relative; }
-.how-box::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.18); border-radius:10px; pointer-events:none; }
-.timeline { display:flex; flex-direction:column; }
-.tl-item { display:flex; gap:20px; align-items:flex-start; padding:20px 0; border-bottom: 2px dashed rgba(75,31,61,.12); }
-.tl-item:last-child { border-bottom:none; padding-bottom:0; }
-.tl-num { width:38px; height:38px; background:var(--plum); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:900; flex-shrink:0; transition:background .2s; }
-.tl-item:hover .tl-num { background:var(--coral); }
-.tl-num:nth-child(1){}
-.tl-title { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; margin-bottom:4px; }
-.tl-desc { font-size:.8rem; line-height:1.68; opacity:.72; }
+.tl-item:last-child{border-bottom:none;padding-bottom:0;}
+.tl-num{
+  width:40px;height:40px;background:var(--plum);color:var(--white);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:900;flex-shrink:0;
+  transition:background .2s,transform .2s;
+}
+.tl-item:hover .tl-num{background:var(--coral);transform:scale(1.1);}
+.tl-title{font-family:'Nunito',sans-serif;font-size:.97rem;font-weight:800;margin-bottom:4px;}
+.tl-desc{font-size:.82rem;line-height:1.7;opacity:.7;}
 
-/* ── SERVICES — clean 2-col ── */
-.services { border-bottom: 3px dashed rgba(75,31,61,.15); }
-.svc-head {
-  padding:72px 56px 52px; background:var(--cream);
-  border-bottom: 2px dashed rgba(75,31,61,.15);
+/* STATS ROW */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--plum);
 }
-.svc-head-inner { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; }
-.svc-head p { font-size:.95rem; line-height:1.8; color:var(--plum); opacity:.72; }
-.svc-list { display:grid; grid-template-columns:1fr 1fr; }
-.svc-item {
-  padding:32px 40px; border-right: 2px dashed rgba(75,31,61,.15); border-bottom: 2px dashed rgba(75,31,61,.15);
-  display:flex; gap:18px; align-items:flex-start;
-  transition:background .22s;
-  position:relative;
+.stat-block{
+  padding:64px 48px;
+  border-right:1px solid rgba(255,255,255,.1);
+  position:relative;overflow:hidden;
 }
-.svc-item:hover { background:var(--blush); }
-.svc-item:nth-child(2n){ border-right:none; }
-.svc-item:nth-last-child(-n+2){ border-bottom:none; }
-.svc-accent { width:4px; flex-shrink:0; border-radius:4px; min-height:40px; align-self:stretch; }
-.svc-item:nth-child(1) .svc-accent { background:var(--coral); }
-.svc-item:nth-child(2) .svc-accent { background:var(--lav); }
-.svc-item:nth-child(3) .svc-accent { background:var(--lime); }
-.svc-item:nth-child(4) .svc-accent { background:var(--blue); }
-.svc-item:nth-child(5) .svc-accent { background:var(--pink); }
-.svc-item:nth-child(6) .svc-accent { background:var(--coral); }
-.svc-item:nth-child(7) .svc-accent { background:var(--lav); }
-.svc-item:nth-child(8) .svc-accent { background:var(--lime); }
-.svc-n { position:absolute; top:14px; right:18px; font-size:.62rem; letter-spacing:2px; font-weight:700; opacity:.2; font-family:'Nunito',sans-serif; }
-.svc-name { font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:900; margin-bottom:6px; }
-.svc-desc { font-size:.8rem; line-height:1.65; opacity:.72; }
+.stat-block:last-child{border-right:none;}
+.stat-block::before{
+  content:'';position:absolute;bottom:0;right:0;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.03);
+  transform:translate(30%,30%);
+}
+.stat-number{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.5rem,5vw,6rem);
+  font-weight:900;color:var(--lime);line-height:1;
+  display:block;margin-bottom:10px;
+}
+.stat-label{font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;color:rgba(255,255,255,.7);line-height:1.5;}
 
-/* ── PACKAGES — striped bg + framed cards ── */
-.packages {
-  padding:88px 56px;
-  border-bottom: 3px dashed rgba(75,31,61,.15);
-  position:relative; overflow:hidden;
+/* PACKAGES */
+.packages{
+  padding:100px 64px;
+  position:relative;overflow:hidden;
 }
-.packages-stripe {
-  position:absolute; inset:0;
-  background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px);
-  background-color: var(--pink);
-  opacity:.35;
+.packages::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,var(--lime) 0,var(--lime) 6px,transparent 6px,transparent 20px);
+  background-color:var(--pink);
+  opacity:.25;
 }
-.packages > *:not(.packages-stripe) { position:relative; z-index:1; }
-.pkg-head { margin-bottom:48px; }
-.pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.pkg {
-  background:var(--white); border:2.5px solid var(--plum); border-radius:16px;
-  padding:38px 28px; display:flex; flex-direction:column; gap:16px;
-  transition:transform .28s ease;
-  position:relative;
+.packages>*{position:relative;z-index:1;}
+.pkg-head{margin-bottom:52px;}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.pkg{
+  background:rgba(255,255,255,.85);backdrop-filter:blur(12px);
+  border-radius:20px;padding:44px 32px;
+  display:flex;flex-direction:column;gap:18px;
+  border:1.5px solid rgba(255,255,255,.9);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+  box-shadow:0 8px 32px rgba(75,31,61,.08);
 }
-.pkg::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.15); border-radius:10px; pointer-events:none; }
-.pkg:hover { transform:translateY(-7px); }
-.pkg:nth-child(2){ background:var(--plum); }
-.pkg:nth-child(2)::before { border-color:rgba(255,255,255,.12); }
-.pkg-num { font-family:'Nunito',sans-serif; font-size:2.4rem; font-weight:900; color:var(--coral); line-height:1; }
-.pkg:nth-child(2) .pkg-num { color:var(--lime); }
-.pkg-name { font-family:'Nunito',sans-serif; font-size:1.1rem; font-weight:900; line-height:1.2; }
-.pkg:nth-child(2) .pkg-name { color:var(--white); }
-.pkg-badge { display:inline-block; background:var(--lime); color:var(--plum); border-radius:60px; padding:4px 12px; font-size:.65rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; width:fit-content; }
-.pkg-desc { font-size:.82rem; line-height:1.72; flex:1; }
-.pkg:nth-child(2) .pkg-desc { color:rgba(255,255,255,.78); }
-.pkg-btn { display:block; text-align:center; background:var(--coral); color:var(--white); border-radius:60px; padding:12px; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; text-decoration:none; transition:background .2s; position:relative; z-index:2; }
-.pkg-btn:hover { background:var(--plum); }
-.pkg:nth-child(2) .pkg-btn { background:var(--lime); color:var(--plum); }
-.pkg:nth-child(2) .pkg-btn:hover { background:var(--white); }
+.pkg:hover{transform:translateY(-10px);box-shadow:0 24px 60px rgba(75,31,61,.15);}
+.pkg:nth-child(2){background:var(--plum);border-color:var(--plum);}
+.pkg-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--coral);line-height:1;}
+.pkg:nth-child(2) .pkg-num{color:var(--lime);}
+.pkg-name{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:900;line-height:1.2;}
+.pkg:nth-child(2) .pkg-name{color:var(--white);}
+.pkg-badge{display:inline-block;background:var(--lime);color:var(--plum);border-radius:60px;padding:5px 14px;font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:fit-content;}
+.pkg-desc{font-size:.84rem;line-height:1.75;flex:1;}
+.pkg:nth-child(2) .pkg-desc{color:rgba(255,255,255,.75);}
+.pkg-btn{
+  display:block;text-align:center;background:var(--coral);color:var(--white);
+  border-radius:60px;padding:14px;
+  font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;
+  text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(255,107,74,.25);
+}
+.pkg-btn:hover{background:var(--plum);transform:translateY(-2px);}
+.pkg:nth-child(2) .pkg-btn{background:var(--lime);color:var(--plum);}
+.pkg:nth-child(2) .pkg-btn:hover{background:var(--white);}
 
-/* ── TESTI — lavender stripe bg + white boxes ── */
-.testi {
-  padding:88px 56px;
-  border-bottom: 3px dashed rgba(75,31,61,.15);
-  position:relative; overflow:hidden;
+/* TESTIMONIALS */
+.testi{padding:100px 64px;background:var(--cream);position:relative;overflow:hidden;}
+.testi::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,var(--lav) 0,var(--lav) 6px,transparent 6px,transparent 20px);
+  opacity:.18;
 }
-.testi-stripe {
-  position:absolute; inset:0;
-  background: repeating-linear-gradient(90deg, var(--lav) 0,var(--lav) 7px, transparent 7px, transparent 20px);
-  background-color: var(--cream);
-  opacity:.3;
+.testi>*{position:relative;z-index:1;}
+.testi-head{margin-bottom:56px;}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.tcard{
+  border-radius:20px;padding:40px 32px;
+  display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+  box-shadow:0 4px 20px rgba(75,31,61,.06);
 }
-.testi > *:not(.testi-stripe) { position:relative; z-index:1; }
-.testi-head { margin-bottom:44px; }
-.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.tcard {
-  background:var(--white); border:2.5px solid var(--plum); border-radius:16px;
-  padding:32px 26px; display:flex; flex-direction:column;
-  transition:transform .28s ease;
-  position:relative;
+.tcard:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(75,31,61,.12);}
+.tcard:nth-child(1){background:var(--lav);}
+.tcard:nth-child(2){background:var(--lime);}
+.tcard:nth-child(3){background:var(--pink);}
+.tcard-badge{display:inline-block;background:var(--plum);color:var(--white);border-radius:60px;padding:5px 14px;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;width:fit-content;}
+.tcard-stars{color:var(--coral);letter-spacing:3px;font-size:.85rem;margin-bottom:12px;}
+.tcard-q{font-family:'Playfair Display',serif;font-size:3rem;line-height:.8;opacity:.12;margin-bottom:6px;}
+.tcard-text{font-family:'Nunito',sans-serif;font-style:italic;font-size:.95rem;line-height:1.75;color:var(--plum);margin-bottom:24px;flex:1;}
+.tcard-name{font-family:'Nunito',sans-serif;font-weight:900;font-size:.78rem;letter-spacing:.5px;text-transform:uppercase;}
+.tcard-role{font-size:.72rem;opacity:.6;margin-top:3px;}
+
+/* VALUES / INTRO RIGHT */
+.val-row{display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px dashed rgba(75,31,61,.1);}
+.val-row:last-child{border-bottom:none;}
+.val-row:hover .val-icon{transform:scale(1.1);}
+.val-icon{width:44px;height:44px;border-radius:50%;border:2px solid var(--plum);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem;transition:transform .2s;}
+.val-title{font-family:'Nunito',sans-serif;font-size:.97rem;font-weight:800;margin-bottom:4px;}
+.val-text{font-size:.83rem;line-height:1.65;opacity:.7;}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;}
+.contact-left{
+  padding:100px 64px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+  background:repeating-linear-gradient(90deg,var(--lime) 0,var(--lime) 6px,transparent 6px,transparent 20px);
+  background-color:var(--cream);
 }
-.tcard::before { content:''; position:absolute; inset:7px; border:1.5px dashed rgba(75,31,61,.15); border-radius:10px; pointer-events:none; }
-.tcard:hover { transform:translateY(-5px); }
-.tcard:nth-child(1){ background:var(--lav); }
-.tcard:nth-child(2){ background:var(--lime); }
-.tcard:nth-child(3){ background:var(--pink); }
-.tcard:nth-child(1)::before,.tcard:nth-child(2)::before,.tcard:nth-child(3)::before { border-color:rgba(75,31,61,.12); }
-.tcard-badge { display:inline-block; background:var(--plum); color:var(--white); border-radius:60px; padding:4px 12px; font-family:'Nunito',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:14px; width:fit-content; }
-.tcard-stars { color:var(--coral); letter-spacing:2px; font-size:.82rem; margin-bottom:10px; }
-.tcard-q { font-family:'Nunito',sans-serif; font-size:2rem; line-height:.85; opacity:.15; margin-bottom:6px; }
-.tcard-text { font-family:'Nunito',sans-serif; font-style:italic; font-size:.92rem; line-height:1.72; color:var(--plum); margin-bottom:20px; flex:1; }
-.tcard-name { font-family:'Nunito',sans-serif; font-weight:900; font-size:.78rem; letter-spacing:.5px; text-transform:uppercase; }
-.tcard-role { font-size:.72rem; opacity:.6; margin-top:2px; }
-
-/* ── CONTACT ── */
-.contact { display:grid; grid-template-columns:1fr 1fr; border-bottom: 3px dashed rgba(75,31,61,.15); }
-.contact-left {
-  padding:80px 56px; border-right: 4px dotted rgba(75,31,61,.18);
-  display:flex; flex-direction:column; justify-content:center;
-  position:relative; overflow:hidden;
-  background: repeating-linear-gradient(90deg, var(--lime) 0,var(--lime) 7px, transparent 7px, transparent 20px);
-  background-color: var(--cream);
+.contact-left-inner{
+  background:rgba(255,248,240,.9);backdrop-filter:blur(10px);
+  border-radius:20px;padding:48px 44px;
+  position:relative;z-index:2;
+  box-shadow:0 16px 48px rgba(75,31,61,.06);
 }
-.contact-left-inner { background:rgba(255,248,240,.92); border-radius:16px; border:2px dashed rgba(75,31,61,.18); padding:40px 36px; position:relative; z-index:2; }
-.contact-left h2.title em { font-style:italic; }
-.contact-left p { font-size:.95rem; line-height:1.8; margin-top:14px; color:var(--plum); max-width:400px; opacity:.85; }
-.cpills { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
-.cpill { display:flex; align-items:center; gap:12px; background:var(--white); border:1.5px dashed rgba(75,31,61,.25); border-radius:10px; padding:11px 16px; font-size:.88rem; font-weight:700; color:var(--plum); transition:background .2s, transform .2s; }
-.cpill:hover { background:var(--lime); transform:translateX(4px); }
-.cpill-icon { width:28px; height:28px; background:var(--plum); color:var(--lime); display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:800; flex-shrink:0; border-radius:6px; }
-.contact-right { padding:80px 56px; background:var(--cream); }
-.contact-right h3 { font-family:'Nunito',sans-serif; font-size:1.7rem; font-weight:900; margin-bottom:26px; }
-.fg { margin-bottom:15px; }
-.fl { display:block; font-family:'Nunito',sans-serif; font-size:.65rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
-.fi { width:100%; padding:12px 15px; border:2px dashed rgba(75,31,61,.3); border-radius:10px; background:var(--white); font-family:'Nunito',sans-serif; font-size:.9rem; color:var(--plum); outline:none; transition:border-color .2s, box-shadow .2s; }
-.fi:focus { border-color:var(--coral); border-style:solid; box-shadow:0 0 0 3px rgba(255,107,74,.12); }
-textarea.fi { resize:vertical; min-height:100px; }
-select.fi { cursor:pointer; }
-.fsub { width:100%; background:var(--coral); color:var(--white); border:none; border-radius:60px; padding:15px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:800; cursor:pointer; letter-spacing:.5px; text-transform:uppercase; transition:background .2s, transform .2s; }
-.fsub:hover { background:var(--plum); transform:translateY(-1px); }
+.contact-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:900;line-height:1.1;margin-bottom:16px;}
+.contact-left h2 em{font-style:italic;color:var(--coral);}
+.contact-left p{font-size:.95rem;line-height:1.8;color:var(--plum);opacity:.8;}
+.cpills{margin-top:28px;display:flex;flex-direction:column;gap:10px;}
+.cpill{display:flex;align-items:center;gap:12px;background:var(--white);border-radius:12px;padding:13px 18px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:var(--plum);box-shadow:0 2px 12px rgba(75,31,61,.06);transition:transform .2s,box-shadow .2s;}
+.cpill:hover{transform:translateX(5px);box-shadow:0 6px 24px rgba(75,31,61,.1);}
+.cpill-icon{width:30px;height:30px;background:var(--plum);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;flex-shrink:0;border-radius:8px;}
+.contact-right{padding:100px 64px;background:var(--plum);display:flex;flex-direction:column;justify-content:center;}
+.contact-right h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--white);margin-bottom:32px;}
+.fg{margin-bottom:16px;}
+.fl{display:block;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;color:rgba(255,255,255,.6);}
+.fi{width:100%;padding:14px 18px;border:1.5px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(255,255,255,.08);font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--white);outline:none;transition:border-color .2s,background .2s;}
+.fi::placeholder{color:rgba(255,255,255,.35);}
+.fi:focus{border-color:var(--lime);background:rgba(255,255,255,.12);}
+textarea.fi{resize:vertical;min-height:110px;}
+select.fi{cursor:pointer;}
+select.fi option{background:var(--plum);color:var(--white);}
+.fsub{width:100%;background:var(--lime);color:var(--plum);border:none;border-radius:60px;padding:16px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 24px rgba(215,242,106,.3);margin-top:4px;}
+.fsub:hover{background:var(--white);transform:translateY(-2px);box-shadow:0 12px 36px rgba(215,242,106,.4);}
 
-/* ── BOTTOM BAR ── */
-.bottom-bar { background:var(--plum); display:grid; grid-template-columns:repeat(6,1fr); border-top:3px solid var(--coral); }
-.bb { padding:16px 8px; text-align:center; border-right:1px dashed rgba(255,255,255,.15); font-family:'Nunito',sans-serif; font-size:.67rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.65); display:flex; align-items:center; justify-content:center; gap:6px; }
-.bb:last-child { border-right:none; }
-.bb-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+/* SEC LABEL */
+.sec-label{font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:14px;display:block;}
+h2.title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:900;line-height:1.06;}
+h2.title em{font-style:italic;color:var(--coral);}
 
-/* ── FOOTER ── */
-footer { background:var(--plum); color:var(--white); padding:32px 56px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; border-top:1px dashed rgba(255,255,255,.15); }
-.footer-logo { font-family:'Nunito',sans-serif; font-size:1.3rem; font-weight:900; }
-.footer-logo em { font-style:italic; color:var(--coral); }
-footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
-.flinks { list-style:none; display:flex; gap:22px; }
-.flinks a { font-size:.72rem; color:rgba(255,255,255,.55); text-decoration:none; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
-.flinks a:hover { color:var(--lime); }
+/* BOTTOM BAR */
+.bottom-bar{background:var(--plum);display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid rgba(255,255,255,.08);}
+.bb{padding:18px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:'Nunito',sans-serif;font-size:.67rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;gap:6px;}
+.bb:last-child{border-right:none;}
+.bb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
-
+/* FOOTER */
+footer{background:var(--plum);color:var(--white);padding:40px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;}
+.footer-logo em{font-style:italic;color:var(--coral);}
+footer p{font-size:.72rem;color:rgba(255,255,255,.35);}
+.flinks{list-style:none;display:flex;gap:28px;}
+.flinks a{font-family:'Nunito',sans-serif;font-size:.72rem;color:rgba(255,255,255,.5);text-decoration:none;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color .2s;}
+.flinks a:hover{color:var(--lime);}
 
 @media(max-width:900px){
-  nav { padding:14px 20px; } nav ul { display:none; }
-  .hero { grid-template-columns:1fr; min-height:auto; }
-  .hero-left { border-right:none; border-bottom:3px dashed rgba(255,107,74,.3); padding:52px 24px; }
-  .hero-right { padding:40px 24px; min-height:360px; }
-  .intro,.how-inner,.contact { grid-template-columns:1fr; }
-  .intro-left { border-right:none; border-bottom:3px dashed rgba(255,255,255,.25); padding:60px 24px; }
-  .intro-right { padding:60px 24px; }
-  .how-inner { padding:60px 24px; gap:32px; }
-  .svc-head { padding:48px 24px 36px; }
-  .svc-head-inner { grid-template-columns:1fr; gap:16px; }
-  .svc-list { grid-template-columns:1fr; }
-  .svc-item:nth-child(2n){ border-right:none; }
-  .svc-item:nth-last-child(-n+2){ border-bottom:2px dashed rgba(75,31,61,.12); }
-  .svc-item:last-child { border-bottom:none; }
-  .packages,.testi { padding:60px 24px; }
-  .pkg-grid,.tgrid { grid-template-columns:1fr; }
-  .contact-left { border-right:none; border-bottom:3px dashed rgba(75,31,61,.15); padding:60px 24px; }
-  .contact-right { padding:60px 24px; }
-  .bottom-bar { grid-template-columns:repeat(3,1fr); }
-  footer { padding:26px 20px; flex-direction:column; text-align:center; }
-  .stk-float { display:none; }
+  *{cursor:auto;}
+  .cursor,.cursor-ring{display:none;}
+  nav{padding:16px 24px;background:rgba(255,248,240,.96);}
+  nav ul{display:none;}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:72px;}
+  .hero-left{padding:52px 28px;}
+  .hero-right{padding:40px 28px;min-height:320px;}
+  .statement{padding:60px 28px;}
+  .statement-cols{grid-template-columns:1fr;}
+  .what-header{grid-template-columns:1fr;gap:20px;padding:60px 28px 40px;}
+  .svc-list{grid-template-columns:1fr;}
+  .svc-item{border-right:none;}
+  .svc-item:nth-child(2n){border-right:none;}
+  .how{padding:60px 28px;}
+  .how-inner{grid-template-columns:1fr;gap:36px;}
+  .stats-row{grid-template-columns:1fr;}
+  .stat-block{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);padding:44px 28px;}
+  .packages{padding:60px 28px;}
+  .pkg-grid{grid-template-columns:1fr;}
+  .testi{padding:60px 28px;}
+  .tgrid{grid-template-columns:1fr;}
+  .contact{grid-template-columns:1fr;}
+  .contact-left{padding:60px 28px;}
+  .contact-right{padding:60px 28px;}
+  .bottom-bar{grid-template-columns:repeat(3,1fr);}
+  footer{padding:28px 24px;flex-direction:column;text-align:center;}
 }
 </style>
 </head>
 <body>
 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- NAV -->
-<nav>
+<nav id="nav">
   <div class="nav-logo">hello, <em>virtually!</em></div>
   <ul>
-    <li><a href="#how">How It Works</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
     <li><a href="#packages">Packages</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-btn">Let's Chat!</a>
+  <a href="#contact" class="nav-btn">Let's Chat</a>
 </nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left" data-reveal="up">
+    <div class="hero-eyebrow">Virtual Assistant Agency</div>
+    <h1>Your business,<br><span class="line2">handled with<br>real care.</span></h1>
+    <p class="hero-sub">We're the team behind the scenes. Managing your inbox, looking after your clients, and making sure nothing gets missed. You focus on your work. We handle everything else.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-main">Work With Us <span>→</span></a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+  <div class="hero-right" data-reveal="right">
+    <div class="hero-numblock">
+      <span class="hero-bignum">100%</span>
+      <span class="hero-numlabel">Human. Every message. Every time.</span>
+    </div>
+    <div class="hero-pills">
+      <div class="hpill"><div class="hpill-dot" style="background:var(--lime)"></div>Inbox managed every day</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--coral)"></div>Real humans responding</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--lav)"></div>Follow-ups, never missed</div>
+      <div class="hpill"><div class="hpill-dot" style="background:var(--blue)"></div>Digital presence, set up right</div>
+    </div>
+  </div>
+</section>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -439,100 +495,90 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   </div>
 </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left" data-reveal="up">
-    <span class="hero-eyebrow">Virtual Assistant Agency</span>
-    <h1>Your business,<br>handled with<br><span class="accent">real care.</span></h1>
-    <p class="hero-desc">We're the team behind the scenes, managing your inbox, responding to clients, organizing your admin, and making sure nothing gets missed. You focus on your work. We handle everything else.</p>
-    <div class="hero-btns">
-      <a href="#contact" class="btn-plum">Work With Us</a>
-      <a href="#how" class="btn-outline">See How It Works</a>
+<!-- STATEMENT -->
+<section class="statement">
+  <div class="statement-inner" data-reveal="up">
+    <h2>Running a business is <em>a lot.</em><br>You shouldn't have to do it alone.</h2>
+    <div class="statement-cols">
+      <div>
+        <p>Most business owners are brilliant at what they do, but buried in emails, missed messages, and admin tasks that eat their entire day. That's exactly where we come in.</p>
+        <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and look after it like it's our own.</p>
+      </div>
+      <div>
+        <div class="statement-callout">Think of us as your remote, always-on office manager. Minus the overhead.</div>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
+            <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
+            Your inbox, managed and organized daily
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
+            <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
+            Every client hears from a real, warm person
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
+            <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
+            Admin off your plate, completely
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:600;">
+            <span style="width:8px;height:8px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
+            Your full digital presence, set up right
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="hero-right" data-reveal="right">
-    <!-- SVG sticker: "You're in good hands" floating -->
-
-    <div class="hero-card">
-      <span class="hero-card-label">Here's what changes</span>
-      <div class="hero-stat">100%</div>
-      <div class="hero-stat-sub">Human. Every message. Every time.</div>
-      <div class="hero-divider"></div>
-      <ul class="check-list">
-        <li>
-          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          Inbox organized and under control
-        </li>
-        <li>
-          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          Every client gets a warm, real response
-        </li>
-        <li>
-          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          Follow-ups handled so nothing slips
-        </li>
-        <li>
-          <div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#4B1F3D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          Your digital presence — fully set up
-        </li>
-      </ul>
-    </div>
-
-    <!-- SVG sticker: paperclip bottom left -->
   </div>
 </section>
 
-<!-- WAVE -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--blush);">
-  <path d="M0,0 C60,48 120,0 180,24 C240,48 300,0 360,24 C420,48 480,0 540,24 C600,48 660,0 720,24 C780,48 840,0 900,24 C960,48 1020,0 1080,24 C1140,48 1200,0 1260,24 C1320,48 1380,0 1440,24 L1440,48 L0,48 Z" fill="#FF6B4A"/>
-</svg>
-
-<!-- INTRO -->
-<section class="intro">
-  <div class="intro-left" data-reveal="left">
-    <h2>Running a business is <em>a lot.</em> You shouldn't have to do it alone.</h2>
-    <p>Most business owners are brilliant at what they do — but buried in emails, missed messages, and admin tasks that eat their day. That's exactly where we come in.</p>
-    <p style="margin-top:16px">We're not a bot, not a call center. We're real people who learn your business and look after it like it's our own.</p>
-    <div class="callout">Think of us as your remote, always-on office manager. Minus the overhead.</div>
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-block" data-reveal="up">
+    <span class="stat-number">100%</span>
+    <span class="stat-label">Human responses. No bots, no scripts, no templates.</span>
   </div>
-  <div class="intro-right" data-reveal="right">
-    <h3>What that looks like in practice:</h3>
-    <div class="val-row">
-      <div class="val-icon" style="background:var(--lime)">📬</div>
-      <div><div class="val-title">Your inbox, managed daily</div><div class="val-text">We sort, respond, and organize so you never open to chaos again. Clients always feel heard.</div></div>
+  <div class="stat-block" data-reveal="up" style="transition-delay:.15s">
+    <span class="stat-number">2x</span>
+    <span class="stat-label">Daily updates so you always know what's happening.</span>
+  </div>
+  <div class="stat-block" data-reveal="up" style="transition-delay:.3s">
+    <span class="stat-number">0</span>
+    <span class="stat-label">Things that fall through the cracks. We catch everything.</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="what" id="services">
+  <div class="what-header">
+    <div data-reveal="up">
+      <span class="sec-label">What We Do</span>
+      <h2 class="title">More than a VA.<br><em>A full team.</em></h2>
     </div>
-    <div class="val-row">
-      <div class="val-icon" style="background:var(--pink)">🤝</div>
-      <div><div class="val-title">Real human communication</div><div class="val-text">Every message your clients receive feels personal, warm, and on-brand. Because it is.</div></div>
-    </div>
-    <div class="val-row">
-      <div class="val-icon" style="background:var(--blue)">📋</div>
-      <div><div class="val-title">Admin you don't have to touch</div><div class="val-text">Estimates, contracts, scheduling, follow-ups. All handled and off your plate.</div></div>
-    </div>
-    <div class="val-row">
-      <div class="val-icon" style="background:var(--lav)">🌐</div>
-      <div><div class="val-title">Your full digital presence</div><div class="val-text">Website, Google Business, WhatsApp, social. Set up properly so you're easy to find.</div></div>
-    </div>
+    <p data-reveal="up">Pick what you need or hand us everything. Either way, it gets done properly, promptly, and with care.</p>
+  </div>
+  <div class="svc-list">
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Inbox and Email Management</div><div class="svc-desc">We sort, respond, and organize your inbox daily. Clients always get a warm, real response.</div></div></div>
+    <div class="svc-item" data-reveal="up" class="d1"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Client Follow-Up</div><div class="svc-desc">We check in with clients and prospects so no conversation gets forgotten and every relationship stays warm.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We talk to your inquiries first, understand what they need, and bring you the ones who are genuinely ready.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms. Checked daily so no one waits too long to hear from you.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates and Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed actually easy.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call, so every conversation starts on the right foot.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Google Business and SEO</div><div class="svc-desc">We set up and optimize your Google presence so people in your area can actually find you when it matters.</div></div></div>
+    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp and More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns. Your entire online presence, handled.</div></div></div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
-  <div class="how-stripe-bg"></div>
-
-  <!-- Floating sticker: "On it!" -->
-
   <div class="how-inner">
-    <div class="how-left-text" data-reveal="left">
-      <span class="sec-label">The Process</span>
+    <div data-reveal="left">
+      <span class="sec-label how-label">The Process</span>
       <h2 class="title">Simple to start.<br><em>Easy to love.</em></h2>
-      <p>We make it genuinely easy to hand things off. No complicated onboarding, no long contracts. Just a conversation and we get to work.</p>
+      <p class="how-left p">We make it genuinely easy to hand things off. No complicated onboarding, no long contracts. Just a conversation and we get to work.</p>
     </div>
     <div class="how-box" data-reveal="right">
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-num">01</div>
-          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate. So we can show up sounding like you.</div></div>
+          <div><div class="tl-title">We have a real conversation.</div><div class="tl-desc">We learn how your business works, what your clients are like, and how you communicate. So we show up sounding like you.</div></div>
         </div>
         <div class="tl-item">
           <div class="tl-num">02</div>
@@ -551,38 +597,12 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   </div>
 </section>
 
-<!-- WAVE -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--cream);">
-  <path d="M0,48 C60,0 120,48 180,24 C240,0 300,48 360,24 C420,0 480,48 540,24 C600,0 660,48 720,24 C780,0 840,48 900,24 C960,0 1020,48 1080,24 C1140,0 1200,48 1260,24 C1320,0 1380,48 1440,24 L1440,0 L0,0 Z" fill="#BDE3F7"/>
-</svg>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="svc-head">
-    <div class="svc-head-inner">
-      <div data-reveal="up"><span class="sec-label">What We Do</span><h2 class="title">More than a VA.<br><em>A full team.</em></h2></div>
-      <p data-reveal="up">Pick what you need or hand us everything. Either way, it gets done — properly, promptly, and with care.</p>
-    </div>
-  </div>
-  <div class="svc-list">
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">01</span><div><div class="svc-name">Inbox & Email Management</div><div class="svc-desc">We sort, respond, and organize your inbox daily. Clients always get a warm, real response — fast.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">02</span><div><div class="svc-name">Client Follow-Up</div><div class="svc-desc">We check in with clients and prospects so no conversation gets forgotten and every relationship stays warm.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">03</span><div><div class="svc-name">Lead Qualification</div><div class="svc-desc">We talk to your inquiries first, understand what they need, and bring you the ones who are genuinely ready.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">04</span><div><div class="svc-name">Social Media Monitoring</div><div class="svc-desc">DMs, comments, mentions across platforms. Checked daily so no one waits too long to hear from you.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">05</span><div><div class="svc-name">Estimates & Contracts</div><div class="svc-desc">Professional, branded templates that make sending quotes and getting agreements signed actually easy.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">06</span><div><div class="svc-name">Custom Intake Forms</div><div class="svc-desc">We build forms that gather exactly what you need before a call, so every conversation starts on the right foot.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">07</span><div><div class="svc-name">Google Business & SEO</div><div class="svc-desc">We set up and optimize your Google presence so people in your area can actually find you when it matters.</div></div></div>
-    <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website, WhatsApp & More</div><div class="svc-desc">Full website setup, WhatsApp Business, blog writing, ad campaigns. Your entire online presence, handled.</div></div></div>
-  </div>
-</section>
-
 <!-- PACKAGES -->
 <section class="packages" id="packages">
-  <div class="packages-stripe"></div>
-
-  <!-- sticker removed -->
-
-  <div class="pkg-head" data-reveal="up"><span class="sec-label">Our Packages</span><h2 class="title">Start where<br>you <em>need to.</em></h2></div>
+  <div class="pkg-head" data-reveal="up">
+    <span class="sec-label">Our Packages</span>
+    <h2 class="title">Start where<br>you <em>need to.</em></h2>
+  </div>
   <div class="pkg-grid">
     <div class="pkg" data-reveal="up">
       <div class="pkg-num">01</div>
@@ -608,8 +628,10 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 
 <!-- TESTIMONIALS -->
 <section class="testi" id="testimonials">
-  <div class="testi-stripe"></div>
-  <div class="testi-head" data-reveal="up"><span class="sec-label">Client Love</span><h2 class="title">What it actually<br><em>feels like.</em></h2></div>
+  <div class="testi-head" data-reveal="up">
+    <span class="sec-label">Client Love</span>
+    <h2 class="title">What it actually<br><em>feels like.</em></h2>
+  </div>
   <div class="tgrid">
     <div class="tcard" data-reveal="up">
       <div class="tcard-badge">HVAC Owner</div>
@@ -635,17 +657,12 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
   </div>
 </section>
 
-<!-- WAVE -->
-<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--cream);">
-  <path d="M0,0 C60,48 120,0 180,24 C240,48 300,0 360,24 C420,48 480,0 540,24 C600,48 660,0 720,24 C780,48 840,0 900,24 C960,48 1020,0 1080,24 C1140,48 1200,0 1260,24 C1320,48 1380,0 1440,24 L1440,48 L0,48 Z" fill="#D7F26A"/>
-</svg>
-
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="contact-left" data-reveal="left">
     <div class="contact-left-inner">
       <span class="sec-label">Get In Touch</span>
-      <h2 class="title">Let's make your<br>life a little <em>easier.</em></h2>
+      <h2>Let's make your<br>life a little <em>easier.</em></h2>
       <p>Book a free call. We'll talk through what's on your plate and what would actually help. No pressure, no pitch. Just a real conversation.</p>
       <div class="cpills">
         <div class="cpill"><div class="cpill-icon">WA</div>WhatsApp Business Available</div>
@@ -662,8 +679,8 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
     <div class="fg"><label class="fl">What Do You Need Help With?</label>
       <select class="fi">
         <option value="">Pick a service...</option>
-        <option>Inbox & email management</option>
-        <option>Client follow-up & communication</option>
+        <option>Inbox and email management</option>
+        <option>Client follow-up and communication</option>
         <option>Lead qualification</option>
         <option>Social media monitoring</option>
         <option>Website or digital setup</option>
@@ -690,8 +707,8 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 <footer>
   <div class="footer-logo">hello, <em>virtually!</em></div>
   <ul class="flinks">
-    <li><a href="#how">How It Works</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
     <li><a href="#packages">Packages</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -699,10 +716,36 @@ footer p { font-size:.72rem; color:rgba(255,255,255,.38); }
 </footer>
 
 <script>
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.1});
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
