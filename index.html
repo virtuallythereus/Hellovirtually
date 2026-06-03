@@ -509,7 +509,49 @@ textarea.step-input{resize:vertical;min-height:120px;}
   .step-q{font-size:1.4rem;}
 }
 
-/* ===== CUSTOM SOLUTIONS HIGHLIGHT ===== */
+/* ===== BOLD VISUAL SYSTEM: waves, scallops, checkers, cutouts ===== */
+
+/* Wavy SVG section dividers sit at the top or bottom of a section */
+.wave-divider{display:block;width:100%;height:60px;line-height:0;position:relative;z-index:3;}
+.wave-divider svg{display:block;width:100%;height:100%;}
+.wave-divider.flip svg{transform:rotate(180deg);}
+@media(max-width:600px){.wave-divider{height:38px;}}
+
+/* Checkerboard band */
+.checker-band{
+  height:34px;width:100%;
+  background-image:
+    linear-gradient(45deg,var(--plum) 25%,transparent 25%),
+    linear-gradient(-45deg,var(--plum) 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,var(--plum) 75%),
+    linear-gradient(-45deg,transparent 75%,var(--plum) 75%);
+  background-size:34px 34px;
+  background-position:0 0,0 17px,17px -17px,-17px 0;
+  background-color:var(--lime);
+}
+.checker-band.coral{background-color:var(--coral);background-image:
+  linear-gradient(45deg,var(--cream) 25%,transparent 25%),
+  linear-gradient(-45deg,var(--cream) 25%,transparent 25%),
+  linear-gradient(45deg,transparent 75%,var(--cream) 75%),
+  linear-gradient(-45deg,transparent 75%,var(--cream) 75%);}
+.checker-band.pink{background-color:var(--pink);background-image:
+  linear-gradient(45deg,var(--plum) 25%,transparent 25%),
+  linear-gradient(-45deg,var(--plum) 25%,transparent 25%),
+  linear-gradient(45deg,transparent 75%,var(--plum) 75%),
+  linear-gradient(-45deg,transparent 75%,var(--plum) 75%);}
+@media(max-width:600px){.checker-band{height:26px;background-size:26px 26px;background-position:0 0,0 13px,13px -13px,-13px 0;}}
+
+/* Scalloped edge (row of half-circles) */
+.scallop{height:30px;width:100%;line-height:0;}
+.scallop svg{display:block;width:100%;height:100%;}
+
+/* floating sticker shapes */
+.deco{position:absolute;z-index:1;pointer-events:none;opacity:.9;}
+.deco.spin{animation:spin 18s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.deco.bob{animation:bob 6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
 .solutions{
   padding:100px 64px;
   background:var(--lav);
@@ -603,6 +645,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
   </div>
 </section>
 
+<!-- wave: blush into plum -->
+<div class="wave-divider" style="background:var(--blush);margin-bottom:-1px;"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 300,0 450,30 C600,60 750,0 900,30 C1050,60 1150,10 1200,30 L1200,60 L0,60 Z" fill="var(--plum)"/></svg></div>
+
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
@@ -629,8 +674,13 @@ textarea.step-input{resize:vertical;min-height:120px;}
   </div>
 </div>
 
+<!-- checker band: ticker into statement -->
+<div class="checker-band coral"></div>
+
 <!-- STATEMENT -->
 <section class="statement">
+  <div class="deco bob" style="top:40px;right:6%;"><svg width="70" height="70" viewBox="0 0 70 70"><path d="M10,35 Q20,15 35,35 T60,35" stroke="var(--lime)" stroke-width="5" fill="none" stroke-linecap="round"/></svg></div>
+  <div class="deco spin" style="bottom:50px;left:5%;"><svg width="54" height="54" viewBox="0 0 54 54"><path d="M27,4 L33,21 L51,21 L36,32 L42,50 L27,38 L12,50 L18,32 L3,21 L21,21 Z" fill="var(--lav)"/></svg></div>
   <div class="statement-inner" data-reveal="up">
     <h2>We treat your customers <em>like they're ours.</em><br>Because to us, they kind of are.</h2>
     <div class="statement-cols">
@@ -663,6 +713,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
   </div>
 </section>
 
+<!-- wave: coral into plum -->
+<div class="wave-divider" style="background:var(--coral);margin-bottom:-1px;"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,20 C200,55 400,55 600,30 C800,5 1000,5 1200,35 L1200,60 L0,60 Z" fill="var(--plum)"/></svg></div>
+
 <!-- STATS ROW -->
 <div class="stats-row">
   <div class="stat-block" data-reveal="up">
@@ -678,6 +731,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
     <span class="stat-label">Customers left waiting. We catch every single one.</span>
   </div>
 </div>
+
+<!-- scallop: plum into cream -->
+<div class="scallop" style="background:var(--plum);"><svg viewBox="0 0 1200 30" preserveAspectRatio="none"><path d="M0,0 Q30,30 60,0 T120,0 T180,0 T240,0 T300,0 T360,0 T420,0 T480,0 T540,0 T600,0 T660,0 T720,0 T780,0 T840,0 T900,0 T960,0 T1020,0 T1080,0 T1140,0 T1200,0 L1200,30 L0,30 Z" fill="var(--cream)"/></svg></div>
 
 <!-- SERVICES -->
 <section class="what" id="services">
@@ -699,6 +755,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
     <div class="svc-item" data-reveal="up"><div class="svc-accent"></div><span class="svc-n">08</span><div><div class="svc-name">Website Design</div><div class="svc-desc">A clean one-pager or a full multi-page site, designed to turn visitors into the leads we're already here to answer for you.</div></div></div>
   </div>
 </section>
+
+<!-- wave: cream into lavender -->
+<div class="wave-divider" style="background:var(--cream);margin-bottom:-1px;"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,35 C150,5 300,5 450,30 C600,55 750,55 900,30 C1050,5 1150,5 1200,25 L1200,60 L0,60 Z" fill="var(--lav)"/></svg></div>
 
 <!-- CUSTOM SOLUTIONS HIGHLIGHT -->
 <section class="solutions" id="solutions">
@@ -732,6 +791,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
   </div>
 </section>
 
+<!-- checker band: solutions into cta -->
+<div class="checker-band pink"></div>
+
 <!-- CTA BANNER -->
 <section class="cta-banner">
   <div class="cta-banner-inner" data-reveal="up">
@@ -740,6 +802,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
     <a href="#contact" class="btn-main">Get Started <span>→</span></a>
   </div>
 </section>
+
+<!-- wave: plum into cream -->
+<div class="wave-divider" style="background:var(--plum);margin-bottom:-1px;"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C100,55 200,5 300,30 C400,55 500,5 600,30 C700,55 800,5 900,30 C1000,55 1100,5 1200,30 L1200,60 L0,60 Z" fill="var(--cream)"/></svg></div>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
@@ -831,6 +896,9 @@ textarea.step-input{resize:vertical;min-height:120px;}
     </div>
   </div>
 </section>
+
+<!-- checker band: into contact -->
+<div class="checker-band"></div>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
