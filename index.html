@@ -64,7 +64,6 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--plum);o
 }
 
 .deco {
-  animation: float-large 8s ease-in-out infinite;
   filter: drop-shadow(0 10px 30px rgba(75,31,61,.2));
 }
 .deco.spin { animation: spin-fast 15s linear infinite; }
@@ -72,39 +71,33 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--plum);o
 
 /* HERO TITLE ANIMATION */
 .hero h1 {
-  background: linear-gradient(120deg, var(--plum) 30%, var(--coral) 50%, var(--plum) 70%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: text-shimmer 3s linear infinite;
+  color: var(--plum);
 }
 
-/* AGGRESSIVE CARD ANIMATIONS */
+/* AGGRESSIVE CARD ANIMATIONS - JavaScript 3D tilt enabled */
 .svc-item {
-  transform: translateZ(0);
-  transition: all .4s cubic-bezier(.22,1,.36,1);
+  transition: box-shadow .4s cubic-bezier(.22,1,.36,1), background .3s ease;
+  transform-style: preserve-3d;
 }
 .svc-item:hover {
-  transform: translateY(-12px) scale(1.03) rotateX(5deg);
   box-shadow: 0 20px 60px rgba(255,107,74,.25) !important;
   background: var(--blush);
 }
 
 .tcard {
-  transition: all .5s cubic-bezier(.22,1,.36,1);
+  transition: box-shadow .5s cubic-bezier(.22,1,.36,1), filter .3s ease;
+  transform-style: preserve-3d;
 }
 .tcard:hover {
-  transform: translateY(-20px) rotateY(8deg) scale(1.05);
   box-shadow: 0 40px 80px rgba(75,31,61,.3) !important;
   filter: brightness(1.08);
 }
 
 .pkg {
-  transition: all .4s cubic-bezier(.22,1,.36,1);
+  transition: box-shadow .4s cubic-bezier(.22,1,.36,1);
+  transform-style: preserve-3d;
 }
 .pkg:hover {
-  transform: translateY(-16px) scale(1.04) rotateZ(-2deg);
   box-shadow: 0 30px 70px rgba(75,31,61,.25) !important;
 }
 
@@ -454,10 +447,8 @@ nav ul a:hover{color:var(--coral);}
 .svc-item:nth-of-type(12) .svc-accent{background:var(--lav);}
 .svc-n{position:absolute;top:16px;right:20px;font-size:.6rem;letter-spacing:2px;font-weight:700;opacity:.18;}
 .svc-name{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.svc-toggle{width:24px;height:24px;border-radius:50%;background:rgba(75,31,61,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;flex-shrink:0;transition:transform .25s,background .2s;line-height:1;}
-.svc-item.open .svc-toggle{transform:rotate(45deg);background:var(--coral);color:var(--white);}
-.svc-desc{font-size:.82rem;line-height:1.68;opacity:.7;max-height:0;overflow:hidden;transition:max-height .35s ease,margin-top .35s ease,opacity .3s;opacity:0;}
-.svc-item.open .svc-desc{max-height:240px;margin-top:8px;opacity:.7;}
+.svc-toggle{display:none;}
+.svc-desc{font-size:.82rem;line-height:1.68;opacity:.7;margin-top:8px;}
 .svc-item{cursor:none;}
 .svc-group-label{
   grid-column:1/-1;display:flex;align-items:center;gap:14px;
@@ -1498,27 +1489,19 @@ document.querySelectorAll('.svc-item').forEach(item=>{
   item.addEventListener('click',()=>item.classList.toggle('open'));
 });
 
-// AGGRESSIVE PARALLAX — elements move fast with scroll
-const parallaxElements = document.querySelectorAll('.deco');
-function updateParallax() {
-  const scrollY = window.scrollY;
-  parallaxElements.forEach((el, idx) => {
-    const speed = 0.5 + (idx * 0.15); // Much more aggressive
-    const offsetX = Math.sin(scrollY * 0.005 + idx) * 30;
-    const offsetY = scrollY * speed;
-    el.style.transform = `translateY(${offsetY}px) translateX(${offsetX}px) rotate(${scrollY * 0.3}deg)`;
-  });
-}
-window.addEventListener('scroll', updateParallax, { passive: true });
-
-// SCROLL-LINKED HERO TRANSFORM — hero rotates and scales as you scroll
-const hero = document.querySelector('.hero');
+// PARALLAX SCROLL - Deco elements move as you scroll
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const maxScroll = 800;
-  const progress = Math.min(scrolled / maxScroll, 1);
-  if (hero) {
-    hero.style.transform = `perspective(1200px) rotateX(${progress * 8}deg) scale(${1 - progress * 0.05})`;
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.deco').forEach((el, idx) => {
+    const speed = 0.4 + idx * 0.2;
+    el.style.transform = `translateY(${scrollY * speed}px)`;
+  });
+  
+  // Hero parallax tilt
+  const hero = document.querySelector('.hero');
+  if (hero && scrollY < 600) {
+    const tilt = scrollY * 0.015;
+    hero.style.transform = `perspective(1200px) rotateX(${tilt}deg) scale(${1 - scrollY * 0.0002})`;
   }
 }, { passive: true });
 
@@ -1642,6 +1625,6 @@ document.querySelectorAll('.deco').forEach((el, idx) => {
   el.style.animationDelay = `${Math.random() * 2}s`;
 });
 
-</script>
+
 </body>
 </html>
