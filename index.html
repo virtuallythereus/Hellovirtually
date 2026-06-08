@@ -54,6 +54,9 @@ nav.scrolled{background:rgba(240,238,233,.92);backdrop-filter:blur(14px);box-sha
 .nav-links a:hover{opacity:1;color:var(--yarrow);}
 .nav-cta{background:var(--ink);color:var(--cloud);padding:11px 24px;border-radius:50px;font-size:.74rem;font-weight:800;letter-spacing:.5px;text-decoration:none;transition:background .2s,transform .2s;}
 .nav-cta:hover{background:var(--yarrow);transform:translateY(-2px);}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.lang-toggle{background:transparent;border:1.5px solid rgba(31,61,58,.25);color:var(--ink);width:42px;height:34px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:1px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.lang-toggle:hover{border-color:var(--lagoon);color:var(--lagoon-d);background:rgba(77,158,154,.08);}
 .nav-toggle{display:none;}
 
 /* ---------- hero ---------- */
@@ -254,13 +257,16 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <nav id="nav">
  <a href="#top" class="logo">hello, virtually<span class="dot"></span></a>
  <ul class="nav-links">
-  <li><a href="#pain">The Problem</a></li>
-  <li><a href="#how">How It Works</a></li>
-  <li><a href="#report">The Report</a></li>
-  <li><a href="#benefits">Why It Helps</a></li>
-  <li><a href="#who">Who It's For</a></li>
+  <li><a href="#pain" data-i18n="nav.problem">The Problem</a></li>
+  <li><a href="#how" data-i18n="nav.how">How It Works</a></li>
+  <li><a href="#report" data-i18n="nav.report">The Report</a></li>
+  <li><a href="#benefits" data-i18n="nav.benefits">Why It Helps</a></li>
+  <li><a href="#who" data-i18n="nav.who">Who It's For</a></li>
  </ul>
- <a href="#contact" class="nav-cta">Let's Talk</a>
+ <div class="nav-right">
+  <button class="lang-toggle" id="langToggle" aria-label="Switch language">ES</button>
+  <a href="#contact" class="nav-cta" data-i18n="nav.talk">Let's Talk</a>
+ </div>
 </nav>
 
 <!-- HERO -->
@@ -269,21 +275,21 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="hero-dots"></div>
  <div class="hero-inner">
   <div class="hero-copy" data-reveal>
-   <div class="eyebrow"><span class="d"></span>For businesses drowning in messages</div>
-   <h1>We answer <span class="accent">your customers,</span><br>so you never lose one.</h1>
-   <p class="hero-hand">every message, answered with care</p>
-   <p class="hero-sub">Your phone never stops. WhatsApp, Instagram, Facebook, your website. We check in twice a day, reply to every customer in your voice, and send you a simple report of who needs what. Nothing slips through, and no leads sit waiting for days.</p>
+   <div class="eyebrow" data-i18n="hero.eyebrow"><span class="d"></span>For businesses drowning in messages</div>
+   <h1 data-i18n="hero.h1">We answer <span class="accent">your customers,</span><br>so you never lose one.</h1>
+   <p class="hero-hand" data-i18n="hero.hand">every message, answered with care</p>
+   <p class="hero-sub" data-i18n="hero.sub">Your phone never stops. WhatsApp, Instagram, Facebook, your website. We check in twice a day, reply to every customer in your voice, and send you a simple report of who needs what. Nothing slips through, and no leads sit waiting for days.</p>
    <div class="hero-btns">
-    <a href="#contact" class="btn btn-primary">Let's Talk <span>→</span></a>
-    <a href="#how" class="btn btn-ghost">See How It Works</a>
+    <a href="#contact" class="btn btn-primary" data-i18n="hero.btn1">Let's Talk <span>→</span></a>
+    <a href="#how" class="btn btn-ghost" data-i18n="hero.btn2">See How It Works</a>
    </div>
    <div class="hero-channels">
-    <span class="lbl">We cover</span>
+    <span class="lbl" data-i18n="hero.cover">We cover</span>
     <div class="chips">
      <span class="chip">WhatsApp</span>
      <span class="chip">Instagram</span>
      <span class="chip">Facebook</span>
-     <span class="chip">Your website form</span>
+     <span class="chip" data-i18n="hero.chip4">Your website form</span>
     </div>
    </div>
   </div>
@@ -294,29 +300,29 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <section class="pain sec-pad" id="pain">
  <div class="wrap">
   <div class="sec-head" data-reveal>
-   <div class="eyebrow"><span class="d"></span>Sound familiar?</div>
-   <h2>You're great at the work. The <span class="accent">messages</span> are burying you.</h2>
-   <p>When you run a busy service business, the inquiries never stop. And every one you miss is a customer who booked someone else.</p>
+   <div class="eyebrow" data-i18n="pain.eyebrow"><span class="d"></span>Sound familiar?</div>
+   <h2 data-i18n="pain.h2">You're great at the work. The <span class="accent">messages</span> are burying you.</h2>
+   <p data-i18n="pain.intro">When you run a busy service business, the inquiries never stop. And every one you miss is a customer who booked someone else.</p>
   </div>
   <div class="pain-grid">
    <div class="pain-card" data-reveal>
-    <div class="q">Messages pile up</div>
-    <p>You're on a job with your hands full. By the time you check your phone, there are a dozen messages waiting and no clear place to start.</p>
+    <div class="q" data-i18n="pain.q1">Messages pile up</div>
+    <p data-i18n="pain.p1">You're on a job with your hands full. By the time you check your phone, there are a dozen messages waiting and no clear place to start.</p>
    </div>
    <div class="pain-card dl1" data-reveal>
-    <div class="q">Leads go cold</div>
-    <p>A new inquiry sits for a few days. By the time you reply, they've already booked someone who answered first. That is revenue quietly walking out the door.</p>
+    <div class="q" data-i18n="pain.q2">Leads go cold</div>
+    <p data-i18n="pain.p2">A new inquiry sits for a few days. By the time you reply, they've already booked someone who answered first. That is revenue quietly walking out the door.</p>
    </div>
    <div class="pain-card dl2" data-reveal>
-    <div class="q">It reads as unprofessional</div>
-    <p>Unanswered messages and a cluttered inbox make even an excellent business look smaller and less reliable than it truly is.</p>
+    <div class="q" data-i18n="pain.q3">It reads as unprofessional</div>
+    <p data-i18n="pain.p3">Unanswered messages and a cluttered inbox make even an excellent business look smaller and less reliable than it truly is.</p>
    </div>
    <div class="pain-card dl3" data-reveal>
-    <div class="q">Your day gets hijacked</div>
-    <p>Keeping up with every message is a constant interruption. The admin quietly eats the hours you would rather spend on the work itself.</p>
+    <div class="q" data-i18n="pain.q4">Your day gets hijacked</div>
+    <p data-i18n="pain.p4">Keeping up with every message is a constant interruption. The admin quietly eats the hours you would rather spend on the work itself.</p>
    </div>
   </div>
-  <p class="pain-foot" data-reveal>Imagine every message answered with care, <b>without it ever touching your to-do list.</b></p>
+  <p class="pain-foot" data-reveal data-i18n="pain.foot">Imagine every message answered with care, <b>without it ever touching your to-do list.</b></p>
  </div>
 </section>
 
@@ -324,40 +330,40 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <section class="how sec-pad" id="how">
  <div class="wrap">
   <div class="sec-head center" data-reveal>
-   <div class="eyebrow coral" style="margin:0 auto;"><span class="d"></span>How it works</div>
-   <h2>One simple system that <span class="accent">catches every customer.</span></h2>
-   <p>We set up the home, build the front door, then we answer it for you, twice a day.</p>
+   <div class="eyebrow coral" style="margin:0 auto;" data-i18n="how.eyebrow"><span class="d"></span>How it works</div>
+   <h2 data-i18n="how.h2">One simple system that <span class="accent">catches every customer.</span></h2>
+   <p data-i18n="how.intro">We set up the home, build the front door, then we answer it for you, twice a day.</p>
   </div>
   <div class="steps">
    <div class="step" data-reveal>
     <div class="step-n">01</div>
     <div class="step-body">
-     <h3>We set up your website</h3>
-     <p>First we give your business a clean, professional home online. It's the place customers land when they find you, where trust starts and where inquiries come in.</p>
-     <span class="step-tag">One-time setup</span>
+     <h3 data-i18n="how.s1h">We set up your website</h3>
+     <p data-i18n="how.s1p">First we give your business a clean, professional home online. It's the place customers land when they find you, where trust starts and where inquiries come in.</p>
+     <span class="step-tag" data-i18n="how.s1t">One-time setup</span>
     </div>
    </div>
    <div class="step" data-reveal>
     <div class="step-n">02</div>
     <div class="step-body">
-     <h3>We build your intake form</h3>
-     <p>Then we build a simple form that captures every inquiry the same way: their name, what they need, and how to reach them. No more details lost in a sea of DMs.</p>
-     <span class="step-tag">Your front door for leads</span>
+     <h3 data-i18n="how.s2h">We build your intake form</h3>
+     <p data-i18n="how.s2p">Then we build a simple form that captures every inquiry the same way: their name, what they need, and how to reach them. No more details lost in a sea of DMs.</p>
+     <span class="step-tag" data-i18n="how.s2t">Your front door for leads</span>
     </div>
    </div>
    <div class="step" data-reveal>
     <div class="step-n">03</div>
     <div class="step-body">
-     <h3>We answer everything, twice a day</h3>
-     <p>This is the heart of it. Twice a day we go through your messages and forms, reply to every customer in your voice, then send you a simple report so you know exactly who reached out and who is worth your time.</p>
-     <span class="step-tag">Twice daily · with a report</span>
+     <h3 data-i18n="how.s3h">We answer everything, twice a day</h3>
+     <p data-i18n="how.s3p">This is the heart of it. Twice a day we go through your messages and forms, reply to every customer in your voice, then send you a simple report so you know exactly who reached out and who is worth your time.</p>
+     <span class="step-tag" data-i18n="how.s3t">Twice daily · with a report</span>
     </div>
    </div>
    <div class="step" data-reveal>
     <div class="step-n">04</div>
     <div class="step-body">
-     <h3>We cover all your channels</h3>
-     <p>Customers don't just use one app, so neither do we. WhatsApp, Instagram, Facebook, email, wherever they reach out, we're there, keeping everything consistent and cared for.</p>
+     <h3 data-i18n="how.s4h">We cover all your channels</h3>
+     <p data-i18n="how.s4p">Customers don't just use one app, so neither do we. WhatsApp, Instagram, Facebook, email, wherever they reach out, we're there, keeping everything consistent and cared for.</p>
      <span class="step-tag">WhatsApp · IG · Facebook · Email</span>
     </div>
    </div>
@@ -370,42 +376,42 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="wrap">
   <div class="report-grid">
    <div class="report-copy" data-reveal>
-    <div class="eyebrow"><span class="d"></span>Your daily report</div>
-    <h2>After every check-in, a <span class="accent">clear report</span> lands in your inbox.</h2>
-    <p>You never have to wonder what happened while you were working. Twice a day you get a simple, organized summary: who reached out, what they wanted, what we told them, and anything that needs a decision from you.</p>
-    <p class="rnote">no more guessing, ever</p>
+    <div class="eyebrow" data-i18n="rep.eyebrow"><span class="d"></span>Your daily report</div>
+    <h2 data-i18n="rep.h2">After every check-in, a <span class="accent">clear report</span> lands in your inbox.</h2>
+    <p data-i18n="rep.p">You never have to wonder what happened while you were working. Twice a day you get a simple, organized summary: who reached out, what they wanted, what we told them, and anything that needs a decision from you.</p>
+    <p class="rnote" data-i18n="rep.rnote">no more guessing, ever</p>
    </div>
    <div class="report-card" data-reveal>
     <div class="report-bar">
      <div>
-      <div class="rt">Daily Report</div>
-      <div class="rd">Tuesday · 8 June · Afternoon check-in</div>
+      <div class="rt" data-i18n="rep.rt">Daily Report</div>
+      <div class="rd" data-i18n="rep.rd">Tuesday · 8 June · Afternoon check-in</div>
      </div>
      <div class="rbrand">Hello, Virtually!</div>
     </div>
     <div class="report-stats">
-     <div class="rstat"><span class="rnum">5</span><span class="rlbl">New inquiries</span></div>
-     <div class="rstat"><span class="rnum">3</span><span class="rlbl">Answered</span></div>
-     <div class="rstat"><span class="rnum">2</span><span class="rlbl">Need you</span></div>
+     <div class="rstat"><span class="rnum">5</span><span class="rlbl" data-i18n="rep.lbl1">New inquiries</span></div>
+     <div class="rstat"><span class="rnum">3</span><span class="rlbl" data-i18n="rep.lbl2">Answered</span></div>
+     <div class="rstat"><span class="rnum">2</span><span class="rlbl" data-i18n="rep.lbl3">Need you</span></div>
     </div>
     <div class="report-rows">
      <div class="rrow">
-      <div class="rrow-top"><span class="rname">Maria G.</span><span class="rchan">Instagram</span><span class="rbadge ok">Answered</span></div>
-      <div class="rline"><b>Asked for:</b> availability this week</div>
-      <div class="rline"><b>Service:</b> Signature facial</div>
-      <div class="rline"><b>We replied:</b> offered Tuesday or Thursday, asked her preferred time</div>
+      <div class="rrow-top"><span class="rname">Maria G.</span><span class="rchan">Instagram</span><span class="rbadge ok" data-i18n="rep.b1">Answered</span></div>
+      <div class="rline" data-i18n="rep.r1a"><b>Asked for:</b> availability this week</div>
+      <div class="rline" data-i18n="rep.r1b"><b>Service:</b> Signature facial</div>
+      <div class="rline" data-i18n="rep.r1c"><b>We replied:</b> offered Tuesday or Thursday, asked her preferred time</div>
      </div>
      <div class="rrow">
-      <div class="rrow-top"><span class="rname">James R.</span><span class="rchan">WhatsApp</span><span class="rbadge ok">Answered</span></div>
-      <div class="rline"><b>Asked for:</b> a quote for a full detail</div>
-      <div class="rline"><b>Service:</b> Auto detailing, full interior + exterior</div>
-      <div class="rline"><b>We replied:</b> sent your pricing, confirmed his car model and ZIP</div>
+      <div class="rrow-top"><span class="rname">James R.</span><span class="rchan">WhatsApp</span><span class="rbadge ok" data-i18n="rep.b1">Answered</span></div>
+      <div class="rline" data-i18n="rep.r2a"><b>Asked for:</b> a quote for a full detail</div>
+      <div class="rline" data-i18n="rep.r2b"><b>Service:</b> Auto detailing, full interior + exterior</div>
+      <div class="rline" data-i18n="rep.r2c"><b>We replied:</b> sent your pricing, confirmed his car model and ZIP</div>
      </div>
      <div class="rrow">
-      <div class="rrow-top"><span class="rname">Lena P.</span><span class="rchan">Website form</span><span class="rbadge need">Need you</span></div>
-      <div class="rline"><b>Asked for:</b> whether you travel for home visits</div>
-      <div class="rline"><b>Service:</b> to confirm with you</div>
-      <div class="rline miss"><b>Still needed:</b> her address and a preferred date before we can quote</div>
+      <div class="rrow-top"><span class="rname">Lena P.</span><span class="rchan" data-i18n="rep.chan3">Website form</span><span class="rbadge need" data-i18n="rep.b3">Need you</span></div>
+      <div class="rline" data-i18n="rep.r3a"><b>Asked for:</b> whether you travel for home visits</div>
+      <div class="rline" data-i18n="rep.r3b"><b>Service:</b> to confirm with you</div>
+      <div class="rline miss" data-i18n="rep.r3c"><b>Still needed:</b> her address and a preferred date before we can quote</div>
      </div>
     </div>
    </div>
@@ -417,31 +423,31 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <section class="benefits sec-pad" id="benefits">
  <div class="wrap">
   <div class="sec-head" data-reveal>
-   <div class="eyebrow coral"><span class="d"></span>Why it helps</div>
-   <h2>What actually <span class="accent">changes for you.</span></h2>
-   <p>This isn't just answering messages. It's what that does for your business and your day.</p>
+   <div class="eyebrow coral" data-i18n="ben.eyebrow"><span class="d"></span>Why it helps</div>
+   <h2 data-i18n="ben.h2">What actually <span class="accent">changes for you.</span></h2>
+   <p data-i18n="ben.intro">This isn't just answering messages. It's what that does for your business and your day.</p>
   </div>
   <div class="ben-grid">
    <div class="ben-card" data-reveal>
     <div class="ben-ic">01</div>
-    <h3>Leads stop slipping away</h3>
-    <p>We check your messages twice a day, every day, so nothing sits for a week. The customers you used to lose turn into booked jobs.</p>
+    <h3 data-i18n="ben.h1">Leads stop slipping away</h3>
+    <p data-i18n="ben.p1">We check your messages twice a day, every day, so nothing sits for a week. The customers you used to lose turn into booked jobs.</p>
    </div>
    <div class="ben-card dl1" data-reveal>
     <div class="ben-ic">02</div>
-    <h3>Replies that sound like you</h3>
-    <p>Every message is answered thoughtfully, in your tone, with the details your customers actually need. Consistent, warm, and professional, every time.</p>
+    <h3 data-i18n="ben.h2b">Replies that sound like you</h3>
+    <p data-i18n="ben.p2">Every message is answered thoughtfully, in your tone, with the details your customers actually need. Consistent, warm, and professional, every time.</p>
    </div>
    <div class="ben-card dl2" data-reveal>
     <div class="ben-ic">03</div>
-    <h3>You look more established</h3>
-    <p>A real intake process and polished replies make you look like a business with a team behind it.</p>
-    <div class="quote">"Let me have my assistant send that right over."</div>
+    <h3 data-i18n="ben.h3b">You look more established</h3>
+    <p data-i18n="ben.p3">A real intake process and polished replies make you look like a business with a team behind it.</p>
+    <div class="quote" data-i18n="ben.quote">"Let me have my assistant send that right over."</div>
    </div>
    <div class="ben-card dl3" data-reveal>
     <div class="ben-ic">04</div>
-    <h3>You always know what's going on</h3>
-    <p>After each check-in you get a simple report: who reached out, what they need, and what's worth your time. No guessing.</p>
+    <h3 data-i18n="ben.h4b">You always know what's going on</h3>
+    <p data-i18n="ben.p4">After each check-in you get a simple report: who reached out, what they need, and what's worth your time. No guessing.</p>
    </div>
   </div>
  </div>
@@ -451,21 +457,21 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <section class="who sec-pad" id="who">
  <div class="wrap">
   <div class="sec-head" data-reveal>
-   <div class="eyebrow"><span class="d"></span>Who it's for</div>
-   <h2>If your phone <span class="accent">won't stop buzzing,</span> this is for you.</h2>
-   <p>We're built for busy, hands-on service businesses that get more inquiries than they can keep up with.</p>
+   <div class="eyebrow" data-i18n="who.eyebrow"><span class="d"></span>Who it's for</div>
+   <h2 data-i18n="who.h2">If your phone <span class="accent">won't stop buzzing,</span> this is for you.</h2>
+   <p data-i18n="who.intro">We're built for busy, hands-on service businesses that get more inquiries than they can keep up with.</p>
   </div>
   <div class="who-tags">
-   <span class="who-tag" data-reveal>Contractors &amp; remodeling</span>
-   <span class="who-tag dl1" data-reveal>Salons &amp; spas</span>
-   <span class="who-tag dl2" data-reveal>Med spas</span>
-   <span class="who-tag dl3" data-reveal>Auto detailing</span>
-   <span class="who-tag" data-reveal>Movers</span>
-   <span class="who-tag dl1" data-reveal>Pet care &amp; grooming</span>
-   <span class="who-tag dl2" data-reveal>Dental &amp; chiro</span>
-   <span class="who-tag dl3" data-reveal>Cleaning services</span>
+   <span class="who-tag" data-reveal data-i18n="who.t1">Contractors &amp; remodeling</span>
+   <span class="who-tag dl1" data-reveal data-i18n="who.t2">Salons &amp; spas</span>
+   <span class="who-tag dl2" data-reveal data-i18n="who.t3">Med spas</span>
+   <span class="who-tag dl3" data-reveal data-i18n="who.t4">Auto detailing</span>
+   <span class="who-tag" data-reveal data-i18n="who.t5">Movers</span>
+   <span class="who-tag dl1" data-reveal data-i18n="who.t6">Pet care &amp; grooming</span>
+   <span class="who-tag dl2" data-reveal data-i18n="who.t7">Dental &amp; chiro</span>
+   <span class="who-tag dl3" data-reveal data-i18n="who.t8">Cleaning services</span>
   </div>
-  <p class="who-foot" data-reveal>If you've ever lost a customer just because you couldn't get to your phone in time, we built this for you.</p>
+  <p class="who-foot" data-reveal data-i18n="who.foot">If you've ever lost a customer just because you couldn't get to your phone in time, we built this for you.</p>
  </div>
 </section>
 
@@ -473,19 +479,19 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 <section class="services sec-pad" id="services">
  <div class="wrap">
   <div class="sec-head center" data-reveal>
-   <div class="eyebrow" style="margin:0 auto;"><span class="d"></span>The full toolkit</div>
-   <h2>Answering customers is the heart. <span class="accent">Here's everything else.</span></h2>
-   <p>Start with inquiry management, add the rest whenever you're ready. Mix and match.</p>
+   <div class="eyebrow" style="margin:0 auto;" data-i18n="svc.eyebrow"><span class="d"></span>The full toolkit</div>
+   <h2 data-i18n="svc.h2">Answering customers is the heart. <span class="accent">Here's everything else.</span></h2>
+   <p data-i18n="svc.intro">Start with inquiry management, add the rest whenever you're ready. Mix and match.</p>
   </div>
   <div class="svc-grid">
-   <div class="svc" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3>Inquiry Monitoring</h3><p>The heart of it. We check your channels twice a day, reply to everyone, and report back.</p></div>
-   <div class="svc dl1" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3>Website Setup</h3><p>A clean, professional site that becomes home base for your leads.</p></div>
-   <div class="svc dl2" data-reveal><div class="dot" style="background:var(--coral)"></div><h3>Intake Forms</h3><p>One simple link that captures every lead the same, organized way.</p></div>
-   <div class="svc" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3>Social Content</h3><p>Posts that keep your page active and your business looking alive.</p></div>
-   <div class="svc dl1" data-reveal><div class="dot" style="background:var(--coral)"></div><h3>Reviews &amp; Reputation</h3><p>We help you gather and respond to Google &amp; Yelp reviews with care.</p></div>
-   <div class="svc dl2" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3>Marketing Campaigns</h3><p>Simple campaigns to bring new inquiries in, not just manage them.</p></div>
+   <div class="svc" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3 data-i18n="svc.h1">Inquiry Monitoring</h3><p data-i18n="svc.p1">The heart of it. We check your channels twice a day, reply to everyone, and report back.</p></div>
+   <div class="svc dl1" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3 data-i18n="svc.h2b">Website Setup</h3><p data-i18n="svc.p2">A clean, professional site that becomes home base for your leads.</p></div>
+   <div class="svc dl2" data-reveal><div class="dot" style="background:var(--coral)"></div><h3 data-i18n="svc.h3b">Intake Forms</h3><p data-i18n="svc.p3">One simple link that captures every lead the same, organized way.</p></div>
+   <div class="svc" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3 data-i18n="svc.h4b">Social Content</h3><p data-i18n="svc.p4">Posts that keep your page active and your business looking alive.</p></div>
+   <div class="svc dl1" data-reveal><div class="dot" style="background:var(--coral)"></div><h3 data-i18n="svc.h5b">Reviews &amp; Reputation</h3><p data-i18n="svc.p5">We help you gather and respond to Google &amp; Yelp reviews with care.</p></div>
+   <div class="svc dl2" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3 data-i18n="svc.h6b">Marketing Campaigns</h3><p data-i18n="svc.p6">Simple campaigns to bring new inquiries in, not just manage them.</p></div>
   </div>
-  <p class="svc-note" data-reveal>Not sure where to start? Most people begin with inquiry monitoring and a website.</p>
+  <p class="svc-note" data-reveal data-i18n="svc.note">Not sure where to start? Most people begin with inquiry monitoring and a website.</p>
  </div>
 </section>
 
@@ -494,11 +500,11 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="cta-blob cb1"></div>
  <div class="cta-blob cb2"></div>
  <div class="cta-inner" data-reveal>
-  <h2>Stop losing customers to a <span class="accent">full inbox.</span></h2>
-  <p>Let's talk about what's slipping through the cracks, and how we can catch it for you. No pressure, just a friendly conversation.</p>
+  <h2 data-i18n="cta.h2">Stop losing customers to a <span class="accent">full inbox.</span></h2>
+  <p data-i18n="cta.p">Let's talk about what's slipping through the cracks, and how we can catch it for you. No pressure, just a friendly conversation.</p>
   <div class="cta-btns">
-   <a href="#contact" class="btn btn-primary">Let's Talk <span>→</span></a>
-   <a href="#how" class="btn btn-coral">See How It Works</a>
+   <a href="#contact" class="btn btn-primary" data-i18n="hero.btn1">Let's Talk <span>→</span></a>
+   <a href="#how" class="btn btn-coral" data-i18n="cta.btn2">See How It Works</a>
   </div>
  </div>
 </section>
@@ -508,32 +514,32 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="wrap">
   <div class="contact-grid">
    <div data-reveal>
-    <div class="eyebrow"><span class="d"></span>Get in touch</div>
-    <h2>Let's take the messages <span class="accent">off your plate.</span></h2>
-    <p class="contact-lead">Tell us a little about your business and what's piling up. We'll get back to you within a day with a simple plan to help.</p>
+    <div class="eyebrow" data-i18n="con.eyebrow"><span class="d"></span>Get in touch</div>
+    <h2 data-i18n="con.h2">Let's take the messages <span class="accent">off your plate.</span></h2>
+    <p class="contact-lead" data-i18n="con.lead">Tell us a little about your business and what's piling up. We'll get back to you within a day with a simple plan to help.</p>
     <div class="contact-pills">
-     <div class="cpill"><span class="ic">💬</span> WhatsApp available</div>
+     <div class="cpill" data-i18n="con.pill1"><span class="ic">💬</span> WhatsApp available</div>
      <div class="cpill"><span class="ic">✉️</span> hello@itshellovirtually.com</div>
-     <div class="cpill"><span class="ic">⏱️</span> We reply within 24 hours</div>
+     <div class="cpill" data-i18n="con.pill3"><span class="ic">⏱️</span> We reply within 24 hours</div>
     </div>
    </div>
    <form class="form dl1" data-reveal action="https://formspree.io/f/xvznpowv" method="POST">
-    <div class="fg"><label>Your name</label><input type="text" name="name" placeholder="First name" required></div>
-    <div class="fg"><label>Your business</label><input type="text" name="business" placeholder="What do you do?" required></div>
-    <div class="fg"><label>What's piling up?</label>
+    <div class="fg"><label data-i18n="con.l1">Your name</label><input type="text" name="name" placeholder="First name" required data-i18n-ph="ph.name"></div>
+    <div class="fg"><label data-i18n="con.l2">Your business</label><input type="text" name="business" placeholder="What do you do?" required data-i18n-ph="ph.biz"></div>
+    <div class="fg"><label data-i18n="con.l3">What's piling up?</label>
      <select name="need">
-      <option>I can't keep up with all the messages</option>
-      <option>Leads sit for days before I answer</option>
-      <option>Customers wait too long for a reply</option>
-      <option>I need a website and an intake form</option>
-      <option>My social media is falling behind</option>
-      <option>A little bit of everything</option>
+      <option data-i18n="con.o1">I can't keep up with all the messages</option>
+      <option data-i18n="con.o2">Leads sit for days before I answer</option>
+      <option data-i18n="con.o3">Customers wait too long for a reply</option>
+      <option data-i18n="con.o4">I need a website and an intake form</option>
+      <option data-i18n="con.o5">My social media is falling behind</option>
+      <option data-i18n="con.o6">A little bit of everything</option>
      </select>
     </div>
-    <div class="fg"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
-    <div class="fg"><label>Anything else? (optional)</label><textarea name="message" placeholder="Tell us a little more..."></textarea></div>
+    <div class="fg"><label data-i18n="con.l4">Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+    <div class="fg"><label data-i18n="con.l5">Anything else? (optional)</label><textarea name="message" placeholder="Tell us a little more..." data-i18n-ph="ph.msg"></textarea></div>
     <input type="hidden" name="_subject" value="New lead · Hello, Virtually!">
-    <button type="submit" class="btn btn-primary">Send it over <span>→</span></button>
+    <button type="submit" class="btn btn-primary" data-i18n="con.send">Send it over <span>→</span></button>
    </form>
   </div>
  </div>
@@ -543,27 +549,27 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="foot-top">
   <div>
    <div class="foot-logo">hello, virtually<span class="dot">.</span></div>
-   <p class="foot-tag">We answer your customers, so you never lose one. A virtual assistant service for busy people.</p>
+   <p class="foot-tag" data-i18n="foot.tag">We answer your customers, so you never lose one. A virtual assistant service for busy people.</p>
   </div>
   <div class="foot-links">
    <div class="foot-col">
-    <h4>Service</h4>
-    <a href="#pain">The Problem</a>
-    <a href="#how">How It Works</a>
-    <a href="#benefits">Why It Helps</a>
-    <a href="#who">Who It's For</a>
+    <h4 data-i18n="foot.service">Service</h4>
+    <a href="#pain" data-i18n="nav.problem">The Problem</a>
+    <a href="#how" data-i18n="nav.how">How It Works</a>
+    <a href="#benefits" data-i18n="nav.benefits">Why It Helps</a>
+    <a href="#who" data-i18n="nav.who">Who It's For</a>
    </div>
    <div class="foot-col">
-    <h4>Connect</h4>
+    <h4 data-i18n="foot.connect">Connect</h4>
     <a href="#contact">Let's Talk</a>
-    <a href="mailto:hello@itshellovirtually.com">Email Us</a>
+    <a href="mailto:hello@itshellovirtually.com" data-i18n="foot.email">Email Us</a>
     <a href="https://instagram.com/itshellovirtually" target="_blank" rel="noopener">Instagram</a>
    </div>
   </div>
  </div>
  <div class="foot-bottom">
   <span>© 2026 Hello, Virtually! · Puerto Rico</span>
-  <span>Made with care 💌</span>
+  <span data-i18n="foot.made">Made with care 💌</span>
  </div>
 </footer>
 
@@ -575,5 +581,31 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passi
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
 document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 </script>
+
+<script>
+// ---------- i18n EN/ES ----------
+const ES = {"nav.problem": "El problema", "nav.how": "Cómo funciona", "nav.report": "El reporte", "nav.benefits": "Por qué ayuda", "nav.who": "Para quién es", "nav.talk": "Hablemos", "hero.eyebrow": "<span class=\"d\"></span>Para negocios que no dan abasto con los mensajes", "hero.h1": "Respondemos a <span class=\"accent\">tus clientes,</span><br>para que no pierdas a ninguno.", "hero.hand": "cada mensaje, atendido con cariño", "hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos dos veces al día, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "hero.btn1": "Hablemos <span>→</span>", "hero.btn2": "Mira cómo funciona", "hero.cover": "Cubrimos", "hero.chip4": "Tu formulario web", "pain.eyebrow": "<span class=\"d\"></span>¿Te suena familiar?", "pain.h2": "Eres excelente en lo tuyo. Los <span class=\"accent\">mensajes</span> te están enterrando.", "pain.intro": "Cuando llevas un negocio de servicios con movimiento, las consultas no paran. Y cada una que se te escapa es un cliente que reservó con otro.", "pain.q1": "Los mensajes se acumulan", "pain.p1": "Estás en un trabajo con las manos ocupadas. Cuando por fin miras el teléfono, hay una docena de mensajes esperando y no sabes ni por dónde empezar.", "pain.q2": "Los clientes se enfrían", "pain.p2": "Una consulta nueva se queda sin responder unos días. Para cuando contestas, ya reservaron con alguien que respondió primero. Eso es dinero que se va sin hacer ruido.", "pain.q3": "Se ve poco profesional", "pain.p3": "Los mensajes sin responder y un buzón desordenado hacen que hasta un negocio excelente se vea más pequeño y menos confiable de lo que en verdad es.", "pain.q4": "Tu día se descarrila", "pain.p4": "Estar pendiente de cada mensaje es una interrupción constante. El papeleo se come, poco a poco, las horas que preferirías dedicarle al trabajo.", "pain.foot": "Imagina cada mensaje atendido con cariño, <b>sin que toque nunca tu lista de pendientes.</b>", "how.eyebrow": "<span class=\"d\"></span>Cómo funciona", "how.h2": "Un sistema simple que <span class=\"accent\">no deja escapar a ningún cliente.</span>", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, dos veces al día.", "how.s1h": "Montamos tu sitio web", "how.s1p": "Primero le damos a tu negocio un hogar limpio y profesional en línea. Es donde llegan los clientes cuando te encuentran, donde empieza la confianza y donde entran las consultas.", "how.s1t": "Configuración única", "how.s2h": "Creamos tu formulario de intake", "how.s2p": "Luego creamos un formulario simple que captura cada consulta de la misma forma: su nombre, qué necesitan y cómo contactarlos. Se acabaron los detalles perdidos en un mar de mensajes.", "how.s2t": "Tu puerta de entrada de clientes", "how.s3h": "Respondemos todo, dos veces al día", "how.s3p": "Este es el corazón. Dos veces al día revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "Dos veces al día · con reporte", "how.s4h": "Cubrimos todos tus canales", "how.s4p": "Los clientes no usan una sola app, así que nosotros tampoco. WhatsApp, Instagram, Facebook, correo, donde sea que escriban, ahí estamos, manteniendo todo consistente y bien cuidado.", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte diario", "rep.h2": "Después de cada revisión, llega un <span class=\"accent\">reporte claro</span> a tu correo.", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Dos veces al día recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "rep.rnote": "se acabó adivinar", "rep.rt": "Reporte diario", "rep.rd": "Martes · 8 de junio · Revisión de la tarde", "rep.lbl1": "Consultas nuevas", "rep.lbl2": "Contestadas", "rep.lbl3": "Te necesitan", "rep.b1": "Contestado", "rep.b3": "Te necesita", "rep.chan3": "Formulario web", "rep.r1a": "<b>Pidió:</b> disponibilidad esta semana", "rep.r1b": "<b>Servicio:</b> Facial principal", "rep.r1c": "<b>Respondimos:</b> ofrecimos martes o jueves, le preguntamos su horario preferido", "rep.r2a": "<b>Pidió:</b> una cotización de detallado completo", "rep.r2b": "<b>Servicio:</b> Detallado de autos, interior + exterior completo", "rep.r2c": "<b>Respondimos:</b> enviamos tus precios, confirmamos su modelo de auto y código postal", "rep.r3a": "<b>Pidió:</b> saber si haces visitas a domicilio", "rep.r3b": "<b>Servicio:</b> por confirmar contigo", "rep.r3c": "<b>Aún falta:</b> su dirección y una fecha preferida para poder cotizar", "ben.eyebrow": "<span class=\"d\"></span>Por qué ayuda", "ben.h2": "Lo que de verdad <span class=\"accent\">cambia para ti.</span>", "ben.intro": "Esto no es solo responder mensajes. Es lo que eso hace por tu negocio y por tu día.", "ben.h1": "Dejas de perder clientes", "ben.p1": "Revisamos tus mensajes dos veces al día, todos los días, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "ben.h2b": "Respuestas que suenan a ti", "ben.p2": "Cada mensaje se responde con cuidado, en tu tono, con los detalles que tus clientes de verdad necesitan. Consistente, cálido y profesional, siempre.", "ben.h3b": "Te ves más establecido", "ben.p3": "Un proceso de intake real y respuestas pulidas hacen que te veas como un negocio con un equipo detrás.", "ben.quote": "\"Le digo a mi asistente que te lo envíe enseguida.\"", "ben.h4b": "Siempre sabes qué está pasando", "ben.p4": "Después de cada revisión recibes un reporte simple: quién escribió, qué necesita y a quién vale la pena darle seguimiento. Sin adivinar.", "who.eyebrow": "<span class=\"d\"></span>Para quién es", "who.h2": "Si tu teléfono <span class=\"accent\">no para de sonar,</span> esto es para ti.", "who.intro": "Estamos hechos para negocios de servicios ocupados y prácticos que reciben más consultas de las que pueden manejar.", "who.t1": "Contratistas y remodelación", "who.t2": "Salones y spas", "who.t3": "Spas médicos", "who.t4": "Detallado de autos", "who.t5": "Mudanzas", "who.t6": "Cuidado y grooming de mascotas", "who.t7": "Dental y quiropráctico", "who.t8": "Servicios de limpieza", "who.foot": "Si alguna vez perdiste un cliente solo porque no pudiste llegar a tu teléfono a tiempo, esto lo hicimos para ti.", "svc.eyebrow": "<span class=\"d\"></span>Todo el kit", "svc.h2": "Responder a tus clientes es el corazón. <span class=\"accent\">Esto es todo lo demás.</span>", "svc.intro": "Empieza con el manejo de consultas y suma lo demás cuando estés lista. Combínalo a tu gusto.", "svc.h1": "Monitoreo de consultas", "svc.p1": "El corazón de todo. Revisamos tus canales dos veces al día, le respondemos a todos, y te reportamos.", "svc.h2b": "Diseño de sitio web", "svc.p2": "Un sitio limpio y profesional que se vuelve el punto de partida de tus clientes.", "svc.h3b": "Formularios de intake", "svc.p3": "Un solo enlace simple que captura cada cliente de la misma forma ordenada.", "svc.h4b": "Contenido para redes", "svc.p4": "Publicaciones que mantienen tu página activa y tu negocio con vida.", "svc.h5b": "Reseñas y reputación", "svc.p5": "Te ayudamos a conseguir y responder reseñas de Google y Yelp con cuidado.", "svc.h6b": "Campañas de marketing", "svc.p6": "Campañas simples para atraer consultas nuevas, no solo manejarlas.", "svc.note": "¿No sabes por dónde empezar? La mayoría comienza con el monitoreo de consultas y un sitio web.", "cta.h2": "Deja de perder clientes por un <span class=\"accent\">buzón lleno.</span>", "cta.p": "Hablemos de lo que se te está escapando y de cómo lo podemos atrapar por ti. Sin presión, solo una conversación amable.", "cta.btn2": "Mira cómo funciona", "con.eyebrow": "<span class=\"d\"></span>Contáctanos", "con.h2": "Quitemos los mensajes <span class=\"accent\">de tu lista.</span>", "con.lead": "Cuéntanos un poco sobre tu negocio y qué se te está acumulando. Te respondemos en un día con un plan simple para ayudarte.", "con.pill1": "<span class=\"ic\">💬</span> WhatsApp disponible", "con.pill3": "<span class=\"ic\">⏱️</span> Respondemos en menos de 24 horas", "con.l1": "Tu nombre", "con.l2": "Tu negocio", "con.l3": "¿Qué se te está acumulando?", "con.l4": "Correo", "con.l5": "¿Algo más? (opcional)", "con.o1": "No doy abasto con todos los mensajes", "con.o2": "Los clientes esperan días antes de que conteste", "con.o3": "Mis clientes esperan demasiado por una respuesta", "con.o4": "Necesito un sitio web y un formulario de intake", "con.o5": "Mis redes sociales se están quedando atrás", "con.o6": "Un poco de todo", "con.send": "Enviar <span>→</span>", "ph.name": "Nombre", "ph.biz": "¿A qué te dedicas?", "ph.msg": "Cuéntanos un poco más...", "foot.tag": "Respondemos a tus clientes, para que no pierdas a ninguno. Un servicio de asistente virtual para gente ocupada.", "foot.service": "Servicio", "foot.connect": "Conecta", "foot.email": "Escríbenos", "foot.made": "Hecho con cariño 💌"};
+const TITLE = {en: document.title, es: "Hello, Virtually! · Respondemos a tus clientes, para que no pierdas a ninguno"};
+const i18nEls = [...document.querySelectorAll('[data-i18n]')];
+const baseHTML = {};
+i18nEls.forEach(el => { const k = el.dataset.i18n; if (baseHTML[k] === undefined) baseHTML[k] = el.innerHTML; });
+const phEls = [...document.querySelectorAll('[data-i18n-ph]')];
+const basePH = {};
+phEls.forEach(el => { const k = el.dataset.i18nPh; if (basePH[k] === undefined) basePH[k] = el.getAttribute('placeholder'); });
+let lang = 'en';
+function setLang(l){
+  lang = l;
+  document.documentElement.lang = l;
+  i18nEls.forEach(el => { const k = el.dataset.i18n; const v = (l==='es') ? ES[k] : baseHTML[k]; if (v != null) el.innerHTML = v; });
+  phEls.forEach(el => { const k = el.dataset.i18nPh; const v = (l==='es') ? ES[k] : basePH[k]; if (v != null) el.setAttribute('placeholder', v); });
+  document.title = TITLE[l] || TITLE.en;
+  const t = document.getElementById('langToggle');
+  if (t) t.textContent = (l==='es') ? 'EN' : 'ES';
+}
+document.getElementById('langToggle').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+// auto-pick Spanish if the visitor's browser is in Spanish
+if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
+</script>
+
 </body>
 </html>
