@@ -320,6 +320,11 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 .confirm-accept{display:flex;align-items:flex-start;gap:9px;font-size:.84rem;color:var(--ink-2);margin-bottom:16px;cursor:pointer;line-height:1.4;}
 .confirm-accept input{margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:var(--lagoon);}
 .confirm-card .btn:disabled{opacity:.45;cursor:not-allowed;}
+.acct-hello{font-size:.95rem;color:var(--ink-2);margin-bottom:18px;line-height:1.5;}
+.acct-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:20px;}
+.acct-row .sl{font-size:.64rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--lagoon-d);}
+.acct-row b{font-size:.9rem;color:var(--ink);}
+#accountModal .btn{width:100%;justify-content:center;margin-bottom:10px;}
 
 /* ---------- responsive ---------- */
 @media(max-width:920px){
@@ -361,6 +366,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="nav-right">
   <a href="#login" class="nav-login" id="navLogin" data-i18n="nav.login">Log in</a>
   <a href="#logout" class="nav-login" id="navLogout" style="display:none">Log out</a>
+  <a href="#account" class="nav-login" id="navAccount" style="display:none">My Account</a>
   <button class="lang-toggle" id="langToggle" aria-label="Switch language">ES</button>
   <a href="#build" class="nav-cta" id="navSignup" data-i18n="nav.talk">Sign Up</a>
  </div>
@@ -608,27 +614,27 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
      <div class="bstep-label"><span class="bstep-num">01</span> <span data-i18n="bld.s1">What should we handle?</span></div>
      <div class="opt-chips" id="svcChips">
       <div class="opt core selected" data-locked="1" data-price="0" data-i18n="bld.svc0">Inquiry monitoring</div>
-      <div class="opt" data-price="750" data-once="1" data-stripe="price_WEBSITE" data-i18n="bld.svc1">Website setup</div>
-      <div class="opt" data-price="99" data-once="1" data-stripe="price_INTAKE" data-i18n="bld.svc2">Intake form</div>
-      <div class="opt" data-price="199" data-stripe="price_SOCIAL" data-i18n="bld.svc3">Social content</div>
-      <div class="opt" data-price="99" data-stripe="price_REVIEWS" data-i18n="bld.svc4">Reviews &amp; reputation</div>
-      <div class="opt" data-price="299" data-stripe="price_MARKETING" data-i18n="bld.svc5">Marketing campaigns</div>
+      <div class="opt" data-price="750" data-once="1" data-stripe="price_1TgWgS2MfEfPQwD2Tw76bFC7" data-i18n="bld.svc1">Website setup</div>
+      <div class="opt" data-price="99" data-once="1" data-stripe="price_1TgWhN2MfEfPQwD2A4BgzTK3" data-i18n="bld.svc2">Intake form</div>
+      <div class="opt" data-price="199" data-stripe="price_1TgWd52MfEfPQwD2GBmGFOdN" data-i18n="bld.svc3">Social content</div>
+      <div class="opt" data-price="99" data-stripe="price_1TgWdW2MfEfPQwD28M6RKFuV" data-i18n="bld.svc4">Reviews &amp; reputation</div>
+      <div class="opt" data-price="299" data-stripe="price_1TgWeF2MfEfPQwD2zVtlUtYt" data-i18n="bld.svc5">Marketing campaigns</div>
      </div>
     </div>
     <div class="bstep">
      <div class="bstep-label"><span class="bstep-num">02</span> <span data-i18n="bld.s2">How often should we check in?</span></div>
      <div class="cadence" id="cadChips">
-      <div class="cad" data-price="79" data-stripe="price_CAD_3MO"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadMonth">a month</div></div>
-      <div class="cad" data-price="129" data-stripe="price_CAD_1WK"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadWeek">a week</div></div>
-      <div class="cad" data-price="229" data-stripe="price_CAD_3WK"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadWeek3">a week</div></div>
-      <div class="cad selected" data-price="349" data-stripe="price_CAD_1DAY"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadDay">a day</div></div>
-      <div class="cad" data-price="499" data-stripe="price_CAD_2DAY"><div class="cad-n">2x</div><div class="cad-l" data-i18n="bld.cadDay2">a day</div></div>
+      <div class="cad" data-price="79" data-stripe="price_1TgWXV2MfEfPQwD2KITG93ex"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadMonth">a month</div></div>
+      <div class="cad" data-price="129" data-stripe="price_1TgWYq2MfEfPQwD2gW4YP0AU"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadWeek">a week</div></div>
+      <div class="cad" data-price="229" data-stripe="price_1TgWZY2MfEfPQwD2lRTpaHtd"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadWeek3">a week</div></div>
+      <div class="cad selected" data-price="349" data-stripe="price_1TgWaS2MfEfPQwD2PkEXwCd5"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadDay">a day</div></div>
+      <div class="cad" data-price="499" data-stripe="price_1TgWc22MfEfPQwD2XEiIHDYq"><div class="cad-n">2x</div><div class="cad-l" data-i18n="bld.cadDay2">a day</div></div>
      </div>
      <p class="cad-note" data-i18n="bld.cadNote">Twice a day is the most we offer, so no customer ever waits long.</p>
     </div>
     <div class="bstep">
      <div class="bstep-label"><span class="bstep-num">03</span> <span data-i18n="bld.s3">Which channels?</span></div>
-     <div class="opt-chips" id="chanChips" data-perchannel="35" data-stripe="price_EXTRA_CHANNEL">
+     <div class="opt-chips" id="chanChips" data-perchannel="35" data-stripe="price_1TgWev2MfEfPQwD2HS1yoNeM">
       <div class="opt selected">WhatsApp</div>
       <div class="opt selected">Instagram</div>
       <div class="opt selected">Facebook</div>
@@ -648,7 +654,6 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
     <div class="sum-block sum-tot" id="sumOnceBlock" style="display:none"><div class="sl" data-i18n="bld.sumOnce">One-time setup</div><div class="sum-price"><span class="sum-total" id="sumOnce">$0</span></div></div>
     <p class="sum-fine" data-i18n="bld.cap">Includes up to 40 messages per check-in. Unusually high volume is quoted separately.</p>
     <a class="btn btn-primary" id="buildGo" data-i18n="bld.cta">Create account &amp; continue</a>
-    <div class="sum-login" data-i18n="bld.login">Already a member? <a id="loginLink">Log in</a></div>
    </div>
   </div>
  </div>
@@ -758,6 +763,18 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  </div>
 </div>
 
+<!-- ACCOUNT DASHBOARD MODAL -->
+<div class="auth-modal" id="accountModal">
+ <div class="auth-card">
+  <button class="auth-close" id="accountClose" aria-label="Close">&times;</button>
+  <h3 id="accountTitle">My Account</h3>
+  <p class="acct-hello" id="acctHello"></p>
+  <div class="acct-row"><span class="sl" id="acctEmailLbl">Email</span><b id="acctEmail"></b></div>
+  <a class="btn btn-primary" id="acctBilling" href="#" target="_blank" rel="noopener">Manage billing &amp; subscription</a>
+  <button class="btn btn-ghost" id="acctLogout">Log out</button>
+ </div>
+</div>
+
 <script>
 // nav scroll
 const nav=document.getElementById('nav');
@@ -774,7 +791,7 @@ const TITLE = {en: document.title, es: "Hello, Virtually! · Respondemos a tus c
 const i18nEls = [...document.querySelectorAll('[data-i18n]')];
 const baseHTML = {};
 Object.assign(ES, {"nav.pricing": "Precios", "pr.eyebrow": "<span class=\"d\"></span>Precios", "pr.h2": "Planes simples que <span class=\"accent\">crecen contigo.</span>", "pr.intro": "Elige el nivel de ayuda que necesitas hoy y cámbialo cuando quieras. Los precios están detrás de un inicio de sesión rápido.", "pr.n1": "Esenciales", "pr.t1": "Para empezar.", "pr.f1a": "Monitoreo de consultas, una vez al día", "pr.f1b": "Un canal a tu elección", "pr.f1c": "Un reporte resumen diario", "pr.n2": "Core", "pr.t2": "Donde la mayoría empieza.", "pr.f2a": "Monitoreo de consultas, dos veces al día", "pr.f2b": "Todos tus canales (WhatsApp, IG, Facebook, web)", "pr.f2c": "Formulario de intake configurado para ti", "pr.f2d": "Dos reportes claros al día", "pr.n3": "Servicio completo", "pr.t3": "Delega toda la trastienda.", "pr.f3a": "Todo lo de Core", "pr.f3b": "Diseño de sitio web", "pr.f3c": "Contenido social y reseñas", "pr.f3d": "Campañas de marketing", "pr.badge": "El más popular", "pr.locked": "Inicia sesión para ver precios", "pr.locked2": "Inicia sesión para ver precios", "pr.locked3": "Inicia sesión para ver precios", "pr.login": "Iniciar sesión", "pr.login2": "Iniciar sesión", "pr.login3": "Iniciar sesión", "pr.note": "¿Aún no tienes cuenta? <a href=\"#contact\">Escríbenos</a> y te damos acceso."});
-Object.assign(ES, {"nav.login": "Iniciar sesión", "nav.talk": "Regístrate", "pr.login": "Arma este plan", "pr.login2": "Arma este plan", "pr.login3": "Arma este plan", "bld.eyebrow": "<span class=\"d\"></span>Arma tu plan", "bld.h2": "Configúralo <span class=\"accent\">a tu manera.</span>", "bld.intro": "Elige lo que necesitas y cada cuánto entramos. ¿Segura? Crea tu cuenta y empieza, sin llamada.", "bld.s1": "¿Qué manejamos?", "bld.svc0": "Monitoreo de consultas", "bld.svc1": "Diseño de sitio web", "bld.svc2": "Formulario de intake", "bld.svc3": "Contenido para redes", "bld.svc4": "Reseñas y reputación", "bld.svc5": "Campañas de marketing", "bld.s2": "¿Cada cuánto entramos?", "bld.cadMonth": "al mes", "bld.cadWeek": "por semana", "bld.cadWeek3": "por semana", "bld.cadDay": "al día", "bld.cadDay2": "al día", "bld.cadNote": "Entramos hasta dos veces al día, lo máximo que tus clientes esperarán.", "bld.s3": "¿Qué canales?", "bld.chWeb": "Formulario web", "bld.chEmail": "Correo", "bld.sumTitle": "Tu plan", "bld.sumSvc": "Servicios", "bld.sumCad": "Revisiones", "bld.sumChan": "Canales", "bld.sumPrice": "Inicia sesión para ver tu precio", "bld.cta": "Crear cuenta y continuar", "bld.login": "¿Ya tienes cuenta? <a id=\"loginLink\">Inicia sesión</a>"});
+Object.assign(ES, {"nav.login": "Iniciar sesión", "nav.talk": "Regístrate", "pr.login": "Arma este plan", "pr.login2": "Arma este plan", "pr.login3": "Arma este plan", "bld.eyebrow": "<span class=\"d\"></span>Arma tu plan", "bld.h2": "Configúralo <span class=\"accent\">a tu manera.</span>", "bld.intro": "Elige lo que necesitas y cada cuánto entramos. ¿Segura? Crea tu cuenta y empieza, sin llamada.", "bld.s1": "¿Qué manejamos?", "bld.svc0": "Monitoreo de consultas", "bld.svc1": "Diseño de sitio web", "bld.svc2": "Formulario de intake", "bld.svc3": "Contenido para redes", "bld.svc4": "Reseñas y reputación", "bld.svc5": "Campañas de marketing", "bld.s2": "¿Cada cuánto entramos?", "bld.cadMonth": "al mes", "bld.cadWeek": "por semana", "bld.cadWeek3": "por semana", "bld.cadDay": "al día", "bld.cadDay2": "al día", "bld.cadNote": "Entramos hasta dos veces al día, lo máximo que tus clientes esperarán.", "bld.s3": "¿Qué canales?", "bld.chWeb": "Formulario web", "bld.chEmail": "Correo", "bld.sumTitle": "Tu plan", "bld.sumSvc": "Servicios", "bld.sumCad": "Revisiones", "bld.sumChan": "Canales", "bld.sumPrice": "Inicia sesión para ver tu precio", "bld.cta": "Crear cuenta y continuar"});
 Object.assign(ES, {"con.pill1": "WhatsApp disponible", "con.pill3": "Respondemos en menos de 24 horas", "foot.made": "Hecho con cariño"});
 Object.assign(ES, {"hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos según el horario que elijas, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, con la frecuencia que elijas.", "how.s3h": "Respondemos todo, en tu horario", "how.s3p": "Este es el corazón. Con la frecuencia que elijas, revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "En tu horario · con reporte", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte", "rep.rt": "Tu reporte", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Cada vez que entramos recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "ben.p1": "Revisamos tus mensajes con la frecuencia que elijas, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "svc.p1": "El corazón de todo. Revisamos tus canales en tu horario, le respondemos a todos, y te reportamos.", "pr.f1a": "Monitoreo de consultas en horario ligero", "pr.f2a": "Monitoreo de consultas más frecuente", "pr.f2d": "Un reporte claro después de cada revisión", "bld.cadNote": "Dos veces al día es lo máximo que ofrecemos, así ningún cliente espera mucho."});
 Object.assign(ES, {"bld.sumEst": "Mensual estimado", "bld.mo": "mes"});
@@ -853,11 +870,14 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
     // EDIT with your real monthly prices once set in Stripe:
     prices:{essentials:"$\u2014",core:"$\u2014",full:"$\u2014"},
     // Paste your deployed Supabase Edge Function URL here for dynamic ("build your own") checkout:
-    checkoutFn:"PASTE_YOUR_EDGE_FUNCTION_URL"
+    checkoutFn:"PASTE_YOUR_EDGE_FUNCTION_URL",
+    // Paste your Stripe Customer Portal link here (Stripe -> Settings -> Billing -> Customer portal):
+    portal:"PASTE_YOUR_STRIPE_PORTAL_LINK"
   };
   function L(en,es){return document.documentElement.lang==='es'?es:en;}
   let sb=null;
   try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(CFG.url,CFG.key); }catch(e){console.warn('supabase init',e);}
+  if(sb&&sb.auth&&sb.auth.onAuthStateChange){ try{ sb.auth.onAuthStateChange(()=>{ refresh(); }); }catch(e){} }
   let user=null, pending=false, mode='login';
   const modal=document.getElementById('authModal');
   const elT=document.getElementById('authTitle'),elE=document.getElementById('authEmail'),elP=document.getElementById('authPass'),elS=document.getElementById('authSubmit'),elG=document.getElementById('authToggle'),elErr=document.getElementById('authErr');
@@ -902,10 +922,17 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
   async function refresh(){
     if(sb){ try{ const r=await sb.auth.getSession(); user=r.data&&r.data.session?r.data.session.user:null; }catch(e){ user=null; } }
     const inAuth=!!user;
-    const nl=document.getElementById('navLogin'),ns=document.getElementById('navSignup'),no=document.getElementById('navLogout');
+    const nl=document.getElementById('navLogin'),ns=document.getElementById('navSignup'),no=document.getElementById('navLogout'),na=document.getElementById('navAccount');
     if(nl) nl.style.display=inAuth?'none':'';
     if(ns) ns.style.display=inAuth?'none':'';
     if(no){ no.style.display=inAuth?'':'none'; no.textContent=L('Log out','Salir'); }
+    if(na){ na.style.display=inAuth?'':'none'; na.textContent=L('My Account','Mi cuenta'); }
+    // buildGo button reflects whether they're signed in
+    const bg=document.getElementById('buildGo');
+    if(bg) bg.textContent= inAuth ? L('Continue to checkout','Continuar al pago') : L('Create account & continue','Crear cuenta y continuar');
+    // account modal email
+    const ae=document.getElementById('acctEmail'); if(ae&&user) ae.textContent=user.email;
+    const ah=document.getElementById('acctHello'); if(ah) ah.textContent=user?L('You are signed in. Manage your plan and billing below.','Tu sesión está activa. Maneja tu plan y facturación abajo.'):'';
   }
 
   async function checkout(){
@@ -937,14 +964,29 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
   }
 
   document.addEventListener('click',function(e){
-    const t=e.target.closest('#navLogin,#loginLink,#navSignup,#buildGo,#navLogout'); if(!t) return;
-    e.preventDefault();
+    const t=e.target.closest('#navLogin,#navSignup,#buildGo,#navLogout,#navAccount,#acctLogout,#acctBilling'); if(!t) return;
     const id=t.id;
-    if(id==='navLogout'){ if(sb) sb.auth.signOut().then(refresh); return; }
-    if(id==='navLogin'||id==='loginLink'){ open('login'); return; }
+    if(id==='acctBilling'){
+      if(CFG.portal && CFG.portal.indexOf('PASTE')===-1){ window.open(CFG.portal,'_blank'); }
+      else { e.preventDefault(); alert(L('Billing portal is being set up. Please contact us for changes.','El portal de facturación se está configurando. Escríbenos para cambios.')); }
+      return;
+    }
+    e.preventDefault();
+    if(id==='navLogout'||id==='acctLogout'){ if(sb) sb.auth.signOut().then(()=>{ document.getElementById('accountModal').classList.remove('open'); refresh(); }); return; }
+    if(id==='navLogin'){ open('login'); return; }
     if(id==='navSignup'){ open('signup'); return; }
+    if(id==='navAccount'){
+      const es=document.documentElement.lang==='es';
+      document.getElementById('accountTitle').textContent=es?'Mi cuenta':'My Account';
+      document.getElementById('acctEmailLbl').textContent=es?'Correo':'Email';
+      document.getElementById('acctBilling').textContent=es?'Manejar facturación y suscripción':'Manage billing & subscription';
+      document.getElementById('acctLogout').textContent=es?'Cerrar sesión':'Log out';
+      document.getElementById('accountModal').classList.add('open'); return;
+    }
     if(id==='buildGo'){ if(user) openConfirm(); else { pending=true; open('signup'); } }
   });
+  document.getElementById('accountClose').addEventListener('click',()=>document.getElementById('accountModal').classList.remove('open'));
+  document.getElementById('accountModal').addEventListener('click',e=>{ if(e.target.id==='accountModal') e.currentTarget.classList.remove('open'); });
 
   const lt=document.getElementById('langToggle');
   if(lt) lt.addEventListener('click',()=>setTimeout(()=>{ refresh(); if(modal.classList.contains('open')) render(); },0));
