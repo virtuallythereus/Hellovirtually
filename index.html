@@ -870,9 +870,9 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
     // EDIT with your real monthly prices once set in Stripe:
     prices:{essentials:"$\u2014",core:"$\u2014",full:"$\u2014"},
     // Paste your deployed Supabase Edge Function URL here for dynamic ("build your own") checkout:
-    checkoutFn:"PASTE_YOUR_EDGE_FUNCTION_URL",
+    checkoutFn:"https://yjrotvqtprlkzbxgyhtk.supabase.co/functions/v1/clever-action",
     // Paste your Stripe Customer Portal link here (Stripe -> Settings -> Billing -> Customer portal):
-    portal:"PASTE_YOUR_STRIPE_PORTAL_LINK"
+    portal:"https://billing.stripe.com/p/login/eVq8wIf66a7T29u7w02oE00"
   };
   function L(en,es){return document.documentElement.lang==='es'?es:en;}
   let sb=null;
@@ -952,7 +952,7 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
     // dynamic checkout: ask the Edge Function to build a Stripe session with these items
     if(CFG.checkoutFn && CFG.checkoutFn.indexOf('PASTE')===-1){
       try{
-        const r=await fetch(CFG.checkoutFn,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:items,email:user?user.email:''})});
+        const r=await fetch(CFG.checkoutFn,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.key,'apikey':CFG.key},body:JSON.stringify({items:items,email:user?user.email:''})});
         const data=await r.json();
         if(data&&data.url){ window.location.href=data.url; return; }
       }catch(e){ console.warn('checkout fn',e); }
