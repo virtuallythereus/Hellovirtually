@@ -55,26 +55,32 @@ nav.scrolled{background:rgba(240,238,233,.92);backdrop-filter:blur(14px);box-sha
 .nav-cta{background:var(--ink);color:var(--cloud);padding:11px 24px;border-radius:50px;font-size:.74rem;font-weight:800;letter-spacing:.5px;text-decoration:none;transition:background .2s,transform .2s;}
 .nav-cta:hover{background:var(--yarrow);transform:translateY(-2px);}
 .nav-right{display:flex;align-items:center;gap:14px;}
+.nav-login{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink);opacity:.75;text-decoration:none;cursor:pointer;transition:color .2s,opacity .2s;}
+.nav-login:hover{color:var(--lagoon-d);opacity:1;}
 .lang-toggle{background:transparent;border:1.5px solid rgba(31,61,58,.25);color:var(--ink);width:42px;height:34px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:1px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
 .lang-toggle:hover{border-color:var(--lagoon);color:var(--lagoon-d);background:rgba(77,158,154,.08);}
 .nav-toggle{display:none;}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:130px 56px 70px;overflow:hidden;}
-.hero-glow{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(20px);background:radial-gradient(circle,rgba(206,51,117,.12),rgba(255,111,97,.08) 45%,transparent 70%);top:-120px;right:-80px;z-index:0;}
-.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(31,61,58,.05) 1.4px,transparent 1.4px);background-size:30px 30px;z-index:0;}
-.hero-inner{position:relative;z-index:2;max-width:820px;margin:0 auto;width:100%;text-align:center;}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:130px 56px 70px;overflow:hidden;background:#FBEEF0;}
+.hero-glow{position:absolute;width:560px;height:560px;border-radius:50%;filter:blur(10px);background:radial-gradient(circle,rgba(206,51,117,.16),rgba(255,111,97,.10) 45%,transparent 72%);top:-160px;right:-120px;z-index:0;}
+.hero-glow2{position:absolute;width:440px;height:440px;border-radius:50%;filter:blur(10px);background:radial-gradient(circle,rgba(255,111,97,.13),transparent 70%);bottom:-160px;left:-120px;z-index:0;}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(206,51,117,.06) 1.4px,transparent 1.4px);background-size:32px 32px;z-index:0;}
+.hero-inner{position:relative;z-index:2;max-width:760px;margin:0 auto;width:100%;text-align:center;}
+.hero-rule{width:46px;height:2px;background:var(--yarrow);margin:26px auto 0;border-radius:2px;opacity:.8;}
 .hero-copy{max-width:760px;margin:0 auto;}
-.hero .eyebrow{margin:0 auto;}
-.hero h1{font-size:clamp(2.6rem,5.4vw,4.6rem);margin:24px 0 0;font-weight:400;letter-spacing:-1px;}
+.hero .eyebrow{margin:0 auto;background:#fff;border-color:rgba(206,51,117,.22);color:var(--yarrow-dd);}
+.hero .eyebrow .d{background:var(--yarrow);}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.7rem);margin:22px 0 0;font-weight:300;letter-spacing:-1.2px;line-height:1.05;}
 .hero h1 .accent{color:var(--yarrow);font-style:italic;font-weight:400;}
-.hero-hand{font-family:'Shadows Into Light',cursive;font-size:1.35rem;color:var(--coral);transform:rotate(-2deg);margin:16px 0 0;opacity:.92;letter-spacing:.3px;}
-.hero-sub{font-size:1.1rem;line-height:1.7;color:var(--ink-2);max-width:560px;margin:26px auto 0;font-weight:500;}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;justify-content:center;}
-.hero-channels{margin-top:44px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;}
-.hero-channels .lbl{font-size:.66rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ink);opacity:.5;}
-.hero-channels .chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
-.hero-channels .chip{background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:6px 14px;font-size:.78rem;font-weight:700;color:var(--ink-2);}
+.hero-hand{font-family:'Shadows Into Light',cursive;font-size:1.4rem;color:var(--yarrow);transform:rotate(-2deg);margin:18px 0 0;opacity:.95;letter-spacing:.3px;}
+.hero-sub{font-size:1.08rem;line-height:1.75;color:var(--ink-2);max-width:540px;margin:24px auto 0;font-weight:500;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;justify-content:center;}
+.hero-channels{margin-top:40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;}
+.hero-channels .lbl{font-size:.62rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--yarrow-dd);opacity:.75;}
+.hero-channels .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.hero-channels .chip{background:transparent;border:none;padding:0;font-size:.82rem;font-weight:700;color:var(--ink-2);}
+.hero-channels .chip:not(:last-child)::after{content:'·';margin-left:10px;color:var(--yarrow);opacity:.55;}
 
 /* ---------- generic section ---------- */
 section{position:relative;}
@@ -187,6 +193,61 @@ section{position:relative;}
 .svc p{font-size:.88rem;color:var(--ink-2);font-weight:500;line-height:1.55;}
 .svc-note{text-align:center;margin-top:36px;font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink-2);}
 
+/* ---------- pricing ---------- */
+.pricing{background:var(--cloud);position:relative;overflow:hidden;}
+.pricing::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(31,61,58,.04) 1.2px,transparent 1.2px);background-size:30px 30px;pointer-events:none;}
+.pricing .wrap{position:relative;z-index:1;}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
+.plan{background:#fff;border:1px solid var(--line);border-radius:22px;padding:34px 30px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;position:relative;}
+.plan:hover{transform:translateY(-6px);box-shadow:0 24px 54px rgba(31,61,58,.1);}
+.plan.featured{border:1.5px solid var(--lagoon);box-shadow:0 24px 54px rgba(77,158,154,.16);}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--lagoon);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:30px;white-space:nowrap;}
+.plan-name{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;letter-spacing:-.5px;margin-bottom:4px;}
+.plan-tag{font-size:.86rem;color:var(--ink-2);font-weight:500;margin-bottom:20px;min-height:40px;}
+.plan-price{display:flex;align-items:center;gap:8px;padding:14px 16px;background:var(--cloud);border:1px dashed var(--line);border-radius:14px;margin-bottom:22px;}
+.plan.featured .plan-price{background:rgba(77,158,154,.07);border-color:rgba(77,158,154,.3);}
+.pp-lock{font-size:.95rem;}
+.pp-amount{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;color:var(--ink);}
+.pp-amount small{font-size:.7rem;color:var(--ink-2);font-weight:600;}
+.pp-text{font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;letter-spacing:.3px;color:var(--ink);}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;flex:1;}
+.plan-feats li{display:flex;gap:10px;font-size:.9rem;color:var(--ink-2);font-weight:500;line-height:1.4;}
+.plan-feats li::before{content:'✓';color:var(--lagoon-d);font-weight:900;flex-shrink:0;}
+.plan.featured .plan-feats li::before{color:var(--coral);}
+.plan .btn{width:100%;justify-content:center;}
+.price-note{text-align:center;margin-top:34px;font-size:.95rem;color:var(--ink-2);font-weight:500;}
+.price-note a{color:var(--yarrow);font-weight:800;text-decoration:none;border-bottom:1.5px solid var(--yarrow);}
+
+/* ---------- plan builder ---------- */
+.build{background:var(--cloud-2);position:relative;overflow:hidden;}
+.build::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(31,61,58,.04) 1.2px,transparent 1.2px);background-size:30px 30px;pointer-events:none;}
+.build .wrap{position:relative;z-index:1;}
+.build-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:40px;align-items:start;}
+.build-steps{display:flex;flex-direction:column;gap:32px;}
+.bstep-label{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px;letter-spacing:-.3px;}
+.bstep-num{font-style:italic;color:var(--lagoon-d);}
+.opt-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.opt{background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:11px 20px;font-size:.88rem;font-weight:700;color:var(--ink-2);cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .15s;user-select:none;}
+.opt:hover{border-color:var(--lagoon);transform:translateY(-1px);}
+.opt.selected{background:var(--lagoon);border-color:var(--lagoon);color:#fff;}
+.opt.core{background:var(--ink);border-color:var(--ink);color:#fff;cursor:default;}
+.cadence{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.cad{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;}
+.cad:hover{border-color:var(--coral);transform:translateY(-2px);}
+.cad.selected{border-color:var(--coral);background:rgba(255,111,97,.09);}
+.cad-n{font-family:'Fraunces',serif;font-size:1.5rem;font-style:italic;font-weight:400;color:var(--coral);line-height:1;}
+.cad-l{font-size:.68rem;font-weight:700;color:var(--ink-2);margin-top:6px;line-height:1.3;}
+.cad-note{font-size:.8rem;color:var(--ink-2);margin-top:12px;font-style:italic;}
+.summary{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;position:sticky;top:96px;box-shadow:0 22px 54px rgba(31,61,58,.1);}
+.summary h3{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;margin-bottom:18px;letter-spacing:-.3px;}
+.sum-block{margin-bottom:15px;}
+.sum-block .sl{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--lagoon-d);margin-bottom:5px;}
+.sum-block .sv{font-size:.9rem;color:var(--ink);font-weight:600;line-height:1.5;}
+.sum-price{display:flex;align-items:center;gap:8px;padding:13px 15px;background:var(--cloud);border:1px dashed var(--line);border-radius:12px;margin:18px 0;font-weight:800;font-size:.8rem;color:var(--ink);}
+.summary .btn{width:100%;justify-content:center;margin-bottom:10px;}
+.sum-login{text-align:center;font-size:.82rem;color:var(--ink-2);}
+.sum-login a{color:var(--yarrow);font-weight:800;text-decoration:none;cursor:pointer;}
+
 /* ---------- CTA ---------- */
 .cta{background:var(--ink);color:var(--cloud);text-align:center;overflow:hidden;position:relative;}
 .cta-blob{position:absolute;border-radius:50%;filter:blur(10px);}
@@ -232,10 +293,26 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
 [data-reveal].in{opacity:1;transform:none;}
 .dl1{transition-delay:.08s;}.dl2{transition-delay:.16s;}.dl3{transition-delay:.24s;}.dl4{transition-delay:.32s;}
 
+/* ---------- auth modal ---------- */
+.auth-modal{position:fixed;inset:0;background:rgba(31,61,58,.45);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
+.auth-modal.open{display:flex;}
+.auth-card{background:#fff;border-radius:22px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 30px 70px rgba(31,61,58,.3);position:relative;}
+.auth-card h3{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:500;margin-bottom:20px;letter-spacing:-.3px;}
+.auth-card input{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;font-family:'Nunito',sans-serif;font-size:.95rem;margin-bottom:12px;background:var(--cloud-2);box-sizing:border-box;}
+.auth-card input:focus{outline:none;border-color:var(--lagoon);}
+.auth-card .btn{width:100%;justify-content:center;margin-top:6px;}
+.auth-err{color:#CD4B3B;font-size:.82rem;font-weight:600;min-height:18px;margin-bottom:6px;}
+.auth-toggle{text-align:center;margin-top:16px;font-size:.85rem;color:var(--yarrow);font-weight:700;cursor:pointer;}
+.auth-close{position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;color:var(--ink-2);cursor:pointer;line-height:1;}
+
 /* ---------- responsive ---------- */
 @media(max-width:920px){
  .contact-grid{grid-template-columns:1fr;gap:36px;}
  .report-grid{grid-template-columns:1fr;gap:38px;}
+ .price-grid{grid-template-columns:1fr;gap:16px;max-width:440px;margin:0 auto;}
+ .build-grid{grid-template-columns:1fr;gap:30px;}
+ .summary{position:static;}
+ .cadence{grid-template-columns:repeat(2,1fr);}
  .pain-grid,.ben-grid{grid-template-columns:1fr;}
  .svc-grid{grid-template-columns:1fr 1fr;}
 }
@@ -251,6 +328,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  .foot-links{gap:30px;}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -262,23 +340,28 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
   <li><a href="#report" data-i18n="nav.report">The Report</a></li>
   <li><a href="#benefits" data-i18n="nav.benefits">Why It Helps</a></li>
   <li><a href="#who" data-i18n="nav.who">Who It's For</a></li>
+  <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
  </ul>
  <div class="nav-right">
+  <a href="#login" class="nav-login" id="navLogin" data-i18n="nav.login">Log in</a>
+  <a href="#logout" class="nav-login" id="navLogout" style="display:none">Log out</a>
   <button class="lang-toggle" id="langToggle" aria-label="Switch language">ES</button>
-  <a href="#contact" class="nav-cta" data-i18n="nav.talk">Let's Talk</a>
+  <a href="#build" class="nav-cta" id="navSignup" data-i18n="nav.talk">Sign Up</a>
  </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero" id="top">
  <div class="hero-glow"></div>
+ <div class="hero-glow2"></div>
  <div class="hero-dots"></div>
  <div class="hero-inner">
   <div class="hero-copy" data-reveal>
    <div class="eyebrow" data-i18n="hero.eyebrow"><span class="d"></span>For businesses drowning in messages</div>
    <h1 data-i18n="hero.h1">We answer <span class="accent">your customers,</span><br>so you never lose one.</h1>
+   <div class="hero-rule"></div>
    <p class="hero-hand" data-i18n="hero.hand">every message, answered with care</p>
-   <p class="hero-sub" data-i18n="hero.sub">Your phone never stops. WhatsApp, Instagram, Facebook, your website. We check in twice a day, reply to every customer in your voice, and send you a simple report of who needs what. Nothing slips through, and no leads sit waiting for days.</p>
+   <p class="hero-sub" data-i18n="hero.sub">Your phone never stops. WhatsApp, Instagram, Facebook, your website. We check in on the schedule you choose, reply to every customer in your voice, and send you a simple report of who needs what. Nothing slips through, and no leads sit waiting for days.</p>
    <div class="hero-btns">
     <a href="#contact" class="btn btn-primary" data-i18n="hero.btn1">Let's Talk <span>→</span></a>
     <a href="#how" class="btn btn-ghost" data-i18n="hero.btn2">See How It Works</a>
@@ -332,7 +415,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
   <div class="sec-head center" data-reveal>
    <div class="eyebrow coral" style="margin:0 auto;" data-i18n="how.eyebrow"><span class="d"></span>How it works</div>
    <h2 data-i18n="how.h2">One simple system that <span class="accent">catches every customer.</span></h2>
-   <p data-i18n="how.intro">We set up the home, build the front door, then we answer it for you, twice a day.</p>
+   <p data-i18n="how.intro">We set up the home, build the front door, then we answer it for you, as often as you choose.</p>
   </div>
   <div class="steps">
    <div class="step" data-reveal>
@@ -354,9 +437,9 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
    <div class="step" data-reveal>
     <div class="step-n">03</div>
     <div class="step-body">
-     <h3 data-i18n="how.s3h">We answer everything, twice a day</h3>
-     <p data-i18n="how.s3p">This is the heart of it. Twice a day we go through your messages and forms, reply to every customer in your voice, then send you a simple report so you know exactly who reached out and who is worth your time.</p>
-     <span class="step-tag" data-i18n="how.s3t">Twice daily · with a report</span>
+     <h3 data-i18n="how.s3h">We answer everything, on your schedule</h3>
+     <p data-i18n="how.s3p">This is the heart of it. On the schedule you choose, we go through your messages and forms, reply to every customer in your voice, then send you a simple report so you know exactly who reached out and who is worth your time.</p>
+     <span class="step-tag" data-i18n="how.s3t">On your schedule · with a report</span>
     </div>
    </div>
    <div class="step" data-reveal>
@@ -376,15 +459,15 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  <div class="wrap">
   <div class="report-grid">
    <div class="report-copy" data-reveal>
-    <div class="eyebrow" data-i18n="rep.eyebrow"><span class="d"></span>Your daily report</div>
+    <div class="eyebrow" data-i18n="rep.eyebrow"><span class="d"></span>Your report</div>
     <h2 data-i18n="rep.h2">After every check-in, a <span class="accent">clear report</span> lands in your inbox.</h2>
-    <p data-i18n="rep.p">You never have to wonder what happened while you were working. Twice a day you get a simple, organized summary: who reached out, what they wanted, what we told them, and anything that needs a decision from you.</p>
+    <p data-i18n="rep.p">You never have to wonder what happened while you were working. Every time we check in you get a simple, organized summary: who reached out, what they wanted, what we told them, and anything that needs a decision from you.</p>
     <p class="rnote" data-i18n="rep.rnote">no more guessing, ever</p>
    </div>
    <div class="report-card" data-reveal>
     <div class="report-bar">
      <div>
-      <div class="rt" data-i18n="rep.rt">Daily Report</div>
+      <div class="rt" data-i18n="rep.rt">Your Report</div>
       <div class="rd" data-i18n="rep.rd">Tuesday · 8 June · Afternoon check-in</div>
      </div>
      <div class="rbrand">Hello, Virtually!</div>
@@ -431,7 +514,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
    <div class="ben-card" data-reveal>
     <div class="ben-ic">01</div>
     <h3 data-i18n="ben.h1">Leads stop slipping away</h3>
-    <p data-i18n="ben.p1">We check your messages twice a day, every day, so nothing sits for a week. The customers you used to lose turn into booked jobs.</p>
+    <p data-i18n="ben.p1">We check your messages as often as you choose, so nothing sits for a week. The customers you used to lose turn into booked jobs.</p>
    </div>
    <div class="ben-card dl1" data-reveal>
     <div class="ben-ic">02</div>
@@ -484,7 +567,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
    <p data-i18n="svc.intro">Start with inquiry management, add the rest whenever you're ready. Mix and match.</p>
   </div>
   <div class="svc-grid">
-   <div class="svc" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3 data-i18n="svc.h1">Inquiry Monitoring</h3><p data-i18n="svc.p1">The heart of it. We check your channels twice a day, reply to everyone, and report back.</p></div>
+   <div class="svc" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3 data-i18n="svc.h1">Inquiry Monitoring</h3><p data-i18n="svc.p1">The heart of it. We check your channels on your schedule, reply to everyone, and report back.</p></div>
    <div class="svc dl1" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3 data-i18n="svc.h2b">Website Setup</h3><p data-i18n="svc.p2">A clean, professional site that becomes home base for your leads.</p></div>
    <div class="svc dl2" data-reveal><div class="dot" style="background:var(--coral)"></div><h3 data-i18n="svc.h3b">Intake Forms</h3><p data-i18n="svc.p3">One simple link that captures every lead the same, organized way.</p></div>
    <div class="svc" data-reveal><div class="dot" style="background:var(--lagoon)"></div><h3 data-i18n="svc.h4b">Social Content</h3><p data-i18n="svc.p4">Posts that keep your page active and your business looking alive.</p></div>
@@ -492,6 +575,113 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
    <div class="svc dl2" data-reveal><div class="dot" style="background:var(--yarrow)"></div><h3 data-i18n="svc.h6b">Marketing Campaigns</h3><p data-i18n="svc.p6">Simple campaigns to bring new inquiries in, not just manage them.</p></div>
   </div>
   <p class="svc-note" data-reveal data-i18n="svc.note">Not sure where to start? Most people begin with inquiry monitoring and a website.</p>
+ </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing sec-pad" id="pricing">
+ <div class="wrap">
+  <div class="sec-head center" data-reveal>
+   <div class="eyebrow coral" style="margin:0 auto;" data-i18n="pr.eyebrow"><span class="d"></span>Pricing</div>
+   <h2 data-i18n="pr.h2">Simple plans that <span class="accent">grow with you.</span></h2>
+   <p data-i18n="pr.intro">Choose the level of help you need today and change it whenever you like. Pricing is kept behind a quick login.</p>
+  </div>
+  <div class="price-grid">
+   <div class="plan" data-reveal>
+    <div class="plan-name" data-i18n="pr.n1">Essentials</div>
+    <div class="plan-tag" data-i18n="pr.t1">For getting started.</div>
+    <div class="plan-price" data-plan="essentials"><span class="pp-amount" style="display:none"></span><span class="pp-text" data-i18n="pr.locked">Log in to see prices</span></div>
+    <ul class="plan-feats">
+     <li data-i18n="pr.f1a">Inquiry monitoring on a light schedule</li>
+     <li data-i18n="pr.f1b">One channel of your choice</li>
+     <li data-i18n="pr.f1c">A daily summary report</li>
+    </ul>
+    <a href="#build" class="btn btn-ghost" data-i18n="pr.login">Build this plan</a>
+   </div>
+   <div class="plan featured dl1" data-reveal>
+    <div class="plan-badge" data-i18n="pr.badge">Most popular</div>
+    <div class="plan-name" data-i18n="pr.n2">Core</div>
+    <div class="plan-tag" data-i18n="pr.t2">Where most businesses start.</div>
+    <div class="plan-price" data-plan="core"><span class="pp-amount" style="display:none"></span><span class="pp-text" data-i18n="pr.locked2">Log in to see prices</span></div>
+    <ul class="plan-feats">
+     <li data-i18n="pr.f2a">More frequent inquiry monitoring</li>
+     <li data-i18n="pr.f2b">All your channels (WhatsApp, IG, Facebook, web)</li>
+     <li data-i18n="pr.f2c">Intake form set up for you</li>
+     <li data-i18n="pr.f2d">A clear report after every check-in</li>
+    </ul>
+    <a href="#build" class="btn btn-primary" data-i18n="pr.login2">Build this plan</a>
+   </div>
+   <div class="plan dl2" data-reveal>
+    <div class="plan-name" data-i18n="pr.n3">Full Service</div>
+    <div class="plan-tag" data-i18n="pr.t3">Hand off the whole back office.</div>
+    <div class="plan-price" data-plan="full"><span class="pp-amount" style="display:none"></span><span class="pp-text" data-i18n="pr.locked3">Log in to see prices</span></div>
+    <ul class="plan-feats">
+     <li data-i18n="pr.f3a">Everything in Core</li>
+     <li data-i18n="pr.f3b">Website setup</li>
+     <li data-i18n="pr.f3c">Social content &amp; reviews</li>
+     <li data-i18n="pr.f3d">Marketing campaigns</li>
+    </ul>
+    <a href="#build" class="btn btn-ghost" data-i18n="pr.login3">Build this plan</a>
+   </div>
+  </div>
+  <p class="price-note" data-reveal data-i18n="pr.note">No account yet? <a href="#contact">Get in touch</a> and we'll set you up with access.</p>
+ </div>
+</section>
+
+<!-- PLAN BUILDER -->
+<section class="build sec-pad" id="build">
+ <div class="wrap">
+  <div class="sec-head center" data-reveal>
+   <div class="eyebrow" style="margin:0 auto;" data-i18n="bld.eyebrow"><span class="d"></span>Build your plan</div>
+   <h2 data-i18n="bld.h2">Set it up <span class="accent">your way.</span></h2>
+   <p data-i18n="bld.intro">Pick what you need and how often we check in. Sure about it? Create your account and start, no call required.</p>
+  </div>
+  <div class="build-grid">
+   <div class="build-steps" data-reveal>
+    <div class="bstep">
+     <div class="bstep-label"><span class="bstep-num">01</span> <span data-i18n="bld.s1">What should we handle?</span></div>
+     <div class="opt-chips" id="svcChips">
+      <div class="opt core selected" data-locked="1" data-i18n="bld.svc0">Inquiry monitoring</div>
+      <div class="opt" data-i18n="bld.svc1">Website setup</div>
+      <div class="opt" data-i18n="bld.svc2">Intake form</div>
+      <div class="opt" data-i18n="bld.svc3">Social content</div>
+      <div class="opt" data-i18n="bld.svc4">Reviews &amp; reputation</div>
+      <div class="opt" data-i18n="bld.svc5">Marketing campaigns</div>
+     </div>
+    </div>
+    <div class="bstep">
+     <div class="bstep-label"><span class="bstep-num">02</span> <span data-i18n="bld.s2">How often should we check in?</span></div>
+     <div class="cadence" id="cadChips">
+      <div class="cad"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadMonth">a month</div></div>
+      <div class="cad"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadWeek">a week</div></div>
+      <div class="cad"><div class="cad-n">3x</div><div class="cad-l" data-i18n="bld.cadWeek3">a week</div></div>
+      <div class="cad selected"><div class="cad-n">1x</div><div class="cad-l" data-i18n="bld.cadDay">a day</div></div>
+      <div class="cad"><div class="cad-n">2x</div><div class="cad-l" data-i18n="bld.cadDay2">a day</div></div>
+     </div>
+     <p class="cad-note" data-i18n="bld.cadNote">Twice a day is the most we offer, so no customer ever waits long.</p>
+    </div>
+    <div class="bstep">
+     <div class="bstep-label"><span class="bstep-num">03</span> <span data-i18n="bld.s3">Which channels?</span></div>
+     <div class="opt-chips" id="chanChips">
+      <div class="opt selected">WhatsApp</div>
+      <div class="opt selected">Instagram</div>
+      <div class="opt selected">Facebook</div>
+      <div class="opt" data-i18n="bld.chWeb">Website form</div>
+      <div class="opt" data-i18n="bld.chEmail">Email</div>
+     </div>
+    </div>
+   </div>
+
+   <div class="summary" data-reveal>
+    <h3 data-i18n="bld.sumTitle">Your plan</h3>
+    <div class="sum-block"><div class="sl" data-i18n="bld.sumSvc">Services</div><div class="sv" id="sumSvc">Inquiry monitoring</div></div>
+    <div class="sum-block"><div class="sl" data-i18n="bld.sumCad">Check-ins</div><div class="sv" id="sumCad">1x a day</div></div>
+    <div class="sum-block"><div class="sl" data-i18n="bld.sumChan">Channels</div><div class="sv" id="sumChan">WhatsApp, Instagram, Facebook</div></div>
+    <div class="sum-price"><span data-i18n="bld.sumPrice">Log in to see your price</span></div>
+    <a class="btn btn-primary" id="buildGo" data-i18n="bld.cta">Create account &amp; continue</a>
+    <div class="sum-login" data-i18n="bld.login">Already a member? <a id="loginLink">Log in</a></div>
+   </div>
+  </div>
  </div>
 </section>
 
@@ -518,9 +708,9 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
     <h2 data-i18n="con.h2">Let's take the messages <span class="accent">off your plate.</span></h2>
     <p class="contact-lead" data-i18n="con.lead">Tell us a little about your business and what's piling up. We'll get back to you within a day with a simple plan to help.</p>
     <div class="contact-pills">
-     <div class="cpill" data-i18n="con.pill1"><span class="ic">💬</span> WhatsApp available</div>
-     <div class="cpill"><span class="ic">✉️</span> hello@itshellovirtually.com</div>
-     <div class="cpill" data-i18n="con.pill3"><span class="ic">⏱️</span> We reply within 24 hours</div>
+     <div class="cpill" data-i18n="con.pill1">WhatsApp available</div>
+     <div class="cpill">hello@itshellovirtually.com</div>
+     <div class="cpill" data-i18n="con.pill3">We reply within 24 hours</div>
     </div>
    </div>
    <form class="form dl1" data-reveal action="https://formspree.io/f/xvznpowv" method="POST">
@@ -556,6 +746,7 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
     <h4 data-i18n="foot.service">Service</h4>
     <a href="#pain" data-i18n="nav.problem">The Problem</a>
     <a href="#how" data-i18n="nav.how">How It Works</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
     <a href="#benefits" data-i18n="nav.benefits">Why It Helps</a>
     <a href="#who" data-i18n="nav.who">Who It's For</a>
    </div>
@@ -569,9 +760,22 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
  </div>
  <div class="foot-bottom">
   <span>© 2026 Hello, Virtually! · Puerto Rico</span>
-  <span data-i18n="foot.made">Made with care 💌</span>
+  <span data-i18n="foot.made">Made with care</span>
  </div>
 </footer>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal" id="authModal">
+ <div class="auth-card">
+  <button class="auth-close" id="authClose" aria-label="Close">&times;</button>
+  <h3 id="authTitle">Log in</h3>
+  <input type="email" id="authEmail" placeholder="you@email.com" autocomplete="email">
+  <input type="password" id="authPass" placeholder="Password" autocomplete="current-password">
+  <div class="auth-err" id="authErr"></div>
+  <button class="btn btn-primary" id="authSubmit">Log in</button>
+  <div class="auth-toggle" id="authToggle">Need an account? Sign up</div>
+ </div>
+</div>
 
 <script>
 // nav scroll
@@ -584,10 +788,14 @@ document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 
 <script>
 // ---------- i18n EN/ES ----------
-const ES = {"nav.problem": "El problema", "nav.how": "Cómo funciona", "nav.report": "El reporte", "nav.benefits": "Por qué ayuda", "nav.who": "Para quién es", "nav.talk": "Hablemos", "hero.eyebrow": "<span class=\"d\"></span>Para negocios que no dan abasto con los mensajes", "hero.h1": "Respondemos a <span class=\"accent\">tus clientes,</span><br>para que no pierdas a ninguno.", "hero.hand": "cada mensaje, atendido con cariño", "hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos dos veces al día, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "hero.btn1": "Hablemos <span>→</span>", "hero.btn2": "Mira cómo funciona", "hero.cover": "Cubrimos", "hero.chip4": "Tu formulario web", "pain.eyebrow": "<span class=\"d\"></span>¿Te suena familiar?", "pain.h2": "Eres excelente en lo tuyo. Los <span class=\"accent\">mensajes</span> te están enterrando.", "pain.intro": "Cuando llevas un negocio de servicios con movimiento, las consultas no paran. Y cada una que se te escapa es un cliente que reservó con otro.", "pain.q1": "Los mensajes se acumulan", "pain.p1": "Estás en un trabajo con las manos ocupadas. Cuando por fin miras el teléfono, hay una docena de mensajes esperando y no sabes ni por dónde empezar.", "pain.q2": "Los clientes se enfrían", "pain.p2": "Una consulta nueva se queda sin responder unos días. Para cuando contestas, ya reservaron con alguien que respondió primero. Eso es dinero que se va sin hacer ruido.", "pain.q3": "Se ve poco profesional", "pain.p3": "Los mensajes sin responder y un buzón desordenado hacen que hasta un negocio excelente se vea más pequeño y menos confiable de lo que en verdad es.", "pain.q4": "Tu día se descarrila", "pain.p4": "Estar pendiente de cada mensaje es una interrupción constante. El papeleo se come, poco a poco, las horas que preferirías dedicarle al trabajo.", "pain.foot": "Imagina cada mensaje atendido con cariño, <b>sin que toque nunca tu lista de pendientes.</b>", "how.eyebrow": "<span class=\"d\"></span>Cómo funciona", "how.h2": "Un sistema simple que <span class=\"accent\">no deja escapar a ningún cliente.</span>", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, dos veces al día.", "how.s1h": "Montamos tu sitio web", "how.s1p": "Primero le damos a tu negocio un hogar limpio y profesional en línea. Es donde llegan los clientes cuando te encuentran, donde empieza la confianza y donde entran las consultas.", "how.s1t": "Configuración única", "how.s2h": "Creamos tu formulario de intake", "how.s2p": "Luego creamos un formulario simple que captura cada consulta de la misma forma: su nombre, qué necesitan y cómo contactarlos. Se acabaron los detalles perdidos en un mar de mensajes.", "how.s2t": "Tu puerta de entrada de clientes", "how.s3h": "Respondemos todo, dos veces al día", "how.s3p": "Este es el corazón. Dos veces al día revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "Dos veces al día · con reporte", "how.s4h": "Cubrimos todos tus canales", "how.s4p": "Los clientes no usan una sola app, así que nosotros tampoco. WhatsApp, Instagram, Facebook, correo, donde sea que escriban, ahí estamos, manteniendo todo consistente y bien cuidado.", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte diario", "rep.h2": "Después de cada revisión, llega un <span class=\"accent\">reporte claro</span> a tu correo.", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Dos veces al día recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "rep.rnote": "se acabó adivinar", "rep.rt": "Reporte diario", "rep.rd": "Martes · 8 de junio · Revisión de la tarde", "rep.lbl1": "Consultas nuevas", "rep.lbl2": "Contestadas", "rep.lbl3": "Te necesitan", "rep.b1": "Contestado", "rep.b3": "Te necesita", "rep.chan3": "Formulario web", "rep.r1a": "<b>Pidió:</b> disponibilidad esta semana", "rep.r1b": "<b>Servicio:</b> Facial principal", "rep.r1c": "<b>Respondimos:</b> ofrecimos martes o jueves, le preguntamos su horario preferido", "rep.r2a": "<b>Pidió:</b> una cotización de detallado completo", "rep.r2b": "<b>Servicio:</b> Detallado de autos, interior + exterior completo", "rep.r2c": "<b>Respondimos:</b> enviamos tus precios, confirmamos su modelo de auto y código postal", "rep.r3a": "<b>Pidió:</b> saber si haces visitas a domicilio", "rep.r3b": "<b>Servicio:</b> por confirmar contigo", "rep.r3c": "<b>Aún falta:</b> su dirección y una fecha preferida para poder cotizar", "ben.eyebrow": "<span class=\"d\"></span>Por qué ayuda", "ben.h2": "Lo que de verdad <span class=\"accent\">cambia para ti.</span>", "ben.intro": "Esto no es solo responder mensajes. Es lo que eso hace por tu negocio y por tu día.", "ben.h1": "Dejas de perder clientes", "ben.p1": "Revisamos tus mensajes dos veces al día, todos los días, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "ben.h2b": "Respuestas que suenan a ti", "ben.p2": "Cada mensaje se responde con cuidado, en tu tono, con los detalles que tus clientes de verdad necesitan. Consistente, cálido y profesional, siempre.", "ben.h3b": "Te ves más establecido", "ben.p3": "Un proceso de intake real y respuestas pulidas hacen que te veas como un negocio con un equipo detrás.", "ben.quote": "\"Le digo a mi asistente que te lo envíe enseguida.\"", "ben.h4b": "Siempre sabes qué está pasando", "ben.p4": "Después de cada revisión recibes un reporte simple: quién escribió, qué necesita y a quién vale la pena darle seguimiento. Sin adivinar.", "who.eyebrow": "<span class=\"d\"></span>Para quién es", "who.h2": "Si tu teléfono <span class=\"accent\">no para de sonar,</span> esto es para ti.", "who.intro": "Estamos hechos para negocios de servicios ocupados y prácticos que reciben más consultas de las que pueden manejar.", "who.t1": "Contratistas y remodelación", "who.t2": "Salones y spas", "who.t3": "Spas médicos", "who.t4": "Detallado de autos", "who.t5": "Mudanzas", "who.t6": "Cuidado y grooming de mascotas", "who.t7": "Dental y quiropráctico", "who.t8": "Servicios de limpieza", "who.foot": "Si alguna vez perdiste un cliente solo porque no pudiste llegar a tu teléfono a tiempo, esto lo hicimos para ti.", "svc.eyebrow": "<span class=\"d\"></span>Todo el kit", "svc.h2": "Responder a tus clientes es el corazón. <span class=\"accent\">Esto es todo lo demás.</span>", "svc.intro": "Empieza con el manejo de consultas y suma lo demás cuando estés lista. Combínalo a tu gusto.", "svc.h1": "Monitoreo de consultas", "svc.p1": "El corazón de todo. Revisamos tus canales dos veces al día, le respondemos a todos, y te reportamos.", "svc.h2b": "Diseño de sitio web", "svc.p2": "Un sitio limpio y profesional que se vuelve el punto de partida de tus clientes.", "svc.h3b": "Formularios de intake", "svc.p3": "Un solo enlace simple que captura cada cliente de la misma forma ordenada.", "svc.h4b": "Contenido para redes", "svc.p4": "Publicaciones que mantienen tu página activa y tu negocio con vida.", "svc.h5b": "Reseñas y reputación", "svc.p5": "Te ayudamos a conseguir y responder reseñas de Google y Yelp con cuidado.", "svc.h6b": "Campañas de marketing", "svc.p6": "Campañas simples para atraer consultas nuevas, no solo manejarlas.", "svc.note": "¿No sabes por dónde empezar? La mayoría comienza con el monitoreo de consultas y un sitio web.", "cta.h2": "Deja de perder clientes por un <span class=\"accent\">buzón lleno.</span>", "cta.p": "Hablemos de lo que se te está escapando y de cómo lo podemos atrapar por ti. Sin presión, solo una conversación amable.", "cta.btn2": "Mira cómo funciona", "con.eyebrow": "<span class=\"d\"></span>Contáctanos", "con.h2": "Quitemos los mensajes <span class=\"accent\">de tu lista.</span>", "con.lead": "Cuéntanos un poco sobre tu negocio y qué se te está acumulando. Te respondemos en un día con un plan simple para ayudarte.", "con.pill1": "<span class=\"ic\">💬</span> WhatsApp disponible", "con.pill3": "<span class=\"ic\">⏱️</span> Respondemos en menos de 24 horas", "con.l1": "Tu nombre", "con.l2": "Tu negocio", "con.l3": "¿Qué se te está acumulando?", "con.l4": "Correo", "con.l5": "¿Algo más? (opcional)", "con.o1": "No doy abasto con todos los mensajes", "con.o2": "Los clientes esperan días antes de que conteste", "con.o3": "Mis clientes esperan demasiado por una respuesta", "con.o4": "Necesito un sitio web y un formulario de intake", "con.o5": "Mis redes sociales se están quedando atrás", "con.o6": "Un poco de todo", "con.send": "Enviar <span>→</span>", "ph.name": "Nombre", "ph.biz": "¿A qué te dedicas?", "ph.msg": "Cuéntanos un poco más...", "foot.tag": "Respondemos a tus clientes, para que no pierdas a ninguno. Un servicio de asistente virtual para gente ocupada.", "foot.service": "Servicio", "foot.connect": "Conecta", "foot.email": "Escríbenos", "foot.made": "Hecho con cariño 💌"};
+const ES = {"nav.problem": "El problema", "nav.how": "Cómo funciona", "nav.report": "El reporte", "nav.benefits": "Por qué ayuda", "nav.who": "Para quién es", "nav.talk": "Hablemos", "hero.eyebrow": "<span class=\"d\"></span>Para negocios que no dan abasto con los mensajes", "hero.h1": "Respondemos a <span class=\"accent\">tus clientes,</span><br>para que no pierdas a ninguno.", "hero.hand": "cada mensaje, atendido con cariño", "hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos dos veces al día, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "hero.btn1": "Hablemos <span>→</span>", "hero.btn2": "Mira cómo funciona", "hero.cover": "Cubrimos", "hero.chip4": "Tu formulario web", "pain.eyebrow": "<span class=\"d\"></span>¿Te suena familiar?", "pain.h2": "Eres excelente en lo tuyo. Los <span class=\"accent\">mensajes</span> te están enterrando.", "pain.intro": "Cuando llevas un negocio de servicios con movimiento, las consultas no paran. Y cada una que se te escapa es un cliente que reservó con otro.", "pain.q1": "Los mensajes se acumulan", "pain.p1": "Estás en un trabajo con las manos ocupadas. Cuando por fin miras el teléfono, hay una docena de mensajes esperando y no sabes ni por dónde empezar.", "pain.q2": "Los clientes se enfrían", "pain.p2": "Una consulta nueva se queda sin responder unos días. Para cuando contestas, ya reservaron con alguien que respondió primero. Eso es dinero que se va sin hacer ruido.", "pain.q3": "Se ve poco profesional", "pain.p3": "Los mensajes sin responder y un buzón desordenado hacen que hasta un negocio excelente se vea más pequeño y menos confiable de lo que en verdad es.", "pain.q4": "Tu día se descarrila", "pain.p4": "Estar pendiente de cada mensaje es una interrupción constante. El papeleo se come, poco a poco, las horas que preferirías dedicarle al trabajo.", "pain.foot": "Imagina cada mensaje atendido con cariño, <b>sin que toque nunca tu lista de pendientes.</b>", "how.eyebrow": "<span class=\"d\"></span>Cómo funciona", "how.h2": "Un sistema simple que <span class=\"accent\">no deja escapar a ningún cliente.</span>", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, dos veces al día.", "how.s1h": "Montamos tu sitio web", "how.s1p": "Primero le damos a tu negocio un hogar limpio y profesional en línea. Es donde llegan los clientes cuando te encuentran, donde empieza la confianza y donde entran las consultas.", "how.s1t": "Configuración única", "how.s2h": "Creamos tu formulario de intake", "how.s2p": "Luego creamos un formulario simple que captura cada consulta de la misma forma: su nombre, qué necesitan y cómo contactarlos. Se acabaron los detalles perdidos en un mar de mensajes.", "how.s2t": "Tu puerta de entrada de clientes", "how.s3h": "Respondemos todo, dos veces al día", "how.s3p": "Este es el corazón. Dos veces al día revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "Dos veces al día · con reporte", "how.s4h": "Cubrimos todos tus canales", "how.s4p": "Los clientes no usan una sola app, así que nosotros tampoco. WhatsApp, Instagram, Facebook, correo, donde sea que escriban, ahí estamos, manteniendo todo consistente y bien cuidado.", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte diario", "rep.h2": "Después de cada revisión, llega un <span class=\"accent\">reporte claro</span> a tu correo.", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Dos veces al día recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "rep.rnote": "se acabó adivinar", "rep.rt": "Reporte diario", "rep.rd": "Martes · 8 de junio · Revisión de la tarde", "rep.lbl1": "Consultas nuevas", "rep.lbl2": "Contestadas", "rep.lbl3": "Te necesitan", "rep.b1": "Contestado", "rep.b3": "Te necesita", "rep.chan3": "Formulario web", "rep.r1a": "<b>Pidió:</b> disponibilidad esta semana", "rep.r1b": "<b>Servicio:</b> Facial principal", "rep.r1c": "<b>Respondimos:</b> ofrecimos martes o jueves, le preguntamos su horario preferido", "rep.r2a": "<b>Pidió:</b> una cotización de detallado completo", "rep.r2b": "<b>Servicio:</b> Detallado de autos, interior + exterior completo", "rep.r2c": "<b>Respondimos:</b> enviamos tus precios, confirmamos su modelo de auto y código postal", "rep.r3a": "<b>Pidió:</b> saber si haces visitas a domicilio", "rep.r3b": "<b>Servicio:</b> por confirmar contigo", "rep.r3c": "<b>Aún falta:</b> su dirección y una fecha preferida para poder cotizar", "ben.eyebrow": "<span class=\"d\"></span>Por qué ayuda", "ben.h2": "Lo que de verdad <span class=\"accent\">cambia para ti.</span>", "ben.intro": "Esto no es solo responder mensajes. Es lo que eso hace por tu negocio y por tu día.", "ben.h1": "Dejas de perder clientes", "ben.p1": "Revisamos tus mensajes dos veces al día, todos los días, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "ben.h2b": "Respuestas que suenan a ti", "ben.p2": "Cada mensaje se responde con cuidado, en tu tono, con los detalles que tus clientes de verdad necesitan. Consistente, cálido y profesional, siempre.", "ben.h3b": "Te ves más establecido", "ben.p3": "Un proceso de intake real y respuestas pulidas hacen que te veas como un negocio con un equipo detrás.", "ben.quote": "\"Le digo a mi asistente que te lo envíe enseguida.\"", "ben.h4b": "Siempre sabes qué está pasando", "ben.p4": "Después de cada revisión recibes un reporte simple: quién escribió, qué necesita y a quién vale la pena darle seguimiento. Sin adivinar.", "who.eyebrow": "<span class=\"d\"></span>Para quién es", "who.h2": "Si tu teléfono <span class=\"accent\">no para de sonar,</span> esto es para ti.", "who.intro": "Estamos hechos para negocios de servicios ocupados y prácticos que reciben más consultas de las que pueden manejar.", "who.t1": "Contratistas y remodelación", "who.t2": "Salones y spas", "who.t3": "Spas médicos", "who.t4": "Detallado de autos", "who.t5": "Mudanzas", "who.t6": "Cuidado y grooming de mascotas", "who.t7": "Dental y quiropráctico", "who.t8": "Servicios de limpieza", "who.foot": "Si alguna vez perdiste un cliente solo porque no pudiste llegar a tu teléfono a tiempo, esto lo hicimos para ti.", "svc.eyebrow": "<span class=\"d\"></span>Todo el kit", "svc.h2": "Responder a tus clientes es el corazón. <span class=\"accent\">Esto es todo lo demás.</span>", "svc.intro": "Empieza con el manejo de consultas y suma lo demás cuando estés lista. Combínalo a tu gusto.", "svc.h1": "Monitoreo de consultas", "svc.p1": "El corazón de todo. Revisamos tus canales dos veces al día, le respondemos a todos, y te reportamos.", "svc.h2b": "Diseño de sitio web", "svc.p2": "Un sitio limpio y profesional que se vuelve el punto de partida de tus clientes.", "svc.h3b": "Formularios de intake", "svc.p3": "Un solo enlace simple que captura cada cliente de la misma forma ordenada.", "svc.h4b": "Contenido para redes", "svc.p4": "Publicaciones que mantienen tu página activa y tu negocio con vida.", "svc.h5b": "Reseñas y reputación", "svc.p5": "Te ayudamos a conseguir y responder reseñas de Google y Yelp con cuidado.", "svc.h6b": "Campañas de marketing", "svc.p6": "Campañas simples para atraer consultas nuevas, no solo manejarlas.", "svc.note": "¿No sabes por dónde empezar? La mayoría comienza con el monitoreo de consultas y un sitio web.", "cta.h2": "Deja de perder clientes por un <span class=\"accent\">buzón lleno.</span>", "cta.p": "Hablemos de lo que se te está escapando y de cómo lo podemos atrapar por ti. Sin presión, solo una conversación amable.", "cta.btn2": "Mira cómo funciona", "con.eyebrow": "<span class=\"d\"></span>Contáctanos", "con.h2": "Quitemos los mensajes <span class=\"accent\">de tu lista.</span>", "con.lead": "Cuéntanos un poco sobre tu negocio y qué se te está acumulando. Te respondemos en un día con un plan simple para ayudarte.", "con.pill1": "WhatsApp disponible", "con.pill3": "Respondemos en menos de 24 horas", "con.l1": "Tu nombre", "con.l2": "Tu negocio", "con.l3": "¿Qué se te está acumulando?", "con.l4": "Correo", "con.l5": "¿Algo más? (opcional)", "con.o1": "No doy abasto con todos los mensajes", "con.o2": "Los clientes esperan días antes de que conteste", "con.o3": "Mis clientes esperan demasiado por una respuesta", "con.o4": "Necesito un sitio web y un formulario de intake", "con.o5": "Mis redes sociales se están quedando atrás", "con.o6": "Un poco de todo", "con.send": "Enviar <span>→</span>", "ph.name": "Nombre", "ph.biz": "¿A qué te dedicas?", "ph.msg": "Cuéntanos un poco más...", "foot.tag": "Respondemos a tus clientes, para que no pierdas a ninguno. Un servicio de asistente virtual para gente ocupada.", "foot.service": "Servicio", "foot.connect": "Conecta", "foot.email": "Escríbenos", "foot.made": "Hecho con cariño"};
 const TITLE = {en: document.title, es: "Hello, Virtually! · Respondemos a tus clientes, para que no pierdas a ninguno"};
 const i18nEls = [...document.querySelectorAll('[data-i18n]')];
 const baseHTML = {};
+Object.assign(ES, {"nav.pricing": "Precios", "pr.eyebrow": "<span class=\"d\"></span>Precios", "pr.h2": "Planes simples que <span class=\"accent\">crecen contigo.</span>", "pr.intro": "Elige el nivel de ayuda que necesitas hoy y cámbialo cuando quieras. Los precios están detrás de un inicio de sesión rápido.", "pr.n1": "Esenciales", "pr.t1": "Para empezar.", "pr.f1a": "Monitoreo de consultas, una vez al día", "pr.f1b": "Un canal a tu elección", "pr.f1c": "Un reporte resumen diario", "pr.n2": "Core", "pr.t2": "Donde la mayoría empieza.", "pr.f2a": "Monitoreo de consultas, dos veces al día", "pr.f2b": "Todos tus canales (WhatsApp, IG, Facebook, web)", "pr.f2c": "Formulario de intake configurado para ti", "pr.f2d": "Dos reportes claros al día", "pr.n3": "Servicio completo", "pr.t3": "Delega toda la trastienda.", "pr.f3a": "Todo lo de Core", "pr.f3b": "Diseño de sitio web", "pr.f3c": "Contenido social y reseñas", "pr.f3d": "Campañas de marketing", "pr.badge": "El más popular", "pr.locked": "Inicia sesión para ver precios", "pr.locked2": "Inicia sesión para ver precios", "pr.locked3": "Inicia sesión para ver precios", "pr.login": "Iniciar sesión", "pr.login2": "Iniciar sesión", "pr.login3": "Iniciar sesión", "pr.note": "¿Aún no tienes cuenta? <a href=\"#contact\">Escríbenos</a> y te damos acceso."});
+Object.assign(ES, {"nav.login": "Iniciar sesión", "nav.talk": "Regístrate", "pr.login": "Arma este plan", "pr.login2": "Arma este plan", "pr.login3": "Arma este plan", "bld.eyebrow": "<span class=\"d\"></span>Arma tu plan", "bld.h2": "Configúralo <span class=\"accent\">a tu manera.</span>", "bld.intro": "Elige lo que necesitas y cada cuánto entramos. ¿Segura? Crea tu cuenta y empieza, sin llamada.", "bld.s1": "¿Qué manejamos?", "bld.svc0": "Monitoreo de consultas", "bld.svc1": "Diseño de sitio web", "bld.svc2": "Formulario de intake", "bld.svc3": "Contenido para redes", "bld.svc4": "Reseñas y reputación", "bld.svc5": "Campañas de marketing", "bld.s2": "¿Cada cuánto entramos?", "bld.cadMonth": "al mes", "bld.cadWeek": "por semana", "bld.cadWeek3": "por semana", "bld.cadDay": "al día", "bld.cadDay2": "al día", "bld.cadNote": "Entramos hasta dos veces al día, lo máximo que tus clientes esperarán.", "bld.s3": "¿Qué canales?", "bld.chWeb": "Formulario web", "bld.chEmail": "Correo", "bld.sumTitle": "Tu plan", "bld.sumSvc": "Servicios", "bld.sumCad": "Revisiones", "bld.sumChan": "Canales", "bld.sumPrice": "Inicia sesión para ver tu precio", "bld.cta": "Crear cuenta y continuar", "bld.login": "¿Ya tienes cuenta? <a id=\"loginLink\">Inicia sesión</a>"});
+Object.assign(ES, {"con.pill1": "WhatsApp disponible", "con.pill3": "Respondemos en menos de 24 horas", "foot.made": "Hecho con cariño"});
+Object.assign(ES, {"hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos según el horario que elijas, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, con la frecuencia que elijas.", "how.s3h": "Respondemos todo, en tu horario", "how.s3p": "Este es el corazón. Con la frecuencia que elijas, revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "En tu horario · con reporte", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte", "rep.rt": "Tu reporte", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Cada vez que entramos recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "ben.p1": "Revisamos tus mensajes con la frecuencia que elijas, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "svc.p1": "El corazón de todo. Revisamos tus canales en tu horario, le respondemos a todos, y te reportamos.", "pr.f1a": "Monitoreo de consultas en horario ligero", "pr.f2a": "Monitoreo de consultas más frecuente", "pr.f2d": "Un reporte claro después de cada revisión", "bld.cadNote": "Dos veces al día es lo máximo que ofrecemos, así ningún cliente espera mucho."});
 i18nEls.forEach(el => { const k = el.dataset.i18n; if (baseHTML[k] === undefined) baseHTML[k] = el.innerHTML; });
 const phEls = [...document.querySelectorAll('[data-i18n-ph]')];
 const basePH = {};
@@ -605,6 +813,128 @@ function setLang(l){
 document.getElementById('langToggle').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
 // auto-pick Spanish if the visitor's browser is in Spanish
 if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
+</script>
+
+
+<script>
+// ---------- plan builder ----------
+(function(){
+  const svc=document.getElementById('svcChips');
+  const chan=document.getElementById('chanChips');
+  const cad=document.getElementById('cadChips');
+  const sumSvc=document.getElementById('sumSvc'),sumCad=document.getElementById('sumCad'),sumChan=document.getElementById('sumChan');
+  if(!svc) return;
+  const picks=c=>[...c.querySelectorAll('.opt.selected')].map(o=>o.textContent.trim());
+  function update(){
+    sumSvc.textContent=picks(svc).join(', ')||'—';
+    sumChan.textContent=picks(chan).join(', ')||'—';
+    const c=cad.querySelector('.cad.selected');
+    sumCad.textContent=c?(c.querySelector('.cad-n').textContent+' '+c.querySelector('.cad-l').textContent):'—';
+  }
+  svc.addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o||o.dataset.locked)return;o.classList.toggle('selected');update();});
+  chan.addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;o.classList.toggle('selected');update();});
+  cad.addEventListener('click',e=>{const c=e.target.closest('.cad');if(!c)return;cad.querySelectorAll('.cad').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');update();});
+  document.getElementById('langToggle')&&document.getElementById('langToggle').addEventListener('click',()=>setTimeout(update,0));
+  update();
+})();
+</script>
+
+<script>
+// ---------- auth (Supabase) + checkout (Stripe) ----------
+(function(){
+  const CFG={
+    url:"https://yjrotvqtprlkzbxgyhtk.supabase.co",
+    key:"sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
+    links:{
+      essentials:"https://buy.stripe.com/test_aFaeVf3Ws54RbUxe34aR200",
+      core:"https://buy.stripe.com/test_dRmfZjboUgNz4s58IKaR201",
+      full:"https://buy.stripe.com/test_3cI5kF2So8h30bP0ceaR202"
+    },
+    // EDIT with your real monthly prices once set in Stripe:
+    prices:{essentials:"$\u2014",core:"$\u2014",full:"$\u2014"}
+  };
+  function L(en,es){return document.documentElement.lang==='es'?es:en;}
+  let sb=null;
+  try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(CFG.url,CFG.key); }catch(e){console.warn('supabase init',e);}
+  let user=null, pending=false, mode='login';
+  const modal=document.getElementById('authModal');
+  const elT=document.getElementById('authTitle'),elE=document.getElementById('authEmail'),elP=document.getElementById('authPass'),elS=document.getElementById('authSubmit'),elG=document.getElementById('authToggle'),elErr=document.getElementById('authErr');
+
+  function render(){
+    elT.textContent= mode==='login'?L('Log in','Iniciar sesión'):L('Create your account','Crea tu cuenta');
+    elS.textContent= mode==='login'?L('Log in','Entrar'):L('Sign up','Registrarme');
+    elG.textContent= mode==='login'?L("Need an account? Sign up","¿No tienes cuenta? Regístrate"):L("Already have an account? Log in","¿Ya tienes cuenta? Inicia sesión");
+    elErr.textContent='';
+  }
+  function open(m){ mode=m; render(); modal.classList.add('open'); setTimeout(()=>elE.focus(),50); }
+  function close(){ modal.classList.remove('open'); }
+  document.getElementById('authClose').addEventListener('click',close);
+  modal.addEventListener('click',e=>{ if(e.target===modal) close(); });
+  elG.addEventListener('click',()=>{ mode=mode==='login'?'signup':'login'; render(); });
+
+  async function submit(){
+    elErr.textContent='';
+    if(!sb){ elErr.textContent=L('Connection not ready, try again in a moment.','Conexión no lista, intenta de nuevo.'); return; }
+    const email=elE.value.trim(), pass=elP.value;
+    if(!email||!pass){ elErr.textContent=L('Enter your email and password.','Escribe tu correo y contraseña.'); return; }
+    elS.disabled=true;
+    try{
+      let res = (mode==='signup')
+        ? await sb.auth.signUp({email:email,password:pass})
+        : await sb.auth.signInWithPassword({email:email,password:pass});
+      if(res.error){ elErr.textContent=res.error.message; elS.disabled=false; return; }
+      const session=res.data&&res.data.session;
+      if(mode==='signup'&&!session){
+        elErr.textContent=L('Check your email to confirm your account.','Revisa tu correo para confirmar tu cuenta.');
+        elS.disabled=false; return;
+      }
+      await refresh();
+      close();
+      if(pending){ pending=false; checkout(); }
+    }catch(e){ elErr.textContent=(e&&e.message)||'Error'; }
+    elS.disabled=false;
+  }
+  elS.addEventListener('click',submit);
+  elP.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); });
+
+  async function refresh(){
+    if(sb){ try{ const r=await sb.auth.getSession(); user=r.data&&r.data.session?r.data.session.user:null; }catch(e){ user=null; } }
+    const inAuth=!!user;
+    const nl=document.getElementById('navLogin'),ns=document.getElementById('navSignup'),no=document.getElementById('navLogout');
+    if(nl) nl.style.display=inAuth?'none':'';
+    if(ns) ns.style.display=inAuth?'none':'';
+    if(no){ no.style.display=inAuth?'':'none'; no.textContent=L('Log out','Salir'); }
+    document.querySelectorAll('.plan-price').forEach(p=>{
+      const key=p.getAttribute('data-plan'),amt=p.querySelector('.pp-amount'),lock=p.querySelector('.pp-text');
+      if(amt) amt.innerHTML=(CFG.prices[key]||'')+' <small>/'+L('mo','mes')+'</small>';
+      if(lock) lock.style.display=inAuth?'none':'';
+      if(amt) amt.style.display=inAuth?'':'none';
+    });
+  }
+
+  async function checkout(){
+    const g=id=>{const el=document.getElementById(id);return el?el.textContent:'';};
+    const svc=g('sumSvc'),cad=g('sumCad'),chan=g('sumChan');
+    let planKey='core';
+    if(/website|sitio|social|review|rese|marketing|campa/i.test(svc)) planKey='full';
+    try{ if(sb&&user) await sb.from('signups').insert({email:user.email,services:svc,cadence:cad,channels:chan}); }catch(e){console.warn('save',e);}
+    window.location.href=CFG.links[planKey]||CFG.links.core;
+  }
+
+  document.addEventListener('click',function(e){
+    const t=e.target.closest('#navLogin,#loginLink,#navSignup,#buildGo,#navLogout'); if(!t) return;
+    e.preventDefault();
+    const id=t.id;
+    if(id==='navLogout'){ if(sb) sb.auth.signOut().then(refresh); return; }
+    if(id==='navLogin'||id==='loginLink'){ open('login'); return; }
+    if(id==='navSignup'){ open('signup'); return; }
+    if(id==='buildGo'){ if(user) checkout(); else { pending=true; open('signup'); } }
+  });
+
+  const lt=document.getElementById('langToggle');
+  if(lt) lt.addEventListener('click',()=>setTimeout(()=>{ refresh(); if(modal.classList.contains('open')) render(); },0));
+  refresh();
+})();
 </script>
 
 </body>
