@@ -955,12 +955,11 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
         const r=await fetch(CFG.checkoutFn,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.key,'apikey':CFG.key},body:JSON.stringify({items:items,email:user?user.email:''})});
         const data=await r.json();
         if(data&&data.url){ window.location.href=data.url; return; }
-      }catch(e){ console.warn('checkout fn',e); }
+        alert(L('We could not start checkout. Please try again or contact us.','No pudimos iniciar el pago. Intenta de nuevo o escríbenos.')+(data&&data.error?('\n\n'+data.error):''));
+        return;
+      }catch(e){ alert(L('Checkout error, please try again.','Error en el pago, intenta de nuevo.')); return; }
     }
-    // fallback until the function is deployed: use a fixed link
-    let planKey='core';
-    if(/website|sitio|social|review|rese|marketing|campa/i.test(svc)) planKey='full';
-    window.location.href=CFG.links[planKey]||CFG.links.core;
+    alert(L('Checkout is not set up yet.','El pago aún no está configurado.'));
   }
 
   document.addEventListener('click',function(e){
