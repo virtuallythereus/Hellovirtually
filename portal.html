@@ -27,6 +27,56 @@ a{color:var(--yarrow);text-decoration:none;}
 .btn-sm{padding:8px 15px;font-size:.7rem;}
 .btn-block{width:100%;}
 
+/* ===== calendar ===== */
+.calendar-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-head h3{font-size:1.25rem;font-weight:500;}
+.cal-nav{display:flex;gap:8px;}
+.cal-nav button{width:34px;height:34px;border-radius:50px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:1rem;color:var(--ink);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.cal-dow{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);text-align:center;padding:6px 0;}
+.cal-cell{min-height:74px;border:1px solid var(--line);border-radius:12px;padding:6px;background:var(--cloud-2);display:flex;flex-direction:column;gap:3px;cursor:pointer;transition:border-color .2s;}
+.cal-cell:hover{border-color:var(--lagoon);}
+.cal-cell.empty{background:transparent;border:none;cursor:default;}
+.cal-cell.today{border-color:var(--yarrow);background:#fff;}
+.cal-date{font-size:.74rem;font-weight:800;color:var(--ink-2);}
+.cal-cell.today .cal-date{color:var(--yarrow-dd);}
+.cal-ev{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:6px;background:var(--blush);color:var(--yarrow-dd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cal-ev.rem{background:var(--soft);color:var(--lagoon-d);}
+.cal-more{font-size:.58rem;color:var(--ink-2);}
+.cal-day-detail{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;}
+.cal-day-detail h4{font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;margin-bottom:8px;}
+.cal-di{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.86rem;}
+.cal-di .dot{width:8px;height:8px;border-radius:50%;background:var(--yarrow);flex-shrink:0;}
+.cal-di .dot.rem{background:var(--lagoon);}
+
+/* ===== clients (admin) ===== */
+.clients-wrap{display:flex;flex-direction:column;gap:13px;}
+.cl-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:6px;}
+.cl-stat{background:var(--ink);color:#fff;border-radius:18px;padding:16px 18px;}
+.cl-stat .n{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:400;}
+.cl-stat .l{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.8;margin-top:4px;}
+.client-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;}
+.client-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.client-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:500;}
+.client-email{font-size:.82rem;color:var(--ink-2);}
+.cl-status{font-size:.58rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:4px 11px;border-radius:50px;}
+.cl-status.active{background:var(--soft);color:var(--lagoon-d);}
+.cl-status.trialing{background:var(--blush);color:var(--yarrow-dd);}
+.cl-status.past_due,.cl-status.unpaid{background:#FFE3DE;color:#C2410C;}
+.cl-status.canceled{background:#eee;color:var(--ink-2);}
+.cl-items{display:flex;flex-wrap:wrap;gap:6px;margin:11px 0;}
+.cl-item{font-size:.66rem;font-weight:700;background:var(--cloud-2);border:1px solid var(--line);border-radius:50px;padding:5px 12px;color:var(--ink);}
+.cl-mrr{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:400;color:var(--yarrow-dd);}
+.cl-mrr small{font-size:.7rem;color:var(--ink-2);font-family:'Nunito';}
+.cl-notes{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px;}
+.cl-notes .nh{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;}
+.cl-note{background:var(--cloud-2);border-radius:10px;padding:8px 12px;margin-bottom:7px;font-size:.85rem;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+.cl-note .x{color:var(--coral);cursor:pointer;font-weight:800;font-size:.7rem;}
+.cl-note-add{display:flex;gap:8px;margin-top:7px;}
+.cl-note-add input{flex:1;font-family:'Nunito';font-size:.85rem;padding:9px 13px;border-radius:11px;border:1px solid var(--line);background:#fff;outline:none;}
+.cl-loading{text-align:center;padding:50px;color:var(--ink-2);}
+
 /* ===== top bar ===== */
 .topbar{position:sticky;top:0;z-index:60;background:rgba(248,246,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
 .topbar-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
@@ -217,13 +267,17 @@ a{color:var(--yarrow);text-decoration:none;}
 
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="inquiries" id="tabInq">Inquiries</button>
+    <button class="tab" data-tab="calendar" id="tabCal">Calendar</button>
     <button class="tab" data-tab="reminders" id="tabRem">Reminders</button>
+    <button class="tab" data-tab="clients" id="tabClients" style="display:none">Clients</button>
   </div>
 
   <div class="toolbar" id="toolbar">
     <div class="search"><span>&#128269;</span><input type="text" id="searchInput" placeholder="Search..."></div>
   </div>
 
+  <div class="calendar-wrap" id="calendarWrap" style="display:none"></div>
+  <div class="clients-wrap" id="clientsWrap" style="display:none"></div>
   <div class="cards" id="cards"></div>
 </div>
 
@@ -276,7 +330,8 @@ a{color:var(--yarrow);text-decoration:none;}
   const CFG = {
     url:"https://yjrotvqtprlkzbxgyhtk.supabase.co",
     key:"sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
-    adminEmails:["virtuallythere.us@gmail.com"]
+    adminEmails:["virtuallythere.us@gmail.com"],
+    clientsFn:"https://yjrotvqtprlkzbxgyhtk.supabase.co/functions/v1/list-clients"
   };
 
   // ===== i18n =====
@@ -285,7 +340,10 @@ a{color:var(--yarrow);text-decoration:none;}
     email:"Email", password:"Password", login:"Log in", noAccount:"No account yet?", goSite:"Create one on our site",
     pageTitle:"Your <em>dashboard</em>",
     all:"All", new:"New", appts:"Appointments", reminders:"Reminders",
-    inquiries:"Inquiries", search:"Search name, message, channel...",
+    inquiries:"Inquiries", calendar:"Calendar", search:"Search name, message, channel...",
+    clients:"Clients", loading:"Loading...", clClients:"Clients", clActive:"Active", clMRR:"Monthly revenue",
+    clNone:"No active subscriptions yet.", clientsErr:"Couldn't load clients. Check the list-clients function.",
+    perMonth:"/mo", internalNotes:"Internal notes (only you)", addInternal:"Add a private note...",
     addInquiry:"+ Add inquiry", addReminder:"+ Add reminder", addBooking:"+ Add booking",
     statusNew:"New", statusContacted:"Contacted", statusBooked:"Booked", statusClosed:"Closed",
     markCalled:"Mark as called", called:"Called", del:"Delete",
@@ -309,7 +367,10 @@ a{color:var(--yarrow);text-decoration:none;}
     email:"Correo", password:"Contrase\u00f1a", login:"Iniciar sesi\u00f3n", noAccount:"\u00bfA\u00fan no tienes cuenta?", goSite:"Cr\u00e9ala en nuestro sitio",
     pageTitle:"Tu <em>panel</em>",
     all:"Todas", new:"Nuevas", appts:"Citas", reminders:"Recordatorios",
-    inquiries:"Consultas", search:"Buscar nombre, mensaje, canal...",
+    inquiries:"Consultas", calendar:"Calendario", search:"Buscar nombre, mensaje, canal...",
+    clients:"Clientes", loading:"Cargando...", clClients:"Clientes", clActive:"Activos", clMRR:"Ingreso mensual",
+    clNone:"A\u00fan no hay suscripciones activas.", clientsErr:"No se pudieron cargar los clientes. Revisa la funci\u00f3n list-clients.",
+    perMonth:"/mes", internalNotes:"Notas internas (solo t\u00fa)", addInternal:"Agrega una nota privada...",
     addInquiry:"+ Agregar consulta", addReminder:"+ Agregar recordatorio", addBooking:"+ Agregar reserva",
     statusNew:"Nueva", statusContacted:"Contactada", statusBooked:"Agendada", statusClosed:"Cerrada",
     markCalled:"Marcar llamado", called:"Llamado", del:"Eliminar",
@@ -366,7 +427,7 @@ a{color:var(--yarrow);text-decoration:none;}
     // app
     $("pageTitle").innerHTML=T("pageTitle");
     $("lAll").textContent=T("all"); $("lNew").textContent=T("new"); $("lAppt").textContent=T("appts"); $("lToday").textContent=T("reminders");
-    $("tabInq").textContent=T("inquiries"); $("tabRem").textContent=T("reminders");
+    $("tabInq").textContent=T("inquiries"); $("tabCal").textContent=T("calendar"); $("tabRem").textContent=T("reminders"); $("tabClients").textContent=T("clients");
     $("searchInput").placeholder=T("search");
     $("notifTitle").textContent=T("notif"); $("notifClear").textContent=T("clear");
     // sheets
@@ -400,6 +461,7 @@ a{color:var(--yarrow);text-decoration:none;}
     $("rolePill").className = "role-pill"+(isAdmin?"":" client");
     $("fClientWrap").style.display = isAdmin?"":"none";
     $("rClientWrap").style.display = isAdmin?"":"none";
+    $("tabClients").style.display = isAdmin?"":"none";
   }
 
   function renderAddbar(){
@@ -451,6 +513,17 @@ a{color:var(--yarrow);text-decoration:none;}
       const due=new Date(r.due_at).getTime();
       if(due - now < 1000*60*60*24){ notifs.push({id:"rem-"+r.id, t:T("notifRem"), s:r.title+" \u00b7 "+fmtWhen(r.due_at), at:new Date(r.created_at).getTime()}); }
     });
+    // new notes from the OTHER party
+    const myRole = isAdmin ? "admin" : "client";
+    Object.keys(notesByInq).forEach(iid=>{
+      const inq = inquiries.find(x=>x.id===iid);
+      (notesByInq[iid]||[]).forEach(n=>{
+        if(n.author_role && n.author_role!==myRole){
+          const who = inq ? (inq.customer_name||inq.client_email||"") : "";
+          notifs.push({id:"note-"+n.id, t:T("notifNote"), s:who+" \u00b7 "+(n.body||"").slice(0,40), at:new Date(n.created_at).getTime()});
+        }
+      });
+    });
     notifs.sort((a,b)=>b.at-a.at);
     const unread = notifs.filter(n=>n.at>lastSeen).length;
     const badge=$("bellBadge");
@@ -479,6 +552,11 @@ a{color:var(--yarrow);text-decoration:none;}
     document.querySelectorAll(".tile").forEach(t=>t.classList.toggle("active", t.getAttribute("data-f")===(tab==="reminders"?"reminders":filter)));
     document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active", t.getAttribute("data-tab")===tab));
     $("toolbar").style.display = tab==="inquiries"?"flex":"none";
+    $("calendarWrap").style.display = tab==="calendar"?"":"none";
+    $("clientsWrap").style.display = tab==="clients"?"":"none";
+    $("cards").style.display = (tab==="calendar"||tab==="clients")?"none":"flex";
+    if(tab==="calendar"){ renderCalendar(); return; }
+    if(tab==="clients"){ renderClients(); return; }
     if(tab==="reminders"){ renderReminders(); return; }
 
     let list=inquiries.slice();
@@ -521,6 +599,114 @@ a{color:var(--yarrow);text-decoration:none;}
       '</div>'+
     '</div>';
   }
+
+  // ===== clients (admin, live from Stripe) =====
+  let clientsData=null, clientsLoading=false, clientNotes={};
+  async function loadClients(force){
+    if(!isAdmin) return;
+    if(clientsData && !force) return;
+    if(clientsLoading) return;
+    clientsLoading=true; renderClients();
+    try{
+      const r=await fetch(CFG.clientsFn,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+CFG.key,"apikey":CFG.key},body:JSON.stringify({requester:user.email})});
+      const d=await r.json();
+      clientsData = (d && d.clients) ? d.clients : [];
+      if(d && d.error) clientsData={__error:d.error};
+    }catch(e){ clientsData={__error:String(e)}; }
+    // internal notes
+    try{ const {data}=await sb.from("client_notes").select("*").order("created_at",{ascending:true}); clientNotes={}; (data||[]).forEach(n=>{ (clientNotes[(n.client_email||"").toLowerCase()]=clientNotes[(n.client_email||"").toLowerCase()]||[]).push(n); }); }catch(e){}
+    clientsLoading=false; renderClients();
+  }
+  function renderClients(){
+    const wrap=$("clientsWrap");
+    if(clientsLoading || clientsData===null){ wrap.innerHTML='<div class="cl-loading">'+esc(T("loading"))+'</div>'; return; }
+    if(clientsData && clientsData.__error){ wrap.innerHTML='<div class="cl-loading">'+esc(T("clientsErr"))+'<br><small style="opacity:.6">'+esc(clientsData.__error)+'</small></div>'; return; }
+    const list = Array.isArray(clientsData)?clientsData:[];
+    // merge duplicates by email (a client may have >1 sub line); here each sub is a row already
+    const totalMRR = list.reduce((a,c)=>a+(c.mrr||0),0);
+    const active = list.filter(c=>c.status==="active"||c.status==="trialing").length;
+    const summary='<div class="cl-summary">'+
+      '<div class="cl-stat"><div class="n">'+list.length+'</div><div class="l">'+esc(T("clClients"))+'</div></div>'+
+      '<div class="cl-stat"><div class="n">'+active+'</div><div class="l">'+esc(T("clActive"))+'</div></div>'+
+      '<div class="cl-stat"><div class="n">$'+totalMRR.toLocaleString("en-US",{maximumFractionDigits:0})+'</div><div class="l">'+esc(T("clMRR"))+'</div></div></div>';
+    if(!list.length){ wrap.innerHTML=summary+'<div class="cl-loading">'+esc(T("clNone"))+'</div>'; return; }
+    wrap.innerHTML = summary + list.map(c=>{
+      const em=(c.email||"").toLowerCase();
+      const notes=(clientNotes[em]||[]);
+      const notesHTML=notes.map(n=>'<div class="cl-note" data-cnid="'+n.id+'"><span>'+esc(n.body)+'</span><span class="x" data-cnact="del">\u00d7</span></div>').join("");
+      const st=(c.status||"").replace(/[^a-z_]/g,"");
+      return '<div class="client-card" data-cemail="'+esc(em)+'">'+
+        '<div class="client-top"><div>'+
+          '<div class="client-name">'+esc(c.name||c.email||"\u2014")+'</div>'+
+          (c.email?'<div class="client-email">'+esc(c.email)+'</div>':'')+
+        '</div><span class="cl-status '+st+'">'+esc(c.status||"")+'</span></div>'+
+        '<div class="cl-items">'+(c.items||[]).map(i=>'<span class="cl-item">'+esc(i)+'</span>').join("")+'</div>'+
+        '<div class="cl-mrr">$'+(c.mrr||0).toLocaleString("en-US",{maximumFractionDigits:0})+' <small>'+esc(T("perMonth"))+'</small></div>'+
+        '<div class="cl-notes"><div class="nh">'+esc(T("internalNotes"))+'</div>'+notesHTML+
+          '<div class="cl-note-add"><input type="text" data-cnact="input" placeholder="'+esc(T("addInternal"))+'"><button class="btn btn-ghost btn-sm" data-cnact="add">'+esc(T("send"))+'</button></div>'+
+        '</div></div>';
+    }).join("");
+  }
+  // client notes events
+  $("clientsWrap").addEventListener("click", async e=>{
+    const card=e.target.closest(".client-card"); if(!card) return;
+    const email=card.getAttribute("data-cemail");
+    if(e.target.closest('[data-cnact="add"]')){
+      const input=card.querySelector('[data-cnact="input"]'); const body=(input.value||"").trim(); if(!body) return;
+      const {data,error}=await sb.from("client_notes").insert({client_email:email,body:body}).select();
+      if(!error){ (clientNotes[email]=clientNotes[email]||[]).push((data&&data[0])||{id:Math.random(),body:body}); input.value=""; renderClients(); }
+      return;
+    }
+    const del=e.target.closest('[data-cnact="del"]');
+    if(del){ const id=del.closest("[data-cnid]").getAttribute("data-cnid"); await sb.from("client_notes").delete().eq("id",id); clientNotes[email]=(clientNotes[email]||[]).filter(n=>String(n.id)!==String(id)); renderClients(); }
+  });
+  $("clientsWrap").addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches('[data-cnact="input"]')){ e.target.closest(".client-card").querySelector('[data-cnact="add"]').click(); } });
+
+  // ===== calendar =====
+  let calRef = new Date(); calRef.setDate(1);
+  let calSelDay = null;
+  function calEvents(){
+    // returns map 'YYYY-M-D' -> [{type,title,time,id}]
+    const map={};
+    const add=(d,ev)=>{ if(!d) return; const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); (map[k]=map[k]||[]).push(ev); };
+    inquiries.forEach(r=>{ if(r.kind==="booking" && r.booking_at){ add(new Date(r.booking_at),{type:"booking",title:r.customer_name||T("booking"),time:r.booking_at,id:r.id}); } });
+    reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,id:r.id,done:r.done}); });
+    return map;
+  }
+  function renderCalendar(){
+    const wrap=$("calendarWrap");
+    const evs=calEvents();
+    const y=calRef.getFullYear(), m=calRef.getMonth();
+    const monthName = calRef.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"long",year:"numeric"});
+    const firstDow = new Date(y,m,1).getDay();
+    const daysIn = new Date(y,m+1,0).getDate();
+    const dows = lang==="es"?["D","L","M","M","J","V","S"]:["S","M","T","W","T","F","S"];
+    const today=new Date();
+    let cells="";
+    for(let i=0;i<firstDow;i++) cells+='<div class="cal-cell empty"></div>';
+    for(let d=1; d<=daysIn; d++){
+      const k=y+"-"+m+"-"+d;
+      const isToday = today.getFullYear()===y && today.getMonth()===m && today.getDate()===d;
+      const list=(evs[k]||[]);
+      let evHTML=list.slice(0,2).map(e=>'<div class="cal-ev'+(e.type==="rem"?" rem":"")+'">'+esc(e.title)+'</div>').join("");
+      if(list.length>2) evHTML+='<div class="cal-more">+'+(list.length-2)+'</div>';
+      cells+='<div class="cal-cell'+(isToday?" today":"")+'" data-day="'+d+'"><span class="cal-date">'+d+'</span>'+evHTML+'</div>';
+    }
+    let detail="";
+    if(calSelDay){
+      const k=y+"-"+m+"-"+calSelDay; const list=(evs[k]||[]);
+      detail='<div class="cal-day-detail"><h4>'+calSelDay+" "+calRef.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"long"})+'</h4>'+
+        (list.length?list.map(e=>'<div class="cal-di"><span class="dot'+(e.type==="rem"?" rem":"")+'"></span><span>'+fmtWhen(e.time)+'</span><span>'+esc(e.title)+'</span></div>').join(""):'<div class="cal-di">'+esc(T("emptyRemSub"))+'</div>')+'</div>';
+    }
+    wrap.innerHTML =
+      '<div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">&#8249;</button><button data-cal="today">&#8226;</button><button data-cal="next">&#8250;</button></div></div>'+
+      '<div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail;
+  }
+  // calendar interactions
+  document.addEventListener("click", e=>{
+    const nav=e.target.closest("[data-cal]"); if(nav){ const a=nav.getAttribute("data-cal"); if(a==="prev")calRef.setMonth(calRef.getMonth()-1); else if(a==="next")calRef.setMonth(calRef.getMonth()+1); else {calRef=new Date();calRef.setDate(1);} calSelDay=null; renderCalendar(); return; }
+    const cell=e.target.closest(".cal-cell[data-day]"); if(cell && $("calendarWrap").contains(cell)){ calSelDay=parseInt(cell.getAttribute("data-day"),10); renderCalendar(); }
+  });
 
   function renderReminders(){
     let list=reminders.slice();
@@ -617,7 +803,7 @@ a{color:var(--yarrow);text-decoration:none;}
 
   // ===== tabs/filters/search =====
   $("panel").addEventListener("click", e=>{ const t=e.target.closest(".tile"); if(!t) return; const f=t.getAttribute("data-f"); if(f==="reminders"){ tab="reminders"; } else { tab="inquiries"; filter=f; } render(); });
-  $("tabs").addEventListener("click", e=>{ const t=e.target.closest(".tab"); if(!t) return; tab=t.getAttribute("data-tab"); render(); });
+  $("tabs").addEventListener("click", e=>{ const t=e.target.closest(".tab"); if(!t) return; tab=t.getAttribute("data-tab"); if(tab==="clients") loadClients(false); render(); });
   $("searchInput").addEventListener("input", e=>{ search=e.target.value; render(); });
   $("langToggle").addEventListener("click", ()=>{ lang=lang==="es"?"en":"es"; applyLang(); });
   $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });

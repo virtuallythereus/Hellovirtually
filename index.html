@@ -232,6 +232,13 @@ section{position:relative;}
 .opt.selected{background:var(--lagoon);border-color:var(--lagoon);color:#fff;}
 .opt.core{background:var(--ink);border-color:var(--ink);color:#fff;cursor:default;}
 .cadence{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.window-pick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:420px;}
+.win{border:1.5px solid var(--line);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--cloud-2);}
+.win:hover{border-color:var(--lagoon);}
+.win.selected{border-color:var(--yarrow);background:#fff;box-shadow:0 6px 18px rgba(206,51,117,.08);}
+.win-n{font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;color:var(--yarrow);}
+.win.selected .win-n{color:var(--yarrow-dd);}
+.win-l{font-size:.74rem;color:var(--ink-2);margin-top:2px;}
 .cad{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;}
 .cad:hover{border-color:var(--coral);transform:translateY(-2px);}
 .cad.selected{border-color:var(--coral);background:rgba(255,111,97,.09);}
@@ -632,6 +639,14 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
      </div>
      <p class="cad-note" data-i18n="bld.cadNote">Twice a day is the most we offer, so no customer ever waits long.</p>
     </div>
+    <div class="bstep" id="windowStep">
+     <div class="bstep-label"><span class="bstep-num">02b</span> <span data-i18n="bld.sWindow">When would you like your report?</span></div>
+     <div class="window-pick" id="windowChips">
+      <div class="win selected" data-win="AM"><div class="win-n" data-i18n="bld.winAM">Morning</div><div class="win-l" data-i18n="bld.winAMl">before midday</div></div>
+      <div class="win" data-win="PM"><div class="win-n" data-i18n="bld.winPM">Afternoon</div><div class="win-l" data-i18n="bld.winPMl">before 4 pm</div></div>
+     </div>
+     <p class="cad-note" id="windowNote" data-i18n="bld.winNote">Pick the window that works for you. With two check-ins a day, you get both morning and afternoon.</p>
+    </div>
     <div class="bstep">
      <div class="bstep-label"><span class="bstep-num">03</span> <span data-i18n="bld.s3">Which channels?</span></div>
      <div class="opt-chips" id="chanChips" data-perchannel="35" data-stripe="price_1TgWev2MfEfPQwD2HS1yoNeM">
@@ -797,7 +812,7 @@ Object.assign(ES, {"con.pill1": "WhatsApp disponible", "con.pill3": "Respondemos
 Object.assign(ES, {"hero.sub": "Tu teléfono no para. WhatsApp, Instagram, Facebook, tu sitio web. Entramos según el horario que elijas, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple de quién necesita qué. Nada se escapa, y ningún cliente se queda esperando por días.", "how.intro": "Montamos la casa, construimos la puerta de entrada, y luego la atendemos por ti, con la frecuencia que elijas.", "how.s3h": "Respondemos todo, en tu horario", "how.s3p": "Este es el corazón. Con la frecuencia que elijas, revisamos tus mensajes y formularios, le respondemos a cada cliente con tu voz, y te enviamos un reporte simple para que sepas exactamente quién escribió y a quién vale la pena darle seguimiento.", "how.s3t": "En tu horario · con reporte", "rep.eyebrow": "<span class=\"d\"></span>Tu reporte", "rep.rt": "Tu reporte", "rep.p": "Nunca tienes que adivinar qué pasó mientras trabajabas. Cada vez que entramos recibes un resumen simple y ordenado: quién escribió, qué quería, qué le dijimos, y todo lo que necesita una decisión tuya.", "ben.p1": "Revisamos tus mensajes con la frecuencia que elijas, para que nada se quede una semana sin responder. Los clientes que antes perdías se convierten en trabajos reservados.", "svc.p1": "El corazón de todo. Revisamos tus canales en tu horario, le respondemos a todos, y te reportamos.", "pr.f1a": "Monitoreo de consultas en horario ligero", "pr.f2a": "Monitoreo de consultas más frecuente", "pr.f2d": "Un reporte claro después de cada revisión", "bld.cadNote": "Dos veces al día es lo máximo que ofrecemos, así ningún cliente espera mucho."});
 Object.assign(ES, {"bld.sumEst": "Mensual estimado", "bld.mo": "mes"});
 Object.assign(ES, {"bld.sumOnce": "Pago único de configuración"});
-Object.assign(ES, {"bld.chNote": "Primer canal incluido. Cada canal adicional son +$35/mes."});
+Object.assign(ES, {"bld.chNote": "Primer canal incluido. Cada canal adicional son +$35/mes.", "bld.sWindow": "¿Cuándo quieres tu reporte?", "bld.winAM": "Mañana", "bld.winAMl": "antes del mediodía", "bld.winPM": "Tarde", "bld.winPMl": "antes de las 4 pm", "bld.winNote": "Elige la ventana que te convenga. Con dos revisiones al día, recibes mañana y tarde."});
 Object.assign(ES, {"bld.cap": "Incluye hasta 40 mensajes por revisión. Los volúmenes inusualmente altos se cotizan aparte."});
 i18nEls.forEach(el => { const k = el.dataset.i18n; if (baseHTML[k] === undefined) baseHTML[k] = el.innerHTML; });
 const phEls = [...document.querySelectorAll('[data-i18n-ph]')];
@@ -851,9 +866,30 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
   }
   svc.addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o||o.dataset.locked)return;o.classList.toggle('selected');update();});
   chan.addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;o.classList.toggle('selected');update();});
-  cad.addEventListener('click',e=>{const c=e.target.closest('.cad');if(!c)return;cad.querySelectorAll('.cad').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');update();});
+  cad.addEventListener('click',e=>{const c=e.target.closest('.cad');if(!c)return;cad.querySelectorAll('.cad').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');update();syncWindow();});
+  // AM/PM window picker
+  const winChips=document.getElementById('windowChips');
+  if(winChips){
+    winChips.addEventListener('click',e=>{const w=e.target.closest('.win');if(!w||winChips.classList.contains('locked'))return;winChips.querySelectorAll('.win').forEach(x=>x.classList.remove('selected'));w.classList.add('selected');});
+  }
+  function syncWindow(){
+    // when 2x a day is selected, client gets BOTH windows, so lock the picker
+    const sel=cad.querySelector('.cad.selected');
+    const is2x = sel && sel.getAttribute('data-stripe')==='price_1TgWc22MfEfPQwD2XEiIHDYq';
+    const note=document.getElementById('windowNote');
+    if(!winChips) return;
+    if(is2x){
+      winChips.classList.add('locked');
+      winChips.querySelectorAll('.win').forEach(x=>x.classList.add('selected'));
+      winChips.style.opacity='.6';
+    } else {
+      winChips.classList.remove('locked'); winChips.style.opacity='1';
+      const sels=winChips.querySelectorAll('.win.selected');
+      if(sels.length!==1){ winChips.querySelectorAll('.win').forEach((x,i)=>x.classList.toggle('selected',i===0)); }
+    }
+  }
   document.getElementById('langToggle')&&document.getElementById('langToggle').addEventListener('click',()=>setTimeout(update,0));
-  update();
+  update(); syncWindow();
 })();
 </script>
 
@@ -949,7 +985,7 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
     const chanPrice=chanBox?chanBox.getAttribute('data-stripe'):'';
     if(chanPrice && chanCount>1) items.push({price:chanPrice,quantity:chanCount-1});
     // save what they built to your database
-    try{ if(sb&&user) await sb.from('signups').insert({email:user.email,services:svc,cadence:cad,channels:chan}); }catch(e){console.warn('save',e);}
+    try{ if(sb&&user){ const winSel=document.querySelector('#windowChips .win.selected'); const win=document.querySelectorAll('#windowChips .win.selected').length>1?'AM+PM':(winSel?winSel.getAttribute('data-win'):'AM'); await sb.from('signups').insert({email:user.email,services:svc,cadence:cad,channels:chan,report_window:win}); } }catch(e){console.warn('save',e);}
     // dynamic checkout: ask the Edge Function to build a Stripe session with these items
     if(CFG.checkoutFn && CFG.checkoutFn.indexOf('PASTE')===-1){
       try{
