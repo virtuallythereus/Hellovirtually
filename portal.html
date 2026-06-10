@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports — Hello, virtually!</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F0EEE9'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' font-style='italic' font-weight='700' fill='%231F3D3A' text-anchor='middle'%3Eh%3C/text%3E%3Ccircle cx='72' cy='30' r='9' fill='%23CE3375'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cloud:#F0EEE9; --cloud-2:#F8F6F2;
+  --lagoon:#4D9E9A; --lagoon-d:#347D79;
+  --yarrow:#CE3375; --yarrow-dd:#A82A61;
+  --coral:#FF6F61; --ink:#1F3D3A; --ink-2:#37544F;
+  --soft:#DCEBE8; --blush:#FBE4DE; --line:rgba(31,61,58,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--cloud);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;letter-spacing:-.6px;}
+a{color:var(--yarrow);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.5px;padding:12px 24px;border-radius:50px;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .25s,background .2s,color .2s,border-color .2s;}
+.btn-primary{background:var(--yarrow);color:#fff;}
+.btn-primary:hover{background:var(--yarrow-dd);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink);}
+.btn-ghost:hover{border-color:var(--ink);}
+.btn-sm{padding:8px 16px;font-size:.7rem;}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(248,246,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.topbar-in{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:2px;white-space:nowrap;}
+.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--yarrow);display:inline-block;margin-left:3px;margin-bottom:12px;}
+.top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+.who{font-size:.72rem;font-weight:700;color:var(--ink-2);opacity:.8;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lang-toggle{background:transparent;border:1.5px solid rgba(31,61,58,.25);color:var(--ink);width:40px;height:32px;border-radius:50px;font-size:.66rem;font-weight:800;letter-spacing:1px;cursor:pointer;}
+.icon-btn{background:transparent;border:1.5px solid var(--line);color:var(--ink);width:34px;height:32px;border-radius:50px;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;}
+
+/* layout */
+.wrap{max-width:1080px;margin:0 auto;padding:34px 24px 80px;}
+.page-head{margin-bottom:24px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--ink);padding:7px 16px;border-radius:50px;font-size:.62rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.page-head h1{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:400;}
+.page-head h1 em{font-style:italic;color:var(--yarrow);}
+.page-head p{color:var(--ink-2);margin-top:8px;font-size:.95rem;}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0;}
+.stat{background:var(--cloud-2);border:1px solid var(--line);border-radius:18px;padding:16px;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;text-align:left;}
+.stat:hover{transform:translateY(-2px);}
+.stat.active{border-color:var(--yarrow);background:#fff;}
+.stat .n{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:400;line-height:1;}
+.stat .l{font-size:.64rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-top:6px;}
+.stat.s-new .n{color:var(--coral);}
+.stat.s-contacted .n{color:var(--lagoon-d);}
+.stat.s-booked .n{color:var(--yarrow);}
+.stat.s-closed .n{color:var(--ink-2);}
+
+/* search */
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
+.search{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:10px 18px;}
+.search input{border:none;outline:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--ink);width:100%;}
+
+/* admin add form */
+.admin-panel{background:var(--ink);color:#fff;border-radius:22px;padding:22px;margin-bottom:26px;}
+.admin-panel h3{color:#fff;font-size:1.15rem;font-weight:500;margin-bottom:4px;}
+.admin-panel .sub{font-size:.82rem;opacity:.8;margin-bottom:16px;}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fld{display:flex;flex-direction:column;gap:5px;}
+.fld.full{grid-column:1 / -1;}
+.fld label{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.75;}
+.fld input,.fld select,.fld textarea{font-family:'Nunito',sans-serif;font-size:.9rem;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;outline:none;}
+.fld textarea{resize:vertical;min-height:64px;}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(255,255,255,.5);}
+.fld select option{color:#1F3D3A;}
+.admin-panel .btn-primary{margin-top:14px;}
+.admin-msg{font-size:.8rem;margin-top:10px;min-height:18px;}
+
+/* cards */
+.cards{display:flex;flex-direction:column;gap:14px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 22px;transition:box-shadow .25s;}
+.card:hover{box-shadow:0 10px 30px rgba(31,61,58,.07);}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.card-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px;}
+.badge{font-size:.6rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:50px;}
+.badge-chan{background:var(--soft);color:var(--lagoon-d);}
+.time{font-size:.72rem;color:var(--ink-2);opacity:.7;}
+.contact{font-size:.85rem;color:var(--ink-2);margin-top:2px;}
+.msg{background:var(--cloud-2);border-radius:14px;padding:13px 16px;margin:14px 0;font-size:.92rem;color:var(--ink);border-left:3px solid var(--soft);white-space:pre-wrap;}
+.card-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.status-sel{font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:9px 16px;border-radius:50px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);}
+.st-new{border-color:var(--coral);color:var(--coral);}
+.st-contacted{border-color:var(--lagoon);color:var(--lagoon-d);}
+.st-booked{border-color:var(--yarrow);color:var(--yarrow);}
+.st-closed{border-color:var(--line);color:var(--ink-2);opacity:.8;}
+.call-btn{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:800;letter-spacing:.5px;padding:9px 16px;border-radius:50px;border:1.5px solid var(--lagoon);background:#fff;color:var(--lagoon-d);cursor:pointer;}
+.call-btn.done{background:var(--lagoon);color:#fff;}
+.notes-wrap{margin-top:14px;}
+.notes-wrap label{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);}
+.notes-wrap textarea{width:100%;font-family:'Nunito',sans-serif;font-size:.88rem;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--cloud-2);color:var(--ink);outline:none;resize:vertical;min-height:54px;margin-top:5px;}
+.note-save{font-size:.66rem;color:var(--lagoon-d);font-weight:800;margin-top:6px;height:14px;opacity:0;transition:opacity .2s;}
+.note-save.show{opacity:1;}
+.del-btn{background:transparent;border:none;color:var(--coral);font-size:.72rem;font-weight:800;cursor:pointer;letter-spacing:.5px;}
+
+/* empty / loading */
+.empty{text-align:center;padding:70px 20px;color:var(--ink-2);}
+.empty .big{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;color:var(--lagoon-d);margin-bottom:8px;}
+.empty .hand{font-family:'Shadows Into Light',cursive;font-size:1.3rem;color:var(--yarrow);margin-top:10px;}
+
+/* auth gate */
+.gate{max-width:420px;margin:8vh auto;background:#fff;border:1px solid var(--line);border-radius:24px;padding:36px 30px;text-align:center;}
+.gate h2{font-size:1.7rem;font-weight:400;}
+.gate h2 em{font-style:italic;color:var(--yarrow);}
+.gate p{color:var(--ink-2);font-size:.9rem;margin:10px 0 22px;}
+.gate .fld{text-align:left;margin-bottom:12px;}
+.gate .fld label{color:var(--ink-2);}
+.gate .fld input{background:var(--cloud-2);border:1px solid var(--line);color:var(--ink);}
+.gate .err{color:var(--coral);font-size:.82rem;min-height:18px;margin-bottom:8px;}
+.gate .btn{width:100%;}
+.gate .alt{margin-top:16px;font-size:.82rem;color:var(--ink-2);}
+
+@media(max-width:680px){
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .admin-grid{grid-template-columns:1fr;}
+  .wrap{padding:24px 16px 70px;}
+  .topbar-in{padding:14px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <a href="index.html" class="logo">hello, virtually<span class="dot"></span></a>
+    <div class="top-actions" id="topActions" style="display:none">
+      <span class="who" id="whoLabel"></span>
+      <button class="icon-btn" id="refreshBtn" title="Refresh">&#8635;</button>
+      <button class="lang-toggle" id="langToggle">ES</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" data-t="logout">Log out</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH GATE -->
+<div class="wrap" id="gateWrap">
+  <div class="gate">
+    <h2 data-t="gateTitle">Your <em>reports</em></h2>
+    <p data-t="gateSub">Log in to see the inquiries we've handled for you.</p>
+    <div class="fld"><label data-t="email">Email</label><input type="email" id="gEmail" placeholder="you@business.com"></div>
+    <div class="fld"><label data-t="password">Password</label><input type="password" id="gPass" placeholder="••••••••"></div>
+    <div class="err" id="gErr"></div>
+    <button class="btn btn-primary" id="gLogin" data-t="login">Log in</button>
+    <p class="alt"><span data-t="noAccount">No account yet?</span> <a href="index.html#build" data-t="goSite">Create one on our site</a></p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="wrap" id="app" style="display:none">
+  <div class="page-head">
+    <span class="eyebrow" id="eyebrow">YOUR REPORTS</span>
+    <h1 id="pageTitle">Every message, <em>handled</em></h1>
+    <p id="pageSub">Here's everything we've taken care of for you.</p>
+  </div>
+
+  <!-- admin add (operator only) -->
+  <div class="admin-panel" id="adminPanel" style="display:none">
+    <h3 data-t="logTitle">Log a new inquiry</h3>
+    <div class="sub" data-t="logSub">This appears instantly on your client's dashboard.</div>
+    <div class="admin-grid">
+      <div class="fld"><label data-t="clientEmail">Client account email</label><input type="email" id="aClient" placeholder="client@business.com"></div>
+      <div class="fld"><label data-t="custName">Customer name</label><input type="text" id="aName" placeholder="Maria Lopez"></div>
+      <div class="fld"><label data-t="channel">Channel</label>
+        <select id="aChannel">
+          <option>WhatsApp</option><option>Instagram</option><option>Facebook</option>
+          <option>Website form</option><option>Email</option><option>Phone</option>
+        </select>
+      </div>
+      <div class="fld"><label data-t="contact">Their contact</label><input type="text" id="aContact" placeholder="787-555-0100 / @handle"></div>
+      <div class="fld full"><label data-t="message">Message / what they want</label><textarea id="aMsg" placeholder="Asked about availability for a deep clean next week..."></textarea></div>
+    </div>
+    <button class="btn btn-primary" id="aAdd" data-t="addBtn">Add inquiry</button>
+    <div class="admin-msg" id="aMsgOut"></div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats" id="stats">
+    <button class="stat s-new active" data-f="all"><span class="n" id="cAll">0</span><span class="l" data-t="all">All</span></button>
+    <button class="stat s-new" data-f="new"><span class="n" id="cNew">0</span><span class="l" data-t="new">New</span></button>
+    <button class="stat s-contacted" data-f="contacted"><span class="n" id="cContacted">0</span><span class="l" data-t="contacted">Contacted</span></button>
+    <button class="stat s-booked" data-f="booked"><span class="n" id="cBooked">0</span><span class="l" data-t="booked">Booked</span></button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search"><span>&#128269;</span><input type="text" id="searchInput" placeholder="Search name, message, channel..."></div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  // ===== CONFIG =====
+  const CFG = {
+    url:"https://yjrotvqtprlkzbxgyhtk.supabase.co",
+    key:"sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
+    // >>> PUT YOUR OWN LOGIN EMAIL HERE so YOU get the operator (add inquiry) view <<<
+    adminEmails:["PASTE_YOUR_LOGIN_EMAIL"]
+  };
+
+  // ===== i18n =====
+  const DICT = {
+    es:{
+      logout:"Salir", gateTitle:"Tus <em>reportes</em>", gateSub:"Inicia sesión para ver las consultas que manejamos por ti.",
+      email:"Correo", password:"Contraseña", login:"Iniciar sesión", noAccount:"¿Aún no tienes cuenta?", goSite:"Créala en nuestro sitio",
+      logTitle:"Registrar nueva consulta", logSub:"Aparece al instante en el panel de tu cliente.",
+      clientEmail:"Correo de la cuenta del cliente", custName:"Nombre del cliente potencial", channel:"Canal", contact:"Su contacto",
+      message:"Mensaje / qué necesita", addBtn:"Agregar consulta",
+      all:"Todas", new:"Nuevas", contacted:"Contactadas", booked:"Agendadas", closed:"Cerradas",
+      eyebrow:"TUS REPORTES", pageTitle:"Cada mensaje, <em>atendido</em>", pageSub:"Aquí está todo lo que cuidamos por ti.",
+      search:"Buscar nombre, mensaje, canal...",
+      markCalled:"Marcar como llamado", called:"Llamado", notes:"Notas", saved:"Guardado",
+      emptyBig:"Todo tranquilo por ahora", emptySub:"Cuando llegue una consulta nueva, aparecerá aquí.", emptyHand:"sin pendientes",
+      del:"Eliminar", added:"Consulta agregada", needFields:"Falta el correo del cliente o el mensaje.", errLogin:"No pudimos iniciar sesión. Revisa tus datos."
+    }
+  };
+  let lang = (navigator.language||"en").toLowerCase().startsWith("es") ? "es":"en";
+  function T(k){ if(lang==="es" && DICT.es[k]!=null) return DICT.es[k]; return EN[k]; }
+  const EN = {
+    logout:"Log out", gateTitle:"Your <em>reports</em>", gateSub:"Log in to see the inquiries we've handled for you.",
+    email:"Email", password:"Password", login:"Log in", noAccount:"No account yet?", goSite:"Create one on our site",
+    logTitle:"Log a new inquiry", logSub:"This appears instantly on your client's dashboard.",
+    clientEmail:"Client account email", custName:"Customer name", channel:"Channel", contact:"Their contact",
+    message:"Message / what they want", addBtn:"Add inquiry",
+    all:"All", new:"New", contacted:"Contacted", booked:"Booked", closed:"Closed",
+    eyebrow:"YOUR REPORTS", pageTitle:"Every message, <em>handled</em>", pageSub:"Here's everything we've taken care of for you.",
+    search:"Search name, message, channel...",
+    markCalled:"Mark as called", called:"Called", notes:"Notes", saved:"Saved",
+    emptyBig:"All quiet for now", emptySub:"When a new inquiry comes in, it'll show up here.", emptyHand:"nothing pending",
+    del:"Delete", added:"Inquiry added", needFields:"Client email or message is missing.", errLogin:"We couldn't log you in. Check your details."
+  };
+
+  function applyLang(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-t]").forEach(el=>{ const k=el.getAttribute("data-t"); if(EN[k]!=null) el.innerHTML = T(k); });
+    document.getElementById("searchInput").placeholder = T("search");
+    document.getElementById("langToggle").textContent = lang==="es" ? "EN":"ES";
+    // page head (has <em>)
+    document.getElementById("eyebrow").textContent = T("eyebrow");
+    document.getElementById("pageTitle").innerHTML = T("pageTitle");
+    document.getElementById("pageSub").textContent = T("pageSub");
+    document.querySelector("#gateWrap [data-t='gateTitle']").innerHTML = T("gateTitle");
+    render();
+  }
+
+  // ===== Supabase =====
+  let sb=null, user=null, isAdmin=false, rows=[], filter="all", search="";
+  try{ sb = window.supabase.createClient(CFG.url, CFG.key); }catch(e){ console.warn(e); }
+
+  const $ = id=>document.getElementById(id);
+  const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  function fmtDate(d){
+    try{ const dt=new Date(d); return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"short",day:"numeric"})+" · "+dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"}); }
+    catch(e){ return ""; }
+  }
+
+  async function boot(){
+    if(!sb){ return; }
+    const { data } = await sb.auth.getSession();
+    user = data && data.session ? data.session.user : null;
+    if(!user){ showGate(); return; }
+    isAdmin = CFG.adminEmails.map(x=>x.toLowerCase()).includes((user.email||"").toLowerCase());
+    showApp();
+    await load();
+    subscribe();
+  }
+
+  function showGate(){ $("gateWrap").style.display=""; $("app").style.display="none"; $("topActions").style.display="none"; }
+  function showApp(){
+    $("gateWrap").style.display="none"; $("app").style.display=""; $("topActions").style.display="flex";
+    $("whoLabel").textContent = user.email;
+    $("adminPanel").style.display = isAdmin ? "" : "none";
+    // client doesn't need a "booked"/closed extra; keep stats. Operator sees same.
+  }
+
+  async function load(){
+    if(!sb||!user) return;
+    let q = sb.from("inquiries").select("*").order("created_at",{ascending:false});
+    // RLS already restricts clients to their own rows; admin sees all.
+    const { data, error } = await q;
+    if(error){ console.warn("load",error); rows=[]; }
+    else rows = data||[];
+    render();
+  }
+
+  function counts(){
+    const c={all:rows.length,new:0,contacted:0,booked:0,closed:0};
+    rows.forEach(r=>{ if(c[r.status]!=null) c[r.status]++; });
+    return c;
+  }
+
+  function render(){
+    if($("app").style.display==="none") return;
+    const c=counts();
+    $("cAll").textContent=c.all; $("cNew").textContent=c.new; $("cContacted").textContent=c.contacted; $("cBooked").textContent=c.booked;
+    document.querySelectorAll(".stat").forEach(s=>s.classList.toggle("active", s.getAttribute("data-f")===filter));
+
+    let list = rows.slice();
+    if(filter!=="all") list=list.filter(r=>r.status===filter);
+    if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
+
+    const wrap=$("cards");
+    if(!list.length){
+      wrap.innerHTML='<div class="empty"><div class="big">'+esc(T("emptyBig"))+'</div><div>'+esc(T("emptySub"))+'</div><div class="hand">'+esc(T("emptyHand"))+'</div></div>';
+      return;
+    }
+    wrap.innerHTML = list.map(r=>cardHTML(r)).join("");
+  }
+
+  function cardHTML(r){
+    const stClass = {new:"st-new",contacted:"st-contacted",booked:"st-booked",closed:"st-closed"}[r.status]||"st-new";
+    const opt = (v,label)=>'<option value="'+v+'"'+(r.status===v?' selected':'')+'>'+esc(label)+'</option>';
+    const calledLabel = r.called ? (esc(T("called"))+(r.called_at?' · '+fmtDate(r.called_at):'')) : esc(T("markCalled"));
+    return ''+
+    '<div class="card" data-id="'+r.id+'">'+
+      '<div class="card-top">'+
+        '<div>'+
+          '<div class="card-name">'+esc(r.customer_name||"—")+'</div>'+
+          '<div class="card-meta">'+
+            '<span class="badge badge-chan">'+esc(r.channel||"")+'</span>'+
+            '<span class="time">'+fmtDate(r.created_at)+'</span>'+
+          '</div>'+
+          (r.customer_contact?'<div class="contact">'+esc(r.customer_contact)+'</div>':'')+
+        '</div>'+
+      '</div>'+
+      (r.message?'<div class="msg">'+esc(r.message)+'</div>':'')+
+      '<div class="card-actions">'+
+        '<select class="status-sel '+stClass+'" data-act="status">'+
+          opt("new",T("new"))+opt("contacted",T("contacted"))+opt("booked",T("booked"))+opt("closed",T("closed"))+
+        '</select>'+
+        '<button class="call-btn'+(r.called?' done':'')+'" data-act="call">&#9742; '+calledLabel+'</button>'+
+        (isAdmin?'<button class="del-btn" data-act="del">'+esc(T("del"))+'</button>':'')+
+      '</div>'+
+      '<div class="notes-wrap">'+
+        '<label>'+esc(T("notes"))+'</label>'+
+        '<textarea data-act="notes" placeholder="...">'+esc(r.notes||"")+'</textarea>'+
+        '<div class="note-save" data-role="notesaved">'+esc(T("saved"))+' &#10003;</div>'+
+      '</div>'+
+    '</div>';
+  }
+
+  // ===== updates =====
+  async function patch(id, fields){
+    if(!sb) return;
+    fields.updated_at = new Date().toISOString();
+    const { error } = await sb.from("inquiries").update(fields).eq("id",id);
+    if(error){ console.warn("patch",error); return false; }
+    const row = rows.find(r=>r.id===id); if(row) Object.assign(row, fields);
+    return true;
+  }
+
+  // event delegation for cards
+  $("cards").addEventListener("change", async e=>{
+    const card=e.target.closest(".card"); if(!card) return; const id=card.getAttribute("data-id");
+    if(e.target.matches('[data-act="status"]')){
+      const v=e.target.value; await patch(id,{status:v}); render();
+    }
+  });
+  $("cards").addEventListener("click", async e=>{
+    const card=e.target.closest(".card"); if(!card) return; const id=card.getAttribute("data-id");
+    const btn=e.target.closest('[data-act="call"]');
+    if(btn){ const row=rows.find(r=>r.id===id); const now=!row.called; await patch(id,{called:now, called_at: now? new Date().toISOString():null}); render(); return; }
+    const del=e.target.closest('[data-act="del"]');
+    if(del){ if(confirm(lang==="es"?"¿Eliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); rows=rows.filter(r=>r.id!==id); render(); } }
+  });
+  // notes: save on blur (debounced not needed)
+  let noteTimer=null;
+  $("cards").addEventListener("input", e=>{
+    if(!e.target.matches('[data-act="notes"]')) return;
+    const card=e.target.closest(".card"); const id=card.getAttribute("data-id"); const val=e.target.value;
+    const saved=card.querySelector('[data-role="notesaved"]');
+    clearTimeout(noteTimer);
+    noteTimer=setTimeout(async ()=>{ const ok=await patch(id,{notes:val}); if(ok&&saved){ saved.classList.add("show"); setTimeout(()=>saved.classList.remove("show"),1500);} },700);
+  });
+
+  // ===== admin add =====
+  $("aAdd")&&$("aAdd").addEventListener("click", async ()=>{
+    const client=$("aClient").value.trim().toLowerCase();
+    const payload={
+      client_email:client, customer_name:$("aName").value.trim(),
+      channel:$("aChannel").value, customer_contact:$("aContact").value.trim(),
+      message:$("aMsg").value.trim(), status:"new", called:false
+    };
+    const out=$("aMsgOut");
+    if(!client || !payload.message){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const { error } = await sb.from("inquiries").insert(payload);
+    if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+    out.style.color="#DCEBE8"; out.textContent=T("added")+" ✓";
+    $("aName").value="";$("aContact").value="";$("aMsg").value="";
+    setTimeout(()=>out.textContent="",2500);
+    await load();
+  });
+
+  // ===== realtime =====
+  function subscribe(){
+    try{
+      sb.channel("inq-"+(user.id||"x"))
+        .on("postgres_changes",{event:"*",schema:"public",table:"inquiries"},()=>{ load(); })
+        .subscribe();
+    }catch(e){ console.warn("realtime",e); }
+  }
+
+  // ===== filters/search/lang/logout =====
+  $("stats").addEventListener("click", e=>{ const b=e.target.closest(".stat"); if(!b) return; filter=b.getAttribute("data-f"); render(); });
+  $("searchInput").addEventListener("input", e=>{ search=e.target.value; render(); });
+  $("langToggle").addEventListener("click", ()=>{ lang = lang==="es"?"en":"es"; applyLang(); });
+  $("refreshBtn").addEventListener("click", load);
+  $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });
+
+  // gate login
+  $("gLogin").addEventListener("click", async ()=>{
+    const email=$("gEmail").value.trim(); const pass=$("gPass").value; const err=$("gErr"); err.textContent="";
+    const { error } = await sb.auth.signInWithPassword({email,password:pass});
+    if(error){ err.textContent=T("errLogin"); return; }
+    location.reload();
+  });
+  $("gPass").addEventListener("keydown", e=>{ if(e.key==="Enter") $("gLogin").click(); });
+
+  applyLang();
+  boot();
+})();
+</script>
+</body>
+</html>

@@ -770,7 +770,8 @@ footer{background:#15302C;color:rgba(240,238,233,.6);padding:54px 56px 40px;}
   <h3 id="accountTitle">My Account</h3>
   <p class="acct-hello" id="acctHello"></p>
   <div class="acct-row"><span class="sl" id="acctEmailLbl">Email</span><b id="acctEmail"></b></div>
-  <a class="btn btn-primary" id="acctBilling" href="#" target="_blank" rel="noopener">Manage billing &amp; subscription</a>
+  <a class="btn btn-primary" id="acctReports" href="portal.html">View my reports</a>
+  <a class="btn btn-ghost" id="acctBilling" href="#" target="_blank" rel="noopener">Manage billing &amp; subscription</a>
   <button class="btn btn-ghost" id="acctLogout">Log out</button>
  </div>
 </div>
@@ -979,6 +980,7 @@ if ((navigator.language || '').toLowerCase().startsWith('es')) setLang('es');
       document.getElementById('accountTitle').textContent=es?'Mi cuenta':'My Account';
       document.getElementById('acctEmailLbl').textContent=es?'Correo':'Email';
       document.getElementById('acctBilling').textContent=es?'Manejar facturación y suscripción':'Manage billing & subscription';
+      var ar=document.getElementById('acctReports'); if(ar) ar.textContent=es?'Ver mis reportes':'View my reports';
       document.getElementById('acctLogout').textContent=es?'Cerrar sesión':'Log out';
       document.getElementById('accountModal').classList.add('open'); return;
     }
