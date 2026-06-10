@@ -72,7 +72,10 @@ a{color:var(--yarrow);text-decoration:none;}
 .cl-notes{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px;}
 .cl-notes .nh{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;}
 .cl-note{background:var(--cloud-2);border-radius:10px;padding:8px 12px;margin-bottom:7px;font-size:.85rem;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
-.cl-note .x{color:var(--coral);cursor:pointer;font-weight:800;font-size:.7rem;}
+.cl-note-time{font-size:.6rem;color:var(--ink-2);opacity:.7;margin-top:3px;}
+.cl-note-ctrls{display:flex;gap:9px;flex-shrink:0;}
+.cl-note .x{color:var(--lagoon-d);cursor:pointer;font-weight:800;font-size:.8rem;}
+.cl-note .x.del{color:var(--coral);}
 .cl-note-add{display:flex;gap:8px;margin-top:7px;}
 .cl-note-add input{flex:1;font-family:'Nunito';font-size:.85rem;padding:9px 13px;border-radius:11px;border:1px solid var(--line);background:#fff;outline:none;}
 .cl-loading{text-align:center;padding:50px;color:var(--ink-2);}
@@ -153,6 +156,11 @@ a{color:var(--yarrow);text-decoration:none;}
 .notes-sec .nh{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-bottom:9px;}
 .note{display:flex;flex-direction:column;gap:2px;background:var(--cloud-2);border-radius:12px;padding:9px 13px;margin-bottom:8px;}
 .note .nmeta{display:flex;align-items:center;gap:7px;font-size:.62rem;color:var(--ink-2);}
+.note .ntime{opacity:.75;}
+.note-ctrls{margin-left:auto;display:flex;gap:9px;}
+.note-edit,.note-del{cursor:pointer;font-weight:800;font-size:.8rem;line-height:1;}
+.note-edit{color:var(--lagoon-d);}
+.note-del{color:var(--coral);}
 .note .who-tag{font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:50px;font-size:.55rem;}
 .who-tag.admin{background:var(--ink);color:#fff;}
 .who-tag.client{background:var(--lagoon);color:#fff;}
@@ -187,7 +195,14 @@ a{color:var(--yarrow);text-decoration:none;}
 .notif-panel.open{display:block;}
 .notif-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
 .notif-head h4{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;}
-.notif-list{max-height:60vh;overflow-y:auto;}
+.notif-list{max-height:54vh;overflow-y:auto;}
+.notif-tabs{display:flex;gap:5px;padding:10px 14px 4px;flex-wrap:wrap;border-bottom:1px solid var(--line);}
+.ntab{font-size:.6rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:6px 10px;border-radius:50px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+.ntab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.notif-filter{display:flex;gap:6px;padding:9px 14px;}
+.nfilt{font-size:.62rem;font-weight:800;letter-spacing:.4px;padding:5px 13px;border-radius:50px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+.nfilt.active{background:var(--lagoon);color:#fff;border-color:var(--lagoon);}
+.notif .nx{margin-left:auto;color:var(--coral);font-weight:800;cursor:pointer;font-size:.85rem;flex-shrink:0;padding-left:6px;}
 .notif{padding:13px 18px;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start;}
 .notif:last-child{border-bottom:none;}
 .notif .ndot{width:8px;height:8px;border-radius:50%;background:var(--coral);margin-top:6px;flex-shrink:0;}
@@ -231,7 +246,18 @@ a{color:var(--yarrow);text-decoration:none;}
 
 <!-- notifications -->
 <div class="notif-panel" id="notifPanel">
-  <div class="notif-head"><h4 id="notifTitle">Notifications</h4><button class="del-btn" id="notifClear" style="margin:0">Clear</button></div>
+  <div class="notif-head"><h4 id="notifTitle">Notifications</h4><button class="del-btn" id="notifClear" style="margin:0">Clear all</button></div>
+  <div class="notif-tabs" id="notifTabs">
+    <button class="ntab active" data-ntab="all" id="ntabAll">All</button>
+    <button class="ntab" data-ntab="new" id="ntabNew">Inquiries</button>
+    <button class="ntab" data-ntab="appt" id="ntabAppt">Appts</button>
+    <button class="ntab" data-ntab="rem" id="ntabRem">Reminders</button>
+    <button class="ntab" data-ntab="note" id="ntabNote">Notes</button>
+  </div>
+  <div class="notif-filter" id="notifFilter">
+    <button class="nfilt active" data-nfilt="unread" id="nfUnread">Unread</button>
+    <button class="nfilt" data-nfilt="all" id="nfAll">All</button>
+  </div>
   <div class="notif-list" id="notifList"></div>
 </div>
 
@@ -353,7 +379,8 @@ a{color:var(--yarrow);text-decoration:none;}
     contact:"Their contact", apptWhen:"Appointment date & time", msg:"Message / details", add:"Add",
     remTitle:"New reminder", remSub:"A follow-up or an appointment to remember.",
     followup:"Follow-up", appointment:"Appointment", remWhat:"What to remember", when:"When", addRem:"Add reminder",
-    notif:"Notifications", clear:"Clear", noNotif:"You're all caught up.",
+    notif:"Notifications", clear:"Clear all", noNotif:"You're all caught up.",
+    nAll:"All", nNew:"Inquiries", nAppt:"Appts", nRem:"Reminders", nNote:"Notes", nUnread:"Unread", nAllF:"All",
     emptyInqBig:"All quiet for now", emptyInqSub:"New inquiries will show up here.",
     emptyRemBig:"No reminders", emptyRemSub:"Add a follow-up or appointment to stay on top of leads.",
     hand:"nothing pending", greetAdmin:"Operator view \u00b7 you can log and edit everything.",
@@ -380,7 +407,8 @@ a{color:var(--yarrow);text-decoration:none;}
     contact:"Su contacto", apptWhen:"Fecha y hora de la cita", msg:"Mensaje / detalles", add:"Agregar",
     remTitle:"Nuevo recordatorio", remSub:"Un seguimiento o una cita para recordar.",
     followup:"Seguimiento", appointment:"Cita", remWhat:"Qu\u00e9 recordar", when:"Cu\u00e1ndo", addRem:"Agregar recordatorio",
-    notif:"Notificaciones", clear:"Limpiar", noNotif:"Est\u00e1s al d\u00eda.",
+    notif:"Notificaciones", clear:"Limpiar todo", noNotif:"Est\u00e1s al d\u00eda.",
+    nAll:"Todas", nNew:"Consultas", nAppt:"Citas", nRem:"Record.", nNote:"Notas", nUnread:"No le\u00eddas", nAllF:"Todas",
     emptyInqBig:"Todo tranquilo por ahora", emptyInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",
     emptyRemBig:"Sin recordatorios", emptyRemSub:"Agrega un seguimiento o cita para no perder ning\u00fan lead.",
     hand:"sin pendientes", greetAdmin:"Vista de operadora \u00b7 puedes registrar y editar todo.",
@@ -396,13 +424,14 @@ a{color:var(--yarrow);text-decoration:none;}
   let sb=null, user=null, isAdmin=false;
   let inquiries=[], reminders=[], notesByInq={};
   let tab="inquiries", filter="all", search="", addKind="inquiry", remKind="followup";
-  let notifs=[], lastSeen = 0;
+  let notifs=[], notifRead={}, notifDeleted={}, notifTab="all", notifFilt="unread";
 
   try{ sb = window.supabase.createClient(CFG.url, CFG.key); }catch(e){ console.warn(e); }
   const $ = id=>document.getElementById(id);
   const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
   function fmtDate(d){ try{ const dt=new Date(d); return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"short",day:"numeric"})+" \u00b7 "+dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
+  function fmtExact(d){ try{ const dt=new Date(d); return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{year:"numeric",month:"short",day:"numeric"})+" \u00b7 "+dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
   function fmtWhen(d){
     try{
       const dt=new Date(d), now=new Date();
@@ -430,6 +459,8 @@ a{color:var(--yarrow);text-decoration:none;}
     $("tabInq").textContent=T("inquiries"); $("tabCal").textContent=T("calendar"); $("tabRem").textContent=T("reminders"); $("tabClients").textContent=T("clients");
     $("searchInput").placeholder=T("search");
     $("notifTitle").textContent=T("notif"); $("notifClear").textContent=T("clear");
+    $("ntabAll").textContent=T("nAll"); $("ntabNew").textContent=T("nNew"); $("ntabAppt").textContent=T("nAppt"); $("ntabRem").textContent=T("nRem"); $("ntabNote").textContent=T("nNote");
+    $("nfUnread").textContent=T("nUnread"); $("nfAll").textContent=T("nAllF");
     // sheets
     $("addTitle").textContent=T("addTitle"); $("addSub").textContent=T("addSub");
     $("segInq").textContent=T("inquiry"); $("segBook").textContent=T("booking");
@@ -450,7 +481,7 @@ a{color:var(--yarrow);text-decoration:none;}
     user = data && data.session ? data.session.user : null;
     if(!user){ showGate(); return; }
     isAdmin = CFG.adminEmails.map(x=>x.toLowerCase()).includes((user.email||"").toLowerCase());
-    try{ lastSeen = parseInt(localStorage.getItem("hv_seen_"+user.id)||"0",10)||0; }catch(e){ lastSeen=0; }
+    try{ notifRead = JSON.parse(localStorage.getItem("hv_nread_"+user.id)||"{}")||{}; notifDeleted = JSON.parse(localStorage.getItem("hv_ndel_"+user.id)||"{}")||{}; }catch(e){ notifRead={}; notifDeleted={}; }
     showApp(); applyLang();
     await loadAll(); subscribe();
   }
@@ -499,41 +530,51 @@ a{color:var(--yarrow);text-decoration:none;}
     const now=Date.now();
     inquiries.forEach(r=>{
       const created=new Date(r.created_at).getTime();
-      // for client: new inquiries the operator logged are noteworthy
       if(r.kind!=="booking" && r.status==="new"){
-        notifs.push({id:"inq-"+r.id, t:T("notifNew"), s:(r.customer_name||"")+" \u00b7 "+(r.channel||""), at:created});
+        notifs.push({id:"inq-"+r.id, type:"new", t:T("notifNew"), s:(r.customer_name||"")+" \u00b7 "+(r.channel||""), at:created});
       }
       if(r.kind==="booking" && r.booking_at){
         const b=new Date(r.booking_at).getTime();
-        if(b>now && b-now < 1000*60*60*48){ notifs.push({id:"appt-"+r.id, t:T("notifAppt"), s:(r.customer_name||"")+" \u00b7 "+fmtWhen(r.booking_at), at:created}); }
+        if(b>now && b-now < 1000*60*60*48){ notifs.push({id:"appt-"+r.id, type:"appt", t:T("notifAppt"), s:(r.customer_name||"")+" \u00b7 "+fmtWhen(r.booking_at), at:created}); }
       }
     });
     reminders.forEach(r=>{
       if(r.done) return;
       const due=new Date(r.due_at).getTime();
-      if(due - now < 1000*60*60*24){ notifs.push({id:"rem-"+r.id, t:T("notifRem"), s:r.title+" \u00b7 "+fmtWhen(r.due_at), at:new Date(r.created_at).getTime()}); }
+      if(due - now < 1000*60*60*24){ notifs.push({id:"rem-"+r.id, type:"rem", t:T("notifRem"), s:r.title+" \u00b7 "+fmtWhen(r.due_at), at:new Date(r.created_at).getTime()}); }
     });
-    // new notes from the OTHER party
     const myRole = isAdmin ? "admin" : "client";
     Object.keys(notesByInq).forEach(iid=>{
       const inq = inquiries.find(x=>x.id===iid);
       (notesByInq[iid]||[]).forEach(n=>{
         if(n.author_role && n.author_role!==myRole){
           const who = inq ? (inq.customer_name||inq.client_email||"") : "";
-          notifs.push({id:"note-"+n.id, t:T("notifNote"), s:who+" \u00b7 "+(n.body||"").slice(0,40), at:new Date(n.created_at).getTime()});
+          notifs.push({id:"note-"+n.id, type:"note", t:T("notifNote"), s:who+" \u00b7 "+(n.body||"").slice(0,40), at:new Date(n.created_at).getTime()});
         }
       });
     });
+    // drop deleted
+    notifs = notifs.filter(n=>!notifDeleted[n.id]);
     notifs.sort((a,b)=>b.at-a.at);
-    const unread = notifs.filter(n=>n.at>lastSeen).length;
+    updateBadge();
+  }
+  function isUnread(n){ return !notifRead[n.id]; }
+  function updateBadge(){
+    const unread = notifs.filter(isUnread).length;
     const badge=$("bellBadge");
     if(unread>0){ badge.style.display="flex"; badge.textContent=unread>9?"9+":String(unread); }
     else badge.style.display="none";
   }
+  function saveNotifState(){ try{ localStorage.setItem("hv_nread_"+user.id, JSON.stringify(notifRead)); localStorage.setItem("hv_ndel_"+user.id, JSON.stringify(notifDeleted)); }catch(e){} }
   function renderNotifs(){
     const list=$("notifList");
-    if(!notifs.length){ list.innerHTML='<div class="notif-empty">'+esc(T("noNotif"))+'</div>'; return; }
-    list.innerHTML = notifs.map(n=>'<div class="notif'+(n.at>lastSeen?'':' read')+'"><span class="ndot"></span><div><div class="nt">'+esc(n.t)+'</div><div class="ns">'+esc(n.s)+'</div></div></div>').join("");
+    document.querySelectorAll("#notifTabs .ntab").forEach(t=>t.classList.toggle("active",t.getAttribute("data-ntab")===notifTab));
+    document.querySelectorAll("#notifFilter .nfilt").forEach(t=>t.classList.toggle("active",t.getAttribute("data-nfilt")===notifFilt));
+    let list2=notifs.slice();
+    if(notifTab!=="all") list2=list2.filter(n=>n.type===notifTab);
+    if(notifFilt==="unread") list2=list2.filter(isUnread);
+    if(!list2.length){ list.innerHTML='<div class="notif-empty">'+esc(T("noNotif"))+'</div>'; return; }
+    list.innerHTML = list2.map(n=>'<div class="notif'+(isUnread(n)?'':' read')+'" data-nid="'+esc(n.id)+'"><span class="ndot"></span><div><div class="nt">'+esc(n.t)+'</div><div class="ns">'+esc(n.s)+'</div></div><span class="nx" data-nact="del">\u00d7</span></div>').join("");
   }
 
   // ===== counts + render =====
@@ -576,7 +617,12 @@ a{color:var(--yarrow);text-decoration:none;}
     const opt=(v,l)=>'<option value="'+v+'"'+(r.status===v?' selected':'')+'>'+esc(l)+'</option>';
     const calledLabel = r.called ? (esc(T("called"))+(r.called_at?' \u00b7 '+fmtDate(r.called_at):'')) : esc(T("markCalled"));
     const notes=(notesByInq[r.id]||[]);
-    const notesHTML = notes.map(n=>'<div class="note"><div class="nmeta"><span class="who-tag '+(n.author_role==="admin"?"admin":"client")+'">'+esc(n.author_role==="admin"?T("admin"):T("client"))+'</span><span>'+fmtDate(n.created_at)+'</span></div><div class="nbody">'+esc(n.body)+'</div></div>').join("");
+    const myRoleNote = isAdmin?"admin":"client";
+    const notesHTML = notes.map(n=>{
+      const mine = (n.author_role===myRoleNote);
+      const ctrls = mine ? '<span class="note-ctrls"><span class="note-edit" data-act="noteEdit" data-nid="'+n.id+'">\u270e</span><span class="note-del" data-act="noteDel" data-nid="'+n.id+'">\u00d7</span></span>' : '';
+      return '<div class="note" data-noteid="'+n.id+'"><div class="nmeta"><span class="who-tag '+(n.author_role==="admin"?"admin":"client")+'">'+esc(n.author_role==="admin"?T("admin"):T("client"))+'</span><span class="ntime" title="'+esc(fmtExact(n.created_at))+'">'+fmtExact(n.created_at)+'</span>'+ctrls+'</div><div class="nbody">'+esc(n.body)+'</div></div>';
+    }).join("");
     return ''+
     '<div class="card'+(isBooking?' is-booking':'')+'" data-id="'+r.id+'">'+
       '<div class="card-top"><div>'+
@@ -633,7 +679,7 @@ a{color:var(--yarrow);text-decoration:none;}
     wrap.innerHTML = summary + list.map(c=>{
       const em=(c.email||"").toLowerCase();
       const notes=(clientNotes[em]||[]);
-      const notesHTML=notes.map(n=>'<div class="cl-note" data-cnid="'+n.id+'"><span>'+esc(n.body)+'</span><span class="x" data-cnact="del">\u00d7</span></div>').join("");
+      const notesHTML=notes.map(n=>'<div class="cl-note" data-cnid="'+n.id+'"><div><div>'+esc(n.body)+'</div><div class="cl-note-time">'+fmtExact(n.created_at)+'</div></div><span class="cl-note-ctrls"><span class="x" data-cnact="edit">\u270e</span><span class="x del" data-cnact="del">\u00d7</span></span></div>').join("");
       const st=(c.status||"").replace(/[^a-z_]/g,"");
       return '<div class="client-card" data-cemail="'+esc(em)+'">'+
         '<div class="client-top"><div>'+
@@ -658,7 +704,9 @@ a{color:var(--yarrow);text-decoration:none;}
       return;
     }
     const del=e.target.closest('[data-cnact="del"]');
-    if(del){ const id=del.closest("[data-cnid]").getAttribute("data-cnid"); await sb.from("client_notes").delete().eq("id",id); clientNotes[email]=(clientNotes[email]||[]).filter(n=>String(n.id)!==String(id)); renderClients(); }
+    if(del){ const id=del.closest("[data-cnid]").getAttribute("data-cnid"); if(confirm(lang==="es"?"\u00bfBorrar esta nota?":"Delete this note?")){ await sb.from("client_notes").delete().eq("id",id); clientNotes[email]=(clientNotes[email]||[]).filter(n=>String(n.id)!==String(id)); renderClients(); } return; }
+    const edit=e.target.closest('[data-cnact="edit"]');
+    if(edit){ const id=edit.closest("[data-cnid]").getAttribute("data-cnid"); const note=(clientNotes[email]||[]).find(n=>String(n.id)===String(id)); if(!note) return; const nv=prompt(lang==="es"?"Editar nota:":"Edit note:", note.body); if(nv!=null && nv.trim()){ const {error}=await sb.from("client_notes").update({body:nv.trim()}).eq("id",id); if(!error){ note.body=nv.trim(); renderClients(); } } return; }
   });
   $("clientsWrap").addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches('[data-cnact="input"]')){ e.target.closest(".client-card").querySelector('[data-cnact="add"]').click(); } });
 
@@ -751,6 +799,10 @@ a{color:var(--yarrow);text-decoration:none;}
         if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); input.value=""; render(); }
         return;
       }
+      const nDel=e.target.closest('[data-act="noteDel"]');
+      if(nDel){ const nid=nDel.getAttribute("data-nid"); if(confirm(lang==="es"?"\u00bfBorrar esta nota?":"Delete this note?")){ await sb.from("notes").delete().eq("id",nid); notesByInq[id]=(notesByInq[id]||[]).filter(n=>String(n.id)!==String(nid)); render(); } return; }
+      const nEdit=e.target.closest('[data-act="noteEdit"]');
+      if(nEdit){ const nid=nEdit.getAttribute("data-nid"); const note=(notesByInq[id]||[]).find(n=>String(n.id)===String(nid)); if(!note) return; const nv=prompt(lang==="es"?"Editar nota:":"Edit note:", note.body); if(nv!=null && nv.trim()){ const {error}=await sb.from("notes").update({body:nv.trim()}).eq("id",nid); if(!error){ note.body=nv.trim(); render(); } } return; }
     }
     // reminder actions
     if(card.hasAttribute("data-rid")){
@@ -811,9 +863,21 @@ a{color:var(--yarrow);text-decoration:none;}
   // ===== bell =====
   $("bellBtn").addEventListener("click", ()=>{
     const p=$("notifPanel"); p.classList.toggle("open");
-    if(p.classList.contains("open")){ lastSeen=Date.now(); try{ localStorage.setItem("hv_seen_"+user.id, String(lastSeen)); }catch(e){} $("bellBadge").style.display="none"; renderNotifs(); }
+    if(p.classList.contains("open")){ renderNotifs(); }
   });
-  $("notifClear").addEventListener("click", ()=>{ lastSeen=Date.now(); try{ localStorage.setItem("hv_seen_"+user.id, String(lastSeen)); }catch(e){} buildNotifs(); renderNotifs(); });
+  $("notifClear").addEventListener("click", ()=>{
+    // mark all currently-shown-as-unread as read, and delete (clear) them from the list
+    notifs.forEach(n=>{ notifRead[n.id]=1; });
+    saveNotifState(); updateBadge(); renderNotifs();
+  });
+  $("notifTabs").addEventListener("click", e=>{ const t=e.target.closest(".ntab"); if(!t) return; notifTab=t.getAttribute("data-ntab"); renderNotifs(); });
+  $("notifFilter").addEventListener("click", e=>{ const t=e.target.closest(".nfilt"); if(!t) return; notifFilt=t.getAttribute("data-nfilt"); renderNotifs(); });
+  $("notifList").addEventListener("click", e=>{
+    const row=e.target.closest(".notif"); if(!row) return; const id=row.getAttribute("data-nid");
+    if(e.target.closest('[data-nact="del"]')){ notifDeleted[id]=1; saveNotifState(); buildNotifs(); renderNotifs(); return; }
+    // clicking a notification marks it read
+    notifRead[id]=1; saveNotifState(); updateBadge(); renderNotifs();
+  });
   document.addEventListener("click", e=>{ if(!e.target.closest("#notifPanel") && !e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open"); });
 
   // ===== realtime =====
