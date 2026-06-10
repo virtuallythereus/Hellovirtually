@@ -27,6 +27,23 @@ a{color:var(--yarrow);text-decoration:none;}
 .btn-sm{padding:8px 15px;font-size:.7rem;}
 .btn-block{width:100%;}
 
+/* pipeline */
+.pipe{display:flex;gap:6px;margin:13px 0 4px;flex-wrap:wrap;}
+.pstep{flex:1;min-width:72px;font-size:.66rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:8px 6px;border-radius:50px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;transition:all .18s;}
+.pstep.past{background:var(--soft);border-color:var(--soft);color:var(--lagoon-d);}
+.pstep.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+.pstep:hover{border-color:var(--lagoon);}
+.next-action{display:inline-flex;align-items:center;gap:7px;background:var(--blush);color:var(--yarrow-dd);font-size:.78rem;font-weight:700;padding:7px 14px;border-radius:50px;margin:10px 0 2px;}
+.next-action .na-ic{font-size:.8rem;}
+/* collapsible notes */
+.notes-sec{margin-top:14px;border-top:1px dashed var(--line);padding-top:11px;}
+.notes-toggle{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;cursor:pointer;font-family:'Nunito';font-size:.66rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);padding:0;}
+.nt-caret{transition:transform .2s;}
+.notes-sec.open .nt-caret{transform:rotate(180deg);}
+.nt-unread{width:7px;height:7px;border-radius:50%;background:var(--coral);}
+.notes-body{display:none;margin-top:10px;}
+.notes-sec.open .notes-body{display:block;}
+
 /* ===== calendar ===== */
 .calendar-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
@@ -350,6 +367,28 @@ a{color:var(--yarrow);text-decoration:none;}
   </div>
 </div>
 
+<!-- SHEET: schedule action on an inquiry -->
+<div class="overlay" id="schedOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="schedOverlay">&times;</button>
+    <h3 id="schedTitle">Schedule an action</h3>
+    <div class="sub" id="schedSub">Adds it to your calendar and reminders.</div>
+    <div class="fld"><label id="lblSType">Type</label>
+      <select id="sType">
+        <option value="call">Call</option>
+        <option value="followup">Follow-up</option>
+        <option value="appointment">Appointment</option>
+        <option value="email">Email</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="fld"><label id="lblSNote">Note (optional)</label><input type="text" id="sNote" placeholder="Call about the quote..."></div>
+    <div class="fld"><label id="lblSWhen">When</label><input type="datetime-local" id="sWhen"></div>
+    <button class="btn btn-primary btn-block" id="schedSubmit">Schedule</button>
+    <div class="form-msg" id="schedMsg"></div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
@@ -373,6 +412,9 @@ a{color:var(--yarrow);text-decoration:none;}
     addInquiry:"+ Add inquiry", addReminder:"+ Add reminder", addBooking:"+ Add booking",
     statusNew:"New", statusContacted:"Contacted", statusBooked:"Booked", statusClosed:"Closed",
     markCalled:"Mark as called", called:"Called", del:"Delete",
+    schedule:"Schedule", schedTitle:"Schedule an action", schedSub:"Adds it to your calendar and reminders.",
+    sType:"Type", sNote:"Note (optional)", sWhen:"When", schedBtn:"Schedule",
+    actCall:"Call", actFollow:"Follow-up", actAppt:"Appointment", actEmail:"Email", actOther:"Other",
     notesHead:"Notes", notePlace:"Add a note...", send:"Send",
     addTitle:"Add to dashboard", addSub:"Log an inquiry or a booking.",
     inquiry:"Inquiry", booking:"Booking", clientEmail:"Client account email", name:"Name", channel:"Channel",
@@ -401,6 +443,9 @@ a{color:var(--yarrow);text-decoration:none;}
     addInquiry:"+ Agregar consulta", addReminder:"+ Agregar recordatorio", addBooking:"+ Agregar reserva",
     statusNew:"Nueva", statusContacted:"Contactada", statusBooked:"Agendada", statusClosed:"Cerrada",
     markCalled:"Marcar llamado", called:"Llamado", del:"Eliminar",
+    schedule:"Agendar", schedTitle:"Agendar una acci\u00f3n", schedSub:"Se agrega a tu calendario y recordatorios.",
+    sType:"Tipo", sNote:"Nota (opcional)", sWhen:"Cu\u00e1ndo", schedBtn:"Agendar",
+    actCall:"Llamada", actFollow:"Seguimiento", actAppt:"Cita", actEmail:"Email", actOther:"Otro",
     notesHead:"Notas", notePlace:"Agrega una nota...", send:"Enviar",
     addTitle:"Agregar al panel", addSub:"Registra una consulta o una reserva.",
     inquiry:"Consulta", booking:"Reserva", clientEmail:"Correo de la cuenta del cliente", name:"Nombre", channel:"Canal",
@@ -467,6 +512,10 @@ a{color:var(--yarrow);text-decoration:none;}
     $("lblClientEmail").textContent=T("clientEmail"); $("lblName").textContent=T("name"); $("lblChannel").textContent=T("channel");
     $("lblContact").textContent=T("contact"); $("lblWhen").textContent=T("apptWhen"); $("lblMsg").textContent=T("msg"); $("addSubmit").textContent=T("add");
     $("remTitle").textContent=T("remTitle"); $("remSub").textContent=T("remSub");
+    // schedule sheet
+    $("schedTitle").textContent=T("schedTitle"); $("schedSub").textContent=T("schedSub");
+    $("lblSType").textContent=T("sType"); $("lblSNote").textContent=T("sNote"); $("lblSWhen").textContent=T("sWhen"); $("schedSubmit").textContent=T("schedBtn");
+    const sTypeSel=$("sType"); if(sTypeSel){ const map=[["call","actCall"],["followup","actFollow"],["appointment","actAppt"],["email","actEmail"],["other","actOther"]]; Array.from(sTypeSel.options).forEach((o,i)=>{ o.textContent=T(map[i][1]); }); }
     $("segFollow").textContent=T("followup"); $("segAppt").textContent=T("appointment");
     $("lblRClient").textContent=T("clientEmail"); $("lblRTitle").textContent=T("remWhat"); $("lblRWhen").textContent=T("when"); $("remSubmit").textContent=T("addRem");
     if(user) $("greet").textContent = isAdmin?T("greetAdmin"):T("greetClient");
@@ -613,16 +662,24 @@ a{color:var(--yarrow);text-decoration:none;}
 
   function cardHTML(r){
     const isBooking = r.kind==="booking";
-    const stClass={new:"st-new",contacted:"st-contacted",booked:"st-booked",closed:"st-closed"}[r.status]||"st-new";
-    const opt=(v,l)=>'<option value="'+v+'"'+(r.status===v?' selected':'')+'>'+esc(l)+'</option>';
     const calledLabel = r.called ? (esc(T("called"))+(r.called_at?' \u00b7 '+fmtDate(r.called_at):'')) : esc(T("markCalled"));
     const notes=(notesByInq[r.id]||[]);
     const myRoleNote = isAdmin?"admin":"client";
+    // unread notes from the other party (drives auto-open)
+    const hasUnread = notes.some(n=>n.author_role && n.author_role!==myRoleNote && !notifRead["note-"+n.id]);
     const notesHTML = notes.map(n=>{
       const mine = (n.author_role===myRoleNote);
       const ctrls = mine ? '<span class="note-ctrls"><span class="note-edit" data-act="noteEdit" data-nid="'+n.id+'">\u270e</span><span class="note-del" data-act="noteDel" data-nid="'+n.id+'">\u00d7</span></span>' : '';
       return '<div class="note" data-noteid="'+n.id+'"><div class="nmeta"><span class="who-tag '+(n.author_role==="admin"?"admin":"client")+'">'+esc(n.author_role==="admin"?T("admin"):T("client"))+'</span><span class="ntime" title="'+esc(fmtExact(n.created_at))+'">'+fmtExact(n.created_at)+'</span>'+ctrls+'</div><div class="nbody">'+esc(n.body)+'</div></div>';
     }).join("");
+    // next scheduled action linked to this inquiry
+    const acts=reminders.filter(x=>x.inquiry_id===r.id && !x.done).sort((a,b)=>new Date(a.due_at)-new Date(b.due_at));
+    const next=acts[0];
+    const nextHTML = next ? '<div class="next-action"><span class="na-ic">\u23F0</span>'+esc(actionLabel(next.kind))+' \u00b7 '+esc(fmtWhen(next.due_at))+'</div>' : '';
+    // pipeline
+    const steps=[["new",T("statusNew")],["contacted",T("statusContacted")],["booked",T("statusBooked")],["closed",T("statusClosed")]];
+    const curIdx=steps.findIndex(s=>s[0]===r.status);
+    const pipeline='<div class="pipe">'+steps.map((s,i)=>'<button class="pstep'+(i===curIdx?' on':'')+(i<curIdx?' past':'')+'" data-act="pstep" data-st="'+s[0]+'">'+esc(s[1])+'</button>').join("")+'</div>';
     return ''+
     '<div class="card'+(isBooking?' is-booking':'')+'" data-id="'+r.id+'">'+
       '<div class="card-top"><div>'+
@@ -635,16 +692,22 @@ a{color:var(--yarrow);text-decoration:none;}
         (r.customer_contact?'<div class="contact">'+esc(r.customer_contact)+'</div>':'')+
       '</div></div>'+
       (r.message?'<div class="msg">'+esc(r.message)+'</div>':'')+
+      pipeline+
+      nextHTML+
       '<div class="card-actions">'+
-        '<select class="status-sel '+stClass+'" data-act="status">'+opt("new",T("statusNew"))+opt("contacted",T("statusContacted"))+opt("booked",T("statusBooked"))+opt("closed",T("statusClosed"))+'</select>'+
         '<button class="mini-btn'+(r.called?' done':'')+'" data-act="call">&#9742; '+calledLabel+'</button>'+
+        '<button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button>'+
         ((isAdmin||r.created_by==="client")?'<button class="del-btn" data-act="del">'+esc(T("del"))+'</button>':'')+
       '</div>'+
-      '<div class="notes-sec"><div class="nh">'+esc(T("notesHead"))+'</div>'+notesHTML+
-        '<div class="note-add"><input type="text" data-act="noteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div>'+
+      '<div class="notes-sec'+(hasUnread?' open':'')+'" data-noteswrap>'+
+        '<button class="notes-toggle" data-act="notesToggle"><span>'+esc(T("notesHead"))+' ('+notes.length+')</span><span class="nt-caret">\u25BE</span>'+(hasUnread?'<span class="nt-unread"></span>':'')+'</button>'+
+        '<div class="notes-body">'+notesHTML+
+          '<div class="note-add"><input type="text" data-act="noteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div>'+
+        '</div>'+
       '</div>'+
     '</div>';
   }
+  function actionLabel(k){ return {call:T("actCall"),followup:T("actFollow"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
 
   // ===== clients (admin, live from Stripe) =====
   let clientsData=null, clientsLoading=false, clientNotes={};
@@ -789,6 +852,9 @@ a{color:var(--yarrow);text-decoration:none;}
     // inquiry actions
     if(card.hasAttribute("data-id")){
       const id=card.getAttribute("data-id");
+      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); render(); return; }
+      if(e.target.closest('[data-act="notesToggle"]')){ const sec=card.querySelector('[data-noteswrap]'); sec.classList.toggle("open"); if(sec.classList.contains("open")){ (notesByInq[id]||[]).forEach(n=>{ notifRead["note-"+n.id]=1; }); saveNotifState(); updateBadge(); } return; }
+      if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="call"]')){ const row=inquiries.find(r=>r.id===id); const now=!row.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); render(); return; }
       if(e.target.closest('[data-act="del"]')){ if(confirm(lang==="es"?"\u00bfEliminar?":"Delete?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(r=>r.id!==id); render(); } return; }
       if(e.target.closest('[data-act="noteSend"]')){
@@ -829,6 +895,23 @@ a{color:var(--yarrow);text-decoration:none;}
     out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
     $("fName").value="";$("fContact").value="";$("fMsg").value=""; if($("fWhen"))$("fWhen").value="";
     await loadAll(); setTimeout(()=>{ closeOverlay("addOverlay"); out.textContent=""; },700);
+  });
+
+  // ===== schedule action on an inquiry =====
+  let schedInqId=null;
+  function openSchedule(id){ schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value=""; openOverlay("schedOverlay"); }
+  $("schedSubmit").addEventListener("click", async ()=>{
+    const out=$("schedMsg"); out.textContent="";
+    const row=inquiries.find(r=>r.id===schedInqId); if(!row){ closeOverlay("schedOverlay"); return; }
+    const w=$("sWhen").value; if(!w){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const type=$("sType").value; const note=$("sNote").value.trim();
+    const title=(actionLabel(type))+(row.customer_name?(" \u00b7 "+row.customer_name):"")+(note?(" \u00b7 "+note):"");
+    const remKindMap={appointment:"appointment"}; const rk=remKindMap[type]||"followup";
+    const payload={ client_email:row.client_email, inquiry_id:row.id, title:title, kind:rk, due_at:new Date(w).toISOString(), done:false, created_by:isAdmin?"admin":"client" };
+    const {error}=await sb.from("reminders").insert(payload);
+    if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
+    await loadAll(); setTimeout(()=>{ closeOverlay("schedOverlay"); out.textContent=""; },650);
   });
 
   // ===== add reminder sheet =====
