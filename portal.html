@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reports — Hello, virtually!</title>
+<title>Dashboard — Hello, virtually!</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F0EEE9'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' font-style='italic' font-weight='700' fill='%231F3D3A' text-anchor='middle'%3Eh%3C/text%3E%3Ccircle cx='72' cy='30' r='9' fill='%23CE3375'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <style>
@@ -13,117 +13,154 @@
   --yarrow:#CE3375; --yarrow-dd:#A82A61;
   --coral:#FF6F61; --ink:#1F3D3A; --ink-2:#37544F;
   --soft:#DCEBE8; --blush:#FBE4DE; --line:rgba(31,61,58,.12);
+  --shadow:0 10px 34px rgba(31,61,58,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Nunito',sans-serif;background:var(--cloud);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
-h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;letter-spacing:-.6px;}
-a{color:var(--yarrow);}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.5px;padding:12px 24px;border-radius:50px;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .25s,background .2s,color .2s,border-color .2s;}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(180deg,#F4F1EC,#EFece6);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;letter-spacing:-.5px;}
+a{color:var(--yarrow);text-decoration:none;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.4px;padding:11px 22px;border-radius:50px;cursor:pointer;border:none;transition:transform .18s,box-shadow .25s,background .2s,color .2s,border-color .2s;}
 .btn-primary{background:var(--yarrow);color:#fff;}
 .btn-primary:hover{background:var(--yarrow-dd);transform:translateY(-1px);}
 .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink);}
 .btn-ghost:hover{border-color:var(--ink);}
-.btn-sm{padding:8px 16px;font-size:.7rem;}
+.btn-sm{padding:8px 15px;font-size:.7rem;}
+.btn-block{width:100%;}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:40;background:rgba(248,246,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-.topbar-in{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
-.logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:2px;white-space:nowrap;}
-.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--yarrow);display:inline-block;margin-left:3px;margin-bottom:12px;}
-.top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
-.who{font-size:.72rem;font-weight:700;color:var(--ink-2);opacity:.8;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.lang-toggle{background:transparent;border:1.5px solid rgba(31,61,58,.25);color:var(--ink);width:40px;height:32px;border-radius:50px;font-size:.66rem;font-weight:800;letter-spacing:1px;cursor:pointer;}
-.icon-btn{background:transparent;border:1.5px solid var(--line);color:var(--ink);width:34px;height:32px;border-radius:50px;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;}
+/* ===== top bar ===== */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(248,246,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.topbar-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--ink);display:flex;align-items:center;gap:2px;white-space:nowrap;}
+.logo .dot{width:7px;height:7px;border-radius:50%;background:var(--yarrow);display:inline-block;margin-left:3px;margin-bottom:11px;}
+.top-actions{display:flex;align-items:center;gap:9px;}
+.who{font-size:.7rem;font-weight:700;color:var(--ink-2);opacity:.8;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.role-pill{font-size:.56rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:50px;background:var(--ink);color:#fff;}
+.role-pill.client{background:var(--lagoon);}
+.lang-toggle{background:transparent;border:1.5px solid rgba(31,61,58,.25);color:var(--ink);width:38px;height:32px;border-radius:50px;font-size:.64rem;font-weight:800;letter-spacing:1px;cursor:pointer;}
+.icon-btn{background:transparent;border:1.5px solid var(--line);color:var(--ink);width:36px;height:34px;border-radius:50px;cursor:pointer;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;position:relative;}
+.bell-badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:50px;background:var(--coral);color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--cloud-2);}
 
-/* layout */
-.wrap{max-width:1080px;margin:0 auto;padding:34px 24px 80px;}
-.page-head{margin-bottom:24px;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--ink);padding:7px 16px;border-radius:50px;font-size:.62rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.page-head h1{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:400;}
+/* ===== layout ===== */
+.wrap{max-width:1120px;margin:0 auto;padding:28px 22px 90px;}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+.page-head h1{font-size:clamp(1.7rem,3.6vw,2.4rem);font-weight:400;}
 .page-head h1 em{font-style:italic;color:var(--yarrow);}
-.page-head p{color:var(--ink-2);margin-top:8px;font-size:.95rem;}
+.page-head .greet{color:var(--ink-2);font-size:.9rem;margin-top:4px;}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0;}
-.stat{background:var(--cloud-2);border:1px solid var(--line);border-radius:18px;padding:16px;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;text-align:left;}
-.stat:hover{transform:translateY(-2px);}
-.stat.active{border-color:var(--yarrow);background:#fff;}
-.stat .n{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:400;line-height:1;}
-.stat .l{font-size:.64rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-top:6px;}
-.stat.s-new .n{color:var(--coral);}
-.stat.s-contacted .n{color:var(--lagoon-d);}
-.stat.s-booked .n{color:var(--yarrow);}
-.stat.s-closed .n{color:var(--ink-2);}
+/* summary panel */
+.panel{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:14px;}
+.tile{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px 18px;cursor:pointer;transition:transform .18s,border-color .2s,box-shadow .25s;text-align:left;position:relative;overflow:hidden;}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.tile.active{border-color:var(--yarrow);}
+.tile .n{font-family:'Fraunces',serif;font-size:1.95rem;font-weight:400;line-height:1;}
+.tile .l{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-top:7px;}
+.tile.t-new .n{color:var(--coral);}
+.tile.t-appt .n{color:var(--yarrow);}
+.tile.t-today .n{color:var(--lagoon-d);}
+.tile.t-all .n{color:var(--ink);}
 
-/* search */
-.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
-.search{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:10px 18px;}
+/* tabs */
+.tabs{display:flex;gap:7px;margin:24px 0 16px;flex-wrap:wrap;}
+.tab{font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:9px 18px;border-radius:50px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;transition:all .2s;}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* toolbar */
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
+.search{flex:1;min-width:180px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:10px 18px;}
 .search input{border:none;outline:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--ink);width:100%;}
 
-/* admin add form */
-.admin-panel{background:var(--ink);color:#fff;border-radius:22px;padding:22px;margin-bottom:26px;}
-.admin-panel h3{color:#fff;font-size:1.15rem;font-weight:500;margin-bottom:4px;}
-.admin-panel .sub{font-size:.82rem;opacity:.8;margin-bottom:16px;}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.fld{display:flex;flex-direction:column;gap:5px;}
-.fld.full{grid-column:1 / -1;}
-.fld label{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.75;}
-.fld input,.fld select,.fld textarea{font-family:'Nunito',sans-serif;font-size:.9rem;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;outline:none;}
-.fld textarea{resize:vertical;min-height:64px;}
-.fld input::placeholder,.fld textarea::placeholder{color:rgba(255,255,255,.5);}
-.fld select option{color:#1F3D3A;}
-.admin-panel .btn-primary{margin-top:14px;}
-.admin-msg{font-size:.8rem;margin-top:10px;min-height:18px;}
+/* add bar */
+.addbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px;}
 
 /* cards */
 .cards{display:flex;flex-direction:column;gap:14px;}
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 22px;transition:box-shadow .25s;}
-.card:hover{box-shadow:0 10px 30px rgba(31,61,58,.07);}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;transition:box-shadow .25s;position:relative;}
+.card:hover{box-shadow:var(--shadow);}
+.card.is-booking{border-left:4px solid var(--yarrow);}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-.card-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;}
-.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px;}
-.badge{font-size:.6rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:50px;}
-.badge-chan{background:var(--soft);color:var(--lagoon-d);}
-.time{font-size:.72rem;color:var(--ink-2);opacity:.7;}
-.contact{font-size:.85rem;color:var(--ink-2);margin-top:2px;}
-.msg{background:var(--cloud-2);border-radius:14px;padding:13px 16px;margin:14px 0;font-size:.92rem;color:var(--ink);border-left:3px solid var(--soft);white-space:pre-wrap;}
-.card-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.status-sel{font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:9px 16px;border-radius:50px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);}
+.card-name{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:500;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.kind-tag{font-size:.56rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:50px;background:var(--blush);color:var(--yarrow-dd);}
+.kind-tag.inq{background:var(--soft);color:var(--lagoon-d);}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px;}
+.badge{font-size:.58rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;padding:4px 10px;border-radius:50px;background:var(--soft);color:var(--lagoon-d);}
+.time{font-size:.7rem;color:var(--ink-2);opacity:.7;}
+.appt-when{font-size:.74rem;font-weight:800;color:var(--yarrow-dd);background:var(--blush);padding:4px 11px;border-radius:50px;}
+.contact{font-size:.84rem;color:var(--ink-2);margin-top:3px;}
+.msg{background:var(--cloud-2);border-radius:13px;padding:12px 15px;margin:13px 0;font-size:.9rem;border-left:3px solid var(--soft);white-space:pre-wrap;}
+.card-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.status-sel{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:8px 15px;border-radius:50px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);}
 .st-new{border-color:var(--coral);color:var(--coral);}
 .st-contacted{border-color:var(--lagoon);color:var(--lagoon-d);}
 .st-booked{border-color:var(--yarrow);color:var(--yarrow);}
-.st-closed{border-color:var(--line);color:var(--ink-2);opacity:.8;}
-.call-btn{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:800;letter-spacing:.5px;padding:9px 16px;border-radius:50px;border:1.5px solid var(--lagoon);background:#fff;color:var(--lagoon-d);cursor:pointer;}
-.call-btn.done{background:var(--lagoon);color:#fff;}
-.notes-wrap{margin-top:14px;}
-.notes-wrap label{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);}
-.notes-wrap textarea{width:100%;font-family:'Nunito',sans-serif;font-size:.88rem;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--cloud-2);color:var(--ink);outline:none;resize:vertical;min-height:54px;margin-top:5px;}
-.note-save{font-size:.66rem;color:var(--lagoon-d);font-weight:800;margin-top:6px;height:14px;opacity:0;transition:opacity .2s;}
-.note-save.show{opacity:1;}
-.del-btn{background:transparent;border:none;color:var(--coral);font-size:.72rem;font-weight:800;cursor:pointer;letter-spacing:.5px;}
+.st-closed{border-color:var(--line);color:var(--ink-2);}
+.mini-btn{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;letter-spacing:.4px;padding:8px 15px;border-radius:50px;border:1.5px solid var(--lagoon);background:#fff;color:var(--lagoon-d);cursor:pointer;}
+.mini-btn.done{background:var(--lagoon);color:#fff;}
+.mini-btn.alt{border-color:var(--yarrow);color:var(--yarrow);}
+.del-btn{background:transparent;border:none;color:var(--coral);font-size:.7rem;font-weight:800;cursor:pointer;letter-spacing:.4px;margin-left:auto;}
 
-/* empty / loading */
-.empty{text-align:center;padding:70px 20px;color:var(--ink-2);}
-.empty .big{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;color:var(--lagoon-d);margin-bottom:8px;}
-.empty .hand{font-family:'Shadows Into Light',cursive;font-size:1.3rem;color:var(--yarrow);margin-top:10px;}
+/* notes thread */
+.notes-sec{margin-top:15px;border-top:1px dashed var(--line);padding-top:13px;}
+.notes-sec .nh{font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);margin-bottom:9px;}
+.note{display:flex;flex-direction:column;gap:2px;background:var(--cloud-2);border-radius:12px;padding:9px 13px;margin-bottom:8px;}
+.note .nmeta{display:flex;align-items:center;gap:7px;font-size:.62rem;color:var(--ink-2);}
+.note .who-tag{font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:50px;font-size:.55rem;}
+.who-tag.admin{background:var(--ink);color:#fff;}
+.who-tag.client{background:var(--lagoon);color:#fff;}
+.note .nbody{font-size:.88rem;color:var(--ink);}
+.note-add{display:flex;gap:8px;margin-top:8px;}
+.note-add input{flex:1;font-family:'Nunito',sans-serif;font-size:.86rem;padding:9px 13px;border-radius:11px;border:1px solid var(--line);background:#fff;color:var(--ink);outline:none;}
+
+/* empty */
+.empty{text-align:center;padding:64px 20px;color:var(--ink-2);}
+.empty .big{font-family:'Fraunces',serif;font-style:italic;font-size:1.45rem;color:var(--lagoon-d);margin-bottom:6px;}
+.empty .hand{font-family:'Shadows Into Light',cursive;font-size:1.25rem;color:var(--yarrow);margin-top:8px;}
+
+/* ===== drawers / modals ===== */
+.overlay{position:fixed;inset:0;background:rgba(31,61,58,.4);backdrop-filter:blur(3px);z-index:80;display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow-y:auto;}
+.overlay.open{display:flex;}
+.sheet{background:#fff;border-radius:24px;width:100%;max-width:480px;padding:26px;box-shadow:0 30px 80px rgba(31,61,58,.25);}
+.sheet h3{font-size:1.4rem;font-weight:500;margin-bottom:3px;}
+.sheet .sub{font-size:.84rem;color:var(--ink-2);margin-bottom:18px;}
+.sheet-close{float:right;background:none;border:none;font-size:1.5rem;color:var(--ink-2);cursor:pointer;line-height:1;}
+.fld{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
+.fld label{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-2);}
+.fld input,.fld select,.fld textarea{font-family:'Nunito',sans-serif;font-size:.92rem;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--cloud-2);color:var(--ink);outline:none;}
+.fld textarea{resize:vertical;min-height:70px;}
+.fld-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.form-msg{font-size:.8rem;min-height:18px;margin-top:4px;}
+.seg{display:flex;gap:7px;margin-bottom:14px;}
+.seg button{flex:1;font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:10px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* notifications drawer */
+.notif-panel{position:fixed;top:64px;right:14px;width:320px;max-width:calc(100vw - 28px);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 64px rgba(31,61,58,.22);z-index:70;display:none;overflow:hidden;}
+.notif-panel.open{display:block;}
+.notif-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+.notif-head h4{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;}
+.notif-list{max-height:60vh;overflow-y:auto;}
+.notif{padding:13px 18px;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start;}
+.notif:last-child{border-bottom:none;}
+.notif .ndot{width:8px;height:8px;border-radius:50%;background:var(--coral);margin-top:6px;flex-shrink:0;}
+.notif.read .ndot{background:var(--line);}
+.notif .nt{font-size:.86rem;font-weight:700;}
+.notif .ns{font-size:.74rem;color:var(--ink-2);}
+.notif-empty{padding:30px 18px;text-align:center;color:var(--ink-2);font-size:.85rem;}
 
 /* auth gate */
-.gate{max-width:420px;margin:8vh auto;background:#fff;border:1px solid var(--line);border-radius:24px;padding:36px 30px;text-align:center;}
+.gate{max-width:420px;margin:7vh auto;background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px 30px;text-align:center;box-shadow:var(--shadow);}
 .gate h2{font-size:1.7rem;font-weight:400;}
 .gate h2 em{font-style:italic;color:var(--yarrow);}
 .gate p{color:var(--ink-2);font-size:.9rem;margin:10px 0 22px;}
-.gate .fld{text-align:left;margin-bottom:12px;}
-.gate .fld label{color:var(--ink-2);}
-.gate .fld input{background:var(--cloud-2);border:1px solid var(--line);color:var(--ink);}
-.gate .err{color:var(--coral);font-size:.82rem;min-height:18px;margin-bottom:8px;}
-.gate .btn{width:100%;}
+.gate .fld{text-align:left;}
+.gate .err{color:var(--coral);font-size:.82rem;min-height:18px;margin-bottom:6px;}
 .gate .alt{margin-top:16px;font-size:.82rem;color:var(--ink-2);}
 
-@media(max-width:680px){
-  .stats{grid-template-columns:repeat(2,1fr);}
-  .admin-grid{grid-template-columns:1fr;}
-  .wrap{padding:24px 16px 70px;}
-  .topbar-in{padding:14px 16px;}
+@media(max-width:760px){
+  .panel{grid-template-columns:repeat(2,1fr);}
+  .fld-row{grid-template-columns:1fr;}
+  .wrap{padding:22px 15px 80px;}
+  .topbar-in{padding:13px 15px;}
+  .who{display:none;}
 }
 </style>
 </head>
@@ -133,302 +170,487 @@ a{color:var(--yarrow);}
   <div class="topbar-in">
     <a href="index.html" class="logo">hello, virtually<span class="dot"></span></a>
     <div class="top-actions" id="topActions" style="display:none">
+      <span class="role-pill" id="rolePill">CLIENT</span>
       <span class="who" id="whoLabel"></span>
-      <button class="icon-btn" id="refreshBtn" title="Refresh">&#8635;</button>
+      <button class="icon-btn" id="bellBtn" title="Notifications">&#128276;<span class="bell-badge" id="bellBadge" style="display:none">0</span></button>
       <button class="lang-toggle" id="langToggle">ES</button>
-      <button class="btn btn-ghost btn-sm" id="logoutBtn" data-t="logout">Log out</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Log out</button>
     </div>
   </div>
+</div>
+
+<!-- notifications -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-head"><h4 id="notifTitle">Notifications</h4><button class="del-btn" id="notifClear" style="margin:0">Clear</button></div>
+  <div class="notif-list" id="notifList"></div>
 </div>
 
 <!-- AUTH GATE -->
 <div class="wrap" id="gateWrap">
   <div class="gate">
-    <h2 data-t="gateTitle">Your <em>reports</em></h2>
-    <p data-t="gateSub">Log in to see the inquiries we've handled for you.</p>
-    <div class="fld"><label data-t="email">Email</label><input type="email" id="gEmail" placeholder="you@business.com"></div>
-    <div class="fld"><label data-t="password">Password</label><input type="password" id="gPass" placeholder="••••••••"></div>
+    <h2 id="gateTitle">Your <em>dashboard</em></h2>
+    <p id="gateSub">Log in to see everything we've handled for you.</p>
+    <div class="fld"><label id="lblEmail">Email</label><input type="email" id="gEmail" placeholder="you@business.com"></div>
+    <div class="fld"><label id="lblPass">Password</label><input type="password" id="gPass" placeholder="********"></div>
     <div class="err" id="gErr"></div>
-    <button class="btn btn-primary" id="gLogin" data-t="login">Log in</button>
-    <p class="alt"><span data-t="noAccount">No account yet?</span> <a href="index.html#build" data-t="goSite">Create one on our site</a></p>
+    <button class="btn btn-primary btn-block" id="gLogin">Log in</button>
+    <p class="alt"><span id="lblNoAcct">No account yet?</span> <a href="index.html#build" id="lblGoSite">Create one on our site</a></p>
   </div>
 </div>
 
 <!-- APP -->
 <div class="wrap" id="app" style="display:none">
   <div class="page-head">
-    <span class="eyebrow" id="eyebrow">YOUR REPORTS</span>
-    <h1 id="pageTitle">Every message, <em>handled</em></h1>
-    <p id="pageSub">Here's everything we've taken care of for you.</p>
-  </div>
-
-  <!-- admin add (operator only) -->
-  <div class="admin-panel" id="adminPanel" style="display:none">
-    <h3 data-t="logTitle">Log a new inquiry</h3>
-    <div class="sub" data-t="logSub">This appears instantly on your client's dashboard.</div>
-    <div class="admin-grid">
-      <div class="fld"><label data-t="clientEmail">Client account email</label><input type="email" id="aClient" placeholder="client@business.com"></div>
-      <div class="fld"><label data-t="custName">Customer name</label><input type="text" id="aName" placeholder="Maria Lopez"></div>
-      <div class="fld"><label data-t="channel">Channel</label>
-        <select id="aChannel">
-          <option>WhatsApp</option><option>Instagram</option><option>Facebook</option>
-          <option>Website form</option><option>Email</option><option>Phone</option>
-        </select>
-      </div>
-      <div class="fld"><label data-t="contact">Their contact</label><input type="text" id="aContact" placeholder="787-555-0100 / @handle"></div>
-      <div class="fld full"><label data-t="message">Message / what they want</label><textarea id="aMsg" placeholder="Asked about availability for a deep clean next week..."></textarea></div>
+    <div>
+      <h1 id="pageTitle">Your <em>dashboard</em></h1>
+      <div class="greet" id="greet"></div>
     </div>
-    <button class="btn btn-primary" id="aAdd" data-t="addBtn">Add inquiry</button>
-    <div class="admin-msg" id="aMsgOut"></div>
+    <div class="addbar" id="addbar"></div>
   </div>
 
-  <!-- stats -->
-  <div class="stats" id="stats">
-    <button class="stat s-new active" data-f="all"><span class="n" id="cAll">0</span><span class="l" data-t="all">All</span></button>
-    <button class="stat s-new" data-f="new"><span class="n" id="cNew">0</span><span class="l" data-t="new">New</span></button>
-    <button class="stat s-contacted" data-f="contacted"><span class="n" id="cContacted">0</span><span class="l" data-t="contacted">Contacted</span></button>
-    <button class="stat s-booked" data-f="booked"><span class="n" id="cBooked">0</span><span class="l" data-t="booked">Booked</span></button>
+  <div class="panel" id="panel">
+    <button class="tile t-all active" data-f="all"><span class="n" id="cAll">0</span><span class="l" id="lAll">All</span></button>
+    <button class="tile t-new" data-f="new"><span class="n" id="cNew">0</span><span class="l" id="lNew">New</span></button>
+    <button class="tile t-appt" data-f="appt"><span class="n" id="cAppt">0</span><span class="l" id="lAppt">Appointments</span></button>
+    <button class="tile t-today" data-f="reminders"><span class="n" id="cToday">0</span><span class="l" id="lToday">Reminders</span></button>
   </div>
 
-  <div class="toolbar">
-    <div class="search"><span>&#128269;</span><input type="text" id="searchInput" placeholder="Search name, message, channel..."></div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="inquiries" id="tabInq">Inquiries</button>
+    <button class="tab" data-tab="reminders" id="tabRem">Reminders</button>
+  </div>
+
+  <div class="toolbar" id="toolbar">
+    <div class="search"><span>&#128269;</span><input type="text" id="searchInput" placeholder="Search..."></div>
   </div>
 
   <div class="cards" id="cards"></div>
 </div>
 
+<!-- SHEET: add inquiry/booking -->
+<div class="overlay" id="addOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="addOverlay">&times;</button>
+    <h3 id="addTitle">Add</h3>
+    <div class="sub" id="addSub"></div>
+    <div class="seg" id="addSeg">
+      <button data-kind="inquiry" class="on" id="segInq">Inquiry</button>
+      <button data-kind="booking" id="segBook">Booking</button>
+    </div>
+    <div class="fld" id="fClientWrap"><label id="lblClientEmail">Client account email</label><input type="email" id="fClient" placeholder="client@business.com"></div>
+    <div class="fld-row">
+      <div class="fld"><label id="lblName">Name</label><input type="text" id="fName" placeholder="Maria Lopez"></div>
+      <div class="fld"><label id="lblChannel">Channel</label>
+        <select id="fChannel"><option>WhatsApp</option><option>Instagram</option><option>Facebook</option><option>Website form</option><option>Email</option><option>Phone</option></select>
+      </div>
+    </div>
+    <div class="fld"><label id="lblContact">Their contact</label><input type="text" id="fContact" placeholder="787-555-0100 / @handle"></div>
+    <div class="fld" id="fWhenWrap" style="display:none"><label id="lblWhen">Appointment date & time</label><input type="datetime-local" id="fWhen"></div>
+    <div class="fld"><label id="lblMsg">Message / details</label><textarea id="fMsg" placeholder="What they need..."></textarea></div>
+    <button class="btn btn-primary btn-block" id="addSubmit">Add</button>
+    <div class="form-msg" id="addMsg"></div>
+  </div>
+</div>
+
+<!-- SHEET: add reminder -->
+<div class="overlay" id="remOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="remOverlay">&times;</button>
+    <h3 id="remTitle">New reminder</h3>
+    <div class="sub" id="remSub"></div>
+    <div class="seg" id="remSeg">
+      <button data-rkind="followup" class="on" id="segFollow">Follow-up</button>
+      <button data-rkind="appointment" id="segAppt">Appointment</button>
+    </div>
+    <div class="fld" id="rClientWrap"><label id="lblRClient">Client account email</label><input type="email" id="rClient" placeholder="client@business.com"></div>
+    <div class="fld"><label id="lblRTitle">What to remember</label><input type="text" id="rTitleIn" placeholder="Call Maria back about the quote"></div>
+    <div class="fld"><label id="lblRWhen">When</label><input type="datetime-local" id="rWhen"></div>
+    <button class="btn btn-primary btn-block" id="remSubmit">Add reminder</button>
+    <div class="form-msg" id="remMsg"></div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  // ===== CONFIG =====
   const CFG = {
     url:"https://yjrotvqtprlkzbxgyhtk.supabase.co",
     key:"sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
-    // >>> PUT YOUR OWN LOGIN EMAIL HERE so YOU get the operator (add inquiry) view <<<
     adminEmails:["virtuallythere.us@gmail.com"]
   };
 
   // ===== i18n =====
-  const DICT = {
-    es:{
-      logout:"Salir", gateTitle:"Tus <em>reportes</em>", gateSub:"Inicia sesión para ver las consultas que manejamos por ti.",
-      email:"Correo", password:"Contraseña", login:"Iniciar sesión", noAccount:"¿Aún no tienes cuenta?", goSite:"Créala en nuestro sitio",
-      logTitle:"Registrar nueva consulta", logSub:"Aparece al instante en el panel de tu cliente.",
-      clientEmail:"Correo de la cuenta del cliente", custName:"Nombre del cliente potencial", channel:"Canal", contact:"Su contacto",
-      message:"Mensaje / qué necesita", addBtn:"Agregar consulta",
-      all:"Todas", new:"Nuevas", contacted:"Contactadas", booked:"Agendadas", closed:"Cerradas",
-      eyebrow:"TUS REPORTES", pageTitle:"Cada mensaje, <em>atendido</em>", pageSub:"Aquí está todo lo que cuidamos por ti.",
-      search:"Buscar nombre, mensaje, canal...",
-      markCalled:"Marcar como llamado", called:"Llamado", notes:"Notas", saved:"Guardado",
-      emptyBig:"Todo tranquilo por ahora", emptySub:"Cuando llegue una consulta nueva, aparecerá aquí.", emptyHand:"sin pendientes",
-      del:"Eliminar", added:"Consulta agregada", needFields:"Falta el correo del cliente o el mensaje.", errLogin:"No pudimos iniciar sesión. Revisa tus datos."
-    }
+  const EN = {
+    logout:"Log out", gateTitle:"Your <em>dashboard</em>", gateSub:"Log in to see everything we've handled for you.",
+    email:"Email", password:"Password", login:"Log in", noAccount:"No account yet?", goSite:"Create one on our site",
+    pageTitle:"Your <em>dashboard</em>",
+    all:"All", new:"New", appts:"Appointments", reminders:"Reminders",
+    inquiries:"Inquiries", search:"Search name, message, channel...",
+    addInquiry:"+ Add inquiry", addReminder:"+ Add reminder", addBooking:"+ Add booking",
+    statusNew:"New", statusContacted:"Contacted", statusBooked:"Booked", statusClosed:"Closed",
+    markCalled:"Mark as called", called:"Called", del:"Delete",
+    notesHead:"Notes", notePlace:"Add a note...", send:"Send",
+    addTitle:"Add to dashboard", addSub:"Log an inquiry or a booking.",
+    inquiry:"Inquiry", booking:"Booking", clientEmail:"Client account email", name:"Name", channel:"Channel",
+    contact:"Their contact", apptWhen:"Appointment date & time", msg:"Message / details", add:"Add",
+    remTitle:"New reminder", remSub:"A follow-up or an appointment to remember.",
+    followup:"Follow-up", appointment:"Appointment", remWhat:"What to remember", when:"When", addRem:"Add reminder",
+    notif:"Notifications", clear:"Clear", noNotif:"You're all caught up.",
+    emptyInqBig:"All quiet for now", emptyInqSub:"New inquiries will show up here.",
+    emptyRemBig:"No reminders", emptyRemSub:"Add a follow-up or appointment to stay on top of leads.",
+    hand:"nothing pending", greetAdmin:"Operator view \u00b7 you can log and edit everything.",
+    greetClient:"Here's everything we've handled for you.",
+    needFields:"Please fill in the required fields.", added:"Added", admin:"Hello, virtually!", client:"You",
+    today:"Today", tomorrow:"Tomorrow", overdue:"Overdue", roleAdmin:"OPERATOR", roleClient:"CLIENT",
+    notifNew:"New inquiry", notifAppt:"Upcoming appointment", notifRem:"Reminder due", notifNote:"New note"
+  };
+  const ES = {
+    logout:"Salir", gateTitle:"Tu <em>panel</em>", gateSub:"Inicia sesi\u00f3n para ver todo lo que manejamos por ti.",
+    email:"Correo", password:"Contrase\u00f1a", login:"Iniciar sesi\u00f3n", noAccount:"\u00bfA\u00fan no tienes cuenta?", goSite:"Cr\u00e9ala en nuestro sitio",
+    pageTitle:"Tu <em>panel</em>",
+    all:"Todas", new:"Nuevas", appts:"Citas", reminders:"Recordatorios",
+    inquiries:"Consultas", search:"Buscar nombre, mensaje, canal...",
+    addInquiry:"+ Agregar consulta", addReminder:"+ Agregar recordatorio", addBooking:"+ Agregar reserva",
+    statusNew:"Nueva", statusContacted:"Contactada", statusBooked:"Agendada", statusClosed:"Cerrada",
+    markCalled:"Marcar llamado", called:"Llamado", del:"Eliminar",
+    notesHead:"Notas", notePlace:"Agrega una nota...", send:"Enviar",
+    addTitle:"Agregar al panel", addSub:"Registra una consulta o una reserva.",
+    inquiry:"Consulta", booking:"Reserva", clientEmail:"Correo de la cuenta del cliente", name:"Nombre", channel:"Canal",
+    contact:"Su contacto", apptWhen:"Fecha y hora de la cita", msg:"Mensaje / detalles", add:"Agregar",
+    remTitle:"Nuevo recordatorio", remSub:"Un seguimiento o una cita para recordar.",
+    followup:"Seguimiento", appointment:"Cita", remWhat:"Qu\u00e9 recordar", when:"Cu\u00e1ndo", addRem:"Agregar recordatorio",
+    notif:"Notificaciones", clear:"Limpiar", noNotif:"Est\u00e1s al d\u00eda.",
+    emptyInqBig:"Todo tranquilo por ahora", emptyInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",
+    emptyRemBig:"Sin recordatorios", emptyRemSub:"Agrega un seguimiento o cita para no perder ning\u00fan lead.",
+    hand:"sin pendientes", greetAdmin:"Vista de operadora \u00b7 puedes registrar y editar todo.",
+    greetClient:"Aqu\u00ed est\u00e1 todo lo que cuidamos por ti.",
+    needFields:"Completa los campos requeridos.", added:"Agregado", admin:"Hello, virtually!", client:"T\u00fa",
+    today:"Hoy", tomorrow:"Ma\u00f1ana", overdue:"Vencido", roleAdmin:"OPERADORA", roleClient:"CLIENTE",
+    notifNew:"Consulta nueva", notifAppt:"Cita pr\u00f3xima", notifRem:"Recordatorio", notifNote:"Nota nueva"
   };
   let lang = (navigator.language||"en").toLowerCase().startsWith("es") ? "es":"en";
-  function T(k){ if(lang==="es" && DICT.es[k]!=null) return DICT.es[k]; return EN[k]; }
-  const EN = {
-    logout:"Log out", gateTitle:"Your <em>reports</em>", gateSub:"Log in to see the inquiries we've handled for you.",
-    email:"Email", password:"Password", login:"Log in", noAccount:"No account yet?", goSite:"Create one on our site",
-    logTitle:"Log a new inquiry", logSub:"This appears instantly on your client's dashboard.",
-    clientEmail:"Client account email", custName:"Customer name", channel:"Channel", contact:"Their contact",
-    message:"Message / what they want", addBtn:"Add inquiry",
-    all:"All", new:"New", contacted:"Contacted", booked:"Booked", closed:"Closed",
-    eyebrow:"YOUR REPORTS", pageTitle:"Every message, <em>handled</em>", pageSub:"Here's everything we've taken care of for you.",
-    search:"Search name, message, channel...",
-    markCalled:"Mark as called", called:"Called", notes:"Notes", saved:"Saved",
-    emptyBig:"All quiet for now", emptySub:"When a new inquiry comes in, it'll show up here.", emptyHand:"nothing pending",
-    del:"Delete", added:"Inquiry added", needFields:"Client email or message is missing.", errLogin:"We couldn't log you in. Check your details."
-  };
+  const T = k => (lang==="es" ? (ES[k]!=null?ES[k]:EN[k]) : EN[k]);
 
-  function applyLang(){
-    document.documentElement.lang = lang;
-    document.querySelectorAll("[data-t]").forEach(el=>{ const k=el.getAttribute("data-t"); if(EN[k]!=null) el.innerHTML = T(k); });
-    document.getElementById("searchInput").placeholder = T("search");
-    document.getElementById("langToggle").textContent = lang==="es" ? "EN":"ES";
-    // page head (has <em>)
-    document.getElementById("eyebrow").textContent = T("eyebrow");
-    document.getElementById("pageTitle").innerHTML = T("pageTitle");
-    document.getElementById("pageSub").textContent = T("pageSub");
-    document.querySelector("#gateWrap [data-t='gateTitle']").innerHTML = T("gateTitle");
-    render();
-  }
+  // ===== state =====
+  let sb=null, user=null, isAdmin=false;
+  let inquiries=[], reminders=[], notesByInq={};
+  let tab="inquiries", filter="all", search="", addKind="inquiry", remKind="followup";
+  let notifs=[], lastSeen = 0;
 
-  // ===== Supabase =====
-  let sb=null, user=null, isAdmin=false, rows=[], filter="all", search="";
   try{ sb = window.supabase.createClient(CFG.url, CFG.key); }catch(e){ console.warn(e); }
-
   const $ = id=>document.getElementById(id);
   const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-  function fmtDate(d){
-    try{ const dt=new Date(d); return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"short",day:"numeric"})+" · "+dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"}); }
-    catch(e){ return ""; }
+  function fmtDate(d){ try{ const dt=new Date(d); return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"short",day:"numeric"})+" \u00b7 "+dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
+  function fmtWhen(d){
+    try{
+      const dt=new Date(d), now=new Date();
+      const sameDay = dt.toDateString()===now.toDateString();
+      const tmr=new Date(now); tmr.setDate(now.getDate()+1);
+      const isTmr = dt.toDateString()===tmr.toDateString();
+      const tm = dt.toLocaleTimeString(lang==="es"?"es-PR":"en-US",{hour:"numeric",minute:"2-digit"});
+      if(sameDay) return T("today")+" "+tm;
+      if(isTmr) return T("tomorrow")+" "+tm;
+      return dt.toLocaleDateString(lang==="es"?"es-PR":"en-US",{month:"short",day:"numeric"})+" \u00b7 "+tm;
+    }catch(e){ return ""; }
   }
 
+  function applyLang(){
+    document.documentElement.lang=lang;
+    $("langToggle").textContent = lang==="es"?"EN":"ES";
+    // gate
+    $("gateTitle").innerHTML=T("gateTitle"); $("gateSub").textContent=T("gateSub");
+    $("lblEmail").textContent=T("email"); $("lblPass").textContent=T("password");
+    $("gLogin").textContent=T("login"); $("lblNoAcct").textContent=T("noAccount"); $("lblGoSite").textContent=T("goSite");
+    $("logoutBtn").textContent=T("logout");
+    // app
+    $("pageTitle").innerHTML=T("pageTitle");
+    $("lAll").textContent=T("all"); $("lNew").textContent=T("new"); $("lAppt").textContent=T("appts"); $("lToday").textContent=T("reminders");
+    $("tabInq").textContent=T("inquiries"); $("tabRem").textContent=T("reminders");
+    $("searchInput").placeholder=T("search");
+    $("notifTitle").textContent=T("notif"); $("notifClear").textContent=T("clear");
+    // sheets
+    $("addTitle").textContent=T("addTitle"); $("addSub").textContent=T("addSub");
+    $("segInq").textContent=T("inquiry"); $("segBook").textContent=T("booking");
+    $("lblClientEmail").textContent=T("clientEmail"); $("lblName").textContent=T("name"); $("lblChannel").textContent=T("channel");
+    $("lblContact").textContent=T("contact"); $("lblWhen").textContent=T("apptWhen"); $("lblMsg").textContent=T("msg"); $("addSubmit").textContent=T("add");
+    $("remTitle").textContent=T("remTitle"); $("remSub").textContent=T("remSub");
+    $("segFollow").textContent=T("followup"); $("segAppt").textContent=T("appointment");
+    $("lblRClient").textContent=T("clientEmail"); $("lblRTitle").textContent=T("remWhat"); $("lblRWhen").textContent=T("when"); $("remSubmit").textContent=T("addRem");
+    if(user) $("greet").textContent = isAdmin?T("greetAdmin"):T("greetClient");
+    $("rolePill").textContent = isAdmin?T("roleAdmin"):T("roleClient");
+    renderAddbar(); render(); renderNotifs();
+  }
+
+  // ===== boot =====
   async function boot(){
-    if(!sb){ return; }
+    if(!sb) return;
     const { data } = await sb.auth.getSession();
     user = data && data.session ? data.session.user : null;
     if(!user){ showGate(); return; }
     isAdmin = CFG.adminEmails.map(x=>x.toLowerCase()).includes((user.email||"").toLowerCase());
-    showApp();
-    await load();
-    subscribe();
+    try{ lastSeen = parseInt(localStorage.getItem("hv_seen_"+user.id)||"0",10)||0; }catch(e){ lastSeen=0; }
+    showApp(); applyLang();
+    await loadAll(); subscribe();
   }
-
   function showGate(){ $("gateWrap").style.display=""; $("app").style.display="none"; $("topActions").style.display="none"; }
   function showApp(){
     $("gateWrap").style.display="none"; $("app").style.display=""; $("topActions").style.display="flex";
-    $("whoLabel").textContent = user.email;
-    $("adminPanel").style.display = isAdmin ? "" : "none";
-    // client doesn't need a "booked"/closed extra; keep stats. Operator sees same.
+    $("whoLabel").textContent=user.email;
+    $("rolePill").className = "role-pill"+(isAdmin?"":" client");
+    $("fClientWrap").style.display = isAdmin?"":"none";
+    $("rClientWrap").style.display = isAdmin?"":"none";
   }
 
-  async function load(){
+  function renderAddbar(){
+    const bar=$("addbar");
+    if(isAdmin){
+      bar.innerHTML = '<button class="btn btn-primary btn-sm" id="openAdd">'+esc(T("addInquiry"))+'</button>'+
+                      '<button class="btn btn-ghost btn-sm" id="openRem">'+esc(T("addReminder"))+'</button>';
+    } else {
+      // client can add their own bookings + reminders
+      bar.innerHTML = '<button class="btn btn-primary btn-sm" id="openAdd">'+esc(T("addBooking"))+'</button>'+
+                      '<button class="btn btn-ghost btn-sm" id="openRem">'+esc(T("addReminder"))+'</button>';
+    }
+    $("openAdd").onclick=()=>{ if(!isAdmin){ setAddKind("booking"); $("segInq").style.display="none"; $("segBook").style.display="none"; $("addSeg").style.display="none"; } openOverlay("addOverlay"); };
+    $("openRem").onclick=()=>{ openOverlay("remOverlay"); };
+  }
+
+  async function loadAll(){
     if(!sb||!user) return;
-    let q = sb.from("inquiries").select("*").order("created_at",{ascending:false});
-    // RLS already restricts clients to their own rows; admin sees all.
-    const { data, error } = await q;
-    if(error){ console.warn("load",error); rows=[]; }
-    else rows = data||[];
-    render();
+    const [iq, rm, nt] = await Promise.all([
+      sb.from("inquiries").select("*").order("created_at",{ascending:false}),
+      sb.from("reminders").select("*").order("due_at",{ascending:true}),
+      sb.from("notes").select("*").order("created_at",{ascending:true})
+    ]);
+    inquiries = (iq && iq.data) || [];
+    reminders = (rm && rm.data) || [];
+    notesByInq = {};
+    ((nt && nt.data)||[]).forEach(n=>{ (notesByInq[n.inquiry_id]=notesByInq[n.inquiry_id]||[]).push(n); });
+    buildNotifs();
+    render(); renderNotifs();
   }
 
+  // ===== notifications (in-app) =====
+  function buildNotifs(){
+    notifs=[];
+    const now=Date.now();
+    inquiries.forEach(r=>{
+      const created=new Date(r.created_at).getTime();
+      // for client: new inquiries the operator logged are noteworthy
+      if(r.kind!=="booking" && r.status==="new"){
+        notifs.push({id:"inq-"+r.id, t:T("notifNew"), s:(r.customer_name||"")+" \u00b7 "+(r.channel||""), at:created});
+      }
+      if(r.kind==="booking" && r.booking_at){
+        const b=new Date(r.booking_at).getTime();
+        if(b>now && b-now < 1000*60*60*48){ notifs.push({id:"appt-"+r.id, t:T("notifAppt"), s:(r.customer_name||"")+" \u00b7 "+fmtWhen(r.booking_at), at:created}); }
+      }
+    });
+    reminders.forEach(r=>{
+      if(r.done) return;
+      const due=new Date(r.due_at).getTime();
+      if(due - now < 1000*60*60*24){ notifs.push({id:"rem-"+r.id, t:T("notifRem"), s:r.title+" \u00b7 "+fmtWhen(r.due_at), at:new Date(r.created_at).getTime()}); }
+    });
+    notifs.sort((a,b)=>b.at-a.at);
+    const unread = notifs.filter(n=>n.at>lastSeen).length;
+    const badge=$("bellBadge");
+    if(unread>0){ badge.style.display="flex"; badge.textContent=unread>9?"9+":String(unread); }
+    else badge.style.display="none";
+  }
+  function renderNotifs(){
+    const list=$("notifList");
+    if(!notifs.length){ list.innerHTML='<div class="notif-empty">'+esc(T("noNotif"))+'</div>'; return; }
+    list.innerHTML = notifs.map(n=>'<div class="notif'+(n.at>lastSeen?'':' read')+'"><span class="ndot"></span><div><div class="nt">'+esc(n.t)+'</div><div class="ns">'+esc(n.s)+'</div></div></div>').join("");
+  }
+
+  // ===== counts + render =====
   function counts(){
-    const c={all:rows.length,new:0,contacted:0,booked:0,closed:0};
-    rows.forEach(r=>{ if(c[r.status]!=null) c[r.status]++; });
+    const c={all:inquiries.length,new:0,appt:0,reminders:0};
+    inquiries.forEach(r=>{ if(r.status==="new") c.new++; if(r.kind==="booking") c.appt++; });
+    const now=Date.now();
+    reminders.forEach(r=>{ if(!r.done && new Date(r.due_at).getTime()-now < 1000*60*60*24) c.reminders++; });
     return c;
   }
 
   function render(){
     if($("app").style.display==="none") return;
     const c=counts();
-    $("cAll").textContent=c.all; $("cNew").textContent=c.new; $("cContacted").textContent=c.contacted; $("cBooked").textContent=c.booked;
-    document.querySelectorAll(".stat").forEach(s=>s.classList.toggle("active", s.getAttribute("data-f")===filter));
+    $("cAll").textContent=c.all; $("cNew").textContent=c.new; $("cAppt").textContent=c.appt; $("cToday").textContent=c.reminders;
+    document.querySelectorAll(".tile").forEach(t=>t.classList.toggle("active", t.getAttribute("data-f")===(tab==="reminders"?"reminders":filter)));
+    document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active", t.getAttribute("data-tab")===tab));
+    $("toolbar").style.display = tab==="inquiries"?"flex":"none";
+    if(tab==="reminders"){ renderReminders(); return; }
 
-    let list = rows.slice();
-    if(filter!=="all") list=list.filter(r=>r.status===filter);
+    let list=inquiries.slice();
+    if(filter==="new") list=list.filter(r=>r.status==="new");
+    else if(filter==="appt") list=list.filter(r=>r.kind==="booking");
     if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
-
     const wrap=$("cards");
-    if(!list.length){
-      wrap.innerHTML='<div class="empty"><div class="big">'+esc(T("emptyBig"))+'</div><div>'+esc(T("emptySub"))+'</div><div class="hand">'+esc(T("emptyHand"))+'</div></div>';
-      return;
-    }
-    wrap.innerHTML = list.map(r=>cardHTML(r)).join("");
+    if(!list.length){ wrap.innerHTML=emptyHTML("emptyInqBig","emptyInqSub"); return; }
+    wrap.innerHTML=list.map(cardHTML).join("");
   }
 
+  function emptyHTML(big,sub){ return '<div class="empty"><div class="big">'+esc(T(big))+'</div><div>'+esc(T(sub))+'</div><div class="hand">'+esc(T("hand"))+'</div></div>'; }
+
   function cardHTML(r){
-    const stClass = {new:"st-new",contacted:"st-contacted",booked:"st-booked",closed:"st-closed"}[r.status]||"st-new";
-    const opt = (v,label)=>'<option value="'+v+'"'+(r.status===v?' selected':'')+'>'+esc(label)+'</option>';
-    const calledLabel = r.called ? (esc(T("called"))+(r.called_at?' · '+fmtDate(r.called_at):'')) : esc(T("markCalled"));
+    const isBooking = r.kind==="booking";
+    const stClass={new:"st-new",contacted:"st-contacted",booked:"st-booked",closed:"st-closed"}[r.status]||"st-new";
+    const opt=(v,l)=>'<option value="'+v+'"'+(r.status===v?' selected':'')+'>'+esc(l)+'</option>';
+    const calledLabel = r.called ? (esc(T("called"))+(r.called_at?' \u00b7 '+fmtDate(r.called_at):'')) : esc(T("markCalled"));
+    const notes=(notesByInq[r.id]||[]);
+    const notesHTML = notes.map(n=>'<div class="note"><div class="nmeta"><span class="who-tag '+(n.author_role==="admin"?"admin":"client")+'">'+esc(n.author_role==="admin"?T("admin"):T("client"))+'</span><span>'+fmtDate(n.created_at)+'</span></div><div class="nbody">'+esc(n.body)+'</div></div>').join("");
     return ''+
-    '<div class="card" data-id="'+r.id+'">'+
-      '<div class="card-top">'+
-        '<div>'+
-          '<div class="card-name">'+esc(r.customer_name||"—")+'</div>'+
-          '<div class="card-meta">'+
-            '<span class="badge badge-chan">'+esc(r.channel||"")+'</span>'+
-            '<span class="time">'+fmtDate(r.created_at)+'</span>'+
-          '</div>'+
-          (r.customer_contact?'<div class="contact">'+esc(r.customer_contact)+'</div>':'')+
+    '<div class="card'+(isBooking?' is-booking':'')+'" data-id="'+r.id+'">'+
+      '<div class="card-top"><div>'+
+        '<div class="card-name">'+esc(r.customer_name||"\u2014")+'<span class="kind-tag '+(isBooking?'':'inq')+'">'+esc(isBooking?T("booking"):T("inquiry"))+'</span></div>'+
+        '<div class="card-meta">'+
+          (r.channel?'<span class="badge">'+esc(r.channel)+'</span>':'')+
+          (isBooking&&r.booking_at?'<span class="appt-when">'+fmtWhen(r.booking_at)+'</span>':'')+
+          '<span class="time">'+fmtDate(r.created_at)+'</span>'+
         '</div>'+
-      '</div>'+
+        (r.customer_contact?'<div class="contact">'+esc(r.customer_contact)+'</div>':'')+
+      '</div></div>'+
       (r.message?'<div class="msg">'+esc(r.message)+'</div>':'')+
       '<div class="card-actions">'+
-        '<select class="status-sel '+stClass+'" data-act="status">'+
-          opt("new",T("new"))+opt("contacted",T("contacted"))+opt("booked",T("booked"))+opt("closed",T("closed"))+
-        '</select>'+
-        '<button class="call-btn'+(r.called?' done':'')+'" data-act="call">&#9742; '+calledLabel+'</button>'+
-        (isAdmin?'<button class="del-btn" data-act="del">'+esc(T("del"))+'</button>':'')+
+        '<select class="status-sel '+stClass+'" data-act="status">'+opt("new",T("statusNew"))+opt("contacted",T("statusContacted"))+opt("booked",T("statusBooked"))+opt("closed",T("statusClosed"))+'</select>'+
+        '<button class="mini-btn'+(r.called?' done':'')+'" data-act="call">&#9742; '+calledLabel+'</button>'+
+        ((isAdmin||r.created_by==="client")?'<button class="del-btn" data-act="del">'+esc(T("del"))+'</button>':'')+
       '</div>'+
-      '<div class="notes-wrap">'+
-        '<label>'+esc(T("notes"))+'</label>'+
-        '<textarea data-act="notes" placeholder="...">'+esc(r.notes||"")+'</textarea>'+
-        '<div class="note-save" data-role="notesaved">'+esc(T("saved"))+' &#10003;</div>'+
+      '<div class="notes-sec"><div class="nh">'+esc(T("notesHead"))+'</div>'+notesHTML+
+        '<div class="note-add"><input type="text" data-act="noteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div>'+
       '</div>'+
     '</div>';
   }
 
-  // ===== updates =====
-  async function patch(id, fields){
-    if(!sb) return;
-    fields.updated_at = new Date().toISOString();
-    const { error } = await sb.from("inquiries").update(fields).eq("id",id);
-    if(error){ console.warn("patch",error); return false; }
-    const row = rows.find(r=>r.id===id); if(row) Object.assign(row, fields);
-    return true;
+  function renderReminders(){
+    let list=reminders.slice();
+    const wrap=$("cards");
+    if(!list.length){ wrap.innerHTML=emptyHTML("emptyRemBig","emptyRemSub"); return; }
+    const now=Date.now();
+    wrap.innerHTML=list.map(r=>{
+      const overdue = !r.done && new Date(r.due_at).getTime()<now;
+      const kindLabel = r.kind==="appointment"?T("appointment"):T("followup");
+      return '<div class="card" data-rid="'+r.id+'">'+
+        '<div class="card-top"><div>'+
+          '<div class="card-name">'+esc(r.title)+'<span class="kind-tag '+(r.kind==="appointment"?'':'inq')+'">'+esc(kindLabel)+'</span></div>'+
+          '<div class="card-meta"><span class="appt-when"'+(overdue?' style="background:#FBE4DE;color:#A82A61"':'')+'>'+(overdue?esc(T("overdue"))+' \u00b7 ':'')+fmtWhen(r.due_at)+'</span></div>'+
+        '</div></div>'+
+        '<div class="card-actions">'+
+          '<button class="mini-btn'+(r.done?' done':'')+'" data-ract="done">&#10003; '+(r.done?esc(T("called")):esc(T("statusBooked")))+'</button>'+
+          '<button class="del-btn" data-ract="del">'+esc(T("del"))+'</button>'+
+        '</div></div>';
+    }).join("");
   }
 
-  // event delegation for cards
+  // ===== mutations =====
+  async function patchInq(id,f){ f.updated_at=new Date().toISOString(); const {error}=await sb.from("inquiries").update(f).eq("id",id); if(error){console.warn(error);return false;} const row=inquiries.find(r=>r.id===id); if(row)Object.assign(row,f); return true; }
+
+  // card events
   $("cards").addEventListener("change", async e=>{
-    const card=e.target.closest(".card"); if(!card) return; const id=card.getAttribute("data-id");
-    if(e.target.matches('[data-act="status"]')){
-      const v=e.target.value; await patch(id,{status:v}); render();
-    }
+    const card=e.target.closest(".card"); if(!card) return;
+    if(e.target.matches('[data-act="status"]')){ await patchInq(card.getAttribute("data-id"),{status:e.target.value}); render(); }
   });
   $("cards").addEventListener("click", async e=>{
-    const card=e.target.closest(".card"); if(!card) return; const id=card.getAttribute("data-id");
-    const btn=e.target.closest('[data-act="call"]');
-    if(btn){ const row=rows.find(r=>r.id===id); const now=!row.called; await patch(id,{called:now, called_at: now? new Date().toISOString():null}); render(); return; }
-    const del=e.target.closest('[data-act="del"]');
-    if(del){ if(confirm(lang==="es"?"¿Eliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); rows=rows.filter(r=>r.id!==id); render(); } }
+    const card=e.target.closest(".card"); if(!card) return;
+    // inquiry actions
+    if(card.hasAttribute("data-id")){
+      const id=card.getAttribute("data-id");
+      if(e.target.closest('[data-act="call"]')){ const row=inquiries.find(r=>r.id===id); const now=!row.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); render(); return; }
+      if(e.target.closest('[data-act="del"]')){ if(confirm(lang==="es"?"\u00bfEliminar?":"Delete?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(r=>r.id!==id); render(); } return; }
+      if(e.target.closest('[data-act="noteSend"]')){
+        const input=card.querySelector('[data-act="noteInput"]'); const body=(input.value||"").trim(); if(!body) return;
+        const row=inquiries.find(r=>r.id===id);
+        const note={inquiry_id:id, client_email:row.client_email, body:body, author_role:isAdmin?"admin":"client", author_email:user.email};
+        const {data,error}=await sb.from("notes").insert(note).select();
+        if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); input.value=""; render(); }
+        return;
+      }
+    }
+    // reminder actions
+    if(card.hasAttribute("data-rid")){
+      const id=card.getAttribute("data-rid");
+      if(e.target.closest('[data-ract="done"]')){ const row=reminders.find(r=>r.id===id); const nd=!row.done; const {error}=await sb.from("reminders").update({done:nd}).eq("id",id); if(!error){row.done=nd; render();} return; }
+      if(e.target.closest('[data-ract="del"]')){ if(confirm(lang==="es"?"\u00bfEliminar?":"Delete?")){ await sb.from("reminders").delete().eq("id",id); reminders=reminders.filter(r=>r.id!==id); render(); } return; }
+    }
   });
-  // notes: save on blur (debounced not needed)
-  let noteTimer=null;
-  $("cards").addEventListener("input", e=>{
-    if(!e.target.matches('[data-act="notes"]')) return;
-    const card=e.target.closest(".card"); const id=card.getAttribute("data-id"); const val=e.target.value;
-    const saved=card.querySelector('[data-role="notesaved"]');
-    clearTimeout(noteTimer);
-    noteTimer=setTimeout(async ()=>{ const ok=await patch(id,{notes:val}); if(ok&&saved){ saved.classList.add("show"); setTimeout(()=>saved.classList.remove("show"),1500);} },700);
+  $("cards").addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches('[data-act="noteInput"]')){ const card=e.target.closest(".card"); card.querySelector('[data-act="noteSend"]').click(); } });
+
+  // ===== add inquiry/booking sheet =====
+  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("fWhenWrap").style.display = k==="booking"?"":"none"; }
+  $("addSeg").addEventListener("click", e=>{ const b=e.target.closest("button[data-kind]"); if(b) setAddKind(b.getAttribute("data-kind")); });
+  $("addSubmit").addEventListener("click", async ()=>{
+    const out=$("addMsg"); out.textContent="";
+    const client = isAdmin ? $("fClient").value.trim().toLowerCase() : user.email.toLowerCase();
+    const payload={ client_email:client, customer_name:$("fName").value.trim(), channel:$("fChannel").value,
+      customer_contact:$("fContact").value.trim(), message:$("fMsg").value.trim(),
+      status:"new", called:false, kind:addKind, created_by:isAdmin?"admin":"client" };
+    if(addKind==="booking"){ const w=$("fWhen").value; if(w) payload.booking_at=new Date(w).toISOString(); }
+    if(!client || (!payload.message && !payload.customer_name)){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const {error}=await sb.from("inquiries").insert(payload);
+    if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
+    $("fName").value="";$("fContact").value="";$("fMsg").value=""; if($("fWhen"))$("fWhen").value="";
+    await loadAll(); setTimeout(()=>{ closeOverlay("addOverlay"); out.textContent=""; },700);
   });
 
-  // ===== admin add =====
-  $("aAdd")&&$("aAdd").addEventListener("click", async ()=>{
-    const client=$("aClient").value.trim().toLowerCase();
-    const payload={
-      client_email:client, customer_name:$("aName").value.trim(),
-      channel:$("aChannel").value, customer_contact:$("aContact").value.trim(),
-      message:$("aMsg").value.trim(), status:"new", called:false
-    };
-    const out=$("aMsgOut");
-    if(!client || !payload.message){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
-    const { error } = await sb.from("inquiries").insert(payload);
+  // ===== add reminder sheet =====
+  function setRemKind(k){ remKind=k; document.querySelectorAll('#remSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-rkind")===k)); }
+  $("remSeg").addEventListener("click", e=>{ const b=e.target.closest("button[data-rkind]"); if(b) setRemKind(b.getAttribute("data-rkind")); });
+  $("remSubmit").addEventListener("click", async ()=>{
+    const out=$("remMsg"); out.textContent="";
+    const client = isAdmin ? $("rClient").value.trim().toLowerCase() : user.email.toLowerCase();
+    const title=$("rTitleIn").value.trim(); const w=$("rWhen").value;
+    if(!client || !title || !w){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const payload={ client_email:client, title:title, kind:remKind, due_at:new Date(w).toISOString(), done:false, created_by:isAdmin?"admin":"client" };
+    const {error}=await sb.from("reminders").insert(payload);
     if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
-    out.style.color="#DCEBE8"; out.textContent=T("added")+" ✓";
-    $("aName").value="";$("aContact").value="";$("aMsg").value="";
-    setTimeout(()=>out.textContent="",2500);
-    await load();
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
+    $("rTitleIn").value="";$("rWhen").value="";
+    await loadAll(); setTimeout(()=>{ closeOverlay("remOverlay"); out.textContent=""; },700);
   });
+
+  // ===== overlays =====
+  function openOverlay(id){ $(id).classList.add("open"); }
+  function closeOverlay(id){ $(id).classList.remove("open"); }
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeOverlay(b.getAttribute("data-close"))));
+  document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{ if(e.target===o) o.classList.remove("open"); }));
+
+  // ===== tabs/filters/search =====
+  $("panel").addEventListener("click", e=>{ const t=e.target.closest(".tile"); if(!t) return; const f=t.getAttribute("data-f"); if(f==="reminders"){ tab="reminders"; } else { tab="inquiries"; filter=f; } render(); });
+  $("tabs").addEventListener("click", e=>{ const t=e.target.closest(".tab"); if(!t) return; tab=t.getAttribute("data-tab"); render(); });
+  $("searchInput").addEventListener("input", e=>{ search=e.target.value; render(); });
+  $("langToggle").addEventListener("click", ()=>{ lang=lang==="es"?"en":"es"; applyLang(); });
+  $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });
+
+  // ===== bell =====
+  $("bellBtn").addEventListener("click", ()=>{
+    const p=$("notifPanel"); p.classList.toggle("open");
+    if(p.classList.contains("open")){ lastSeen=Date.now(); try{ localStorage.setItem("hv_seen_"+user.id, String(lastSeen)); }catch(e){} $("bellBadge").style.display="none"; renderNotifs(); }
+  });
+  $("notifClear").addEventListener("click", ()=>{ lastSeen=Date.now(); try{ localStorage.setItem("hv_seen_"+user.id, String(lastSeen)); }catch(e){} buildNotifs(); renderNotifs(); });
+  document.addEventListener("click", e=>{ if(!e.target.closest("#notifPanel") && !e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open"); });
 
   // ===== realtime =====
   function subscribe(){
     try{
-      sb.channel("inq-"+(user.id||"x"))
-        .on("postgres_changes",{event:"*",schema:"public",table:"inquiries"},()=>{ load(); })
+      sb.channel("portal-"+(user.id||"x"))
+        .on("postgres_changes",{event:"*",schema:"public",table:"inquiries"},()=>loadAll())
+        .on("postgres_changes",{event:"*",schema:"public",table:"reminders"},()=>loadAll())
+        .on("postgres_changes",{event:"*",schema:"public",table:"notes"},()=>loadAll())
         .subscribe();
     }catch(e){ console.warn("realtime",e); }
   }
 
-  // ===== filters/search/lang/logout =====
-  $("stats").addEventListener("click", e=>{ const b=e.target.closest(".stat"); if(!b) return; filter=b.getAttribute("data-f"); render(); });
-  $("searchInput").addEventListener("input", e=>{ search=e.target.value; render(); });
-  $("langToggle").addEventListener("click", ()=>{ lang = lang==="es"?"en":"es"; applyLang(); });
-  $("refreshBtn").addEventListener("click", load);
-  $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });
-
-  // gate login
+  // ===== gate login =====
   $("gLogin").addEventListener("click", async ()=>{
-    const email=$("gEmail").value.trim(); const pass=$("gPass").value; const err=$("gErr"); err.textContent="";
-    const { error } = await sb.auth.signInWithPassword({email,password:pass});
-    if(error){ err.textContent=T("errLogin"); return; }
+    const email=$("gEmail").value.trim(); const pass=$("gPass").value; $("gErr").textContent="";
+    const {error}=await sb.auth.signInWithPassword({email,password:pass});
+    if(error){ $("gErr").textContent=lang==="es"?"No pudimos iniciar sesi\u00f3n. Revisa tus datos.":"We couldn't log you in. Check your details."; return; }
     location.reload();
   });
   $("gPass").addEventListener("keydown", e=>{ if(e.key==="Enter") $("gLogin").click(); });
 
-  applyLang();
-  boot();
+  applyLang(); boot();
 })();
 </script>
 </body>
