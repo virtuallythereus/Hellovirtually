@@ -805,4 +805,105 @@ button{font-family:inherit;}
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
       if(e.target.closest('[data-act="doneAct"]')){ const rid=e.target.closest('[data-act="doneAct"]').getAttribute("data-rid"); await sb.from("reminders").update({done:true}).eq("id",rid); const rr=reminders.find(x=>x.id===rid); if(rr)rr.done=true; openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="noteSend"]')){ const inp=$("dNoteInput"); const body=(inp.value||"").trim(); if(!body)return; const r=inquiries.find(x=>x.id===id); const note={inquiry_id:id,client_email:r.client_email,body:body,author_role:isAdmin?"admin":"client",author_email:user.email}; const {data,error}=await sb.from("notes").insert(note).select(); if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); openDetail(id,true); } return; }
-      const nd=e.target.closest('[data-act="noteDel"]'); if(
+      const nd=e.target.closest('[data-act="noteDel"]'); if(nd){ const nid=nd.getAttribute("data-nid"); if(confirm(lang==="es"?"\u00bfBorrar nota?":"Delete note?")){ await sb.from("notes").delete().eq("id",nid); notesByInq[id]=(notesByInq[id]||[]).filter(n=>String(n.id)!==String(nid)); openDetail(id,true); } return; }
+      const ne=e.target.closest('[data-act="noteEdit"]'); if(ne){ const nid=ne.getAttribute("data-nid"); const note=(notesByInq[id]||[]).find(n=>String(n.id)===String(nid)); if(note){ const nv=prompt(lang==="es"?"Editar nota:":"Edit note:",note.body); if(nv!=null&&nv.trim()){ await sb.from("notes").update({body:nv.trim()}).eq("id",nid); note.body=nv.trim(); openDetail(id,true); } } return; }
+    }
+    // client notes
+    const ccard=e.target.closest(".client-card");
+    if(ccard){
+      const email=ccard.getAttribute("data-cemail");
+      if(e.target.closest('[data-cnact="add"]')){ const inp=ccard.querySelector('[data-cnact="input"]'); const body=(inp.value||"").trim(); if(!body)return; const {data,error}=await sb.from("client_notes").insert({client_email:email,body:body}).select(); if(!error){ (clientNotes[email]=clientNotes[email]||[]).push((data&&data[0])||{id:Math.random(),body:body,created_at:new Date().toISOString()}); renderClients(); } return; }
+      const d=e.target.closest('[data-cnact="del"]'); if(d){ const id=d.closest("[data-cnid]").getAttribute("data-cnid"); if(confirm(lang==="es"?"\u00bfBorrar?":"Delete?")){ await sb.from("client_notes").delete().eq("id",id); clientNotes[email]=(clientNotes[email]||[]).filter(n=>String(n.id)!==String(id)); renderClients(); } return; }
+      const ed=e.target.closest('[data-cnact="edit"]'); if(ed){ const id=ed.closest("[data-cnid]").getAttribute("data-cnid"); const note=(clientNotes[email]||[]).find(n=>String(n.id)===String(id)); if(note){ const nv=prompt(lang==="es"?"Editar:":"Edit:",note.body); if(nv!=null&&nv.trim()){ await sb.from("client_notes").update({body:nv.trim()}).eq("id",id); note.body=nv.trim(); renderClients(); } } return; }
+    }
+    if(!e.target.closest("#notifPanel")&&!e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open");
+  });
+  document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
+
+  // ===== add sheet =====
+  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; }
+  $("addSeg").addEventListener("click",e=>{ const b=e.target.closest("button[data-kind]"); if(b)setAddKind(b.getAttribute("data-kind")); });
+  $("quickAddBtn").addEventListener("click",()=>{ setAddKind(isAdmin?"inquiry":"booking"); if(!isAdmin){ $("segInq").style.display="none"; } openOverlay("addOverlay"); });
+  $("addSubmit").addEventListener("click", async ()=>{
+    const out=$("addMsg"); out.textContent="";
+    if(addKind==="task"){
+      const client=isAdmin?$("tClient").value.trim().toLowerCase():user.email.toLowerCase();
+      const title=$("tTitle").value.trim(); if(!client||!title){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+      const p={client_email:client,title:title,priority:$("tPrio").value,done:false,created_by:isAdmin?"admin":"client"}; const w=$("tWhen").value; if(w)p.due_at=new Date(w).toISOString();
+      const {error}=await sb.from("tasks").insert(p); if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+      out.style.color="#347D79"; out.textContent=T("added")+" \u2713"; $("tTitle").value="";$("tWhen").value="";
+      await loadAll(); setTimeout(()=>{ closeOverlay("addOverlay"); out.textContent=""; },650); return;
+    }
+    const client=isAdmin?$("fClient").value.trim().toLowerCase():user.email.toLowerCase();
+    const p={client_email:client,customer_name:$("fName").value.trim(),channel:$("fChannel").value,customer_contact:$("fContact").value.trim(),message:$("fMsg").value.trim(),status:"new",called:false,kind:addKind,created_by:isAdmin?"admin":"client"};
+    if(addKind==="booking"){ const w=$("fWhen").value; if(w)p.booking_at=new Date(w).toISOString(); }
+    if(!client||(!p.message&&!p.customer_name)){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const {error}=await sb.from("inquiries").insert(p); if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713"; $("fName").value="";$("fContact").value="";$("fMsg").value=""; if($("fWhen"))$("fWhen").value="";
+    await loadAll(); setTimeout(()=>{ closeOverlay("addOverlay"); out.textContent=""; },650);
+  });
+
+  // ===== schedule sheet =====
+  function openSchedule(id){ schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value=""; openOverlay("schedOverlay"); }
+  $("schedSubmit").addEventListener("click", async ()=>{
+    const out=$("schedMsg"); out.textContent=""; const r=inquiries.find(x=>x.id===schedInqId); if(!r){ closeOverlay("schedOverlay"); return; }
+    const w=$("sWhen").value; if(!w){ out.style.color="#FF6F61"; out.textContent=T("needFields"); return; }
+    const type=$("sType").value; const note=$("sNote").value.trim();
+    const title=actionLabel(type)+(r.customer_name?" \u00b7 "+r.customer_name:"")+(note?" \u00b7 "+note:"");
+    const rk=type==="appointment"?"appointment":"followup";
+    const {error}=await sb.from("reminders").insert({client_email:r.client_email,inquiry_id:r.id,title:title,kind:rk,due_at:new Date(w).toISOString(),done:false,created_by:isAdmin?"admin":"client"});
+    if(error){ out.style.color="#FF6F61"; out.textContent=error.message; return; }
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
+    await loadAll(); setTimeout(()=>{ closeOverlay("schedOverlay"); out.textContent=""; if(detailId)openDetail(detailId,true); },600);
+  });
+
+  // ===== overlays =====
+  function openOverlay(id){ $(id).classList.add("open"); }
+  function closeOverlay(id){ $(id).classList.remove("open"); }
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeOverlay(b.getAttribute("data-close"))));
+  document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{ if(e.target===o)o.classList.remove("open"); }));
+
+  // ===== notifications =====
+  function buildNotifs(){
+    notifs=[]; const now=Date.now();
+    inquiries.forEach(r=>{ const c=new Date(r.created_at).getTime();
+      if(r.kind!=="booking"&&r.status==="new") notifs.push({id:"inq-"+r.id,type:"new",t:T("notifNew"),s:(r.customer_name||"")+" \u00b7 "+(r.channel||""),at:c});
+      if(r.kind==="booking"&&r.booking_at){ const b=new Date(r.booking_at).getTime(); if(b>now&&b-now<1000*60*60*48) notifs.push({id:"appt-"+r.id,type:"appt",t:T("notifAppt"),s:(r.customer_name||"")+" \u00b7 "+fmtWhen(r.booking_at),at:c}); }
+    });
+    reminders.forEach(r=>{ if(r.done)return; const due=new Date(r.due_at).getTime(); if(due-now<1000*60*60*24) notifs.push({id:"rem-"+r.id,type:"rem",t:T("notifRem"),s:r.title+" \u00b7 "+fmtWhen(r.due_at),at:new Date(r.created_at).getTime()}); });
+    tasks.forEach(t=>{ if(t.done||!t.due_at)return; const due=new Date(t.due_at).getTime(); if(due-now<1000*60*60*24) notifs.push({id:"task-"+t.id,type:"rem",t:T("notifRem"),s:t.title+" \u00b7 "+fmtWhen(t.due_at),at:new Date(t.created_at).getTime()}); });
+    const myRole=isAdmin?"admin":"client";
+    Object.keys(notesByInq).forEach(iid=>{ const inq=inquiries.find(x=>x.id===iid); (notesByInq[iid]||[]).forEach(n=>{ if(n.author_role&&n.author_role!==myRole){ const who=inq?(inq.customer_name||inq.client_email||""):""; notifs.push({id:"note-"+n.id,type:"note",t:T("notifNote"),s:who+" \u00b7 "+(n.body||"").slice(0,40),at:new Date(n.created_at).getTime()}); } }); });
+    notifs=notifs.filter(n=>!notifDeleted[n.id]); notifs.sort((a,b)=>b.at-a.at); updateBadge();
+  }
+  function isUnread(n){ return !notifRead[n.id]; }
+  function updateBadge(){ const u=notifs.filter(isUnread).length; const b=$("bellBadge"); if(u>0){ b.style.display="flex"; b.textContent=u>9?"9+":u; } else b.style.display="none"; }
+  function saveNotifState(){ try{ localStorage.setItem("hv_nread_"+user.id,JSON.stringify(notifRead)); localStorage.setItem("hv_ndel_"+user.id,JSON.stringify(notifDeleted)); }catch(e){} }
+  function renderNotifs(){
+    const list=$("notifList"); if(!list)return;
+    document.querySelectorAll("#notifTabs .ntab").forEach(t=>t.classList.toggle("active",t.getAttribute("data-ntab")===notifTab));
+    document.querySelectorAll("#notifFilter .nfilt").forEach(t=>t.classList.toggle("active",t.getAttribute("data-nfilt")===notifFilt));
+    let l=notifs.slice(); if(notifTab!=="all")l=l.filter(n=>n.type===notifTab); if(notifFilt==="unread")l=l.filter(isUnread);
+    if(!l.length){ list.innerHTML='<div class="notif-empty">'+esc(T("noNotif"))+'</div>'; return; }
+    list.innerHTML=l.map(n=>'<div class="notif'+(isUnread(n)?'':' read')+'" data-nid="'+esc(n.id)+'"><span class="ndot"></span><div><div class="nt">'+esc(n.t)+'</div><div class="ns">'+esc(n.s)+'</div></div><span class="nx" data-nact="del">\u00d7</span></div>').join("");
+  }
+  $("bellBtn").addEventListener("click",()=>{ const p=$("notifPanel"); p.classList.toggle("open"); if(p.classList.contains("open"))renderNotifs(); });
+  $("notifClear").addEventListener("click",()=>{ notifs.forEach(n=>{ notifRead[n.id]=1; }); saveNotifState(); updateBadge(); renderNotifs(); });
+  $("notifTabs").addEventListener("click",e=>{ const t=e.target.closest(".ntab"); if(!t)return; notifTab=t.getAttribute("data-ntab"); renderNotifs(); });
+  $("notifFilter").addEventListener("click",e=>{ const t=e.target.closest(".nfilt"); if(!t)return; notifFilt=t.getAttribute("data-nfilt"); renderNotifs(); });
+  $("notifList").addEventListener("click",e=>{ const row=e.target.closest(".notif"); if(!row)return; const id=row.getAttribute("data-nid"); if(e.target.closest('[data-nact="del"]')){ notifDeleted[id]=1; saveNotifState(); buildNotifs(); renderNotifs(); return; } notifRead[id]=1; saveNotifState(); updateBadge(); renderNotifs(); });
+
+  // ===== misc =====
+  $("langToggle").addEventListener("click",()=>{ lang=lang==="es"?"en":"es"; applyLang(); });
+  $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });
+  $("hamburger").addEventListener("click",()=>{ $("sidebar").classList.add("open"); $("sbScrim").classList.add("open"); });
+  $("sbScrim").addEventListener("click",closeSidebar);
+  function closeSidebar(){ $("sidebar").classList.remove("open"); $("sbScrim").classList.remove("open"); }
+  $("gLogin").addEventListener("click", async ()=>{ const email=$("gEmail").value.trim(),pass=$("gPass").value; $("gErr").textContent=""; if(!email||!pass){ $("gErr").textContent=lang==="es"?"Escribe correo y contrase\u00f1a.":"Enter email and password."; return; } const {error}=await sb.auth.signInWithPassword({email,password:pass}); if(error){ $("gErr").textContent=lang==="es"?"No pudimos iniciar sesi\u00f3n. Revisa tus datos.":"We couldn't log you in. Check your details."; return; } location.reload(); });
+  $("gPass").addEventListener("keydown",e=>{ if(e.key==="Enter")$("gLogin").click(); });
+
+  applyLang(); boot();
+})();
+</script>
+</body>
+</html>
