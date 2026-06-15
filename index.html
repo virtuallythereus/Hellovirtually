@@ -74,9 +74,9 @@ body{font-family:var(--font-sans);background:var(--paper);color:var(--ink);-webk
 
 /* ---------------- WIDE STAGE ---------------- */
 .scene{position:relative;max-width:1260px;height:640px;margin:clamp(26px,4vw,52px) auto 0;}
-.scene--single{height:auto;display:flex;justify-content:center;align-items:center;max-width:1320px;padding:clamp(4px,0.8vw,10px) 0 0;}
-.scene--single .hero-art{width:min(100%,1180px);margin:0 auto;}
-.scene--single .hero-art img{display:block;width:100%;height:auto;max-height:860px;object-fit:contain;}
+.scene--single{height:auto;display:flex;justify-content:center;align-items:center;max-width:1120px;padding:clamp(4px,0.8vw,10px) 0 0;}
+.scene--single .hero-art{width:min(100%,980px);margin:0 auto;}
+.scene--single .hero-art img{display:block;width:100%;height:auto;max-height:700px;object-fit:contain;}
 .obj{position:absolute;}
 .flow{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
 .flow .flow-arrow{position:absolute;display:block;height:auto;object-fit:contain;opacity:.68;transform-origin:center center;}
@@ -204,7 +204,7 @@ body{font-family:var(--font-sans);background:var(--paper);color:var(--ink);-webk
   .nav__links a{font-size:16px;padding:6px 0;width:100%;}
   .nav__left{flex:0 0 auto;}
   .scene{height:auto;display:flex;flex-flow:row wrap;justify-content:center;align-items:flex-start;gap:26px 30px;max-width:760px;}
-  .scene--single{display:block;max-width:980px;padding-top:2px;}
+  .scene--single{display:block;max-width:860px;padding-top:2px;}
   .obj{position:static!important;}
   .flow{display:none;}
   .o-monitor{order:1;flex-basis:100%;display:flex;justify-content:center;}
@@ -378,7 +378,7 @@ main{display:block;}
 @media (max-width:640px){
   .frame__body{padding:18px 16px 30px;}
   .scene{flex-direction:column;align-items:center;gap:22px;max-width:340px;}
-  .scene--single{max-width:360px;padding-top:0;}
+  .scene--single{max-width:380px;padding-top:0;}
   .scene--single .hero-art{width:100%;}
   .o-monitor{flex-basis:auto;}
   .monitor .pencup{display:none;}
