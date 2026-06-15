@@ -496,6 +496,11 @@ main{display:block;}
   .hero-visual img{width:min(96vw,350px);}
 }
 </style>
+<style>
+.btn-signin{font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;padding:8px 14px;border:2px solid var(--ink);border-radius:6px;transition:background .18s,color .18s;}
+.btn-signin:hover{background:var(--ink);color:var(--paper);}
+.nav__right{display:flex;align-items:center;gap:10px;margin-left:auto;}
+</style>
 </head>
 <body>
 <div class="frame-pad"><div class="frame">
@@ -513,7 +518,10 @@ main{display:block;}
 <li><a href="#how">What We Do</a></li><li><a href="#problem">For Whom</a></li><li><a href="#demo">Features</a></li>
 <li><a href="#demo">See it work</a></li><li><a href="#contact">Contact</a></li>
 </ul>
-
+<div class="nav__right">
+  <a href="portal.html" class="btn-signin">Sign in</a>
+  <a href="#contact" class="btn btn--coral nav__cta">Get started</a>
+</div>
 </nav>
 <!-- RESPONSIVE SPLIT HERO -->
 <section class="hero-split reveal d2" aria-labelledby="hero-title">
