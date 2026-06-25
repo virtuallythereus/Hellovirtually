@@ -106,6 +106,47 @@ button{font-family:inherit;cursor:pointer;}
 .greet-row{margin-bottom:24px;}
 .greet-row .hi{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.6rem;font-weight:400;}
 .greet-row .hi em{font-style:italic;color:var(--coral);}
+.greet-row .hi .hi-acc{font-family:'Lonelline','Georgia',serif;font-style:normal;font-size:1.5rem;color:var(--lav);margin-left:2px;}
+
+/* Pipeline bar */
+.pipe-bar{display:flex;gap:3px;height:38px;border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px;}
+.pipe-seg{display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--anim);min-width:30px;position:relative;}
+.pipe-seg:hover{filter:brightness(1.06);transform:translateY(-1px);}
+.pipe-seg-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:800;font-size:.85rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15);}
+.pipe-legend{display:flex;flex-wrap:wrap;gap:14px;}
+.pipe-leg{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--ink-3);cursor:pointer;transition:color var(--anim);}
+.pipe-leg:hover{color:var(--ink);}
+.pipe-leg b{color:var(--ink);font-weight:800;}
+.pipe-leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* Needs attention */
+.attn-clear{display:flex;align-items:center;gap:9px;background:#edfaf3;border:1.5px solid #c5eed9;border-radius:var(--radius);padding:15px 18px;font-size:.88rem;font-weight:600;color:#1a7a45;}
+.attn-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#4caf50;color:#fff;font-size:.75rem;font-weight:900;}
+.attn-list{display:flex;flex-direction:column;gap:8px;}
+.attn-card{display:flex;align-items:center;gap:12px;background:#fff8f7;border:1.5px solid rgba(244,81,69,.22);border-radius:var(--radius);padding:13px 16px;cursor:pointer;transition:all var(--anim);}
+.attn-card:hover{border-color:var(--coral);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.attn-dot{width:9px;height:9px;border-radius:50%;background:var(--coral);flex-shrink:0;animation:attnPulse 2s infinite;}
+@keyframes attnPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.attn-main{flex:1;min-width:0;}
+.attn-t{font-weight:700;font-size:.9rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.attn-s{font-size:.74rem;color:var(--ink-3);margin-top:1px;}
+.attn-tag{font-size:.56rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--coral);background:#fff;border:1px solid rgba(244,81,69,.3);padding:3px 9px;border-radius:50px;white-space:nowrap;}
+
+/* Activity feed */
+.feed{display:flex;flex-direction:column;}
+.feed-item{display:flex;align-items:center;gap:13px;padding:12px 4px;border-bottom:1px solid var(--line-2);cursor:pointer;transition:all var(--anim);border-radius:var(--radius-xs);}
+.feed-item:last-child{border-bottom:none;}
+.feed-item:hover{background:var(--white);padding-left:12px;padding-right:12px;}
+.feed-ic{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;flex-shrink:0;}
+.feed-ic svg{width:17px;height:17px;}
+.fd-inq .feed-ic{background:var(--lav-pale);color:#6b52cc;}
+.fd-note .feed-ic{background:var(--mint);color:var(--ink-2);}
+.fd-book .feed-ic{background:#edfaf3;color:#1a7a45;}
+.feed-main{flex:1;min-width:0;}
+.feed-t{font-size:.86rem;color:var(--ink);}
+.feed-t b{font-weight:700;}
+.feed-s{font-size:.74rem;color:var(--ink-3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.feed-when{font-size:.7rem;font-weight:600;color:var(--ink-3);white-space:nowrap;flex-shrink:0;}
 .greet-row .date{color:var(--ink-3);font-size:.84rem;margin-top:3px;}
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
 .stat{
@@ -630,8 +671,9 @@ button{font-family:inherit;cursor:pointer;}
     gateTitle:"Your <em>workspace</em>",gateSub:"Log in to see everything we've handled for you.",
     email:"Email",password:"Password",login:"Log in",noAccount:"No account yet?",goSite:"Create one on our site",
     titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
-    hi:"Hi", hiAdmin:"Here's your day", 
+    hi:"Hi", hiAdmin:"Here's your day", greetAM:"Good morning", greetPM:"Good afternoon", greetEve:"Good evening", 
     stNew:"New inquiries",stActions:"Actions today",stTasks:"Open tasks",stAppts:"Upcoming",
+    needsAttn:"Needs attention",noAttn:"All caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",stuckLbl:"no reply",
     todaysActions:"Today's actions",newInquiries:"New inquiries",viewAll:"View all",
     nothingToday:"Nothing scheduled today.",noNew:"No new inquiries.",allCaught:"All caught up.",
     search:"Search name, message, channel...",
@@ -668,8 +710,9 @@ button{font-family:inherit;cursor:pointer;}
     gateTitle:"Tu <em>espacio</em>",gateSub:"Inicia sesi\u00f3n para ver todo lo que manejamos por ti.",
     email:"Correo",password:"Contrase\u00f1a",login:"Iniciar sesi\u00f3n",noAccount:"\u00bfA\u00fan no tienes cuenta?",goSite:"Cr\u00e9ala en nuestro sitio",
     titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
-    hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda",
+    hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda", greetAM:"Buenos d\u00edas", greetPM:"Buenas tardes", greetEve:"Buenas noches",
     stNew:"Consultas nuevas",stActions:"Acciones hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
+    needsAttn:"Requiere atenci\u00f3n",noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",stuckLbl:"sin respuesta",
     todaysActions:"Acciones de hoy",newInquiries:"Consultas nuevas",viewAll:"Ver todas",
     nothingToday:"Nada agendado para hoy.",noNew:"Sin consultas nuevas.",allCaught:"Est\u00e1s al d\u00eda.",
     search:"Buscar nombre, mensaje, canal...",
@@ -810,32 +853,82 @@ button{font-family:inherit;cursor:pointer;}
   // ===== TODAY =====
   function renderToday(){
     const c=$("content");
+    const now=new Date();
     const newInq=inquiries.filter(r=>r.status==="new");
     const actionsToday=reminders.filter(r=>!r.done&&isToday(r.due_at));
     const tasksToday=tasks.filter(t=>!t.done&&(t.due_at?isToday(t.due_at):true));
     const openTasks=tasks.filter(t=>!t.done).length+reminders.filter(r=>!r.done).length;
-    const upcoming=inquiries.filter(r=>r.kind==="booking"&&r.booking_at&&new Date(r.booking_at)>new Date()).length;
-    const now=new Date();
+    const upcoming=inquiries.filter(r=>r.kind==="booking"&&r.booking_at&&new Date(r.booking_at)>now).length;
     const dateStr=now.toLocaleDateString(locale(),{weekday:"long",month:"long",day:"numeric"});
-    const hi=isAdmin?T("hiAdmin"):(T("hi")+", "+(user.email.split("@")[0]));
-    let html='<div class="greet-row"><div class="hi">'+esc(hi)+' <em>\u00b7</em></div><div class="date">'+esc(dateStr)+'</div></div>';
+    const hr=now.getHours();
+    const greetKey=hr<12?"greetAM":(hr<18?"greetPM":"greetEve");
+    const who=isAdmin?"":(" "+(user.email.split("@")[0]));
+    const hi=isAdmin?T("hiAdmin"):(T(greetKey)+who);
+    let html='<div class="greet-row"><div class="hi">'+esc(hi)+' <em class="hi-acc">~</em></div><div class="date">'+esc(dateStr)+'</div></div>';
+
+    // ── interactive stat tiles ──
     html+='<div class="stat-row">'+
       tile("s1",newInq.length,T("stNew"),"inquiries","new")+
       tile("s2",actionsToday.length,T("stActions"),"tasks","")+
       tile("s3",openTasks,T("stTasks"),"tasks","")+
       tile("s4",upcoming,T("stAppts"),"calendar","")+
     '</div>';
-    // today's actions
+
+    // ── pipeline bar ──
+    const stages=[["new","New","#B9A7FF"],["contacted","Contacted","#7FB8D8"],["booked","Booked","#4caf50"],["closed","Closed","#9aa8a3"]];
+    const counts=stages.map(s=>inquiries.filter(r=>(r.status||"new")===s[0]).length);
+    const totalP=counts.reduce((a,b)=>a+b,0)||1;
+    html+='<div class="section-block"><div class="section-h"><h3>'+esc(T("pipeline"))+'</h3><span class="sh-link" data-go="inquiries">'+esc(T("viewAll"))+'</span></div>';
+    html+='<div class="pipe-bar">'+stages.map((s,i)=>{
+      const pct=Math.round(counts[i]/totalP*100);
+      return counts[i]?'<div class="pipe-seg" data-go="inquiries" data-filt="'+s[0]+'" style="flex:'+counts[i]+';background:'+s[2]+'" title="'+esc(s[1])+': '+counts[i]+'"><span class="pipe-seg-n">'+counts[i]+'</span></div>':'';
+    }).join("")+'</div>';
+    html+='<div class="pipe-legend">'+stages.map((s,i)=>'<span class="pipe-leg" data-go="inquiries" data-filt="'+s[0]+'"><span class="pipe-leg-dot" style="background:'+s[2]+'"></span>'+esc(s[1])+' <b>'+counts[i]+'</b></span>').join("")+'</div></div>';
+
+    // ── needs attention (stale inquiries + overdue) ──
+    const dayMs=86400000;
+    const stale=inquiries.filter(r=>(r.status||"new")==="new"&&r.created_at&&(now-new Date(r.created_at))>dayMs);
+    const overdue=reminders.filter(r=>!r.done&&r.due_at&&new Date(r.due_at)<now)
+      .concat(tasks.filter(t=>!t.done&&t.due_at&&new Date(t.due_at)<now));
+    const attn=[];
+    stale.slice(0,4).forEach(r=>attn.push({kind:"stale",r:r}));
+    overdue.slice(0,4).forEach(o=>attn.push({kind:"overdue",o:o}));
+    html+='<div class="section-block"><div class="section-h"><h3>'+esc(T("needsAttn"))+'</h3></div>';
+    if(!attn.length) html+='<div class="attn-clear"><span class="attn-check">\\u2713</span> '+esc(T("noAttn"))+'</div>';
+    else { html+='<div class="attn-list">'+attn.map(a=>{
+      if(a.kind==="stale"){ const r=a.r; const days=Math.floor((now-new Date(r.created_at))/dayMs);
+        return '<div class="attn-card" data-open="'+r.id+'"><span class="attn-dot"></span><div class="attn-main"><div class="attn-t">'+esc(r.customer_name||"\\u2014")+'</div><div class="attn-s">'+days+'d '+esc(T("waitingSince"))+' \\u00b7 '+esc(T("stuckLbl"))+'</div></div><span class="attn-tag">'+esc(T("stuckLbl"))+'</span></div>';
+      } else { const o=a.o;
+        return '<div class="attn-card"'+(o.inquiry_id?' data-open="'+o.inquiry_id+'"':'')+'><span class="attn-dot"></span><div class="attn-main"><div class="attn-t">'+esc(o.title)+'</div><div class="attn-s">'+esc(fmtWhen(o.due_at))+' \\u00b7 '+esc(T("overdueLbl"))+'</div></div><span class="attn-tag">'+esc(T("overdueLbl"))+'</span></div>';
+      }
+    }).join("")+'</div>'; }
+    html+='</div>';
+
+    // ── today's actions ──
     html+='<div class="section-block"><div class="section-h"><h3>'+esc(T("todaysActions"))+'</h3><span class="sh-link" data-go="tasks">'+esc(T("viewAll"))+'</span></div>';
     const items=actionsToday.concat(tasksToday.filter(t=>t.due_at&&isToday(t.due_at)));
     if(!items.length) html+='<div class="empty"><div class="big">'+esc(T("nothingToday"))+'</div></div>';
     else { html+='<div class="rowlist">'+actionsToday.map(r=>taskRow(r,"rem")).join("")+tasksToday.filter(t=>t.due_at&&isToday(t.due_at)).map(t=>taskRow(t,"task")).join("")+'</div>'; }
     html+='</div>';
-    // new inquiries
-    html+='<div class="section-block"><div class="section-h"><h3>'+esc(T("newInquiries"))+'</h3><span class="sh-link" data-go="inquiries">'+esc(T("viewAll"))+'</span></div>';
-    if(!newInq.length) html+='<div class="empty"><div class="big">'+esc(T("noNew"))+'</div><div class="hand">'+esc(T("hand"))+'</div></div>';
-    else html+='<div class="rowlist">'+newInq.slice(0,6).map(inqMiniRow).join("")+'</div>';
+
+    // ── recent activity feed ──
+    const feed=[];
+    inquiries.forEach(r=>{ if(r.created_at) feed.push({t:new Date(r.created_at),type:"inq",name:r.customer_name||"\\u2014",id:r.id}); });
+    Object.keys(notesByInq).forEach(iid=>{ (notesByInq[iid]||[]).forEach(n=>{ if(n.created_at){ const inq=inquiries.find(x=>x.id==iid); feed.push({t:new Date(n.created_at),type:"note",name:(inq?inq.customer_name:"")||"\\u2014",id:iid,body:n.body}); } }); });
+    inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) feed.push({t:new Date(r.booking_at),type:"book",name:r.customer_name||"\\u2014",id:r.id}); });
+    feed.sort((a,b)=>b.t-a.t);
+    html+='<div class="section-block"><div class="section-h"><h3>'+esc(T("recentActivity"))+'</h3></div>';
+    if(!feed.length) html+='<div class="empty"><div class="big">'+esc(T("noActivity"))+'</div></div>';
+    else { html+='<div class="feed">'+feed.slice(0,7).map(f=>{
+      const ic=f.type==="note"?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg>':
+        (f.type==="book"?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>':
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>');
+      const msg=f.type==="note"?T("leftNote"):(f.type==="book"?T("bookingMsg"):T("newInqMsg"));
+      const cls=f.type==="note"?"fd-note":(f.type==="book"?"fd-book":"fd-inq");
+      return '<div class="feed-item '+cls+'" data-open="'+f.id+'"><span class="feed-ic">'+ic+'</span><div class="feed-main"><div class="feed-t"><b>'+esc(f.name)+'</b> '+esc(msg)+'</div>'+(f.body?'<div class="feed-s">'+esc(f.body.slice(0,52))+'</div>':'')+'</div><span class="feed-when">'+esc(fmtWhen(f.t.toISOString()))+'</span></div>';
+    }).join("")+'</div>'; }
     html+='</div>';
+
     c.innerHTML=html;
   }
   function tile(cls,n,label,go,filt){ return '<div class="stat '+cls+'" data-go="'+go+'"'+(filt?' data-filt="'+filt+'"':'')+'><div class="n">'+n+'</div><div class="l">'+esc(label)+'</div></div>'; }
