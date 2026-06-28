@@ -37,23 +37,65 @@
   .setup-row{grid-template-columns:1fr;max-width:440px;}
 }
 
-/* ===== HOW: horizontal flow timeline ===== */
-.flow{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,40px);margin-top:clamp(56px,7vw,90px);}
-.flow-line{position:absolute;top:38px;left:8%;right:8%;height:3px;background:repeating-linear-gradient(90deg,var(--lav) 0,var(--lav) 10px,transparent 10px,transparent 20px);opacity:.6;z-index:0;}
-.flow-step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;}
-.flow-num{width:76px;height:76px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);color:var(--ink);font-family:var(--font-sans);font-weight:900;font-size:30px;display:flex;align-items:center;justify-content:center;letter-spacing:-.02em;margin-bottom:24px;transition:transform .2s,background .2s,color .2s;}
-.flow-step:hover .flow-num{background:var(--ink);color:#fff;transform:translateY(-3px);}
-.flow-card{}
-.flow-card .slabel{display:block;margin-bottom:10px;}
-.flow-card h3{font-family:var(--font-sans);font-weight:800;font-size:clamp(19px,2vw,23px);letter-spacing:-.01em;margin-bottom:10px;line-height:1.15;}
-.flow-card p{font-size:15px;line-height:1.55;opacity:.78;}
+/* ===== HOW: product mockups zigzag ===== */
+.hiw{display:flex;flex-direction:column;gap:clamp(48px,7vw,96px);margin-top:clamp(48px,6vw,80px);text-align:left;}
+.hiw-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center;}
+.hiw-row--rev .hiw-text{order:2;}
+.hiw-row--rev .hiw-visual{order:1;}
+.hiw-num{font-family:var(--font-sans);font-weight:900;font-size:clamp(40px,5vw,60px);line-height:1;color:var(--paper);-webkit-text-stroke:2.5px var(--ink);letter-spacing:-.03em;margin-bottom:16px;}
+.hiw-text .slabel{display:block;margin-bottom:12px;}
+.hiw-text h3{font-family:var(--font-sans);font-weight:800;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;line-height:1.08;margin-bottom:14px;}
+.hiw-text p{font-size:clamp(15px,1.6vw,17px);line-height:1.6;opacity:.78;max-width:440px;}
+.hiw-visual{display:flex;justify-content:center;}
+
+/* mock shell */
+.mock{width:100%;max-width:380px;background:var(--white);border:2px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(23,61,53,.13);}
+.mk-bar{display:flex;gap:7px;padding:14px 18px;border-bottom:1px solid rgba(23,61,53,.1);}
+.mk-dot{width:11px;height:11px;border-radius:50%;background:rgba(23,61,53,.18);}
+.mk-pad{padding:20px;}
+.mk-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(23,61,53,.5);margin:14px 0 8px;}
+.mk-label:first-child{margin-top:0;}
+.mk-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.mk-chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:50px;border:1.5px solid rgba(23,61,53,.15);color:var(--ink);}
+.mk-chip.on{background:var(--coral);border-color:var(--coral);color:#fff;}
+.mk-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.mk-box{background:var(--paper);border:1.5px solid rgba(23,61,53,.15);border-radius:10px;padding:12px 6px;text-align:center;font-weight:800;font-size:15px;color:var(--ink);}
+.mk-photo{aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,#dcc9a8,#b89a72);}
+.mk-photo:nth-child(2){background:linear-gradient(135deg,#cdd9d4,#9bb5ad);}
+.mk-photo.dashed{background:var(--paper);border:1.5px dashed rgba(23,61,53,.2);}
+.mk-btn{margin-top:16px;background:var(--coral);color:#fff;text-align:center;padding:14px;border-radius:50px;font-weight:800;font-size:14px;}
+
+/* mock portal */
+.mock-portal{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:16px;max-width:420px;}
+.mk-pcol{background:var(--paper);border-radius:12px;padding:10px;}
+.mk-pcol-h{font-size:11px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:5px;margin-bottom:10px;}
+.mk-pcol-h b{margin-left:auto;background:#fff;border-radius:50px;padding:1px 7px;font-size:10px;}
+.mk-pdot{width:8px;height:8px;border-radius:50%;}
+.mk-pdot.lav{background:var(--lav);}.mk-pdot.blue{background:#7FB8D8;}.mk-pdot.green{background:#4caf50;}
+.mk-card{background:#fff;border:1.5px solid rgba(23,61,53,.1);border-radius:10px;padding:9px;margin-bottom:7px;display:flex;gap:8px;align-items:center;}
+.mk-card.hot{border-color:var(--coral);}
+.mk-av{width:30px;height:30px;border-radius:50%;background:var(--mint,#DCEBE8);color:var(--ink);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mk-card.hot .mk-av{background:var(--coral);color:#fff;}
+.mk-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.1;}
+.mk-sub{font-size:10.5px;color:rgba(23,61,53,.55);margin-top:1px;}
+
+/* mock notif */
+.mock-notif{padding:20px;}
+.mk-notif{display:flex;gap:12px;align-items:center;background:var(--paper);border-radius:14px;padding:14px;margin-bottom:16px;}
+.mk-notif-ic{width:42px;height:42px;border-radius:11px;background:var(--coral);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mk-notif-ic svg{width:22px;height:22px;}
+.mk-notif-t{font-size:14px;font-weight:800;color:var(--ink);line-height:1.2;}
+.mk-notif-s{font-size:12px;color:rgba(23,61,53,.55);margin-top:2px;}
+.mk-tasks{display:flex;flex-direction:column;gap:10px;}
+.mk-task{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink);}
+.mk-check{width:20px;height:20px;border-radius:6px;border:1.5px solid rgba(23,61,53,.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;}
+.mk-check.on{background:var(--ink);border-color:var(--ink);}
+
 @media (max-width:760px){
-  .flow{grid-template-columns:1fr;gap:0;}
-  .flow-line{top:0;bottom:0;left:38px;right:auto;width:3px;height:auto;background:repeating-linear-gradient(180deg,var(--lav) 0,var(--lav) 10px,transparent 10px,transparent 20px);}
-  .flow-step{flex-direction:row;gap:22px;padding-bottom:36px;}
-  .flow-step:last-child{padding-bottom:0;}
-  .flow-num{margin-bottom:0;flex-shrink:0;width:64px;height:64px;font-size:25px;}
-  .flow-card{padding-top:8px;}
+  .hiw-row{grid-template-columns:1fr;gap:28px;}
+  .hiw-row--rev .hiw-text{order:1;}
+  .hiw-row--rev .hiw-visual{order:2;}
+  .mock,.mock-portal{max-width:100%;}
 }
 
 /* ===== WORK: editorial big numbers ===== */
@@ -359,7 +401,18 @@ main{display:block;}
 .steps4{grid-template-columns:repeat(4,1fr)!important;}
 @media (max-width:980px){.steps4{grid-template-columns:repeat(2,1fr)!important;}}
 @media (max-width:560px){.steps4{grid-template-columns:1fr!important;}}
-.sec.work{background:var(--white);}
+.sec.work{background:var(--ink);color:var(--paper);}
+.sec.work .eyebrow{color:var(--paper);opacity:.9;}
+.sec.work .eyebrow .d{background:var(--coral);}
+.sec.work h2{color:#fff;}
+.sec.work .lead{color:rgba(247,245,240,.78);}
+.sec.work .ed-step{border-top-color:rgba(247,245,240,.22);}
+.sec.work .ed-step:last-child{border-bottom-color:rgba(247,245,240,.22);}
+.sec.work .ed-num{color:var(--ink);-webkit-text-stroke:2.5px rgba(247,245,240,.45);text-stroke:2.5px rgba(247,245,240,.45);}
+.sec.work .ed-step:hover .ed-num{color:var(--coral);-webkit-text-stroke-color:var(--coral);}
+.sec.work .ed-body h3{color:#fff;}
+.sec.work .ed-body p{color:rgba(247,245,240,.75);}
+.sec.work .slabel{color:var(--coral);}
 .steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px);margin-top:clamp(46px,6vw,80px);text-align:left;}
 .step{display:flex;flex-direction:column;gap:14px;}
 .step .ico{width:70px;height:70px;}
@@ -778,33 +831,66 @@ main{display:block;}
 <h2 id="how-h">Scattered messages in. <span class="mk-hi">Booked work<span aria-hidden="true" class="marker"></span></span> out.</h2>
 <p class="lead">We build the form, you share the link. Every inquiry lands in one place, ready to organize and follow up.</p>
 </div>
-<div class="flow" data-reveal-stagger="">
-<div class="flow-line" aria-hidden="true"></div>
+<div class="hiw" data-reveal-stagger="">
 
-<div class="flow-step rv">
-<div class="flow-num">01</div>
-<div class="flow-card">
+<div class="hiw-row rv">
+<div class="hiw-text">
+<div class="hiw-num">01</div>
 <span class="slabel">CAPTURE</span>
 <h3>A form built for your business</h3>
 <p>A custom inquiry form that adapts to the job, shared by link, QR, or embed, so customers give you exactly what you need to quote.</p>
 </div>
+<div class="hiw-visual">
+<div class="mock mock-form">
+<div class="mk-bar"><span class="mk-dot"></span><span class="mk-dot"></span><span class="mk-dot"></span></div>
+<div class="mk-pad">
+<div class="mk-label">What's the project?</div>
+<div class="mk-chips"><span class="mk-chip on">Kitchen</span><span class="mk-chip">Bathroom</span><span class="mk-chip">Roofing</span></div>
+<div class="mk-label">Measurements</div>
+<div class="mk-row3"><span class="mk-box">12 ft</span><span class="mk-box">9 ft</span><span class="mk-box">8 ft</span></div>
+<div class="mk-label">Photos</div>
+<div class="mk-row3"><span class="mk-photo"></span><span class="mk-photo"></span><span class="mk-photo dashed"></span></div>
+<div class="mk-btn">Send request</div>
+</div>
+</div>
+</div>
 </div>
 
-<div class="flow-step rv">
-<div class="flow-num">02</div>
-<div class="flow-card">
+<div class="hiw-row hiw-row--rev rv">
+<div class="hiw-text">
+<div class="hiw-num">02</div>
 <span class="slabel">ORGANIZE</span>
 <h3>Every inquiry in one portal</h3>
 <p>New leads land in a simple pipeline. Add notes, tasks, and estimate details, and move each one through a clear workflow.</p>
 </div>
+<div class="hiw-visual">
+<div class="mock mock-portal">
+<div class="mk-pcol"><div class="mk-pcol-h"><span class="mk-pdot lav"></span>New <b>2</b></div><div class="mk-card hot"><div class="mk-av">TB</div><div><div class="mk-name">Taylor Brooks</div><div class="mk-sub">Kitchen cabinets</div></div></div><div class="mk-card"><div class="mk-av">JC</div><div><div class="mk-name">Jordan C.</div><div class="mk-sub">Roofing</div></div></div></div>
+<div class="mk-pcol"><div class="mk-pcol-h"><span class="mk-pdot blue"></span>Contacted <b>1</b></div><div class="mk-card"><div class="mk-av">SK</div><div><div class="mk-name">Sara K.</div><div class="mk-sub">Bathroom</div></div></div></div>
+<div class="mk-pcol"><div class="mk-pcol-h"><span class="mk-pdot green"></span>Booked <b>1</b></div><div class="mk-card"><div class="mk-av">TR</div><div><div class="mk-name">Tom R.</div><div class="mk-sub">Deck</div></div></div></div>
+</div>
+</div>
 </div>
 
-<div class="flow-step rv">
-<div class="flow-num">03</div>
-<div class="flow-card">
+<div class="hiw-row rv">
+<div class="hiw-text">
+<div class="hiw-num">03</div>
 <span class="slabel">FOLLOW-UP</span>
 <h3>Nothing slips through</h3>
 <p>Get notified the moment an inquiry arrives, send estimates, and schedule follow-ups, until interest turns into booked work.</p>
+</div>
+<div class="hiw-visual">
+<div class="mock mock-notif">
+<div class="mk-notif">
+<div class="mk-notif-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+<div><div class="mk-notif-t">New inquiry from Taylor Brooks</div><div class="mk-notif-s">Kitchen cabinets &middot; just now</div></div>
+</div>
+<div class="mk-tasks">
+<div class="mk-task"><span class="mk-check on">&#10003;</span> Send estimate</div>
+<div class="mk-task"><span class="mk-check"></span> Follow up Tuesday</div>
+<div class="mk-task"><span class="mk-check"></span> Confirm booking</div>
+</div>
+</div>
 </div>
 </div>
 
