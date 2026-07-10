@@ -310,7 +310,7 @@ button{font-family:inherit;cursor:pointer;}
 .vt-btn.active{background:var(--ink);color:#fff;}
 
 /* Kanban board */
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start;}
+.board{display:grid;grid-template-columns:repeat(6,minmax(215px,1fr));gap:14px;align-items:start;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;}
 .board-col{background:var(--paper-2);border-radius:var(--radius);padding:12px;min-height:200px;}
 .board-col-h{display:flex;align-items:center;gap:8px;padding:4px 6px 12px;}
 .bch-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
@@ -330,10 +330,7 @@ button{font-family:inherit;cursor:pointer;}
 .bcard-svc{font-size:.74rem;color:var(--ink-3);margin-top:3px;line-height:1.35;}
 .bcard-owner{font-size:.6rem;font-weight:700;color:var(--ink-2);background:var(--lav-pale);border:1px solid rgba(185,167,255,.3);padding:2px 7px;border-radius:50px;margin-top:8px;display:inline-block;}
 @media(max-width:900px){
-  .board{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:560px){
-  .board{grid-template-columns:1fr;}
+  .board{grid-template-columns:repeat(6,minmax(200px,220px));}
 }
 .inq-owner{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.02em;color:var(--ink-2);background:var(--lav-pale);border:1px solid rgba(185,167,255,.35);padding:2px 8px;border-radius:50px;margin-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
 .inq-svc{font-size:.8rem;color:var(--ink-3);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -365,10 +362,19 @@ button{font-family:inherit;cursor:pointer;}
 .pill.estimate_sent .pill-dot,.pill.estimate-sent .pill-dot{background:#ff9800;}
 .pill.follow_up,.pill.follow-up{background:var(--mint);border-color:var(--mint-2);color:var(--ink-2);}
 .pill.follow_up .pill-dot,.pill.follow-up .pill-dot{background:var(--ink-2);}
-.pill.won{background:#edfaf3;border-color:#c5eed9;color:#1a7a45;}
-.pill.won .pill-dot{background:#4caf50;}
-.pill.lost,.pill.closed{background:var(--paper-2);border-color:var(--line);color:var(--ink-3);}
-.pill.lost .pill-dot,.pill.closed .pill-dot{background:var(--line);}
+.pill.won,.pill.hired{background:#edfaf3;border-color:#c5eed9;color:#1a7a45;}
+.pill.won .pill-dot,.pill.hired .pill-dot{background:#4caf50;}
+.pill.lost,.pill.closed,.pill.not_hired{background:var(--paper-2);border-color:var(--line);color:var(--ink-3);}
+.pill.lost .pill-dot,.pill.closed .pill-dot,.pill.not_hired .pill-dot{background:var(--line);}
+/* Estimate */
+.est-chip{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.66rem;font-weight:800;color:#b36000;background:#fff3e0;border:1px solid #ffd99e;padding:2px 8px;border-radius:50px;white-space:nowrap;}
+.est-row{display:flex;align-items:center;gap:8px;}
+.est-row .est-cur{font-weight:800;color:var(--ink-3);font-size:.9rem;}
+.est-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.86rem;font-weight:700;color:var(--ink);background:var(--white);}
+.est-row input:focus{outline:none;border-color:var(--ink);}
+.pipe-val{display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:#fff3e0;border:1px solid #ffd99e;border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:12px;}
+.pipe-val span{font-size:.68rem;font-weight:700;letter-spacing:.03em;color:#b36000;}
+.pipe-val b{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.05rem;font-weight:800;color:#b36000;}
 /* Old pill classes (legacy) */
 .pill.booked{background:var(--lav-pale);border-color:rgba(185,167,255,.3);color:#6b52cc;}
 
@@ -797,6 +803,9 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    st_new:"New",st_contacting:"Contacting",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
+    estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
+    suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
     detMessage:"Message",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
@@ -836,6 +845,9 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    st_new:"Nueva",st_contacting:"Contactando",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
+    estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
+    suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
     detMessage:"Mensaje",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
@@ -873,6 +885,14 @@ button{font-family:inherit;cursor:pointer;}
   const $=id=>document.getElementById(id);
   const esc=s=>(s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const locale=()=>lang==="es"?"es-PR":"en-US";
+  // ===== pipeline stages (estimate-driven) =====
+  const STAGES=["new","contacting","estimate_sent","follow_up","hired","not_hired"];
+  const STAGE_COLORS={new:"#B9A7FF",contacting:"#7FB8D8",estimate_sent:"#FF9800",follow_up:"#347D79",hired:"#4caf50",not_hired:"#9aa8a3"};
+  const ST_MAP={contacted:"contacting",booked:"hired",closed:"not_hired"};
+  const stOf=r=>{ const s=r.status||"new"; return ST_MAP[s]||s; };
+  const stLbl=s=>T("st_"+s);
+  const fmtMoney=n=>"$"+Number(n||0).toLocaleString(locale(),{maximumFractionDigits:0});
+  function toLocalInput(d){ const p=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes()); }
   function fmtDate(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{month:"short",day:"numeric"}); }catch(e){ return ""; } }
   function fmtExact(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{year:"numeric",month:"short",day:"numeric"})+" \u00b7 "+t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
   function fmtWhen(d){ try{ const t=new Date(d),n=new Date(); const sd=t.toDateString()===n.toDateString(); const tm=new Date(n); tm.setDate(n.getDate()+1); const it=t.toDateString()===tm.toDateString(); const hm=t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); if(sd)return T("today")+" "+hm; if(it)return T("tomorrow")+" "+hm; return t.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u00b7 "+hm; }catch(e){ return ""; } }
@@ -947,7 +967,7 @@ button{font-family:inherit;cursor:pointer;}
 
   function nextActionFor(id){ return reminders.filter(x=>x.inquiry_id===id&&!x.done).sort((a,b)=>new Date(a.due_at)-new Date(b.due_at))[0]; }
   function updateNavBadges(){
-    const nNew=inquiries.filter(r=>r.status==="new").length;
+    const nNew=inquiries.filter(r=>stOf(r)==="new").length;
     const openTasks=tasks.filter(t=>!t.done).length + reminders.filter(r=>!r.done).length;
     const bi=$("nbInq"),bt=$("nbTasks");
     if(nNew>0){ bi.style.display="flex"; bi.textContent=nNew; } else bi.style.display="none";
@@ -979,7 +999,7 @@ button{font-family:inherit;cursor:pointer;}
     const c=$("content");
     const now=new Date();
     const dayMs=86400000;
-    const newInq=inquiries.filter(r=>r.status==="new");
+    const newInq=inquiries.filter(r=>stOf(r)==="new");
     const actionsToday=reminders.filter(r=>!r.done&&isToday(r.due_at));
     const tasksToday=tasks.filter(t=>!t.done&&(t.due_at?isToday(t.due_at):true));
     const openTasks=tasks.filter(t=>!t.done).length+reminders.filter(r=>!r.done).length;
@@ -1017,7 +1037,7 @@ button{font-family:inherit;cursor:pointer;}
 
     // Needs attention
     const stale=newInq.filter(r=>r.created_at&&(now-new Date(r.created_at))>dayMs);
-    const noStep=realInq.filter(r=>r.status!=="closed"&&!nextActionFor(r.id)&&!stale.includes(r));
+    const noStep=realInq.filter(r=>stOf(r)!=="hired"&&stOf(r)!=="not_hired"&&!nextActionFor(r.id)&&!stale.includes(r));
     const overdue=reminders.filter(r=>!r.done&&r.due_at&&new Date(r.due_at)<now).concat(tasks.filter(t=>!t.done&&t.due_at&&new Date(t.due_at)<now));
     const attn=[];
     stale.slice(0,3).forEach(r=>attn.push({kind:"stale",r:r}));
@@ -1049,10 +1069,12 @@ button{font-family:inherit;cursor:pointer;}
     html+='<div class="dash-right">';
 
     // Pipeline overview
-    const stages=[["new","New","#B9A7FF"],["contacted","Contacted","#7FB8D8"],["booked","Booked","#4caf50"],["closed","Closed","#9aa8a3"]];
-    const counts=stages.map(s=>realInq.filter(r=>(r.status||"new")===s[0]).length);
+    const stages=STAGES.map(s=>[s,stLbl(s),STAGE_COLORS[s]]);
+    const counts=stages.map(s=>realInq.filter(r=>stOf(r)===s[0]).length);
     const totalP=counts.reduce((a,b)=>a+b,0)||1;
+    const estOut=realInq.filter(r=>stOf(r)==="estimate_sent"||stOf(r)==="follow_up").reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
     html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("pipeline"))+'</h3></div>';
+    if(estOut>0) html+='<div class="pipe-val"><span>'+esc(T("estValue"))+'</span><b>'+fmtMoney(estOut)+'</b></div>';
     html+='<div class="pipe-bar">'+stages.map((s,i)=>{
       return counts[i]?'<div class="pipe-seg" data-go="inquiries" data-filt="'+s[0]+'" style="flex:'+counts[i]+';background:'+s[2]+'" title="'+esc(s[1])+': '+counts[i]+'"><span class="pipe-seg-n">'+counts[i]+'</span></div>':'';
     }).join("")+(totalP===1&&counts.reduce((a,b)=>a+b,0)===0?'<div class="pipe-seg empty-seg" style="flex:1"></div>':'')+'</div>';
@@ -1110,12 +1132,12 @@ function inqMiniRow(r){
       const unread=notes.some(n=>n.author_role&&n.author_role!==(isAdmin?"admin":"client")&&!notifRead["note-"+n.id]);
       const initials=(r.customer_name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
       const lastNote=(notesByInq[r.id]||[]).slice(-1)[0];
-      const waitDays=((r.status||"new")==="new"&&r.created_at)?Math.floor((Date.now()-new Date(r.created_at))/86400000):0;
+      const waitDays=(stOf(r)==="new"&&r.created_at)?Math.floor((Date.now()-new Date(r.created_at))/86400000):0;
       const waitBadge=waitDays>=1?'<span class="inq-wait'+(waitDays>=2?' urgent':'')+'">'+waitDays+'d</span>':'';
-      const stOrder=["new","contacted","booked","closed"];
-      const sIdx=stOrder.indexOf(r.status||"new");
-      const nextSt=(sIdx>=0&&sIdx<stOrder.length-1)?stOrder[sIdx+1]:null;
-      const nextLbl=nextSt?T("advanceTo")+" "+T("status"+cap(nextSt)):"";
+      const chain=["new","contacting","estimate_sent","follow_up","hired"];
+      const sIdx=chain.indexOf(stOf(r));
+      const nextSt=(sIdx>=0&&sIdx<chain.length-1)?chain[sIdx+1]:null;
+      const nextLbl=nextSt?T("advanceTo")+" "+stLbl(nextSt):"";
       const contact=(r.customer_contact||r.customer_email||r.customer_phone||"");
       const qa='<div class="inq-qa">'+
         (nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>':'')+
@@ -1133,7 +1155,8 @@ function inqMiniRow(r){
         '</div>'+
         '<div class="inq-right">'+
           (waitBadge)+
-          '<span class="pill '+(r.status||'new')+'"><span class="pill-dot"></span>'+esc(T('status'+cap(r.status||'new')))+'</span>'+
+          (parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'')+
+          '<span class="pill '+stOf(r)+'"><span class="pill-dot"></span>'+esc(stLbl(stOf(r)))+'</span>'+
           '<button class="inq-arr" data-open="'+r.id+'" aria-label="Open">&#8594;</button>'+
         '</div>'+
       '</div>';
@@ -1142,17 +1165,17 @@ function inqMiniRow(r){
   function renderInquiries(){
     const c=$("content");
     const rInq=inquiries.filter(r=>r.kind!=="booking");
-    const cnt=(s)=>rInq.filter(r=>(r.status||"new")===s).length;
+    const cnt=(s)=>rInq.filter(r=>stOf(r)===s).length;
     let html='<div class="tbl-toolbar"><div class="search"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span><input type="text" id="searchInput" placeholder="'+esc(T("search"))+'" value="'+esc(search)+'"></div>'+
       '<div class="filter-pills">'+
-        pill2("all","All",rInq.length)+pill2("new","New",cnt("new"))+pill2("contacted","Contacted",cnt("contacted"))+pill2("booked","Booked",cnt("booked"))+pill2("closed","Closed",cnt("closed"))+
+        pill2("all",T("fAll"),rInq.length)+STAGES.map(s=>pill2(s,stLbl(s),cnt(s))).join("")+
       '</div>'+
       '<div class="view-toggle">'+
         '<button class="vt-btn'+(inqView==="list"?' active':'')+'" data-vt="list" title="'+esc(T("listView"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button>'+
         '<button class="vt-btn'+(inqView==="board"?' active':'')+'" data-vt="board" title="'+esc(T("boardView"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="14" rx="1"/></svg></button>'+
       '</div></div>';
     let list=inquiries.slice();
-    if(inqFilter!=="all") list=list.filter(r=>r.status===inqFilter);
+    if(inqFilter!=="all") list=list.filter(r=>stOf(r)===inqFilter);
     if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
     if(inqView==="board"){
       html+=renderBoard();
@@ -1166,13 +1189,13 @@ function inqMiniRow(r){
     c.innerHTML=html; bindSearch();
   }
   function renderBoard(){
-    const stages=[["new","New","#B9A7FF"],["contacted","Contacted","#7FB8D8"],["booked","Booked","#4caf50"],["closed","Closed","#9aa8a3"]];
+    const stages=STAGES.map(s=>[s,stLbl(s),STAGE_COLORS[s]]);
     let s=search.toLowerCase();
     let base=inquiries.filter(r=>r.kind!=="booking");
     if(search){ base=base.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
     let h='<div class="board">';
     stages.forEach(st=>{
-      const col=base.filter(r=>(r.status||"new")===st[0]);
+      const col=base.filter(r=>stOf(r)===st[0]);
       h+='<div class="board-col" data-col="'+st[0]+'">';
       h+='<div class="board-col-h"><span class="bch-dot" style="background:'+st[2]+'"></span><span class="bch-l">'+esc(st[1])+'</span><span class="bch-n">'+col.length+'</span></div>';
       h+='<div class="board-drop" data-drop="'+st[0]+'">';
@@ -1185,11 +1208,12 @@ function inqMiniRow(r){
   }
   function boardCardHTML(r){
     const initials=(r.customer_name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-    const waitDays=((r.status||"new")==="new"&&r.created_at)?Math.floor((Date.now()-new Date(r.created_at))/86400000):0;
+    const waitDays=(stOf(r)==="new"&&r.created_at)?Math.floor((Date.now()-new Date(r.created_at))/86400000):0;
     const waitBadge=waitDays>=1?'<span class="inq-wait'+(waitDays>=2?' urgent':'')+'">'+waitDays+'d</span>':'';
+    const est=parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'';
     const svc=esc(r.message?r.message.slice(0,42):(r.channel||'\u2014'));
     return '<div class="bcard" draggable="true" data-bcard="'+r.id+'" data-open="'+r.id+'">'+
-      '<div class="bcard-top"><div class="bcard-av">'+initials+'</div>'+(waitBadge)+'</div>'+
+      '<div class="bcard-top"><div class="bcard-av">'+initials+'</div><span style="display:flex;gap:5px;align-items:center">'+est+waitBadge+'</span></div>'+
       '<div class="bcard-name">'+esc(r.customer_name||'\u2014')+'</div>'+
       '<div class="bcard-svc">'+svc+'</div>'+
       (isAdmin&&r.client_email?'<div class="bcard-owner">'+esc(r.client_email)+'</div>':'')+
@@ -1204,7 +1228,7 @@ function inqMiniRow(r){
     document.querySelectorAll('.board-drop').forEach(drop=>{
       drop.addEventListener('dragover',ev=>{ ev.preventDefault(); drop.classList.add('over'); ev.dataTransfer.dropEffect='move'; });
       drop.addEventListener('dragleave',()=>{ drop.classList.remove('over'); });
-      drop.addEventListener('drop',async ev=>{ ev.preventDefault(); drop.classList.remove('over'); const ns=drop.getAttribute('data-drop'); if(dragId){ const r=inquiries.find(x=>x.id===dragId); if(r&&(r.status||"new")!==ns){ const ok=await patchInq(dragId,{status:ns}); if(ok)render(); } } dragId=null; });
+      drop.addEventListener('drop',async ev=>{ ev.preventDefault(); drop.classList.remove('over'); const ns=drop.getAttribute('data-drop'); if(dragId){ const r=inquiries.find(x=>x.id===dragId); if(r&&stOf(r)!==ns){ const ok=await patchInq(dragId,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(dragId); } } } dragId=null; });
     });
   }
   function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
@@ -1231,8 +1255,8 @@ function inqMiniRow(r){
       const ctrls=mine?'<span class="note-ctrls"><span class="note-edit" data-act="noteEdit" data-nid="'+n.id+'">\u270e</span><span class="note-del" data-act="noteDel" data-nid="'+n.id+'">\u00d7</span></span>':'';
       return '<div class="note"><div class="nmeta"><span class="who-tag '+(n.author_role==="admin"?"admin":"client")+'">'+esc(n.author_role==="admin"?T("admin"):T("client"))+'</span><span>'+esc(fmtExact(n.created_at))+'</span>'+ctrls+'</div><div class="nbody">'+esc(n.body)+'</div></div>';
     }).join("");
-    const steps=[["new",T("statusNew")],["contacted",T("statusContacted")],["booked",T("statusBooked")],["closed",T("statusClosed")]];
-    const ci=steps.findIndex(s=>s[0]===r.status);
+    const steps=STAGES.map(s=>[s,stLbl(s)]);
+    const ci=steps.findIndex(s=>s[0]===stOf(r));
     const pipe='<div class="pipe">'+steps.map((s,i)=>'<button class="pstep'+(i===ci?' on':'')+(i<ci?' past':'')+'" data-act="pstep" data-st="'+s[0]+'">'+esc(s[1])+'</button>').join("")+'</div>';
     const acts=reminders.filter(x=>x.inquiry_id===id&&!x.done).sort((a,b)=>new Date(a.due_at)-new Date(b.due_at));
     const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.title)+'</div><div class="lr-sub">'+esc(fmtWhen(a.due_at))+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.id+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
@@ -1240,6 +1264,7 @@ function inqMiniRow(r){
     let body='';
     if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">&#9742; '+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button>'+((isAdmin||r.created_by==="client")?'<button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button>':'')+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
@@ -1321,7 +1346,7 @@ function inqMiniRow(r){
     // view toggle list/board
     const vt=e.target.closest("[data-vt]"); if(vt){ inqView=vt.getAttribute("data-vt"); render(); return; }
     // quick action: advance status
-    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok)render(); return; }
+    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(aid); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
     // quick action: copy contact
@@ -1353,7 +1378,8 @@ function inqMiniRow(r){
     // drawer actions
     if(detailId && e.target.closest("#drawerBody")){
       const id=detailId;
-      if(e.target.closest('[data-act="pstep"]')){ await patchInq(id,{status:e.target.closest('[data-act="pstep"]').getAttribute("data-st")}); openDetail(id,true); render(); return; }
+      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); return; }
+      if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ const b=e.target.closest('[data-act="saveEst"]'); b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
@@ -1399,6 +1425,13 @@ function inqMiniRow(r){
 
   // ===== schedule sheet =====
   function openSchedule(id){ schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value=""; openOverlay("schedOverlay"); }
+  function suggestFollowup(id){
+    openSchedule(id);
+    try{ $("sType").value="followup"; }catch(e){}
+    const d=new Date(Date.now()+3*86400000); d.setHours(10,0,0,0);
+    $("sWhen").value=toLocalInput(d);
+    const m=$("schedMsg"); m.style.color="#347D79"; m.textContent=T("suggestFU");
+  }
   $("schedSubmit").addEventListener("click", async ()=>{
     const out=$("schedMsg"); out.textContent=""; const r=inquiries.find(x=>x.id===schedInqId); if(!r){ closeOverlay("schedOverlay"); return; }
     const w=$("sWhen").value; if(!w){ out.style.color="#F45145"; out.textContent=T("needFields"); return; }
@@ -1421,7 +1454,7 @@ function inqMiniRow(r){
   function buildNotifs(){
     notifs=[]; const now=Date.now();
     inquiries.forEach(r=>{ const c=new Date(r.created_at).getTime();
-      if(r.kind!=="booking"&&r.status==="new") notifs.push({id:"inq-"+r.id,type:"new",t:T("notifNew"),s:(r.customer_name||"")+" \u00b7 "+(r.channel||""),at:c});
+      if(r.kind!=="booking"&&stOf(r)==="new") notifs.push({id:"inq-"+r.id,type:"new",t:T("notifNew"),s:(r.customer_name||"")+" \u00b7 "+(r.channel||""),at:c});
       if(r.kind==="booking"&&r.booking_at){ const b=new Date(r.booking_at).getTime(); if(b>now&&b-now<1000*60*60*48) notifs.push({id:"appt-"+r.id,type:"appt",t:T("notifAppt"),s:(r.customer_name||"")+" \u00b7 "+fmtWhen(r.booking_at),at:c}); }
     });
     reminders.forEach(r=>{ if(r.done)return; const due=new Date(r.due_at).getTime(); if(due-now<1000*60*60*24) notifs.push({id:"rem-"+r.id,type:"rem",t:T("notifRem"),s:r.title+" \u00b7 "+fmtWhen(r.due_at),at:new Date(r.created_at).getTime()}); });
