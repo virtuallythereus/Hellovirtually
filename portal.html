@@ -15,7 +15,7 @@
   --mint:#DCEBE8; --mint-2:#c8dbd7;
   --line:rgba(23,61,53,.12); --line-2:rgba(23,61,53,.06);
   --shadow:0 2px 8px rgba(23,61,53,.08);
-  --shadow-md:0 8px 24px rgba(23,61,53,.12);
+  --shadow-md:0 6px 18px rgba(23,61,53,.09);
   --shadow-lg:0 20px 60px rgba(23,61,53,.16);
   --radius:14px; --radius-sm:10px; --radius-xs:8px;
   --sidebar:252px;
@@ -48,21 +48,21 @@ button{font-family:inherit;cursor:pointer;}
   letter-spacing:-.2px;line-height:1;
 }
 .sb-brand .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block;margin-left:2px;margin-bottom:10px;}
-.sb-nav{flex:1;padding:6px 12px;display:flex;flex-direction:column;gap:2px;}
+.sb-nav{flex:1;padding:8px 12px;display:flex;flex-direction:column;gap:3px;}
 .nav-item{
-  display:flex;align-items:center;gap:10px;padding:10px 12px;
-  border-radius:var(--radius-sm);color:rgba(255,255,255,.58);font-weight:600;font-size:.84rem;
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:var(--radius-sm);color:rgba(255,255,255,.52);font-weight:500;font-size:.84rem;
   cursor:pointer;transition:all var(--anim);border:none;background:none;text-align:left;width:100%;position:relative;
 }
-.nav-item:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);}
-.nav-item.active{background:rgba(255,255,255,.12);color:#fff;}
-.nav-item .ic{width:17px;height:17px;flex-shrink:0;opacity:.7;}
+.nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.88);}
+.nav-item.active{background:rgba(255,255,255,.1);color:#fff;font-weight:600;}
+.nav-item .ic{width:17px;height:17px;flex-shrink:0;opacity:.6;}
 .nav-item.active .ic{opacity:1;}
 .nav-item .nv-badge{
   margin-left:auto;background:var(--coral);color:#fff;font-size:.58rem;font-weight:800;
   min-width:18px;height:18px;border-radius:50px;display:flex;align-items:center;justify-content:center;padding:0 5px;
 }
-.sb-foot{padding:14px 12px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:9px;}
+.sb-foot{margin:10px;padding:10px;border-top:none;background:rgba(255,255,255,.05);border-radius:12px;display:flex;align-items:center;gap:9px;}
 .sb-avatar{
   width:32px;height:32px;border-radius:50%;background:var(--coral);color:#fff;
   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0;
@@ -103,17 +103,17 @@ button{font-family:inherit;cursor:pointer;}
 .content{padding:24px 28px 70px;max-width:1200px;width:100%;}
 
 /* ===== TODAY ===== */
-.greet-row{margin-bottom:20px;}
+.greet-row{margin-bottom:22px;}
 .greet-row .hi{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.5rem;font-weight:600;color:var(--ink);letter-spacing:-.02em;}
 .greet-row .date{color:var(--ink-3);font-size:.86rem;margin-top:3px;}
 .greet-row .hi em{font-style:italic;color:var(--coral);}
 .greet-row .hi .hi-acc{display:none;}
 
 /* Pipeline bar */
-.pipe-bar{display:flex;gap:3px;height:38px;border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px;}
-.pipe-seg{display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--anim);min-width:30px;position:relative;}
+.pipe-bar{display:flex;gap:4px;height:26px;margin-bottom:8px;}
+.pipe-seg{display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--anim);min-width:26px;position:relative;border-radius:7px;}
 .pipe-seg:hover{filter:brightness(1.06);transform:translateY(-1px);}
-.pipe-seg-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:800;font-size:.85rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15);}
+.pipe-seg-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:800;font-size:.72rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15);}
 .pipe-legend{display:flex;flex-wrap:wrap;gap:14px;}
 .pipe-leg{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--ink-3);cursor:pointer;transition:color var(--anim);}
 .pipe-leg:hover{color:var(--ink);}
@@ -121,10 +121,10 @@ button{font-family:inherit;cursor:pointer;}
 .pipe-leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
 
 /* Needs attention */
-.attn-clear{display:flex;align-items:center;gap:9px;background:#edfaf3;border:1.5px solid #c5eed9;border-radius:var(--radius);padding:15px 18px;font-size:.88rem;font-weight:600;color:#1a7a45;}
-.attn-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#4caf50;color:#fff;font-size:.75rem;font-weight:900;}
+.attn-clear{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px;}
+.attn-check{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--mint);color:var(--ink-2);font-size:.7rem;font-weight:900;flex-shrink:0;}
 .attn-list{display:flex;flex-direction:column;gap:8px;}
-.attn-card{display:flex;align-items:center;gap:12px;background:#fff8f7;border:1.5px solid rgba(244,81,69,.22);border-radius:var(--radius);padding:13px 16px;cursor:pointer;transition:all var(--anim);}
+.attn-card{display:flex;align-items:center;gap:12px;background:#fffaf9;border:1px solid rgba(244,81,69,.2);border-radius:12px;padding:12px 15px;cursor:pointer;transition:all var(--anim);}
 .attn-card:hover{border-color:var(--coral);box-shadow:var(--shadow-md);transform:translateY(-1px);}
 .attn-dot{width:9px;height:9px;border-radius:50%;background:var(--coral);flex-shrink:0;animation:attnPulse 2s infinite;}
 @keyframes attnPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
@@ -149,48 +149,51 @@ button{font-family:inherit;cursor:pointer;}
 .feed-s{font-size:.74rem;color:var(--ink-3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .feed-when{font-size:.7rem;font-weight:600;color:var(--ink-3);white-space:nowrap;flex-shrink:0;}
 .greet-row .date{color:var(--ink-3);font-size:.84rem;margin-top:3px;}
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
 .stat{
   background:var(--white);border:1px solid var(--line);border-radius:16px;
-  padding:18px 18px 16px;cursor:pointer;transition:all var(--anim);display:flex;flex-direction:column;
+  padding:14px 16px 13px;cursor:pointer;transition:all var(--anim);display:flex;flex-direction:column;
 }
-.stat:hover{border-color:var(--ink-2);box-shadow:var(--shadow-md);transform:translateY(-2px);}
-.stat-top{display:flex;align-items:center;margin-bottom:10px;}
-.stat-ic{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--mint);color:var(--ink-2);}
-.stat-ic svg{width:17px;height:17px;}
+.stat:hover{border-color:var(--ink-2);box-shadow:var(--shadow);transform:translateY(-1px);}
+.stat-top{display:flex;align-items:center;margin-bottom:9px;}
+.stat-ic{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--ink-2);}
+.stat-ic svg{width:16px;height:16px;}
 .stat.s1 .stat-ic{background:var(--lav-pale);color:#6b52cc;}
+.stat.s2 .stat-ic{background:#fdeceb;color:var(--coral);}
 .stat.s3 .stat-ic{background:var(--mint);color:var(--ink-2);}
 .stat.s4 .stat-ic{background:var(--blue-pale);color:#2a7fa8;}
-.stat .n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.9rem;font-weight:600;line-height:1;color:var(--ink);letter-spacing:-.02em;}
-.stat .l{font-size:.7rem;font-weight:600;letter-spacing:.2px;color:var(--ink-3);margin-top:6px;}
-.stat-ctx{font-size:.66rem;font-weight:600;color:var(--ink-3);margin-top:8px;padding-top:8px;border-top:1px solid var(--line-2);}
+.stat .n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.6rem;font-weight:600;line-height:1;color:var(--ink);letter-spacing:-.02em;}
+.stat .l{font-size:.68rem;font-weight:600;letter-spacing:.25px;color:var(--ink-3);margin-top:5px;}
+.stat-ctx{font-size:.64rem;font-weight:600;color:var(--ink-3);margin-top:7px;padding-top:7px;border-top:1px solid var(--line-2);}
 .stat-ctx.urgent{color:var(--coral);}
 
 /* Dashboard 2-column grid */
-.dash-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:start;}
-.dash-left,.dash-right{display:flex;flex-direction:column;gap:20px;min-width:0;}
-.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;}
+.dash-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start;}
+.dash-left,.dash-right{display:flex;flex-direction:column;gap:18px;min-width:0;}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px 20px;}
 .panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.panel-h h3{font-size:.95rem;font-weight:600;color:var(--ink);}
+.panel-h h3{font-size:.88rem;font-weight:700;color:var(--ink);letter-spacing:.01em;}
 .panel-h .sh-link{font-size:.72rem;font-weight:600;color:var(--ink-2);cursor:pointer;opacity:.75;}
 .panel-h .sh-link:hover{opacity:1;}
 .panel-link{margin-top:14px;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px;font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink-2);cursor:pointer;transition:all var(--anim);}
 .panel-link:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
 
 /* Onboarding card */
-.onboard{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(0deg,var(--white),var(--white));background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:24px;position:relative;overflow:hidden;}
-.onboard::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--coral);}
-.onboard-ic{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--lav-pale);color:#6b52cc;flex-shrink:0;}
-.onboard-ic svg{width:24px;height:24px;}
+.onboard{display:flex;gap:16px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:22px;position:relative;}
+.onboard-t::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-left:5px;margin-bottom:6px;}
+.onboard-link{margin-left:auto;flex-shrink:0;font-size:.7rem;font-weight:600;color:var(--ink-3);background:var(--paper);border:1px solid var(--line);border-radius:50px;padding:7px 13px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+@media(max-width:900px){.onboard-link{display:none;}}
+.onboard-ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--lav-pale);color:#6b52cc;flex-shrink:0;}
+.onboard-ic svg{width:20px;height:20px;}
 .onboard-main{flex:1;}
-.onboard-t{font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
-.onboard-s{font-size:.86rem;color:var(--ink-3);margin-top:6px;line-height:1.5;max-width:520px;}
-.onboard-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.onboard-t{font-size:1rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.onboard-s{font-size:.8rem;color:var(--ink-3);margin-top:4px;line-height:1.45;max-width:520px;}
+.onboard-actions{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap;}
 
 /* Needs attention */
-.attn-clear{display:flex;align-items:center;gap:13px;background:#f3faf6;border:1px solid #d6ecdf;border-radius:12px;padding:16px 18px;}
+.attn-clear-x{display:none;}
 .attn-check{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#4caf50;color:#fff;font-size:.8rem;font-weight:900;flex-shrink:0;}
-.attn-clear-t{font-size:.9rem;font-weight:600;color:#1a7a45;}
+.attn-clear-t{font-size:.85rem;font-weight:600;color:var(--ink-2);}
 .attn-clear-s{font-size:.76rem;color:var(--ink-3);margin-top:2px;}
 .attn-list{display:flex;flex-direction:column;gap:8px;}
 .attn-card{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:12px 14px;transition:all var(--anim);}
@@ -205,16 +208,16 @@ button{font-family:inherit;cursor:pointer;}
 .attn-btn.done:hover{background:#4caf50;border-color:#4caf50;}
 
 /* Mini empty states */
-.empty-mini{text-align:center;padding:24px 16px;}
+.empty-mini{text-align:center;padding:20px 14px;}
 .empty-mini-t{font-size:.92rem;font-weight:600;color:var(--ink-2);}
 .empty-mini-s{font-size:.78rem;color:var(--ink-3);margin-top:5px;margin-bottom:14px;line-height:1.5;}
 
 /* Pipeline rows */
-.pipe-rows{display:flex;flex-direction:column;gap:2px;margin-top:14px;}
-.pipe-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:background var(--anim);}
+.pipe-rows{display:flex;flex-direction:column;gap:1px;margin-top:12px;}
+.pipe-row{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;cursor:pointer;transition:background var(--anim);}
 .pipe-row:hover{background:var(--paper);}
-.pipe-row-l{flex:1;font-size:.82rem;font-weight:500;color:var(--ink-2);}
-.pipe-row-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.9rem;font-weight:700;color:var(--ink);}
+.pipe-row-l{flex:1;font-size:.8rem;font-weight:500;color:var(--ink-2);}
+.pipe-row-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.84rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
 .empty-seg{background:var(--paper-2)!important;}
 
 /* legacy compat */
@@ -225,7 +228,7 @@ button{font-family:inherit;cursor:pointer;}
 .section-h .sh-link:hover{opacity:1;}
 
 /* ===== LISTS / TASK ROWS ===== */
-.rowlist{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.rowlist{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
 .lrow{
   display:flex;align-items:center;gap:12px;padding:13px 18px;
   border-bottom:1px solid var(--line-2);cursor:pointer;transition:background var(--anim);
@@ -799,13 +802,13 @@ button{font-family:inherit;cursor:pointer;}
 
   const EN={
     navToday:"Today",navInq:"Inquiries",navTasks:"Tasks",navCal:"Calendar",navClients:"Clients",
-    quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",listView:"List view",boardView:"Board view",dropHere:"Drop here",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View all inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
+    quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",listView:"List view",boardView:"Board view",dropHere:"Drop here",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
     gateTitle:"Your <em>workspace</em>",gateSub:"Log in to see everything we've handled for you.",
     email:"Email",password:"Password",login:"Log in",noAccount:"No account yet?",goSite:"Create one on our site",
     titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
     hi:"Hi", hiAdmin:"Here's your day", greetAM:"Good morning", greetPM:"Good afternoon", greetEve:"Good evening", 
-    stNew:"New inquiries",stActions:"Actions today",stTasks:"Open tasks",stAppts:"Upcoming",
-    needsAttn:"Needs attention",noAttn:"All caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",stuckLbl:"no reply",
+    stNew:"New inquiries",stActions:"Follow-ups due",stTasks:"Open tasks",stAppts:"Upcoming",
+    needsAttn:"Needs attention",noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",stuckLbl:"no reply",
     todaysActions:"Today's actions",newInquiries:"New inquiries",viewAll:"View all",
     nothingToday:"Nothing scheduled today.",noNew:"No new inquiries.",allCaught:"All caught up.",
     search:"Search name, message, channel...",
@@ -816,7 +819,7 @@ button{font-family:inherit;cursor:pointer;}
     nextStepLbl:"Next step",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
     stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
-    st_new:"New",st_contacting:"Contacting",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
+    st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
@@ -849,7 +852,7 @@ button{font-family:inherit;cursor:pointer;}
     email:"Correo",password:"Contrase\u00f1a",login:"Iniciar sesi\u00f3n",noAccount:"\u00bfA\u00fan no tienes cuenta?",goSite:"Cr\u00e9ala en nuestro sitio",
     titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
     hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda", greetAM:"Buenos d\u00edas", greetPM:"Buenas tardes", greetEve:"Buenas noches",
-    stNew:"Consultas nuevas",stActions:"Acciones hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
+    stNew:"Consultas nuevas",stActions:"Seguimientos hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
     needsAttn:"Requiere atenci\u00f3n",noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",stuckLbl:"sin respuesta",
     todaysActions:"Acciones de hoy",newInquiries:"Consultas nuevas",viewAll:"Ver todas",
     nothingToday:"Nada agendado para hoy.",noNew:"Sin consultas nuevas.",allCaught:"Est\u00e1s al d\u00eda.",
@@ -861,7 +864,7 @@ button{font-family:inherit;cursor:pointer;}
     nextStepLbl:"Pr\u00f3ximo paso",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
     stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
-    st_new:"Nueva",st_contacting:"Contactando",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
+    st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
@@ -1049,7 +1052,7 @@ button{font-family:inherit;cursor:pointer;}
 
     // ── onboarding card (empty account) ──
     if(!realInq.length && !openTasks){
-      html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div></div>';
+      html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div><div class="onboard-link">itshellovirtually.com/form?c='+esc(encodeURIComponent((user&&user.email)||""))+'</div></div>';
     }
 
     // ── interactive stat tiles with context ──
