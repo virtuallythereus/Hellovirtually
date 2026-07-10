@@ -375,6 +375,15 @@ button{font-family:inherit;cursor:pointer;}
 .pipe-val{display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:#fff3e0;border:1px solid #ffd99e;border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:12px;}
 .pipe-val span{font-size:.68rem;font-weight:700;letter-spacing:.03em;color:#b36000;}
 .pipe-val b{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.05rem;font-weight:800;color:#b36000;}
+/* Next-step chips */
+.step-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.step-chip{font-family:inherit;font-size:.74rem;font-weight:700;padding:8px 13px;border-radius:50px;border:1.5px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:all var(--anim);}
+.step-chip:hover{border-color:var(--ink);background:var(--paper-2);}
+.step-chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+/* Completed in calendar */
+.cal-ev.done{opacity:.55;text-decoration:line-through;}
+.cal-di.done{opacity:.65;}
+.cal-di.done .cal-di-t{text-decoration:line-through;}
 /* Old pill classes (legacy) */
 .pill.booked{background:var(--lav-pale);border-color:rgba(185,167,255,.3);color:#6b52cc;}
 
@@ -767,8 +776,9 @@ button{font-family:inherit;cursor:pointer;}
     <button class="sheet-close" data-close="schedOverlay">&times;</button>
     <h3 id="schedTitle">Schedule an action</h3>
     <div class="sub" id="schedSub"></div>
+    <div class="fld"><label id="lblSPicks">Quick picks</label><div class="step-chips" id="schedPresets"></div></div>
     <div class="fld"><label id="lblSType">Type</label>
-      <select id="sType"><option value="call">Call</option><option value="followup">Follow-up</option><option value="appointment">Appointment</option><option value="email">Email</option><option value="other">Other</option></select>
+      <select id="sType"><option value="call">Call</option><option value="followup">Follow-up</option><option value="estimate">Send estimate</option><option value="appointment">Appointment</option><option value="email">Email</option><option value="other">Other</option></select>
     </div>
     <div class="fld"><label id="lblSNote">Note (optional)</label><input type="text" id="sNote" placeholder="Call about the quote..."></div>
     <div class="fld"><label id="lblSWhen">When</label><input type="datetime-local" id="sWhen"></div>
@@ -803,6 +813,9 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    nextStepLbl:"Next step",quickPicks:"Quick picks",actEstimate:"Send estimate",
+    chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
+    stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacting",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
@@ -845,6 +858,9 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    nextStepLbl:"Pr\u00f3ximo paso",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
+    chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
+    stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactando",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
@@ -893,10 +909,28 @@ button{font-family:inherit;cursor:pointer;}
   const stLbl=s=>T("st_"+s);
   const fmtMoney=n=>"$"+Number(n||0).toLocaleString(locale(),{maximumFractionDigits:0});
   function toLocalInput(d){ const p=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes()); }
+  // ===== smart next-step presets =====
+  const STEP_PRESETS={
+    initial:{type:"call",note:"stepInitial",days:0},
+    estimate:{type:"estimate",days:1},
+    followup:{type:"followup",days:3},
+    followup2:{type:"followup",note:"stepSecond",days:4}
+  };
+  const STAGE_STEPS={new:["initial","estimate"],contacting:["estimate","followup"],estimate_sent:["followup"],follow_up:["followup2"],hired:[],not_hired:[]};
+  function applyPreset(pid){
+    const pr=STEP_PRESETS[pid]; if(!pr) return;
+    try{ $("sType").value=pr.type; }catch(e){}
+    $("sNote").value=pr.note?T(pr.note):"";
+    const d=new Date();
+    if(pr.days===0){ d.setMinutes(0,0,0); d.setHours(d.getHours()+2); }
+    else { d.setDate(d.getDate()+pr.days); d.setHours(10,0,0,0); }
+    $("sWhen").value=toLocalInput(d);
+    document.querySelectorAll("#schedPresets .step-chip").forEach(b=>b.classList.toggle("on",b.getAttribute("data-preset")===pid));
+  }
   function fmtDate(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{month:"short",day:"numeric"}); }catch(e){ return ""; } }
   function fmtExact(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{year:"numeric",month:"short",day:"numeric"})+" \u00b7 "+t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
   function fmtWhen(d){ try{ const t=new Date(d),n=new Date(); const sd=t.toDateString()===n.toDateString(); const tm=new Date(n); tm.setDate(n.getDate()+1); const it=t.toDateString()===tm.toDateString(); const hm=t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); if(sd)return T("today")+" "+hm; if(it)return T("tomorrow")+" "+hm; return t.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u00b7 "+hm; }catch(e){ return ""; } }
-  function actionLabel(k){ return {call:T("actCall"),followup:T("actFollow"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
+  function actionLabel(k){ return {call:T("actCall"),followup:T("actFollow"),estimate:T("actEstimate"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
   const startOfDay=d=>{ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime(); };
   const isToday=d=>startOfDay(d)===startOfDay(new Date());
 
@@ -1144,7 +1178,7 @@ function inqMiniRow(r){
         '<button class="qa-btn" data-followup="'+r.id+'" title="'+esc(T("addFollowup"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M12 13v3M10.5 14.5h3"/></svg><span>'+esc(T("followShort"))+'</span></button>'+
         (contact?'<button class="qa-btn" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'" title="'+esc(T("copyContact"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>'+esc(T("copyShort"))+'</span></button>':'')+
       '</div>';
-      const subLine=na?'<span class="inq-task"><b>Task:</b> '+esc(na.title||actionLabel(na.kind))+(na.due_at?' &middot; '+esc(fmtWhen(na.due_at)):'')+'</span>':(lastNote?esc(lastNote.body.slice(0,60)):esc(r.message?r.message.slice(0,60):''));
+      const subLine=na?'<span class="inq-task"><b>Task:</b> '+esc(na.title||actionLabel(na.kind))+(na.due_at?' &middot; '+esc(fmtWhen(na.due_at)):'')+'</span>':(lastNote?esc(lastNote.body.slice(0,60)):'');
       return '<div class="inq-card" data-open="'+r.id+'">'+
         '<div class="inq-av">'+initials+'</div>'+
         '<div class="inq-main">'+
@@ -1169,67 +1203,15 @@ function inqMiniRow(r){
     let html='<div class="tbl-toolbar"><div class="search"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span><input type="text" id="searchInput" placeholder="'+esc(T("search"))+'" value="'+esc(search)+'"></div>'+
       '<div class="filter-pills">'+
         pill2("all",T("fAll"),rInq.length)+STAGES.map(s=>pill2(s,stLbl(s),cnt(s))).join("")+
-      '</div>'+
-      '<div class="view-toggle">'+
-        '<button class="vt-btn'+(inqView==="list"?' active':'')+'" data-vt="list" title="'+esc(T("listView"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button>'+
-        '<button class="vt-btn'+(inqView==="board"?' active':'')+'" data-vt="board" title="'+esc(T("boardView"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="14" rx="1"/></svg></button>'+
       '</div></div>';
     let list=inquiries.slice();
     if(inqFilter!=="all") list=list.filter(r=>stOf(r)===inqFilter);
     if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
-    if(inqView==="board"){
-      html+=renderBoard();
-      c.innerHTML=html; bindSearch(); bindBoard();
-      return;
-    }
     if(!list.length){ html+='<div class="empty"><div class="big">'+esc(T("noInq"))+'</div><div>'+esc(T("noInqSub"))+'</div></div>'; c.innerHTML=html; bindSearch(); return; }
     html+='<div class="inq-list">';
     html+=list.map(r=>inqCardHTML(r)).join("");
     html+='</div>';
     c.innerHTML=html; bindSearch();
-  }
-  function renderBoard(){
-    const stages=STAGES.map(s=>[s,stLbl(s),STAGE_COLORS[s]]);
-    let s=search.toLowerCase();
-    let base=inquiries.filter(r=>r.kind!=="booking");
-    if(search){ base=base.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
-    let h='<div class="board">';
-    stages.forEach(st=>{
-      const col=base.filter(r=>stOf(r)===st[0]);
-      h+='<div class="board-col" data-col="'+st[0]+'">';
-      h+='<div class="board-col-h"><span class="bch-dot" style="background:'+st[2]+'"></span><span class="bch-l">'+esc(st[1])+'</span><span class="bch-n">'+col.length+'</span></div>';
-      h+='<div class="board-drop" data-drop="'+st[0]+'">';
-      h+=col.map(r=>boardCardHTML(r)).join("");
-      h+='<div class="board-empty">'+esc(T("dropHere"))+'</div>';
-      h+='</div></div>';
-    });
-    h+='</div>';
-    return h;
-  }
-  function boardCardHTML(r){
-    const initials=(r.customer_name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-    const waitDays=(stOf(r)==="new"&&r.created_at)?Math.floor((Date.now()-new Date(r.created_at))/86400000):0;
-    const waitBadge=waitDays>=1?'<span class="inq-wait'+(waitDays>=2?' urgent':'')+'">'+waitDays+'d</span>':'';
-    const est=parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'';
-    const svc=esc(r.message?r.message.slice(0,42):(r.channel||'\u2014'));
-    return '<div class="bcard" draggable="true" data-bcard="'+r.id+'" data-open="'+r.id+'">'+
-      '<div class="bcard-top"><div class="bcard-av">'+initials+'</div><span style="display:flex;gap:5px;align-items:center">'+est+waitBadge+'</span></div>'+
-      '<div class="bcard-name">'+esc(r.customer_name||'\u2014')+'</div>'+
-      '<div class="bcard-svc">'+svc+'</div>'+
-      (isAdmin&&r.client_email?'<div class="bcard-owner">'+esc(r.client_email)+'</div>':'')+
-    '</div>';
-  }
-  function bindBoard(){
-    let dragId=null;
-    document.querySelectorAll('[data-bcard]').forEach(el=>{
-      el.addEventListener('dragstart',ev=>{ dragId=el.getAttribute('data-bcard'); el.classList.add('dragging'); ev.dataTransfer.effectAllowed='move'; });
-      el.addEventListener('dragend',()=>{ el.classList.remove('dragging'); document.querySelectorAll('.board-drop').forEach(d=>d.classList.remove('over')); });
-    });
-    document.querySelectorAll('.board-drop').forEach(drop=>{
-      drop.addEventListener('dragover',ev=>{ ev.preventDefault(); drop.classList.add('over'); ev.dataTransfer.dropEffect='move'; });
-      drop.addEventListener('dragleave',()=>{ drop.classList.remove('over'); });
-      drop.addEventListener('drop',async ev=>{ ev.preventDefault(); drop.classList.remove('over'); const ns=drop.getAttribute('data-drop'); if(dragId){ const r=inquiries.find(x=>x.id===dragId); if(r&&stOf(r)!==ns){ const ok=await patchInq(dragId,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(dragId); } } } dragId=null; });
-    });
   }
   function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
   function displayName(){
@@ -1262,6 +1244,8 @@ function inqMiniRow(r){
     const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.title)+'</div><div class="lr-sub">'+esc(fmtWhen(a.due_at))+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.id+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
     const calledLbl=r.called?(T("called")+(r.called_at?" \u00b7 "+fmtExact(r.called_at):"")):T("markCalled");
     let body='';
+    const stepIds=STAGE_STEPS[stOf(r)]||[];
+    if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
     if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div></div>';
@@ -1282,12 +1266,12 @@ function inqMiniRow(r){
     const c=$("content");
     let html='<div class="tbl-toolbar"><button class="btn btn-primary btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
     const open=tasks.filter(t=>!t.done), openR=reminders.filter(r=>!r.done);
-    const doneAll=tasks.filter(t=>t.done);
+    const doneAll=tasks.filter(t=>t.done).map(t=>({_k:"task",d:t.due_at?new Date(t.due_at).getTime():0,o:t})).concat(reminders.filter(r=>r.done).map(r=>({_k:"rem",d:new Date(r.due_at).getTime(),o:r}))).sort((a,b)=>b.d-a.d);
     if(!open.length&&!openR.length&&!doneAll.length){ html+='<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div>'; c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); }; return; }
     // merge open reminders + open tasks, sort by due
     const merged=open.map(t=>({_k:"task",d:t.due_at?new Date(t.due_at).getTime():Infinity,o:t})).concat(openR.map(r=>({_k:"rem",d:new Date(r.due_at).getTime(),o:r}))).sort((a,b)=>a.d-b.d);
     html+='<div class="rowlist">'+merged.map(m=>taskRow(m.o,m._k)).join("")+'</div>';
-    if(doneAll.length){ html+='<div class="section-block" style="margin-top:22px"><div class="section-h"><h3 style="font-size:.95rem;color:var(--ink-2)">'+esc(lang==="es"?"Completadas":"Completed")+'</h3></div><div class="rowlist">'+doneAll.slice(0,10).map(t=>taskRow(t,"task")).join("")+'</div></div>'; }
+    if(doneAll.length){ html+='<div class="section-block" style="margin-top:22px"><div class="section-h"><h3 style="font-size:.95rem;color:var(--ink-2)">'+esc(T("completedLbl"))+'</h3></div><div class="rowlist">'+doneAll.slice(0,15).map(m=>taskRow(m.o,m._k)).join("")+'</div></div>'; }
     c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
   }
 
@@ -1295,8 +1279,8 @@ function inqMiniRow(r){
   let calRef=new Date(); calRef.setDate(1); let calSel=null;
   function calEvents(){ const map={}; const add=(d,ev)=>{ if(!d)return; const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); (map[k]=map[k]||[]).push(ev); };
     inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) add(new Date(r.booking_at),{type:"booking",title:r.customer_name||T("booking"),time:r.booking_at,inqId:r.id}); });
-    reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at}); });
-    tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at}); });
+    reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,done:!!r.done}); });
+    tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at,done:!!t.done}); });
     return map; }
   function renderCalendar(){
     const evs=calEvents(); const y=calRef.getFullYear(),m=calRef.getMonth();
@@ -1306,10 +1290,10 @@ function inqMiniRow(r){
     const today=new Date(); let cells="";
     for(let i=0;i<firstDow;i++) cells+='<div class="cal-cell empty"></div>';
     for(let d=1;d<=daysIn;d++){ const k=y+"-"+m+"-"+d; const it=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===d; const list=evs[k]||[];
-      let e=list.slice(0,2).map(x=>'<div class="cal-ev'+(x.type==="rem"?" rem":"")+'">'+esc(x.title)+'</div>').join(""); if(list.length>2)e+='<div class="cal-more">+'+(list.length-2)+'</div>';
+      let e=list.slice(0,2).map(x=>'<div class="cal-ev'+(x.type==="rem"?" rem":"")+(x.done?" done":"")+'">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div>').join(""); if(list.length>2)e+='<div class="cal-more">+'+(list.length-2)+'</div>';
       cells+='<div class="cal-cell'+(it?" today":"")+'" data-day="'+d+'"><span class="cal-date">'+d+'</span>'+e+'</div>'; }
     let detail="";
-    if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+(x.inqId?' clickable':'')+'"'+(x.inqId?' data-open="'+x.inqId+'"':'')+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span>'+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
+    if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+(x.inqId?' clickable':'')+(x.done?' done':'')+'"'+(x.inqId?' data-open="'+x.inqId+'"':'')+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span class="cal-di-t">'+(x.done?"\u2713 ":"")+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
     $("content").innerHTML='<div class="calendar-wrap"><div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">\u2039</button><button data-cal="today">\u2022</button><button data-cal="next">\u203a</button></div></div><div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail+'</div>';
   }
 
@@ -1344,7 +1328,7 @@ function inqMiniRow(r){
     // go links / tiles
     const go=e.target.closest("[data-go]"); if(go){ const f=go.getAttribute("data-filt"); if(f)inqFilter=f; setView(go.getAttribute("data-go")); return; }
     // view toggle list/board
-    const vt=e.target.closest("[data-vt]"); if(vt){ inqView=vt.getAttribute("data-vt"); render(); return; }
+    const sc=e.target.closest("#schedPresets .step-chip"); if(sc){ applyPreset(sc.getAttribute("data-preset")); return; }
     // quick action: advance status
     const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(aid); } return; }
     // quick action: add follow-up
@@ -1380,6 +1364,7 @@ function inqMiniRow(r){
       const id=detailId;
       if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); return; }
       if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ const b=e.target.closest('[data-act="saveEst"]'); b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } return; }
+      if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
@@ -1424,12 +1409,15 @@ function inqMiniRow(r){
   });
 
   // ===== schedule sheet =====
-  function openSchedule(id){ schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value=""; openOverlay("schedOverlay"); }
+  function openSchedule(id){
+    schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value="";
+    $("lblSPicks").textContent=T("quickPicks");
+    $("schedPresets").innerHTML=["initial","estimate","followup"].map(pid=>'<button class="step-chip" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("");
+    openOverlay("schedOverlay");
+  }
   function suggestFollowup(id){
     openSchedule(id);
-    try{ $("sType").value="followup"; }catch(e){}
-    const d=new Date(Date.now()+3*86400000); d.setHours(10,0,0,0);
-    $("sWhen").value=toLocalInput(d);
+    applyPreset("followup");
     const m=$("schedMsg"); m.style.color="#347D79"; m.textContent=T("suggestFU");
   }
   $("schedSubmit").addEventListener("click", async ()=>{
