@@ -251,6 +251,9 @@ button{font-family:inherit;cursor:pointer;}
 .prio-high{background:var(--coral);}
 .prio-normal{background:var(--lav);}
 .prio-low{background:var(--line);}
+.lr-right{display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.lr-del{font-size:.95rem;line-height:1;opacity:.45;}
+.lrow:hover .lr-del{opacity:1;}
 .type-chip{
   font-size:.56rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
   padding:3px 8px;border-radius:50px;background:var(--mint);color:var(--ink-2);white-space:nowrap;
@@ -373,7 +376,7 @@ button{font-family:inherit;cursor:pointer;}
 .est-chip{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.66rem;font-weight:800;color:#b36000;background:#fff3e0;border:1px solid #ffd99e;padding:2px 8px;border-radius:50px;white-space:nowrap;}
 .est-row{display:flex;align-items:center;gap:8px;}
 .est-row .est-cur{font-weight:800;color:var(--ink-3);font-size:.9rem;}
-.est-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.86rem;font-weight:700;color:var(--ink);background:var(--white);}
+.est-row input{flex:1;min-width:0;max-width:180px;border:1px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.86rem;font-weight:700;color:var(--ink);background:var(--white);}
 .est-row input:focus{outline:none;border-color:var(--ink);}
 .pipe-val{display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:#fff3e0;border:1px solid #ffd99e;border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:12px;}
 .pipe-val span{font-size:.68rem;font-weight:700;letter-spacing:.03em;color:#b36000;}
@@ -383,6 +386,22 @@ button{font-family:inherit;cursor:pointer;}
 .step-chip{font-family:inherit;font-size:.74rem;font-weight:700;padding:8px 13px;border-radius:50px;border:1.5px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:all var(--anim);}
 .step-chip:hover{border-color:var(--ink);background:var(--paper-2);}
 .step-chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+/* Estimate doc */
+.est-doc{margin-top:9px;display:flex;align-items:center;gap:10px;}
+.doc-btn{display:inline-flex;cursor:pointer;}
+.doc-link{font-size:.78rem;font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--lav);text-underline-offset:3px;}
+.doc-link:hover{color:var(--coral);}
+/* Waiting list + form answers */
+.wait-list{display:flex;flex-direction:column;}
+.wait-item{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line-2);cursor:pointer;}
+.wait-item:last-child{border-bottom:none;}
+.wait-item:hover .day-t{color:var(--coral);}
+.wait-main{flex:1;min-width:0;}
+.fa-list{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:4px 13px;}
+.fa-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line-2);}
+.fa-row:last-child{border-bottom:none;}
+.fa-k{flex:0 0 38%;font-size:.72rem;font-weight:700;color:var(--ink-3);text-transform:capitalize;padding-top:1px;}
+.fa-v{flex:1;font-size:.82rem;color:var(--ink);font-weight:500;word-break:break-word;}
 /* Focus mode */
 .focus-ov{position:fixed;inset:0;background:var(--paper);z-index:300;display:flex;flex-direction:column;align-items:center;overflow-y:auto;}
 .focus-ov[hidden]{display:none;}
@@ -427,8 +446,8 @@ button{font-family:inherit;cursor:pointer;}
 .day-reason{color:var(--coral);font-weight:700;}
 .day-reason.lav{color:#6b52cc;}
 /* Message composer */
-.msg-tpl{width:100%;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:var(--white);margin-bottom:8px;}
-.msg-body{width:100%;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-family:inherit;font-size:.84rem;color:var(--ink);background:var(--white);resize:vertical;line-height:1.5;margin-bottom:8px;}
+.msg-tpl{width:100%;border:1px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:var(--white);margin-bottom:8px;}
+.msg-body{width:100%;border:1px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-family:inherit;font-size:.84rem;color:var(--ink);background:var(--white);resize:vertical;line-height:1.5;margin-bottom:8px;}
 .msg-body:focus,.msg-tpl:focus{outline:none;border-color:var(--ink);}
 .msg-ch{display:flex;flex-wrap:wrap;gap:7px;}
 .msg-none{font-size:.74rem;color:var(--ink-3);margin-top:6px;}
@@ -486,16 +505,18 @@ button{font-family:inherit;cursor:pointer;}
 .drawer-close{background:none;border:none;font-size:1.4rem;color:var(--ink-3);cursor:pointer;line-height:1;padding:2px 4px;border-radius:6px;transition:all var(--anim);}
 .drawer-close:hover{color:var(--ink);background:var(--paper-2);}
 .drawer-body{flex:1;overflow-y:auto;padding:20px 22px;}
-.dsec{margin-bottom:22px;}
+.dsec{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line-2);}
+.dsec:last-child{border-bottom:none;}
 .dsec-l{font-size:.58rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
-.dmsg{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:13px 16px;font-size:.9rem;white-space:pre-wrap;line-height:1.6;}
+.dmsg{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 16px;font-size:.9rem;white-space:pre-wrap;line-height:1.6;}
 
 /* Pipeline steps */
 .pipe{display:flex;gap:5px;flex-wrap:wrap;}
+.pipe{gap:6px;}
 .pstep{
-  flex:1;min-width:60px;font-size:.62rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
-  padding:8px 6px;border-radius:var(--radius-xs);border:1.5px solid var(--line);
-  background:var(--white);color:var(--ink-3);cursor:pointer;transition:all var(--anim);text-align:center;
+  font-size:.68rem;font-weight:700;letter-spacing:.02em;
+  padding:7px 12px;border-radius:50px;border:1px solid var(--line);
+  background:var(--white);color:var(--ink-3);cursor:pointer;transition:all var(--anim);white-space:nowrap;
 }
 .pstep:hover{border-color:var(--ink-2);color:var(--ink);}
 .pstep.past{background:var(--mint);border-color:var(--mint-2);color:var(--ink-2);}
@@ -621,7 +642,7 @@ button{font-family:inherit;cursor:pointer;}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
 .cal-dow{font-size:.58rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px 0;}
 .cal-cell{
-  min-height:70px;border:1.5px solid var(--line-2);border-radius:var(--radius-xs);
+  min-height:70px;border:1px solid var(--line-2);border-radius:var(--radius-xs);
   padding:6px;background:var(--white);display:flex;flex-direction:column;gap:3px;
   cursor:pointer;transition:all var(--anim);
 }
@@ -899,13 +920,15 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    attachDoc:"Attach estimate (PDF)",viewDoc:"View estimate",uploading:"Uploading\u2026",uploadErr:"Upload failed \u2014 check the bucket",docLine:"Here's your estimate:",
+    waitingTitle:"Waiting on estimates",noWaiting:"No estimates out",noWaitingSub:"When you send an estimate, it shows up here until you get an answer.",estErr:"Couldn't save",formAnswers:"Form answers",
     startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Skip",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
     composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",
-    tpl_initial:"Initial contact",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
-    tplb_initial:"Hi {name}! Thanks for reaching out about {project}. I'd love to hear more \u2014 when is a good time for a quick call?",
+    tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
+    tplb_initial:"Hi {name}! Thanks for reaching out about {project}. We received all your details and we're already working on your estimate \u2014 you'll have it soon. Anything you'd like to add, just reply here.",
     tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
     tplb_followup:"Hi {name}, just following up on the estimate{amount} \u2014 any questions, or anything you'd like me to adjust?",
     tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
@@ -958,13 +981,15 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    attachDoc:"Adjuntar estimado (PDF)",viewDoc:"Ver estimado",uploading:"Subiendo\u2026",uploadErr:"No se pudo subir \u2014 revisa el bucket",docLine:"Aqu\u00ed est\u00e1 tu estimado:",
+    waitingTitle:"Esperando respuesta",noWaiting:"No hay estimados enviados",noWaitingSub:"Cuando env\u00edes un estimado, aparece aqu\u00ed hasta que te contesten.",estErr:"No se guard\u00f3",formAnswers:"Respuestas del formulario",
     startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Saltar",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
     composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",
-    tpl_initial:"Contacto inicial",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
-    tplb_initial:"\u00a1Hola {name}! Gracias por escribirnos sobre {project}. Me encantar\u00eda saber m\u00e1s \u2014 \u00bfcu\u00e1ndo te viene bien una llamada corta?",
+    tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
+    tplb_initial:"\u00a1Hola {name}! Gracias por escribirnos sobre {project}. Recibimos toda tu informaci\u00f3n y ya estamos trabajando en tu estimado \u2014 pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
     tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
     tplb_followup:"Hola {name}, dando seguimiento al estimado{amount} \u2014 \u00bfalguna pregunta o algo que quieras ajustar?",
     tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
@@ -1006,7 +1031,7 @@ button{font-family:inherit;cursor:pointer;}
 
   let sb=null,user=null,isAdmin=false;
   let inquiries=[],reminders=[],tasks=[],notesByInq={};
-  let view="today",inqFilter="all",search="",addKind="inquiry",detailId=null,schedInqId=null,inqView="list";
+  let view=(function(){try{const v=localStorage.getItem("hv_view");return ["today","inquiries","tasks","calendar","form","results","clients"].includes(v)?v:"today";}catch(e){return "today";}})(),inqFilter="all",search="",addKind="inquiry",detailId=null,schedInqId=null,inqView="list";
   let notifs=[],notifRead={},notifDeleted={},notifTab="all",notifFilt="unread";
   let clientsData=null,clientsLoading=false,clientNotes={};
 
@@ -1034,7 +1059,9 @@ button{font-family:inherit;cursor:pointer;}
     const first=((r.customer_name||"").trim().split(" ")[0])||"";
     const proj=(r.message&&r.message.length<=35)?r.message:T("projFallback");
     const amt=parseFloat(r.estimate_amount)>0?" ("+fmtMoney(r.estimate_amount)+")":"";
-    return T("tplb_"+k).replace(/\{name\}/g,first).replace(/\{project\}/g,proj).replace(/\{amount\}/g,amt);
+    let out=T("tplb_"+k).replace(/\{name\}/g,first).replace(/\{project\}/g,proj).replace(/\{amount\}/g,amt);
+    if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="followup2"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+r.estimate_url;
+    return out;
   }
   function formLink(){ return "https://itshellovirtually.com/form?c="+encodeURIComponent((user&&user.email)||""); }
   const STEP_PRESETS={
@@ -1136,7 +1163,7 @@ button{font-family:inherit;cursor:pointer;}
   }
 
   // ===== view routing =====
-  function setView(v){ view=v; document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===v)); closeSidebar(); renderViewTitle(); render(); }
+  function setView(v){ view=v; try{localStorage.setItem("hv_view",v);}catch(e){} document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===v)); closeSidebar(); renderViewTitle(); render(); }
   function renderViewTitle(){ const map={today:"titleToday",inquiries:"titleInq",tasks:"titleTasks",calendar:"titleCal",form:"titleForm",results:"titleRes",clients:"titleClients"}; $("viewTitle").textContent=T(map[view]||"titleToday"); }
   function render(){
     if($("shell").style.display==="none") return;
@@ -1232,15 +1259,16 @@ button{font-family:inherit;cursor:pointer;}
     html+='<div class="dash-right">';
 
     // Pipeline overview
-    const stages=STAGES.map(s=>[s,stLbl(s),STAGE_COLORS[s]]);
-    const counts=stages.map(s=>realInq.filter(r=>stOf(r)===s[0]).length);
-    const totalP=counts.reduce((a,b)=>a+b,0)||1;
-    html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("pipeline"))+'</h3></div>';
-    html+='<div class="pipe-bar">'+stages.map((s,i)=>{
-      return counts[i]?'<div class="pipe-seg" data-go="inquiries" data-filt="'+s[0]+'" style="flex:'+counts[i]+';background:'+s[2]+'" title="'+esc(s[1])+': '+counts[i]+'"><span class="pipe-seg-n">'+counts[i]+'</span></div>':'';
-    }).join("")+(totalP===1&&counts.reduce((a,b)=>a+b,0)===0?'<div class="pipe-seg empty-seg" style="flex:1"></div>':'')+'</div>';
-    html+='<div class="pipe-rows">'+stages.map((s,i)=>'<div class="pipe-row" data-go="inquiries" data-filt="'+s[0]+'"><span class="pipe-leg-dot" style="background:'+s[2]+'"></span><span class="pipe-row-l">'+esc(s[1])+'</span><span class="pipe-row-n">'+counts[i]+'</span></div>').join("")+'</div>';
-    html+='<button class="panel-link" data-go="inquiries">'+esc(T("allInquiries"))+' \u2192</button>';
+    const waiting=estOutList.slice().sort((a,b)=>new Date(a.updated_at||a.created_at)-new Date(b.updated_at||b.created_at));
+    html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("waitingTitle"))+'</h3>'+(waiting.length?'<span class="day-count">'+waiting.length+'</span>':'')+'</div>';
+    if(!waiting.length){ html+='<div class="empty-mini"><div class="empty-mini-t">'+esc(T("noWaiting"))+'</div><div class="empty-mini-s">'+esc(T("noWaitingSub"))+'</div></div>'; }
+    else{
+      html+='<div class="wait-list">'+waiting.slice(0,5).map(function(r){
+        const days=Math.floor((now-new Date(r.updated_at||r.created_at))/dayMs);
+        return '<div class="wait-item" data-open="'+r.id+'"><div class="wait-main"><div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s">'+esc(stLbl(stOf(r)))+' \u00b7 '+days+'d</div></div>'+(parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'');
+      }).join("")+'</div>';
+      html+='<button class="panel-link" data-go="inquiries" data-filt="estimate_sent">'+esc(T("allInquiries"))+' \u2192</button>';
+    }
     html+='</div>';
 
     // Recent activity
@@ -1280,9 +1308,7 @@ function inqMiniRow(r){
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
       '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub">'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
-      linkTag+
-      (overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+
-      '<button class="del-link" data-act="delTask">\u00d7</button>'+
+      '<div class="lr-right">'+linkTag+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'<button class="del-link lr-del" data-act="delTask">\u00d7</button></div>'+
     '</div>';
   }
 
@@ -1374,8 +1400,16 @@ function inqMiniRow(r){
     const stepIds=STAGE_STEPS[stOf(r)]||[];
     if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
     if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
+    if(r.form_data&&typeof r.form_data==="object"){
+      const faRows=Object.entries(r.form_data).filter(([k,v])=>v!==null&&v!=="").map(([k,v])=>'<div class="fa-row"><span class="fa-k">'+esc(String(k).replace(/_/g," "))+'</span><span class="fa-v">'+esc(String(v))+'</span></div>').join("");
+      if(faRows) body+='<div class="dsec"><div class="dsec-l">'+esc(T("formAnswers"))+'</div><div class="fa-list">'+faRows+'</div></div>';
+    }
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div></div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
+      '<div class="est-doc">'+(r.estimate_url
+        ?'<a class="doc-link" href="'+esc(r.estimate_url)+'" target="_blank" rel="noopener">'+esc(T("viewDoc"))+' \u2197</a><button class="del-link" data-act="docRemove">\u00d7</button>'
+        :'<label class="mini-btn alt doc-btn">'+esc(T("attachDoc"))+'<input type="file" id="estFile" accept="application/pdf,image/*" hidden></label>')+
+      '</div></div>';
     const ct=contactOf(r);
     const tKeys=["initial","estimate","followup","lastcall","thanks"];
     const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"followup";
@@ -1383,12 +1417,12 @@ function inqMiniRow(r){
       '<select id="msgTpl" class="msg-tpl">'+tKeys.map(k=>'<option value="'+k+'"'+(k===defT?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("")+'</select>'+
       '<textarea id="msgBody" class="msg-body" rows="4">'+esc(fillTpl(defT,r))+'</textarea>'+
       '<div class="msg-ch">'+
-        (ct.ph?'<button class="mini-btn" data-msgch="wa">WhatsApp</button><button class="mini-btn" data-msgch="sms">SMS</button><button class="mini-btn" data-msgch="tel">\u260e '+esc(T("actCall"))+'</button>':'')+
+        (ct.ph?'<button class="mini-btn" data-msgch="wa">WhatsApp</button><button class="mini-btn" data-msgch="sms">SMS</button><button class="mini-btn" data-msgch="tel">'+esc(T("actCall"))+'</button>':'')+
         (ct.em?'<button class="mini-btn" data-msgch="mail">Email</button>':'')+
         '<button class="mini-btn alt" data-msgch="copy">'+esc(T("copyShort"))+'</button>'+
       '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
     '</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">&#9742; '+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button>'+((isAdmin||r.created_by==="client")?'<button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button>':'')+'</div></div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">'+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button>'+((isAdmin||r.created_by==="client")?'<button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button>':'')+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     $("drawerBody").innerHTML=body;
@@ -1621,7 +1655,7 @@ function inqMiniRow(r){
     if(detailId && e.target.closest("#drawerBody")){
       const id=detailId;
       if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); else if(st==="hired") celebrate(); else if(st==="not_hired") openLost(id); return; }
-      if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ const b=e.target.closest('[data-act="saveEst"]'); b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } return; }
+      if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const b=e.target.closest('[data-act="saveEst"]'); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } else { b.textContent=T("estErr"); b.style.color="var(--coral)"; setTimeout(()=>{ b.textContent=T("saveEst"); b.style.color=""; },2600); } return; }
       const mc=e.target.closest("[data-msgch]");
       if(mc){ const ch=mc.getAttribute("data-msgch"); const r=inquiries.find(x=>x.id===id); const ct=contactOf(r); const txt=$("msgBody")?$("msgBody").value:"";
         if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
@@ -1630,6 +1664,7 @@ function inqMiniRow(r){
         else if(ch==="tel") window.location.href="tel:"+ct.ph;
         else if(ch==="mail") window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt);
         return; }
+      if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
@@ -1649,7 +1684,19 @@ function inqMiniRow(r){
     }
     if(!e.target.closest("#notifPanel")&&!e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open");
   });
-  document.addEventListener("change",e=>{ if(e.target&&e.target.id==="msgTpl"&&detailId){ const r=inquiries.find(x=>x.id===detailId); if(r)$("msgBody").value=fillTpl(e.target.value,r); } });
+  document.addEventListener("change",async e=>{
+    if(e.target&&e.target.id==="msgTpl"&&detailId){ const r=inquiries.find(x=>x.id===detailId); if(r)$("msgBody").value=fillTpl(e.target.value,r); return; }
+    if(e.target&&e.target.id==="estFile"&&detailId){
+      const f=e.target.files[0]; if(!f) return;
+      const id=detailId; const lbl=e.target.closest("label"); if(lbl) lbl.textContent=T("uploading");
+      const path=id+"/"+Date.now()+"-"+f.name.replace(/[^\w.\-]/g,"_");
+      const {error}=await sb.storage.from("estimates").upload(path,f);
+      if(error){ console.warn(error); if(lbl) lbl.textContent=T("uploadErr"); return; }
+      const {data}=sb.storage.from("estimates").getPublicUrl(path);
+      const okp=await patchInq(id,{estimate_url:data.publicUrl});
+      if(okp) openDetail(id,true); else if(lbl) lbl.textContent=T("uploadErr");
+    }
+  });
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
 
   // ===== add sheet =====
@@ -1703,6 +1750,8 @@ function inqMiniRow(r){
   function openOverlay(id){ $(id).classList.add("open"); }
   function closeOverlay(id){ $(id).classList.remove("open"); }
   document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeOverlay(b.getAttribute("data-close"))));
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===view));
+  renderViewTitle();
   document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{ if(e.target===o)o.classList.remove("open"); }));
 
   // ===== notifications =====
