@@ -383,6 +383,30 @@ button{font-family:inherit;cursor:pointer;}
 .step-chip{font-family:inherit;font-size:.74rem;font-weight:700;padding:8px 13px;border-radius:50px;border:1.5px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:all var(--anim);}
 .step-chip:hover{border-color:var(--ink);background:var(--paper-2);}
 .step-chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+/* Focus mode */
+.focus-ov{position:fixed;inset:0;background:var(--paper);z-index:300;display:flex;flex-direction:column;align-items:center;overflow-y:auto;}
+.focus-ov[hidden]{display:none;}
+.focus-head{width:100%;max-width:560px;display:flex;justify-content:space-between;align-items:center;padding:20px 22px 8px;}
+#focusCount{font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:800;font-size:.8rem;color:var(--ink-3);letter-spacing:.08em;}
+.focus-x{background:none;border:none;font-size:1.6rem;color:var(--ink-3);cursor:pointer;line-height:1;padding:4px;}
+.focus-x:hover{color:var(--ink);}
+.focus-prog{width:100%;max-width:516px;height:3px;background:var(--line-2);border-radius:3px;margin:0 22px 28px;overflow:hidden;}
+#focusBar{height:100%;background:var(--coral);border-radius:3px;transition:width .3s ease;width:0;}
+.focus-card{width:100%;max-width:560px;padding:0 22px 44px;}
+.focus-k{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
+.focus-name{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.9rem;font-weight:600;color:var(--ink);letter-spacing:-.02em;margin-bottom:10px;}
+.focus-msg{font-size:.9rem;color:var(--ink-2);line-height:1.55;margin:14px 0;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 15px;}
+.focus-card .msg-body{margin-top:10px;}
+.focus-foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:10px;flex-wrap:wrap;}
+.focus-done{text-align:center;padding:56px 0;}
+.attn-check.big{width:54px;height:54px;font-size:1.4rem;margin-bottom:18px;}
+.focus-done-t{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.8rem;font-weight:600;color:var(--ink);}
+.focus-done-s{font-size:.9rem;color:var(--ink-3);margin:8px 0 24px;}
+/* Lost reason */
+.lost-chips{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0 8px;}
+/* Confetti */
+.confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:400;pointer-events:none;border-radius:2px;animation:confettiFall 1.6s ease-in forwards;}
+@keyframes confettiFall{to{transform:translate(var(--dx,0),105vh) rotate(560deg);opacity:.85;}}
 /* Editorial numbers strip */
 .ed-nums{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 34px;padding:6px 2px 18px;margin-bottom:20px;border-bottom:1px solid var(--line);}
 .ed-num{display:inline-flex;align-items:baseline;gap:9px;cursor:pointer;padding:4px 0;transition:opacity var(--anim);}
@@ -820,6 +844,18 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <!-- SHEET: schedule action -->
+<div class="overlay" id="lostOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="lostOverlay">&times;</button>
+    <h3 id="lostTitle" style="margin-bottom:14px">Why?</h3>
+    <div class="lost-chips" id="lostChips"></div>
+  </div>
+</div>
+<div class="focus-ov" id="focusOverlay" hidden>
+  <div class="focus-head"><span id="focusCount"></span><button class="focus-x" id="focusClose" aria-label="Close">&times;</button></div>
+  <div class="focus-prog"><div id="focusBar"></div></div>
+  <div class="focus-card" id="focusCard"></div>
+</div>
 <div class="overlay" id="schedOverlay">
   <div class="sheet">
     <button class="sheet-close" data-close="schedOverlay">&times;</button>
@@ -863,6 +899,8 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Skip",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
+    lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
     composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",
@@ -920,6 +958,8 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Saltar",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
+    lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
     composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",
@@ -1167,7 +1207,8 @@ button{font-family:inherit;cursor:pointer;}
     actionsToday.filter(x=>!overdue.includes(x)).slice(0,4).forEach(o=>day.push({kind:"due",o:o}));
     tasksToday.filter(t=>t.due_at&&isToday(t.due_at)&&!overdue.includes(t)).slice(0,3).forEach(o=>day.push({kind:"duet",o:o}));
     noStep.slice(0,2).forEach(r=>day.push({kind:"nostep",r:r}));
-    html+='<div class="panel day-panel"><div class="panel-h"><h3>'+esc(T("yourDay"))+'</h3>'+(day.length?'<span class="day-count">'+Math.min(day.length,6)+'</span>':'')+'</div>';
+    dayQueue=day;
+    html+='<div class="panel day-panel"><div class="panel-h"><h3>'+esc(T("yourDay"))+'</h3>'+(day.length?'<span style="display:flex;align-items:center;gap:9px"><span class="day-count">'+day.length+'</span><button class="btn btn-primary btn-sm" data-act="focusStart">'+esc(T("startDay"))+'</button></span>':'')+'</div>';
     if(!day.length){
       html+='<div class="attn-clear"><span class="attn-check">\u2713</span><div><div class="attn-clear-t">'+esc(T("noAttn"))+'</div><div class="attn-clear-s">'+esc(T("caughtUpSub"))+'</div></div></div>';
     } else {
@@ -1395,6 +1436,80 @@ function inqMiniRow(r){
     $("content").innerHTML='<div class="calendar-wrap"><div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">\u2039</button><button data-cal="today">\u2022</button><button data-cal="next">\u203a</button></div></div><div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail+'</div>';
   }
 
+  // ===== FOCUS MODE =====
+  let dayQueue=[],focusIdx=0,lostInqId=null;
+  function startFocus(){ if(!dayQueue.length)return; focusIdx=0; $("focusOverlay").hidden=false; document.body.style.overflow="hidden"; renderFocus(); }
+  function endFocus(){ $("focusOverlay").hidden=true; document.body.style.overflow=""; render(); }
+  function renderFocus(){
+    const tot=dayQueue.length;
+    $("focusBar").style.width=Math.round(Math.min(focusIdx,tot)/tot*100)+"%";
+    if(focusIdx>=tot){
+      $("focusCount").textContent="";
+      $("focusCard").innerHTML='<div class="focus-done"><span class="attn-check big">\u2713</span><div class="focus-done-t">'+esc(T("focusDoneT"))+'</div><div class="focus-done-s">'+esc(T("focusDoneS"))+'</div><button class="btn btn-primary" id="focusEnd">'+esc(T("focusClose"))+'</button></div>';
+      $("focusEnd").onclick=endFocus; return;
+    }
+    $("focusCount").textContent=(focusIdx+1)+" / "+tot;
+    const a=dayQueue[focusIdx]; let h="";
+    if(a.kind==="stale"||a.kind==="nostep"){
+      const r=inquiries.find(x=>x.id===a.r.id)||a.r; const ct=contactOf(r);
+      const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup"}[stOf(r)]||"followup";
+      h+='<div class="focus-k">'+esc(a.kind==="stale"?T("stuckLbl"):T("addStep"))+'</div>';
+      h+='<div class="focus-name">'+esc(r.customer_name||"\u2014")+'</div>';
+      h+='<span class="pill '+stOf(r)+'"><span class="pill-dot"></span>'+esc(stLbl(stOf(r)))+'</span>';
+      if(r.message) h+='<div class="focus-msg">'+esc(r.message.slice(0,140))+'</div>';
+      h+='<textarea class="msg-body" id="focusBody" rows="4">'+esc(fillTpl(defT,r))+'</textarea>';
+      h+='<div class="msg-ch">'+(ct.ph?'<button class="mini-btn" data-fch="wa">WhatsApp</button><button class="mini-btn" data-fch="sms">SMS</button><button class="mini-btn" data-fch="tel">'+esc(T("actCall"))+'</button>':'')+(ct.em?'<button class="mini-btn" data-fch="mail">Email</button>':'')+'<button class="mini-btn alt" data-fch="copy">'+esc(T("copyShort"))+'</button></div>';
+      h+='<div class="focus-foot"><button class="btn btn-ghost btn-sm" data-fopen="'+r.id+'">'+esc(T("reviewInq"))+'</button><button class="btn btn-primary" id="focusNext">'+esc(T("focusNext"))+'</button></div>';
+    } else {
+      const o=a.o; const linked=o.inquiry_id?inquiries.find(x=>x.id===o.inquiry_id):null;
+      h+='<div class="focus-k">'+esc(a.kind==="od"?T("overdueLbl"):T("dueTodayLbl"))+'</div>';
+      h+='<div class="focus-name">'+esc(o.title||"\u2014")+'</div>';
+      h+='<div class="focus-msg">'+esc(fmtWhen(o.due_at))+(linked?' \u00b7 '+esc(linked.customer_name||""):'')+'</div>';
+      h+='<div class="focus-foot">'+(linked?'<button class="btn btn-ghost btn-sm" data-fopen="'+linked.id+'">'+esc(T("reviewInq"))+'</button>':'<span></span>')+'<span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" id="focusSkip">'+esc(T("focusSkip"))+'</button><button class="btn btn-primary" data-fdone="'+o.id+'" data-fkind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+' \u2192</button></span></div>';
+    }
+    $("focusCard").innerHTML=h;
+    const n=$("focusNext"); if(n) n.onclick=()=>{focusIdx++;renderFocus();};
+    const sk=$("focusSkip"); if(sk) sk.onclick=()=>{focusIdx++;renderFocus();};
+  }
+  $("focusOverlay").addEventListener("click",async e=>{
+    if(e.target.id==="focusClose") return endFocus();
+    const fo=e.target.closest("[data-fopen]"); if(fo){ const oid=fo.getAttribute("data-fopen"); endFocus(); openDetail(oid); return; }
+    const fd=e.target.closest("[data-fdone]"); if(fd){ const rid=fd.getAttribute("data-fdone"),rk=fd.getAttribute("data-fkind");
+      if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error)t.done=true; } }
+      else { const rr=reminders.find(x=>x.id===rid); if(rr){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error)rr.done=true; } }
+      focusIdx++; renderFocus(); return; }
+    const fc=e.target.closest("[data-fch]"); if(fc){ const a=dayQueue[focusIdx]; if(!a||!a.r)return; const r=inquiries.find(x=>x.id===a.r.id)||a.r; const ct=contactOf(r); const txt=$("focusBody")?$("focusBody").value:""; const ch=fc.getAttribute("data-fch");
+      if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); fc.textContent=T("contactCopied"); setTimeout(()=>fc.textContent=T("copyShort"),1500); }catch(err){ prompt("",txt); } return; }
+      if(ch==="wa") window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank");
+      else if(ch==="sms") window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt);
+      else if(ch==="tel") window.location.href="tel:"+ct.ph;
+      else if(ch==="mail") window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt);
+      return; }
+  });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("focusOverlay").hidden) endFocus(); });
+
+  // ===== NOT HIRED REASON =====
+  function openLost(id){
+    lostInqId=id; $("lostTitle").textContent=T("lostTitle");
+    $("lostChips").innerHTML=["price","timing","other","noresp"].map(k=>'<button class="step-chip" data-lost="'+k+'">'+esc(T("lost_"+k))+'</button>').join("")+'<button class="step-chip" data-lost="skip">'+esc(T("lost_skip"))+'</button>';
+    openOverlay("lostOverlay");
+  }
+  $("lostChips") && $("lostOverlay").addEventListener("click",async e=>{
+    const b=e.target.closest("[data-lost]"); if(!b) return;
+    const k=b.getAttribute("data-lost"); closeOverlay("lostOverlay");
+    if(k==="skip"||!lostInqId) return;
+    const id=lostInqId; const r=inquiries.find(x=>x.id===id); if(!r) return;
+    const note={inquiry_id:id,client_email:r.client_email,body:T("st_not_hired")+" \u2014 "+T("lost_"+k),author_role:isAdmin?"admin":"client",author_email:user.email};
+    const {data,error}=await sb.from("notes").insert(note).select();
+    if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); if(detailId===id) openDetail(id,true); }
+  });
+
+  // ===== CELEBRATE =====
+  function celebrate(){
+    const cols=["#F45145","#B9A7FF","#173D35","#C9E7F5","#FF8A78"];
+    for(let i=0;i<26;i++){ const d=document.createElement("div"); d.className="confetti"; d.style.left=(15+Math.random()*70)+"vw"; d.style.background=cols[i%cols.length]; d.style.animationDelay=(Math.random()*.3)+"s"; d.style.setProperty("--dx",(Math.random()*160-80)+"px"); document.body.appendChild(d); setTimeout(()=>d.remove(),2000); }
+  }
+
   // ===== MY FORM =====
   function renderForm(){
     const c=$("content"); const link=formLink();
@@ -1472,7 +1587,8 @@ function inqMiniRow(r){
     // view toggle list/board
     const sc=e.target.closest("#schedPresets .step-chip"); if(sc){ applyPreset(sc.getAttribute("data-preset")); return; }
     // quick action: advance status
-    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(aid); } return; }
+    if(e.target.closest('[data-act="focusStart"]')){ startFocus(); return; }
+    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
     // quick action: copy contact
@@ -1504,7 +1620,7 @@ function inqMiniRow(r){
     // drawer actions
     if(detailId && e.target.closest("#drawerBody")){
       const id=detailId;
-      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); return; }
+      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); else if(st==="hired") celebrate(); else if(st==="not_hired") openLost(id); return; }
       if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ const b=e.target.closest('[data-act="saveEst"]'); b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } return; }
       const mc=e.target.closest("[data-msgch]");
       if(mc){ const ch=mc.getAttribute("data-msgch"); const r=inquiries.find(x=>x.id===id); const ct=contactOf(r); const txt=$("msgBody")?$("msgBody").value:"";
