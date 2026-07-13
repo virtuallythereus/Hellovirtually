@@ -935,6 +935,7 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    noteDone:"Completed",noteStatus:"Status \u2192",noteEst:"Estimate set:",noteDoc:"Estimate document attached",noteMsg:"Message sent via",noteCall:"Called",
     editTitle:"Edit",linkInq:"Link to inquiry (optional)",saveChanges:"Save changes",needDate:"Add a date",
     attachDoc:"Attach estimate (PDF)",viewDoc:"View estimate",uploading:"Uploading\u2026",uploadErr:"Upload failed \u2014 check the bucket",docLine:"Here's your estimate:",
     waitingTitle:"Waiting on estimates",noWaiting:"No estimates out",noWaitingSub:"When you send an estimate, it shows up here until you get an answer.",estErr:"Couldn't save",formAnswers:"Form answers",
@@ -997,6 +998,7 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    noteDone:"Completado",noteStatus:"Estado \u2192",noteEst:"Estimado fijado:",noteDoc:"Documento del estimado adjuntado",noteMsg:"Mensaje enviado por",noteCall:"Llamada realizada",
     editTitle:"Editar",linkInq:"Vincular a consulta (opcional)",saveChanges:"Guardar cambios",needDate:"Falta la fecha",
     attachDoc:"Adjuntar estimado (PDF)",viewDoc:"Ver estimado",uploading:"Subiendo\u2026",uploadErr:"No se pudo subir \u2014 revisa el bucket",docLine:"Aqu\u00ed est\u00e1 tu estimado:",
     waitingTitle:"Esperando respuesta",noWaiting:"No hay estimados enviados",noWaitingSub:"Cuando env\u00edes un estimado, aparece aqu\u00ed hasta que te contesten.",estErr:"No se guard\u00f3",formAnswers:"Respuestas del formulario",
@@ -1553,18 +1555,19 @@ function inqMiniRow(r){
     if(e.target.id==="focusClose") return endFocus();
     const fo=e.target.closest("[data-fopen]"); if(fo){ const oid=fo.getAttribute("data-fopen"); endFocus(); openDetail(oid); return; }
     const fd=e.target.closest("[data-fdone]"); if(fd){ const rid=fd.getAttribute("data-fdone"),rk=fd.getAttribute("data-fkind");
-      if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error)t.done=true; } }
-      else { const rr=reminders.find(x=>x.id===rid); if(rr){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error)rr.done=true; } }
+      if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error){t.done=true; if(t.inquiry_id)autoNote(t.inquiry_id,"\u2713 "+T("noteDone")+": "+t.title);} } }
+      else { const rr=reminders.find(x=>x.id===rid); if(rr){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error){rr.done=true; if(rr.inquiry_id)autoNote(rr.inquiry_id,"\u2713 "+T("noteDone")+": "+rr.title);} } }
       focusIdx++; renderFocus(); return; }
     const fc=e.target.closest("[data-fch]"); if(fc){ const a=dayQueue[focusIdx]; if(!a||!a.r)return; const r=inquiries.find(x=>x.id===a.r.id)||a.r; const ct=contactOf(r); const txt=$("focusBody")?$("focusBody").value:""; const ch=fc.getAttribute("data-fch");
       if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); fc.textContent=T("contactCopied"); setTimeout(()=>fc.textContent=T("copyShort"),1500); }catch(err){ prompt("",txt); } return; }
-      if(ch==="wa") window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank");
-      else if(ch==="sms") window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt);
-      else if(ch==="tel") window.location.href="tel:"+ct.ph;
-      else if(ch==="mail") window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt);
+      if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(r.id,T("noteMsg")+" WhatsApp"); }
+      else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(r.id,T("noteMsg")+" SMS"); }
+      else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(r.id,T("noteCall")); }
+      else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(r.id,T("noteMsg")+" Email"); }
       return; }
   });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("focusOverlay").hidden) endFocus(); });
+  document.addEventListener("focusin",e=>{ if(e.target&&e.target.id==="tInq"&&e.target.options.length<=1) fillInqSelect(e.target,null); });
 
   // ===== NOT HIRED REASON =====
   function openLost(id){
@@ -1581,6 +1584,15 @@ function inqMiniRow(r){
     const {data,error}=await sb.from("notes").insert(note).select();
     if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); if(detailId===id) openDetail(id,true); }
   });
+
+  // ===== ACTIVITY LOG =====
+  async function autoNote(inqId,txt){
+    if(!inqId||!sb||!user) return;
+    const r=inquiries.find(x=>String(x.id)===String(inqId)); if(!r) return;
+    const note={inquiry_id:r.id,client_email:r.client_email,body:txt,author_role:isAdmin?"admin":"client",author_email:user.email};
+    const {data,error}=await sb.from("notes").insert(note).select();
+    if(!error){ (notesByInq[r.id]=notesByInq[r.id]||[]).push((data&&data[0])||note); if(detailId===r.id&&$("drawer").classList.contains("open")) openDetail(r.id,true); }
+  }
 
   // ===== CELEBRATE =====
   function celebrate(){
@@ -1666,7 +1678,7 @@ function inqMiniRow(r){
     const sc=e.target.closest("#schedPresets .step-chip"); if(sc){ applyPreset(sc.getAttribute("data-preset")); return; }
     // quick action: advance status
     if(e.target.closest('[data-act="focusStart"]')){ startFocus(); return; }
-    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
+    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,{status:ns}); if(ok){ render(); autoNote(aid,T("noteStatus")+" "+stLbl(ns)); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
     // quick action: copy contact
@@ -1678,7 +1690,7 @@ function inqMiniRow(r){
     // needs-attention: mark reminder/task done
     const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){ openEdit(edRow.getAttribute("data-tkind"),edRow.getAttribute("data-task")); return; }
     const ed=e.target.closest("[data-edit]"); if(ed){ openEdit(ed.getAttribute("data-ekind"),ed.getAttribute("data-edit")); return; }
-    const dr=e.target.closest('[data-donerem]'); if(dr){ const rid=dr.getAttribute("data-donerem"); const rk=dr.getAttribute("data-kind"); if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error){t.done=true;render();} } } else { const r=reminders.find(x=>x.id===rid); if(r){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error){r.done=true;render();} } } return; }
+    const dr=e.target.closest('[data-donerem]'); if(dr){ const rid=dr.getAttribute("data-donerem"); const rk=dr.getAttribute("data-kind"); if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error){t.done=true;render(); if(t.inquiry_id)autoNote(t.inquiry_id,"\u2713 "+T("noteDone")+": "+t.title);} } } else { const r=reminders.find(x=>x.id===rid); if(r){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error){r.done=true;render(); if(r.inquiry_id)autoNote(r.inquiry_id,"\u2713 "+T("noteDone")+": "+r.title);} } } return; }
     // open inquiry detail
     const op=e.target.closest("[data-open]"); if(op && !e.target.closest("[data-act]")){ openDetail(op.getAttribute("data-open")); return; }
     // filter pills
@@ -1691,8 +1703,8 @@ function inqMiniRow(r){
     if(trow){
       const id=trow.getAttribute("data-task"), tk=trow.getAttribute("data-tkind");
       if(e.target.closest('[data-act="toggleTask"]')){
-        if(tk==="task"){ const t=tasks.find(x=>x.id===id); const nd=!t.done; const {error}=await sb.from("tasks").update({done:nd}).eq("id",id); if(!error){t.done=nd;render();} }
-        else { const r=reminders.find(x=>x.id===id); const nd=!r.done; const {error}=await sb.from("reminders").update({done:nd}).eq("id",id); if(!error){r.done=nd;render();} }
+        if(tk==="task"){ const t=tasks.find(x=>x.id===id); const nd=!t.done; const {error}=await sb.from("tasks").update({done:nd}).eq("id",id); if(!error){t.done=nd;render(); if(nd&&t.inquiry_id)autoNote(t.inquiry_id,"\u2713 "+T("noteDone")+": "+t.title);} }
+        else { const r=reminders.find(x=>x.id===id); const nd=!r.done; const {error}=await sb.from("reminders").update({done:nd}).eq("id",id); if(!error){r.done=nd;render(); if(nd&&r.inquiry_id)autoNote(r.inquiry_id,"\u2713 "+T("noteDone")+": "+r.title);} }
         return;
       }
       if(e.target.closest('[data-act="delTask"]')){ if(confirm(lang==="es"?"\u00bfBorrar?":"Delete?")){ if(tk==="task"){ await sb.from("tasks").delete().eq("id",id); tasks=tasks.filter(x=>x.id!==id); } else { await sb.from("reminders").delete().eq("id",id); reminders=reminders.filter(x=>x.id!==id); } render(); } return; }
@@ -1700,22 +1712,22 @@ function inqMiniRow(r){
     // drawer actions
     if(detailId && e.target.closest("#drawerBody")){
       const id=detailId;
-      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); else if(st==="hired") celebrate(); else if(st==="not_hired") openLost(id); return; }
-      if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const b=e.target.closest('[data-act="saveEst"]'); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } else { b.textContent=T("estErr"); b.style.color="var(--coral)"; setTimeout(()=>{ b.textContent=T("saveEst"); b.style.color=""; },2600); } return; }
+      if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); autoNote(id,T("noteStatus")+" "+stLbl(st)); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); else if(st==="hired") celebrate(); else if(st==="not_hired") openLost(id); return; }
+      if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const b=e.target.closest('[data-act="saveEst"]'); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ b.textContent=T("estSaved")+" \u2713"; if(!isNaN(v)&&v>0)autoNote(id,T("noteEst")+" "+fmtMoney(v)); setTimeout(()=>{ openDetail(id,true); render(); },500); } else { b.textContent=T("estErr"); b.style.color="var(--coral)"; setTimeout(()=>{ b.textContent=T("saveEst"); b.style.color=""; },2600); } return; }
       const mc=e.target.closest("[data-msgch]");
       if(mc){ const ch=mc.getAttribute("data-msgch"); const r=inquiries.find(x=>x.id===id); const ct=contactOf(r); const txt=$("msgBody")?$("msgBody").value:"";
         if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
-        if(ch==="wa") window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank");
-        else if(ch==="sms") window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt);
-        else if(ch==="tel") window.location.href="tel:"+ct.ph;
-        else if(ch==="mail") window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt);
+        if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(id,T("noteMsg")+" WhatsApp"); }
+        else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
+        else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
+        else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
         return; }
       if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
-      if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr)rr.done=true; openDetail(id,true); render(); return; }
+      if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr){rr.done=true; autoNote(id,"\u2713 "+T("noteDone")+": "+rr.title);} openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="noteSend"]')){ const inp=$("dNoteInput"); const body=(inp.value||"").trim(); if(!body)return; const r=inquiries.find(x=>x.id===id); const note={inquiry_id:id,client_email:r.client_email,body:body,author_role:isAdmin?"admin":"client",author_email:user.email}; const {data,error}=await sb.from("notes").insert(note).select(); if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); openDetail(id,true); } return; }
       const nd=e.target.closest('[data-act="noteDel"]'); if(nd){ const nid=nd.getAttribute("data-nid"); if(confirm(lang==="es"?"\u00bfBorrar nota?":"Delete note?")){ await sb.from("notes").delete().eq("id",nid); notesByInq[id]=(notesByInq[id]||[]).filter(n=>String(n.id)!==String(nid)); openDetail(id,true); } return; }
       const ne=e.target.closest('[data-act="noteEdit"]'); if(ne){ const nid=ne.getAttribute("data-nid"); const note=(notesByInq[id]||[]).find(n=>String(n.id)===String(nid)); if(note){ const nv=prompt(lang==="es"?"Editar nota:":"Edit note:",note.body); if(nv!=null&&nv.trim()){ await sb.from("notes").update({body:nv.trim()}).eq("id",nid); note.body=nv.trim(); openDetail(id,true); } } return; }
@@ -1740,7 +1752,7 @@ function inqMiniRow(r){
       if(error){ console.warn(error); if(lbl) lbl.textContent=T("uploadErr"); return; }
       const {data}=sb.storage.from("estimates").getPublicUrl(path);
       const okp=await patchInq(id,{estimate_url:data.publicUrl});
-      if(okp) openDetail(id,true); else if(lbl) lbl.textContent=T("uploadErr");
+      if(okp){ autoNote(id,T("noteDoc")); openDetail(id,true); } else if(lbl) lbl.textContent=T("uploadErr");
     }
   });
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
@@ -1750,7 +1762,7 @@ function inqMiniRow(r){
     const list=inquiries.filter(r=>r.kind!=="booking"&&stOf(r)!=="not_hired");
     sel.innerHTML='<option value="">\u2014</option>'+list.map(r=>'<option value="'+r.id+'"'+(String(cur||"")===String(r.id)?' selected':'')+'>'+esc((r.customer_name||"?")+(r.message?" \u00b7 "+r.message.slice(0,24):""))+'</option>').join("");
   }
-  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; if(k==="task"){ $("lblTInq").textContent=T("linkInq"); fillInqSelect($("tInq"),null); } }
+  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; if(k==="task"){ try{ $("lblTInq").textContent=T("linkInq"); fillInqSelect($("tInq"),$("tInq").value||null); }catch(e){console.warn("tInq fill",e);} } }
   $("addSeg").addEventListener("click",e=>{ const b=e.target.closest("button[data-kind]"); if(b)setAddKind(b.getAttribute("data-kind")); });
   $("quickAddBtn").addEventListener("click",()=>{ setAddKind(isAdmin?"inquiry":"booking"); if(!isAdmin){ $("segInq").style.display="none"; } openOverlay("addOverlay"); });
   $("addSubmit").addEventListener("click", async ()=>{
@@ -1797,7 +1809,7 @@ function inqMiniRow(r){
   });
 
   // ===== overlays =====
-  function openOverlay(id){ $(id).classList.add("open"); }
+  function openOverlay(id){ if(id==="addOverlay"){ try{ $("lblTInq").textContent=T("linkInq"); fillInqSelect($("tInq"),$("tInq").value||null); }catch(e){console.warn("tInq fill",e);} } $(id).classList.add("open"); }
   function closeOverlay(id){ $(id).classList.remove("open"); }
   document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeOverlay(b.getAttribute("data-close"))));
   document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===view));
