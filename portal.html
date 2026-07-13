@@ -383,6 +383,50 @@ button{font-family:inherit;cursor:pointer;}
 .step-chip{font-family:inherit;font-size:.74rem;font-weight:700;padding:8px 13px;border-radius:50px;border:1.5px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:all var(--anim);}
 .step-chip:hover{border-color:var(--ink);background:var(--paper-2);}
 .step-chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
+/* Editorial numbers strip */
+.ed-nums{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 34px;padding:6px 2px 18px;margin-bottom:20px;border-bottom:1px solid var(--line);}
+.ed-num{display:inline-flex;align-items:baseline;gap:9px;cursor:pointer;padding:4px 0;transition:opacity var(--anim);}
+.ed-num:hover{opacity:.75;}
+.ed-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:2.1rem;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1;}
+.ed-n.money{font-size:1.6rem;}
+.ed-n.urgent{color:var(--coral);}
+.ed-l{font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--ink-3);}
+/* Your day list */
+.day-count{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.7rem;font-weight:800;color:var(--ink-2);background:var(--mint);border-radius:50px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;}
+.day-list{display:flex;flex-direction:column;}
+.day-item{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line-2);}
+.day-item:last-child{border-bottom:none;}
+.day-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0;cursor:pointer;}
+.day-idx{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.78rem;font-weight:800;color:var(--lav);letter-spacing:.02em;flex-shrink:0;}
+.day-t{font-weight:700;font-size:.88rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.day-s{font-size:.73rem;color:var(--ink-3);margin-top:1px;}
+.day-reason{color:var(--coral);font-weight:700;}
+.day-reason.lav{color:#6b52cc;}
+/* Message composer */
+.msg-tpl{width:100%;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:var(--white);margin-bottom:8px;}
+.msg-body{width:100%;border:1.5px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-family:inherit;font-size:.84rem;color:var(--ink);background:var(--white);resize:vertical;line-height:1.5;margin-bottom:8px;}
+.msg-body:focus,.msg-tpl:focus{outline:none;border-color:var(--ink);}
+.msg-ch{display:flex;flex-wrap:wrap;gap:7px;}
+.msg-none{font-size:.74rem;color:var(--ink-3);margin-top:6px;}
+/* My form */
+.form-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start;max-width:860px;}
+@media(max-width:900px){.form-grid{grid-template-columns:1fr;}}
+.form-link-row{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;}
+.form-link{flex:1;min-width:0;font-size:.8rem;font-weight:600;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.form-cap{margin-top:14px;font-size:.82rem;color:var(--ink-3);}
+.form-cap b{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.2rem;color:var(--ink);margin-right:4px;}
+.form-hint{font-size:.76rem;color:var(--ink-3);line-height:1.5;margin:12px 0;}
+.qr-box{display:flex;justify-content:center;background:var(--white);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:10px;}
+.qr-box img{width:100%;max-width:220px;height:auto;image-rendering:pixelated;}
+/* Results */
+.res-wrap{max-width:640px;}
+.res-month{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
+.res-row{display:flex;align-items:center;gap:20px;padding:20px 2px;border-bottom:1px solid var(--line);}
+.res-idx{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.8rem;font-weight:800;color:var(--lav);flex-shrink:0;}
+.res-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:2.6rem;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1;min-width:110px;}
+.res-l{font-size:.9rem;font-weight:600;color:var(--ink);}
+.res-s{font-size:.76rem;color:var(--ink-3);margin-top:2px;}
+@media(max-width:560px){.res-n{font-size:2rem;min-width:80px;}.ed-nums{gap:0 22px;}.ed-n{font-size:1.7rem;}}
 /* Completed in calendar */
 .cal-ev.done{opacity:.55;text-decoration:line-through;}
 .cal-di.done{opacity:.65;}
@@ -682,6 +726,8 @@ button{font-family:inherit;cursor:pointer;}
       <button class="nav-item" data-view="inquiries"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span data-t="navInq">Inquiries</span><span class="nv-badge" id="nbInq" style="display:none">0</span></button>
       <button class="nav-item" data-view="tasks"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h2.5l1.5 1.5L11 4"/><path d="M13 6h7"/><path d="M4 13h2.5L8 14.5 11 11"/><path d="M13 13h7"/><path d="M4 20h2.5L8 21.5 11 18"/><path d="M13 20h7"/></svg></span><span data-t="navTasks">Tasks</span><span class="nv-badge" id="nbTasks" style="display:none">0</span></button>
       <button class="nav-item" data-view="calendar"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M7 13h2M11 13h2M15 13h2M7 17h2M11 17h2"/></svg></span><span data-t="navCal">Calendar</span></button>
+      <button class="nav-item" data-view="form"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg></span><span data-t="navForm">My form</span></button>
+      <button class="nav-item" data-view="results"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-t="navResults">Results</span></button>
       <button class="nav-item" data-view="clients" id="navClients" style="display:none"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6M18 14.6c2.2.5 3.8 2.4 3.8 5"/></svg></span><span data-t="navClients">Clients</span></button>
     </nav>
     <div class="sb-foot">
@@ -791,6 +837,7 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <script>
 (function(){
   const CFG = {
@@ -816,6 +863,18 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
+    yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
+    composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",
+    tpl_initial:"Initial contact",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
+    tplb_initial:"Hi {name}! Thanks for reaching out about {project}. I'd love to hear more \u2014 when is a good time for a quick call?",
+    tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
+    tplb_followup:"Hi {name}, just following up on the estimate{amount} \u2014 any questions, or anything you'd like me to adjust?",
+    tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
+    tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
+    formTitle:"Your inquiry form",formCaptured:"inquiries captured with this form",
+    qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
+    resCaptured:"inquiries captured",resOut:"estimates out",resOutSub:"waiting for an answer",resWon:"jobs won this month",resRate:"close rate",
     nextStepLbl:"Next step",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
     stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
@@ -861,6 +920,18 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
+    yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
+    composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",
+    tpl_initial:"Contacto inicial",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
+    tplb_initial:"\u00a1Hola {name}! Gracias por escribirnos sobre {project}. Me encantar\u00eda saber m\u00e1s \u2014 \u00bfcu\u00e1ndo te viene bien una llamada corta?",
+    tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
+    tplb_followup:"Hola {name}, dando seguimiento al estimado{amount} \u2014 \u00bfalguna pregunta o algo que quieras ajustar?",
+    tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
+    tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
+    formTitle:"Tu formulario de consultas",formCaptured:"consultas capturadas con este formulario",
+    qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
+    resCaptured:"consultas capturadas",resOut:"estimados enviados",resOutSub:"esperando respuesta",resWon:"trabajos ganados este mes",resRate:"tasa de cierre",
     nextStepLbl:"Pr\u00f3ximo paso",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
     stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
@@ -913,6 +984,19 @@ button{font-family:inherit;cursor:pointer;}
   const fmtMoney=n=>"$"+Number(n||0).toLocaleString(locale(),{maximumFractionDigits:0});
   function toLocalInput(d){ const p=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes()); }
   // ===== smart next-step presets =====
+  function contactOf(r){
+    const raw=((r.customer_contact||"")+" "+(r.customer_email||"")+" "+(r.customer_phone||""));
+    const em=(raw.match(/[\w.+-]+@[\w-]+\.[\w.]+/)||[])[0]||"";
+    const ph=((raw.replace(em,"").match(/\+?\d[\d\s().-]{6,}/)||[""])[0]).replace(/[^\d+]/g,"");
+    return {em:em,ph:ph};
+  }
+  function fillTpl(k,r){
+    const first=((r.customer_name||"").trim().split(" ")[0])||"";
+    const proj=(r.message&&r.message.length<=35)?r.message:T("projFallback");
+    const amt=parseFloat(r.estimate_amount)>0?" ("+fmtMoney(r.estimate_amount)+")":"";
+    return T("tplb_"+k).replace(/\{name\}/g,first).replace(/\{project\}/g,proj).replace(/\{amount\}/g,amt);
+  }
+  function formLink(){ return "https://itshellovirtually.com/form?c="+encodeURIComponent((user&&user.email)||""); }
   const STEP_PRESETS={
     initial:{type:"call",note:"stepInitial",days:0},
     estimate:{type:"estimate",days:1},
@@ -1013,10 +1097,12 @@ button{font-family:inherit;cursor:pointer;}
 
   // ===== view routing =====
   function setView(v){ view=v; document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===v)); closeSidebar(); renderViewTitle(); render(); }
-  function renderViewTitle(){ const map={today:"titleToday",inquiries:"titleInq",tasks:"titleTasks",calendar:"titleCal",clients:"titleClients"}; $("viewTitle").textContent=T(map[view]||"titleToday"); }
+  function renderViewTitle(){ const map={today:"titleToday",inquiries:"titleInq",tasks:"titleTasks",calendar:"titleCal",form:"titleForm",results:"titleRes",clients:"titleClients"}; $("viewTitle").textContent=T(map[view]||"titleToday"); }
   function render(){
     if($("shell").style.display==="none") return;
     if(view==="today") return renderToday();
+    if(view==="form") return renderForm();
+    if(view==="results") return renderResults();
     if(view==="inquiries") return renderInquiries();
     if(view==="tasks") return renderTasks();
     if(view==="calendar") return renderCalendar();
@@ -1055,49 +1141,48 @@ button{font-family:inherit;cursor:pointer;}
       html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div><div class="onboard-link">itshellovirtually.com/form?c='+esc(encodeURIComponent((user&&user.email)||""))+'</div></div>';
     }
 
-    // ── interactive stat tiles with context ──
-    const weekAgo=now-7*dayMs;
-    const newThisWeek=realInq.filter(r=>r.created_at&&new Date(r.created_at)>weekAgo).length;
+    // ── editorial numbers strip ──
     const overdueAll=reminders.filter(r=>!r.done&&r.due_at&&new Date(r.due_at)<now).length+tasks.filter(t=>!t.done&&t.due_at&&new Date(t.due_at)<now).length;
-    html+='<div class="stat-row">'+
-      tile("s1",newInq.length,T("stNew"),"inquiries","new",newThisWeek?(newThisWeek+" "+T("received")+" "+T("thisWeek")):"",false,icoInq())+
-      tile("s2",actionsToday.length,T("stActions"),"tasks","",actionsToday.length?"":T("nothingDue"),false,icoBell())+
-      tile("s3",openTasks,T("stTasks"),"tasks","",overdueAll?(overdueAll+" "+T("overdueCount")):"",overdueAll>0,icoCheck())+
-      tile("s4",upcoming,T("stAppts"),"calendar","","",false,icoCal())+
+    const dueToday=actionsToday.length+tasksToday.filter(t=>t.due_at&&isToday(t.due_at)).length;
+    const estOutList=realInq.filter(r=>stOf(r)==="estimate_sent"||stOf(r)==="follow_up");
+    const estOutSum=estOutList.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
+    html+='<div class="ed-nums">'+
+      '<div class="ed-num" data-go="inquiries" data-filt="new"><span class="ed-n">'+newInq.length+'</span><span class="ed-l">'+esc(T("edNew"))+'</span></div>'+
+      '<div class="ed-num" data-go="tasks"><span class="ed-n'+(overdueAll?' urgent':'')+'">'+dueToday+'</span><span class="ed-l">'+esc(T("edDue"))+'</span></div>'+
+      '<div class="ed-num" data-go="inquiries" data-filt="estimate_sent"><span class="ed-n">'+estOutList.length+'</span><span class="ed-l">'+esc(T("edEst"))+'</span></div>'+
+      (estOutSum>0?'<div class="ed-num" data-go="results"><span class="ed-n money">'+fmtMoney(estOutSum)+'</span><span class="ed-l">'+esc(T("edEstVal"))+'</span></div>':'')+
     '</div>';
 
     // ── two column layout ──
     html+='<div class="dash-grid">';
-
-    // LEFT COLUMN (wider)
     html+='<div class="dash-left">';
 
-    // Needs attention
+    // ── your day: one prioritized list ──
     const stale=newInq.filter(r=>r.created_at&&(now-new Date(r.created_at))>dayMs);
     const noStep=realInq.filter(r=>stOf(r)!=="hired"&&stOf(r)!=="not_hired"&&!nextActionFor(r.id)&&!stale.includes(r));
     const overdue=reminders.filter(r=>!r.done&&r.due_at&&new Date(r.due_at)<now).concat(tasks.filter(t=>!t.done&&t.due_at&&new Date(t.due_at)<now));
-    const attn=[];
-    stale.slice(0,3).forEach(r=>attn.push({kind:"stale",r:r}));
-    overdue.slice(0,3).forEach(o=>attn.push({kind:"overdue",o:o}));
-    noStep.slice(0,2).forEach(r=>attn.push({kind:"nostep",r:r}));
-    html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("needsAttn"))+'</h3></div>';
-    if(!attn.length) html+='<div class="attn-clear"><span class="attn-check">'+'\u2713'+'</span><div><div class="attn-clear-t">'+esc(T("noAttn"))+'</div><div class="attn-clear-s">'+esc(T("caughtUpSub"))+'</div></div></div>';
-    else { html+='<div class="attn-list">'+attn.map(a=>{
-      if(a.kind==="stale"){ const r=a.r; const days=Math.floor((now-new Date(r.created_at))/dayMs);
-        return '<div class="attn-card"><div class="attn-main" data-open="'+r.id+'"><div class="attn-t">'+esc(r.customer_name||'\u2014')+'</div><div class="attn-s"><span class="attn-reason">'+esc(T("stuckLbl"))+'</span> \u00b7 '+days+'d '+esc(T("waitingSince"))+'</div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button></div>';
-      } else if(a.kind==="nostep"){ const r=a.r;
-        return '<div class="attn-card"><div class="attn-main" data-open="'+r.id+'"><div class="attn-t">'+esc(r.customer_name||'\u2014')+'</div><div class="attn-s"><span class="attn-reason lav">'+esc(T("addStep"))+'</span></div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("addStep"))+'</button></div>';
-      } else { const o=a.o;
-        return '<div class="attn-card"><div class="attn-main"'+(o.inquiry_id?' data-open="'+o.inquiry_id+'"':'')+'><div class="attn-t">'+esc(o.title)+'</div><div class="attn-s"><span class="attn-reason">'+esc(T("overdueLbl"))+'</span> \u00b7 '+esc(fmtWhen(o.due_at))+'</div></div><button class="attn-btn done" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button></div>';
-      }
-    }).join("")+'</div>'; }
-    html+='</div>';
-
-    // Today's actions
-    html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("todaysActions"))+'</h3><span class="sh-link" data-go="tasks">'+esc(T("viewAll"))+'</span></div>';
-    const items=actionsToday.concat(tasksToday.filter(t=>t.due_at&&isToday(t.due_at)));
-    if(!items.length) html+='<div class="empty-mini"><div class="empty-mini-t">'+esc(T("nothingToday"))+'</div><div class="empty-mini-s">'+esc(T("noActionsSub"))+'</div><button class="btn btn-ghost btn-sm" data-act="addtask">'+esc(T("addTask"))+'</button></div>';
-    else { html+='<div class="rowlist">'+actionsToday.map(r=>taskRow(r,"rem")).join("")+tasksToday.filter(t=>t.due_at&&isToday(t.due_at)).map(t=>taskRow(t,"task")).join("")+'</div>'; }
+    const day=[];
+    stale.slice(0,3).forEach(r=>day.push({kind:"stale",r:r}));
+    overdue.slice(0,3).forEach(o=>day.push({kind:"od",o:o}));
+    actionsToday.filter(x=>!overdue.includes(x)).slice(0,4).forEach(o=>day.push({kind:"due",o:o}));
+    tasksToday.filter(t=>t.due_at&&isToday(t.due_at)&&!overdue.includes(t)).slice(0,3).forEach(o=>day.push({kind:"duet",o:o}));
+    noStep.slice(0,2).forEach(r=>day.push({kind:"nostep",r:r}));
+    html+='<div class="panel day-panel"><div class="panel-h"><h3>'+esc(T("yourDay"))+'</h3>'+(day.length?'<span class="day-count">'+Math.min(day.length,6)+'</span>':'')+'</div>';
+    if(!day.length){
+      html+='<div class="attn-clear"><span class="attn-check">\u2713</span><div><div class="attn-clear-t">'+esc(T("noAttn"))+'</div><div class="attn-clear-s">'+esc(T("caughtUpSub"))+'</div></div></div>';
+    } else {
+      html+='<div class="day-list">'+day.slice(0,6).map(function(a,i){
+        const idx='<span class="day-idx">'+String(i+1).padStart(2,"0")+'</span>';
+        if(a.kind==="stale"){ const r=a.r; const days=Math.floor((now-new Date(r.created_at))/dayMs);
+          return '<div class="day-item"><div class="day-main" data-open="'+r.id+'">'+idx+'<div><div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason">'+esc(T("stuckLbl"))+'</span> \u00b7 '+days+'d '+esc(T("waitingSince"))+'</div></div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button></div>';
+        }
+        if(a.kind==="nostep"){ const r=a.r;
+          return '<div class="day-item"><div class="day-main" data-open="'+r.id+'">'+idx+'<div><div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason lav">'+esc(T("addStep"))+'</span></div></div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("addStep"))+'</button></div>';
+        }
+        const o=a.o; const late=a.kind==="od";
+        return '<div class="day-item"><div class="day-main"'+(o.inquiry_id?' data-open="'+o.inquiry_id+'"':'')+'>'+idx+'<div><div class="day-t">'+esc(o.title)+'</div><div class="day-s">'+(late?'<span class="day-reason">'+esc(T("overdueLbl"))+'</span> \u00b7 ':'')+esc(fmtWhen(o.due_at))+'</div></div></div><button class="attn-btn done" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button></div>';
+      }).join("")+'</div>';
+    }
     html+='</div>';
 
     html+='</div>'; // end left
@@ -1109,9 +1194,7 @@ button{font-family:inherit;cursor:pointer;}
     const stages=STAGES.map(s=>[s,stLbl(s),STAGE_COLORS[s]]);
     const counts=stages.map(s=>realInq.filter(r=>stOf(r)===s[0]).length);
     const totalP=counts.reduce((a,b)=>a+b,0)||1;
-    const estOut=realInq.filter(r=>stOf(r)==="estimate_sent"||stOf(r)==="follow_up").reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
     html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("pipeline"))+'</h3></div>';
-    if(estOut>0) html+='<div class="pipe-val"><span>'+esc(T("estValue"))+'</span><b>'+fmtMoney(estOut)+'</b></div>';
     html+='<div class="pipe-bar">'+stages.map((s,i)=>{
       return counts[i]?'<div class="pipe-seg" data-go="inquiries" data-filt="'+s[0]+'" style="flex:'+counts[i]+';background:'+s[2]+'" title="'+esc(s[1])+': '+counts[i]+'"><span class="pipe-seg-n">'+counts[i]+'</span></div>':'';
     }).join("")+(totalP===1&&counts.reduce((a,b)=>a+b,0)===0?'<div class="pipe-seg empty-seg" style="flex:1"></div>':'')+'</div>';
@@ -1252,6 +1335,18 @@ function inqMiniRow(r){
     if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div></div>';
+    const ct=contactOf(r);
+    const tKeys=["initial","estimate","followup","lastcall","thanks"];
+    const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"followup";
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("composerLbl"))+'</div>'+
+      '<select id="msgTpl" class="msg-tpl">'+tKeys.map(k=>'<option value="'+k+'"'+(k===defT?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("")+'</select>'+
+      '<textarea id="msgBody" class="msg-body" rows="4">'+esc(fillTpl(defT,r))+'</textarea>'+
+      '<div class="msg-ch">'+
+        (ct.ph?'<button class="mini-btn" data-msgch="wa">WhatsApp</button><button class="mini-btn" data-msgch="sms">SMS</button><button class="mini-btn" data-msgch="tel">\u260e '+esc(T("actCall"))+'</button>':'')+
+        (ct.em?'<button class="mini-btn" data-msgch="mail">Email</button>':'')+
+        '<button class="mini-btn alt" data-msgch="copy">'+esc(T("copyShort"))+'</button>'+
+      '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
+    '</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">&#9742; '+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button>'+((isAdmin||r.created_by==="client")?'<button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button>':'')+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
@@ -1298,6 +1393,50 @@ function inqMiniRow(r){
     let detail="";
     if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+(x.inqId?' clickable':'')+(x.done?' done':'')+'"'+(x.inqId?' data-open="'+x.inqId+'"':'')+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span class="cal-di-t">'+(x.done?"\u2713 ":"")+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
     $("content").innerHTML='<div class="calendar-wrap"><div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">\u2039</button><button data-cal="today">\u2022</button><button data-cal="next">\u203a</button></div></div><div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail+'</div>';
+  }
+
+  // ===== MY FORM =====
+  function renderForm(){
+    const c=$("content"); const link=formLink();
+    const captured=inquiries.filter(r=>r.kind!=="booking").length;
+    c.innerHTML='<div class="form-grid">'+
+      '<div class="panel"><div class="panel-h"><h3>'+esc(T("formTitle"))+'</h3></div>'+
+        '<div class="form-link-row"><span class="form-link">'+esc(link)+'</span><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button></div>'+
+        '<div class="form-cap"><b>'+captured+'</b> '+esc(T("formCaptured"))+'</div>'+
+      '</div>'+
+      '<div class="panel qr-panel"><div class="panel-h"><h3>'+esc(T("qrTitle"))+'</h3></div>'+
+        '<div id="qrBox" class="qr-box"></div>'+
+        '<div class="form-hint">'+esc(T("qrHint"))+'</div>'+
+        '<button class="btn btn-ghost btn-sm btn-block" id="qrDl">'+esc(T("qrDownload"))+'</button>'+
+      '</div></div>';
+    try{
+      const qr=window.qrcode(0,"M"); qr.addData(link); qr.make();
+      const url=qr.createDataURL(7,10);
+      $("qrBox").innerHTML='<img src="'+url+'" alt="QR">';
+      $("qrDl").onclick=()=>{ const a=document.createElement("a"); a.href=url; a.download="hello-virtually-form-qr.png"; a.click(); };
+    }catch(e){ $("qrBox").innerHTML='<div class="form-hint">\u2014</div>'; $("qrDl").style.display="none"; }
+  }
+
+  // ===== RESULTS =====
+  function renderResults(){
+    const c=$("content"); const now=new Date(); const y=now.getFullYear(),m=now.getMonth();
+    const inM=d=>{ if(!d)return false; const t=new Date(d); return t.getFullYear()===y&&t.getMonth()===m; };
+    const real=inquiries.filter(r=>r.kind!=="booking");
+    const cap=real.filter(r=>inM(r.created_at)).length;
+    const won=real.filter(r=>stOf(r)==="hired"&&inM(r.updated_at));
+    const wonSum=won.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
+    const out=real.filter(r=>stOf(r)==="estimate_sent"||stOf(r)==="follow_up");
+    const outSum=out.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
+    const h=real.filter(r=>stOf(r)==="hired").length, nh=real.filter(r=>stOf(r)==="not_hired").length;
+    const rate=(h+nh)>0?Math.round(h/(h+nh)*100)+"%":"\u2014";
+    const monthName=now.toLocaleDateString(locale(),{month:"long",year:"numeric"});
+    const row=(i,n,l,sub)=>'<div class="res-row"><span class="res-idx">'+i+'</span><span class="res-n">'+n+'</span><div class="res-main"><div class="res-l">'+esc(l)+'</div>'+(sub?'<div class="res-s">'+esc(sub)+'</div>':'')+'</div></div>';
+    c.innerHTML='<div class="res-wrap"><div class="res-month">'+esc(monthName)+'</div>'+
+      row("01",cap,T("resCaptured"),"")+
+      row("02",out.length,T("resOut"),outSum>0?fmtMoney(outSum)+" "+T("resOutSub"):T("resOutSub"))+
+      row("03",won.length,T("resWon"),wonSum>0?fmtMoney(wonSum):"")+
+      row("04",rate,T("resRate"),"")+
+    '</div>';
   }
 
   // ===== CLIENTS =====
@@ -1367,6 +1506,14 @@ function inqMiniRow(r){
       const id=detailId;
       if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,{status:st}); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); return; }
       if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ const b=e.target.closest('[data-act="saveEst"]'); b.textContent=T("estSaved")+" \u2713"; setTimeout(()=>{ openDetail(id,true); render(); },500); } return; }
+      const mc=e.target.closest("[data-msgch]");
+      if(mc){ const ch=mc.getAttribute("data-msgch"); const r=inquiries.find(x=>x.id===id); const ct=contactOf(r); const txt=$("msgBody")?$("msgBody").value:"";
+        if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
+        if(ch==="wa") window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank");
+        else if(ch==="sms") window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt);
+        else if(ch==="tel") window.location.href="tel:"+ct.ph;
+        else if(ch==="mail") window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt);
+        return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
@@ -1386,6 +1533,7 @@ function inqMiniRow(r){
     }
     if(!e.target.closest("#notifPanel")&&!e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open");
   });
+  document.addEventListener("change",e=>{ if(e.target&&e.target.id==="msgTpl"&&detailId){ const r=inquiries.find(x=>x.id===detailId); if(r)$("msgBody").value=fillTpl(e.target.value,r); } });
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
 
   // ===== add sheet =====
