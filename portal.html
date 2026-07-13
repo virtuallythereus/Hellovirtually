@@ -854,6 +854,7 @@ button{font-family:inherit;cursor:pointer;}
     <div id="taskFields" style="display:none">
       <div class="fld" id="tClientWrap"><label id="lblTClient">Client account email</label><input type="email" id="tClient" placeholder="client@business.com"></div>
       <div class="fld"><label id="lblTTitle">Task</label><input type="text" id="tTitle" placeholder="Send follow-up quote to Maria"></div>
+      <div class="fld"><label id="lblTInq">Link to inquiry (optional)</label><select id="tInq"><option value="">—</option></select></div>
       <div class="fld-row">
         <div class="fld"><label id="lblTPrio">Priority</label><select id="tPrio"><option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option></select></div>
         <div class="fld"><label id="lblTWhen">Due (optional)</label><input type="datetime-local" id="tWhen"></div>
@@ -865,6 +866,20 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <!-- SHEET: schedule action -->
+<div class="overlay" id="editOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="editOverlay">&times;</button>
+    <h3 id="editTitle">Edit</h3>
+    <div class="fld"><label id="lblETitle">Title</label><input type="text" id="eTitle"></div>
+    <div class="fld-row">
+      <div class="fld"><label id="lblEWhen">Due</label><input type="datetime-local" id="eWhen"></div>
+      <div class="fld" id="ePrioWrap"><label id="lblEPrio">Priority</label><select id="ePrio"><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select></div>
+    </div>
+    <div class="fld"><label id="lblEInq">Linked inquiry</label><select id="eInq"><option value="">—</option></select></div>
+    <button class="btn btn-primary btn-block" id="editSave">Save</button>
+    <div class="form-msg" id="editMsg"></div>
+  </div>
+</div>
 <div class="overlay" id="lostOverlay">
   <div class="sheet">
     <button class="sheet-close" data-close="lostOverlay">&times;</button>
@@ -920,6 +935,7 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Customer",thChannel:"Channel",thStatus:"Status",thNext:"Next action",thUpdated:"Added",
     noInq:"No inquiries yet",noInqSub:"New inquiries will appear here.",hand:"nothing pending",
     statusNew:"New",statusContacted:"Contacted",statusBooked:"Booked",statusClosed:"Closed",
+    editTitle:"Edit",linkInq:"Link to inquiry (optional)",saveChanges:"Save changes",needDate:"Add a date",
     attachDoc:"Attach estimate (PDF)",viewDoc:"View estimate",uploading:"Uploading\u2026",uploadErr:"Upload failed \u2014 check the bucket",docLine:"Here's your estimate:",
     waitingTitle:"Waiting on estimates",noWaiting:"No estimates out",noWaitingSub:"When you send an estimate, it shows up here until you get an answer.",estErr:"Couldn't save",formAnswers:"Form answers",
     startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Skip",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
@@ -981,6 +997,7 @@ button{font-family:inherit;cursor:pointer;}
     thName:"Cliente",thChannel:"Canal",thStatus:"Estado",thNext:"Pr\u00f3xima acci\u00f3n",thUpdated:"Agregada",
     noInq:"A\u00fan no hay consultas",noInqSub:"Las consultas nuevas aparecer\u00e1n aqu\u00ed.",hand:"sin pendientes",
     statusNew:"Nueva",statusContacted:"Contactada",statusBooked:"Agendada",statusClosed:"Cerrada",
+    editTitle:"Editar",linkInq:"Vincular a consulta (opcional)",saveChanges:"Guardar cambios",needDate:"Falta la fecha",
     attachDoc:"Adjuntar estimado (PDF)",viewDoc:"Ver estimado",uploading:"Subiendo\u2026",uploadErr:"No se pudo subir \u2014 revisa el bucket",docLine:"Aqu\u00ed est\u00e1 tu estimado:",
     waitingTitle:"Esperando respuesta",noWaiting:"No hay estimados enviados",noWaitingSub:"Cuando env\u00edes un estimado, aparece aqu\u00ed hasta que te contesten.",estErr:"No se guard\u00f3",formAnswers:"Respuestas del formulario",
     startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Saltar",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
@@ -1126,7 +1143,7 @@ button{font-family:inherit;cursor:pointer;}
     // sched sheet
     $("schedTitle").textContent=T("schedTitle"); $("schedSub").textContent=T("schedSub");
     $("lblSType").textContent=T("sType"); $("lblSNote").textContent=T("sNote"); $("lblSWhen").textContent=T("sWhen"); $("schedSubmit").textContent=T("schedBtn");
-    const st=$("sType"); if(st){ const m=["actCall","actFollow","actAppt","actEmail","actOther"]; Array.from(st.options).forEach((o,i)=>o.textContent=T(m[i])); }
+    const st=$("sType"); if(st){ const m=["actCall","actFollow","actEstimate","actAppt","actEmail","actOther"]; Array.from(st.options).forEach((o,i)=>{ if(m[i])o.textContent=T(m[i]); }); }
     renderViewTitle(); render(); renderNotifs();
   }
 
@@ -1303,7 +1320,7 @@ function inqMiniRow(r){
     const due=item.due_at;
     const overdue=due&&!done&&new Date(due)<new Date();
     const prio=kind==="task"?(item.priority||"normal"):null;
-    const linkTag=kind==="rem"&&item.inquiry_id?'<span class="type-chip">'+esc(T("linked"))+'</span>':'';
+    const linkTag=item.inquiry_id?'<span class="type-chip">'+esc(T("linked"))+'</span>':'';
     return '<div class="lrow" data-task="'+id+'" data-tkind="'+kind+'">'+
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
@@ -1393,8 +1410,8 @@ function inqMiniRow(r){
     const steps=STAGES.map(s=>[s,stLbl(s)]);
     const ci=steps.findIndex(s=>s[0]===stOf(r));
     const pipe='<div class="pipe">'+steps.map((s,i)=>'<button class="pstep'+(i===ci?' on':'')+(i<ci?' past':'')+'" data-act="pstep" data-st="'+s[0]+'">'+esc(s[1])+'</button>').join("")+'</div>';
-    const acts=reminders.filter(x=>x.inquiry_id===id&&!x.done).sort((a,b)=>new Date(a.due_at)-new Date(b.due_at));
-    const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.title)+'</div><div class="lr-sub">'+esc(fmtWhen(a.due_at))+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.id+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
+    const acts=reminders.filter(x=>x.inquiry_id===id&&!x.done).map(x=>({o:x,k:"rem"})).concat(tasks.filter(t=>String(t.inquiry_id||"")===String(id)&&!t.done).map(t=>({o:t,k:"task"}))).sort((a,b)=>new Date(a.o.due_at||8640000000000000)-new Date(b.o.due_at||8640000000000000));
+    const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.o.title)+'</div><div class="lr-sub">'+(a.o.due_at?esc(fmtWhen(a.o.due_at)):'')+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.o.id+'" data-rk="'+a.k+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
     const calledLbl=r.called?(T("called")+(r.called_at?" \u00b7 "+fmtExact(r.called_at):"")):T("markCalled");
     let body='';
     const stepIds=STAGE_STEPS[stOf(r)]||[];
@@ -1452,8 +1469,8 @@ function inqMiniRow(r){
   let calRef=new Date(); calRef.setDate(1); let calSel=null;
   function calEvents(){ const map={}; const add=(d,ev)=>{ if(!d)return; const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); (map[k]=map[k]||[]).push(ev); };
     inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) add(new Date(r.booking_at),{type:"booking",title:r.customer_name||T("booking"),time:r.booking_at,inqId:r.id}); });
-    reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,done:!!r.done}); });
-    tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at,done:!!t.done}); });
+    reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,done:!!r.done,eid:r.id,ekind:"rem"}); });
+    tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at,done:!!t.done,eid:t.id,ekind:"task"}); });
     return map; }
   function renderCalendar(){
     const evs=calEvents(); const y=calRef.getFullYear(),m=calRef.getMonth();
@@ -1466,9 +1483,36 @@ function inqMiniRow(r){
       let e=list.slice(0,2).map(x=>'<div class="cal-ev'+(x.type==="rem"?" rem":"")+(x.done?" done":"")+'">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div>').join(""); if(list.length>2)e+='<div class="cal-more">+'+(list.length-2)+'</div>';
       cells+='<div class="cal-cell'+(it?" today":"")+'" data-day="'+d+'"><span class="cal-date">'+d+'</span>'+e+'</div>'; }
     let detail="";
-    if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+(x.inqId?' clickable':'')+(x.done?' done':'')+'"'+(x.inqId?' data-open="'+x.inqId+'"':'')+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span class="cal-di-t">'+(x.done?"\u2713 ":"")+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
+    if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+((x.inqId||x.eid)?' clickable':'')+(x.done?' done':'')+'"'+(x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':''))+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span class="cal-di-t">'+(x.done?"\u2713 ":"")+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
     $("content").innerHTML='<div class="calendar-wrap"><div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">\u2039</button><button data-cal="today">\u2022</button><button data-cal="next">\u203a</button></div></div><div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail+'</div>';
   }
+
+  // ===== EDIT TASK/REMINDER =====
+  let editId=null,editKind=null;
+  function openEdit(kind,id){
+    const item=(kind==="task"?tasks:reminders).find(x=>String(x.id)===String(id)); if(!item) return;
+    editId=item.id; editKind=kind;
+    $("editTitle").textContent=T("editTitle"); $("lblETitle").textContent=T("taskTitle"); $("lblEWhen").textContent=T("due"); $("lblEPrio").textContent=T("priority"); $("lblEInq").textContent=T("linkInq"); $("editSave").textContent=T("saveChanges"); $("editMsg").textContent="";
+    $("eTitle").value=item.title||"";
+    $("eWhen").value=item.due_at?toLocalInput(new Date(item.due_at)):"";
+    $("ePrioWrap").style.display=kind==="task"?"":"none";
+    if(kind==="task") $("ePrio").value=item.priority||"normal";
+    fillInqSelect($("eInq"),item.inquiry_id);
+    openOverlay("editOverlay");
+  }
+  $("editSave").addEventListener("click",async()=>{
+    const out=$("editMsg"); out.textContent="";
+    const title=$("eTitle").value.trim(); if(!title){ out.style.color="#F45145"; out.textContent=T("needFields"); return; }
+    const w=$("eWhen").value;
+    if(editKind==="rem"&&!w){ out.style.color="#F45145"; out.textContent=T("needDate"); return; }
+    const f={title:title,due_at:w?new Date(w).toISOString():null,inquiry_id:$("eInq").value||null};
+    if(editKind==="task") f.priority=$("ePrio").value;
+    const {error}=await sb.from(editKind==="task"?"tasks":"reminders").update(f).eq("id",editId);
+    if(error){ out.style.color="#F45145"; out.textContent=error.message; return; }
+    const item=(editKind==="task"?tasks:reminders).find(x=>String(x.id)===String(editId)); if(item)Object.assign(item,f);
+    out.style.color="#347D79"; out.textContent=T("added")+" \u2713";
+    setTimeout(()=>{ closeOverlay("editOverlay"); out.textContent=""; render(); },450);
+  });
 
   // ===== FOCUS MODE =====
   let dayQueue=[],focusIdx=0,lostInqId=null;
@@ -1632,6 +1676,8 @@ function inqMiniRow(r){
     const ga=e.target.closest('[data-go-add]'); if(ga){ $("quickAddBtn").click(); return; }
     const at=e.target.closest('[data-act="addtask"]'); if(at){ setView("tasks"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
     // needs-attention: mark reminder/task done
+    const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){ openEdit(edRow.getAttribute("data-tkind"),edRow.getAttribute("data-task")); return; }
+    const ed=e.target.closest("[data-edit]"); if(ed){ openEdit(ed.getAttribute("data-ekind"),ed.getAttribute("data-edit")); return; }
     const dr=e.target.closest('[data-donerem]'); if(dr){ const rid=dr.getAttribute("data-donerem"); const rk=dr.getAttribute("data-kind"); if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error){t.done=true;render();} } } else { const r=reminders.find(x=>x.id===rid); if(r){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error){r.done=true;render();} } } return; }
     // open inquiry detail
     const op=e.target.closest("[data-open]"); if(op && !e.target.closest("[data-act]")){ openDetail(op.getAttribute("data-open")); return; }
@@ -1669,7 +1715,7 @@ function inqMiniRow(r){
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; await patchInq(id,{called:now,called_at:now?new Date().toISOString():null}); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
-      if(e.target.closest('[data-act="doneAct"]')){ const rid=e.target.closest('[data-act="doneAct"]').getAttribute("data-rid"); await sb.from("reminders").update({done:true}).eq("id",rid); const rr=reminders.find(x=>x.id===rid); if(rr)rr.done=true; openDetail(id,true); render(); return; }
+      if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr)rr.done=true; openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="noteSend"]')){ const inp=$("dNoteInput"); const body=(inp.value||"").trim(); if(!body)return; const r=inquiries.find(x=>x.id===id); const note={inquiry_id:id,client_email:r.client_email,body:body,author_role:isAdmin?"admin":"client",author_email:user.email}; const {data,error}=await sb.from("notes").insert(note).select(); if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); openDetail(id,true); } return; }
       const nd=e.target.closest('[data-act="noteDel"]'); if(nd){ const nid=nd.getAttribute("data-nid"); if(confirm(lang==="es"?"\u00bfBorrar nota?":"Delete note?")){ await sb.from("notes").delete().eq("id",nid); notesByInq[id]=(notesByInq[id]||[]).filter(n=>String(n.id)!==String(nid)); openDetail(id,true); } return; }
       const ne=e.target.closest('[data-act="noteEdit"]'); if(ne){ const nid=ne.getAttribute("data-nid"); const note=(notesByInq[id]||[]).find(n=>String(n.id)===String(nid)); if(note){ const nv=prompt(lang==="es"?"Editar nota:":"Edit note:",note.body); if(nv!=null&&nv.trim()){ await sb.from("notes").update({body:nv.trim()}).eq("id",nid); note.body=nv.trim(); openDetail(id,true); } } return; }
@@ -1700,7 +1746,11 @@ function inqMiniRow(r){
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
 
   // ===== add sheet =====
-  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; }
+  function fillInqSelect(sel,cur){
+    const list=inquiries.filter(r=>r.kind!=="booking"&&stOf(r)!=="not_hired");
+    sel.innerHTML='<option value="">\u2014</option>'+list.map(r=>'<option value="'+r.id+'"'+(String(cur||"")===String(r.id)?' selected':'')+'>'+esc((r.customer_name||"?")+(r.message?" \u00b7 "+r.message.slice(0,24):""))+'</option>').join("");
+  }
+  function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; if(k==="task"){ $("lblTInq").textContent=T("linkInq"); fillInqSelect($("tInq"),null); } }
   $("addSeg").addEventListener("click",e=>{ const b=e.target.closest("button[data-kind]"); if(b)setAddKind(b.getAttribute("data-kind")); });
   $("quickAddBtn").addEventListener("click",()=>{ setAddKind(isAdmin?"inquiry":"booking"); if(!isAdmin){ $("segInq").style.display="none"; } openOverlay("addOverlay"); });
   $("addSubmit").addEventListener("click", async ()=>{
@@ -1708,7 +1758,7 @@ function inqMiniRow(r){
     if(addKind==="task"){
       const client=isAdmin?$("tClient").value.trim().toLowerCase():user.email.toLowerCase();
       const title=$("tTitle").value.trim(); if(!client||!title){ out.style.color="#F45145"; out.textContent=T("needFields"); return; }
-      const p={client_email:client,title:title,priority:$("tPrio").value,done:false,created_by:isAdmin?"admin":"client"}; const w=$("tWhen").value; if(w)p.due_at=new Date(w).toISOString();
+      const p={client_email:client,title:title,priority:$("tPrio").value,done:false,created_by:isAdmin?"admin":"client"}; const w=$("tWhen").value; if(w)p.due_at=new Date(w).toISOString(); const iq=$("tInq").value; if(iq)p.inquiry_id=iq;
       const {error}=await sb.from("tasks").insert(p); if(error){ out.style.color="#F45145"; out.textContent=error.message; return; }
       out.style.color="#347D79"; out.textContent=T("added")+" \u2713"; $("tTitle").value="";$("tWhen").value="";
       await loadAll(); setTimeout(()=>{ closeOverlay("addOverlay"); out.textContent=""; },650); return;
