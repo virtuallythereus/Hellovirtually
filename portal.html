@@ -952,6 +952,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
     formTitle:"Your inquiry form",formCaptured:"inquiries captured with this form",
     qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
+    noInqYet:"No inquiries yet \u2014 add one first",resAllTime:"All time",resAllCaptured:"inquiries captured in total",resAllWon:"jobs won in total",
     resCaptured:"inquiries captured",resOut:"estimates out",resOutSub:"waiting for an answer",resWon:"jobs won this month",resRate:"close rate",
     nextStepLbl:"Next step",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
@@ -1015,6 +1016,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
     formTitle:"Tu formulario de consultas",formCaptured:"consultas capturadas con este formulario",
     qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
+    noInqYet:"A\u00fan no hay consultas \u2014 crea una primero",resAllTime:"Hist\u00f3rico",resAllCaptured:"consultas capturadas en total",resAllWon:"trabajos ganados en total",
     resCaptured:"consultas capturadas",resOut:"estimados enviados",resOutSub:"esperando respuesta",resWon:"trabajos ganados este mes",resRate:"tasa de cierre",
     nextStepLbl:"Pr\u00f3ximo paso",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
@@ -1161,6 +1163,7 @@ button{font-family:inherit;cursor:pointer;}
     inquiries=(iq&&iq.data)||[]; reminders=(rm&&rm.data)||[]; tasks=(tk&&tk.data)||[];
     notesByInq={}; ((nt&&nt.data)||[]).forEach(n=>{ (notesByInq[n.inquiry_id]=notesByInq[n.inquiry_id]||[]).push(n); });
     buildNotifs(); updateNavBadges(); render(); renderNotifs();
+    try{ const ti=$("tInq"); if(ti&&ti.options.length<=1) fillInqSelect(ti,ti.value||null); const ei=$("eInq"); if(ei&&ei.options.length<=1) fillInqSelect(ei,ei.value||null); }catch(e){}
     if(detailId) openDetail(detailId,true);
   }
   function subscribe(){
@@ -1293,7 +1296,7 @@ button{font-family:inherit;cursor:pointer;}
     // Recent activity
     const feed=[];
     realInq.forEach(r=>{ if(r.created_at) feed.push({t:new Date(r.created_at),type:"inq",name:r.customer_name||'\u2014',id:r.id}); });
-    Object.keys(notesByInq).forEach(iid=>{ (notesByInq[iid]||[]).forEach(n=>{ if(n.created_at){ const inq=inquiries.find(x=>x.id==iid); feed.push({t:new Date(n.created_at),type:"note",name:(inq?inq.customer_name:"")||'\u2014',id:iid,body:n.body}); } }); });
+    Object.keys(notesByInq).forEach(iid=>{ (notesByInq[iid]||[]).forEach(n=>{ if(n.created_at){ const inq=inquiries.find(x=>x.id==iid); feed.push({t:new Date(n.created_at),type:"note",name:(inq?inq.customer_name:"")||'\u2014',id:iid,body:n.body,role:n.author_role}); } }); });
     inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) feed.push({t:new Date(r.booking_at),type:"book",name:r.customer_name||'\u2014',id:r.id}); });
     feed.sort((a,b)=>b.t-a.t);
     html+='<div class="panel"><div class="panel-h"><h3>'+esc(T("recentActivity"))+'</h3></div>';
@@ -1301,9 +1304,10 @@ button{font-family:inherit;cursor:pointer;}
     else { html+='<div class="feed">'+feed.slice(0,6).map(f=>{
       const ic=f.type==="note"?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg>':
         (f.type==="book"?icoCal():'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>');
-      const msg=f.type==="note"?T("leftNote"):(f.type==="book"?T("bookingMsg"):T("newInqMsg"));
+      const sys=f.type==="note"&&(f.role==="system"||(f.body&&f.body.charAt(0)==="\u2713"));
+      const msg=f.type==="note"?(sys?"\u00b7 "+f.body.slice(0,46):T("leftNote")):(f.type==="book"?T("bookingMsg"):T("newInqMsg"));
       const cls=f.type==="note"?"fd-note":(f.type==="book"?"fd-book":"fd-inq");
-      return '<div class="feed-item '+cls+'" data-open="'+f.id+'"><span class="feed-ic">'+ic+'</span><div class="feed-main"><div class="feed-t"><b>'+esc(f.name)+'</b> '+esc(msg)+'</div>'+(f.body?'<div class="feed-s">'+esc(f.body.slice(0,40))+'</div>':'')+'</div><span class="feed-when">'+esc(fmtWhen(f.t.toISOString()))+'</span></div>';
+      return '<div class="feed-item '+cls+'" data-open="'+f.id+'"><span class="feed-ic">'+ic+'</span><div class="feed-main"><div class="feed-t"><b>'+esc(f.name)+'</b> '+esc(msg)+'</div>'+((f.body&&!sys)?'<div class="feed-s">'+esc(f.body.slice(0,40))+'</div>':'')+'</div><span class="feed-when">'+esc(fmtWhen(f.t.toISOString()))+'</span></div>';
     }).join("")+'</div>'; }
     html+='</div>';
 
@@ -1580,7 +1584,7 @@ function inqMiniRow(r){
     const k=b.getAttribute("data-lost"); closeOverlay("lostOverlay");
     if(k==="skip"||!lostInqId) return;
     const id=lostInqId; const r=inquiries.find(x=>x.id===id); if(!r) return;
-    const note={inquiry_id:id,client_email:r.client_email,body:T("st_not_hired")+" \u2014 "+T("lost_"+k),author_role:isAdmin?"admin":"client",author_email:user.email};
+    const note={inquiry_id:id,client_email:r.client_email,body:T("st_not_hired")+" \u2014 "+T("lost_"+k),author_role:"system",author_email:user.email};
     const {data,error}=await sb.from("notes").insert(note).select();
     if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); if(detailId===id) openDetail(id,true); }
   });
@@ -1589,7 +1593,7 @@ function inqMiniRow(r){
   async function autoNote(inqId,txt){
     if(!inqId||!sb||!user) return;
     const r=inquiries.find(x=>String(x.id)===String(inqId)); if(!r) return;
-    const note={inquiry_id:r.id,client_email:r.client_email,body:txt,author_role:isAdmin?"admin":"client",author_email:user.email};
+    const note={inquiry_id:r.id,client_email:r.client_email,body:txt,author_role:"system",author_email:user.email};
     const {data,error}=await sb.from("notes").insert(note).select();
     if(!error){ (notesByInq[r.id]=notesByInq[r.id]||[]).push((data&&data[0])||note); if(detailId===r.id&&$("drawer").classList.contains("open")) openDetail(r.id,true); }
   }
@@ -1636,11 +1640,16 @@ function inqMiniRow(r){
     const rate=(h+nh)>0?Math.round(h/(h+nh)*100)+"%":"\u2014";
     const monthName=now.toLocaleDateString(locale(),{month:"long",year:"numeric"});
     const row=(i,n,l,sub)=>'<div class="res-row"><span class="res-idx">'+i+'</span><span class="res-n">'+n+'</span><div class="res-main"><div class="res-l">'+esc(l)+'</div>'+(sub?'<div class="res-s">'+esc(sub)+'</div>':'')+'</div></div>';
+    const allWon=real.filter(r=>stOf(r)==="hired");
+    const allWonSum=allWon.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
     c.innerHTML='<div class="res-wrap"><div class="res-month">'+esc(monthName)+'</div>'+
       row("01",cap,T("resCaptured"),"")+
       row("02",out.length,T("resOut"),outSum>0?fmtMoney(outSum)+" "+T("resOutSub"):T("resOutSub"))+
       row("03",won.length,T("resWon"),wonSum>0?fmtMoney(wonSum):"")+
       row("04",rate,T("resRate"),"")+
+      '<div class="res-month" style="margin-top:34px">'+esc(T("resAllTime"))+'</div>'+
+      row("05",real.length,T("resAllCaptured"),"")+
+      row("06",allWon.length,T("resAllWon"),allWonSum>0?fmtMoney(allWonSum):"")+
     '</div>';
   }
 
@@ -1759,7 +1768,10 @@ function inqMiniRow(r){
 
   // ===== add sheet =====
   function fillInqSelect(sel,cur){
-    const list=inquiries.filter(r=>r.kind!=="booking"&&stOf(r)!=="not_hired");
+    if(!sel) return;
+    let list=inquiries.filter(r=>r.kind!=="booking"&&stOf(r)!=="not_hired");
+    if(!list.length) list=inquiries.slice();
+    if(!list.length){ sel.innerHTML='<option value="">'+esc(T("noInqYet"))+'</option>'; return; }
     sel.innerHTML='<option value="">\u2014</option>'+list.map(r=>'<option value="'+r.id+'"'+(String(cur||"")===String(r.id)?' selected':'')+'>'+esc((r.customer_name||"?")+(r.message?" \u00b7 "+r.message.slice(0,24):""))+'</option>').join("");
   }
   function setAddKind(k){ addKind=k; document.querySelectorAll('#addSeg button').forEach(b=>b.classList.toggle("on",b.getAttribute("data-kind")===k)); $("ibFields").style.display=k==="task"?"none":"block"; $("taskFields").style.display=k==="task"?"block":"none"; $("fWhenWrap").style.display=k==="booking"?"":"none"; if(k==="task"){ try{ $("lblTInq").textContent=T("linkInq"); fillInqSelect($("tInq"),$("tInq").value||null); }catch(e){console.warn("tInq fill",e);} } }
