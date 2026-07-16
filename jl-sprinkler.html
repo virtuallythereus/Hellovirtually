@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get an Estimate — JL Sprinkler &amp; Outdoors</title>
+<meta name="theme-color" content="#173D35">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --ink:#173D35; --ink-2:#2d5a4e; --ink-3:rgba(23,61,53,.6);
+    --paper:#F7F5F0; --white:#fff; --line:rgba(23,61,53,.14);
+    --coral:#F45145; --coral-soft:#e03b31;
+    --lav:#B9A7FF; --lav-pale:#EEE9FF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.5;}
+  .wrap{max-width:560px;margin:0 auto;padding:36px 20px 60px;}
+  .brand{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-family:Arial,Helvetica,sans-serif;margin-bottom:6px;}
+  h1{font-size:1.7rem;font-weight:700;margin:0 0 6px;line-height:1.2;}
+  .sub{font-family:Arial,Helvetica,sans-serif;font-size:.95rem;color:var(--ink-2);margin:0 0 28px;}
+  form{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px 20px;}
+  fieldset{border:0;padding:0;margin:0 0 22px;}
+  legend{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:10px;padding:0;}
+  label{display:block;font-family:Arial,Helvetica,sans-serif;font-size:.85rem;font-weight:600;color:var(--ink);margin:14px 0 6px;}
+  label:first-child{margin-top:0;}
+  input[type=text],input[type=tel],input[type=email],select,textarea{
+    width:100%;font-family:Arial,Helvetica,sans-serif;font-size:1rem;padding:11px 12px;
+    border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:70px;}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--lav);outline-offset:1px;border-color:var(--lav);}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .svc{display:flex;align-items:center;gap:8px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper);cursor:pointer;font-family:Arial,Helvetica,sans-serif;font-size:.88rem;font-weight:600;}
+  .svc input{width:auto;margin:0;}
+  .svc.on{border-color:var(--lav);background:var(--lav-pale);}
+  .radio-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .radio-row label{margin:0;font-weight:500;display:flex;align-items:center;gap:6px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);cursor:pointer;flex:1 1 auto;}
+  .radio-row input{width:auto;margin:0;}
+  .radio-row label:has(input:checked){border-color:var(--coral);background:#fff0ee;}
+  .svc-block{display:none;padding:14px;background:var(--paper);border-radius:10px;margin-top:10px;}
+  .svc-block.show{display:block;}
+  .svc-block h3{font-family:Arial,Helvetica,sans-serif;font-size:.8rem;font-weight:700;color:var(--ink-2);margin:0 0 4px;}
+  button{width:100%;margin-top:6px;padding:14px;font-family:Arial,Helvetica,sans-serif;font-size:1rem;font-weight:700;
+    background:var(--coral);color:#fff;border:0;border-radius:10px;cursor:pointer;}
+  button:hover{background:var(--coral-soft);}
+  button:disabled{opacity:.6;cursor:default;}
+  .hint{font-family:Arial,Helvetica,sans-serif;font-size:.78rem;color:var(--ink-3);margin-top:8px;text-align:center;}
+  #okMsg,#errMsg{display:none;font-family:Arial,Helvetica,sans-serif;padding:16px;border-radius:12px;margin-top:16px;font-size:.92rem;}
+  #okMsg{background:var(--lav-pale);color:var(--ink);border:1px solid var(--lav);}
+  #errMsg{background:#fff0ee;color:var(--coral-soft);border:1px solid var(--coral);}
+  @media(max-width:420px){ .svc-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">JL Sprinkler &amp; Outdoors · St. Cloud, FL</div>
+  <h1>Get your estimate</h1>
+  <p class="sub">Tell us what you need and we'll get back to you shortly.</p>
+
+  <form id="estForm">
+    <fieldset>
+      <legend>Contact</legend>
+      <label for="fName">Full name</label>
+      <input type="text" id="fName" required autocomplete="name">
+      <label for="fPhone">Phone</label>
+      <input type="tel" id="fPhone" required autocomplete="tel" placeholder="(407) 555-0100">
+      <label for="fAddr">Property address</label>
+      <input type="text" id="fAddr" required autocomplete="street-address" placeholder="Street, St. Cloud FL">
+      <label for="fType">Property type</label>
+      <select id="fType">
+        <option value="Residential">Residential</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>What do you need?</legend>
+      <div class="svc-grid" id="svcGrid">
+        <label class="svc" data-svc="landscaping"><input type="checkbox" value="Landscaping Installation"> Landscaping Install</label>
+        <label class="svc" data-svc="sod"><input type="checkbox" value="Sod Installation"> Sod Installation</label>
+        <label class="svc" data-svc="paver"><input type="checkbox" value="Paver Border/Edge"> Paver Border/Edge</label>
+        <label class="svc" data-svc="irrigation"><input type="checkbox" value="Irrigation Repair/Service"> Irrigation Repair</label>
+      </div>
+
+      <div class="svc-block" id="block-landscaping">
+        <h3>Landscaping Installation</h3>
+        <label>Project type</label>
+        <select id="lsType"><option>New design</option><option>Renovation</option><option>Clean-up</option></select>
+        <label>Approximate area size</label>
+        <input type="text" id="lsSize" placeholder="e.g. 2,000 sq ft, or not sure">
+        <label>Current condition</label>
+        <input type="text" id="lsCond" placeholder="e.g. bare dirt, grass to remove">
+      </div>
+
+      <div class="svc-block" id="block-sod">
+        <h3>Sod Installation</h3>
+        <label>Area size (sq ft)</label>
+        <input type="text" id="sodSize" placeholder="e.g. 1,500 sq ft">
+        <label>Grass type</label>
+        <select id="sodGrass"><option>Not sure — recommend</option><option>St. Augustine</option><option>Zoysia</option><option>Bahia</option></select>
+        <label>Reason</label>
+        <select id="sodReason"><option>New construction</option><option>Replacing dead grass</option><option>Expansion</option></select>
+        <label>Do you have irrigation installed?</label>
+        <div class="radio-row"><label><input type="radio" name="sodIrr" value="Yes" checked> Yes</label><label><input type="radio" name="sodIrr" value="No"> No</label></div>
+      </div>
+
+      <div class="svc-block" id="block-paver">
+        <h3>Paver Border/Edge</h3>
+        <label>Estimated linear feet</label>
+        <input type="text" id="pavFeet" placeholder="e.g. 80 ft, or not sure">
+        <label>Where</label>
+        <select id="pavWhere"><option>Driveway</option><option>Walkway</option><option>Garden border</option><option>Patio</option></select>
+        <label>Is there an existing border to remove?</label>
+        <div class="radio-row"><label><input type="radio" name="pavRemove" value="Yes" checked> Yes</label><label><input type="radio" name="pavRemove" value="No"> No</label></div>
+      </div>
+
+      <div class="svc-block" id="block-irrigation">
+        <h3>Irrigation Repair/Service</h3>
+        <label>What's the problem?</label>
+        <select id="irrProblem">
+          <option>Broken head</option><option>No pressure</option><option>System won't turn on</option>
+          <option>Leak</option><option>Zone not working</option><option>New installation</option>
+        </select>
+        <label>Is this urgent (active leak)?</label>
+        <div class="radio-row"><label><input type="radio" name="irrUrgent" value="Yes, urgent"> Yes, urgent</label><label><input type="radio" name="irrUrgent" value="Can be scheduled" checked> Can be scheduled</label></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Timeline</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="timeline" value="ASAP" checked> ASAP</label>
+        <label><input type="radio" name="timeline" value="Next 2 weeks"> Next 2 weeks</label>
+        <label><input type="radio" name="timeline" value="Just getting quotes"> Just quoting</label>
+      </div>
+      <label for="fMsg">Anything else we should know?</label>
+      <textarea id="fMsg" placeholder="Optional details or photos description"></textarea>
+    </fieldset>
+
+    <button type="submit" id="submitBtn">Request my estimate</button>
+    <div class="hint">We'll text or call you back — usually within a few hours.</div>
+    <div id="okMsg">Thanks! Your request is in. We'll be in touch shortly.</div>
+    <div id="errMsg">Something went wrong sending your request. Please call us directly or try again.</div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const CFG = {
+    url: "https://yjrotvqtprlkzbxgyhtk.supabase.co",
+    key: "sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
+    clientEmail: "salamo.pineiro@gmail.com"
+  };
+  const sb = supabase.createClient(CFG.url, CFG.key);
+
+  const grid = document.getElementById("svcGrid");
+  grid.addEventListener("change", (e) => {
+    const label = e.target.closest(".svc");
+    if (!label) return;
+    label.classList.toggle("on", e.target.checked);
+    const block = document.getElementById("block-" + label.dataset.svc);
+    if (block) block.classList.toggle("show", e.target.checked);
+  });
+
+  const form = document.getElementById("estForm");
+  const btn = document.getElementById("submitBtn");
+  const okMsg = document.getElementById("okMsg");
+  const errMsg = document.getElementById("errMsg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    okMsg.style.display = "none"; errMsg.style.display = "none";
+
+    const services = [...grid.querySelectorAll("input:checked")].map(i => i.value);
+    if (services.length === 0) { alert("Please select at least one service."); return; }
+
+    const formData = { property_type: document.getElementById("fType").value, services, timeline: document.querySelector('input[name=timeline]:checked').value };
+    if (services.includes("Landscaping Installation")) formData.landscaping = { project_type: lsType.value, area: lsSize.value, condition: lsCond.value };
+    if (services.includes("Sod Installation")) formData.sod = { area: sodSize.value, grass_type: sodGrass.value, reason: sodReason.value, has_irrigation: document.querySelector('input[name=sodIrr]:checked').value };
+    if (services.includes("Paver Border/Edge")) formData.paver = { linear_feet: pavFeet.value, location: pavWhere.value, remove_existing: document.querySelector('input[name=pavRemove]:checked').value };
+    if (services.includes("Irrigation Repair/Service")) formData.irrigation = { problem: irrProblem.value, urgent: document.querySelector('input[name=irrUrgent]:checked').value };
+
+    btn.disabled = true; btn.textContent = "Sending…";
+    const { error } = await sb.rpc("submit_inquiry", {
+      p_client_email: CFG.clientEmail,
+      p_customer_name: fName.value,
+      p_customer_contact: fPhone.value + (fAddr.value ? " · " + fAddr.value : ""),
+      p_channel: "Form",
+      p_message: (fMsg.value || services.join(", ")),
+      p_form_data: formData
+    });
+    btn.disabled = false; btn.textContent = "Request my estimate";
+
+    if (error) { errMsg.style.display = "block"; console.error(error); return; }
+    okMsg.style.display = "block";
+    form.reset();
+    document.querySelectorAll(".svc-block.show").forEach(b => b.classList.remove("show"));
+    document.querySelectorAll(".svc.on").forEach(s => s.classList.remove("on"));
+  });
+</script>
+</body>
+</html>
