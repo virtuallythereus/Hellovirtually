@@ -929,7 +929,7 @@ button{font-family:inherit;cursor:pointer;}
     <div class="sub" id="schedSub"></div>
     <div class="fld"><label id="lblSPicks">Quick picks</label><div class="step-chips" id="schedPresets"></div></div>
     <div class="fld"><label id="lblSType">Type</label>
-      <select id="sType"><option value="call">Call</option><option value="followup">Follow-up</option><option value="estimate">Send estimate</option><option value="appointment">Appointment</option><option value="email">Email</option><option value="other">Other</option></select>
+      <select id="sType"><option value="call">Call</option><option value="message">Text message</option><option value="followup">Follow-up</option><option value="estimate">Send estimate</option><option value="appointment">Appointment</option><option value="email">Email</option><option value="other">Other</option></select>
     </div>
     <div class="fld"><label id="lblSNote">Note (optional)</label><input type="text" id="sNote" placeholder="Call about the quote..."></div>
     <div class="fld"><label id="lblSWhen">When</label><input type="datetime-local" id="sWhen"></div>
@@ -976,7 +976,7 @@ button{font-family:inherit;cursor:pointer;}
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
     composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
-    tplb_initial:"Hi {name}! Thanks for reaching out about {project}. We received all your details and we're already working on your estimate \u2014 you'll have it soon. Anything you'd like to add, just reply here.",
+    tplb_initial:"Hey {name}! We got your request about {project} \u2014 thanks so much for reaching out. We're already working on your estimate and you'll have it soon. Anything you'd like to add, just reply here.",
     tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
     tplb_followup:"Hi {name}, just following up on the estimate{amount} \u2014 any questions, or anything you'd like me to adjust?",
     tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
@@ -1007,7 +1007,7 @@ button{font-family:inherit;cursor:pointer;}
     taskTitle:"Task",priority:"Priority",due:"Due (optional)",prioLow:"Low",prioNormal:"Normal",prioHigh:"High",
     schedTitle:"Schedule an action",schedSub:"Adds it to the calendar and tasks.",
     sType:"Type",sNote:"Note (optional)",sWhen:"When",schedBtn:"Schedule",
-    actCall:"Call",actFollow:"Follow-up",actAppt:"Appointment",actEmail:"Email",actOther:"Other",
+    actCall:"Call",actMessage:"Text message",actFollow:"Follow-up",actAppt:"Appointment",actEmail:"Email",actOther:"Other",
     notif:"Notifications",clear:"Clear all",noNotif:"You're all caught up.",
     nAll:"All",nNew:"Inquiries",nAppt:"Appts",nRem:"Tasks",nNote:"Notes",nUnread:"Unread",nAllF:"All",
     notifNew:"New inquiry",notifAppt:"Upcoming appointment",notifRem:"Task due",notifNote:"New note",
@@ -1046,7 +1046,7 @@ button{font-family:inherit;cursor:pointer;}
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
     composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
-    tplb_initial:"\u00a1Hola {name}! Gracias por escribirnos sobre {project}. Recibimos toda tu informaci\u00f3n y ya estamos trabajando en tu estimado \u2014 pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
+    tplb_initial:"\u00a1Hola {name}! Recibimos tu solicitud sobre {project} \u2014 mil gracias por escribirnos. Ya estamos trabajando en tu estimado y pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
     tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
     tplb_followup:"Hola {name}, dando seguimiento al estimado{amount} \u2014 \u00bfalguna pregunta o algo que quieras ajustar?",
     tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
@@ -1077,7 +1077,7 @@ button{font-family:inherit;cursor:pointer;}
     taskTitle:"Tarea",priority:"Prioridad",due:"Vence (opcional)",prioLow:"Baja",prioNormal:"Normal",prioHigh:"Alta",
     schedTitle:"Agendar una acci\u00f3n",schedSub:"Se agrega al calendario y a tareas.",
     sType:"Tipo",sNote:"Nota (opcional)",sWhen:"Cu\u00e1ndo",schedBtn:"Agendar",
-    actCall:"Llamada",actFollow:"Seguimiento",actAppt:"Cita",actEmail:"Email",actOther:"Otro",
+    actCall:"Llamada",actMessage:"Mensaje de texto",actFollow:"Seguimiento",actAppt:"Cita",actEmail:"Email",actOther:"Otro",
     notif:"Notificaciones",clear:"Limpiar todo",noNotif:"Est\u00e1s al d\u00eda.",
     nAll:"Todas",nNew:"Consultas",nAppt:"Citas",nRem:"Tareas",nNote:"Notas",nUnread:"No le\u00eddas",nAllF:"Todas",
     notifNew:"Consulta nueva",notifAppt:"Cita pr\u00f3xima",notifRem:"Tarea pendiente",notifNote:"Nota nueva",
@@ -1131,7 +1131,7 @@ button{font-family:inherit;cursor:pointer;}
   let myFormUrl=null;
   function formLink(){ return myFormUrl||("https://itshellovirtually.com/form?c="+encodeURIComponent((user&&user.email)||"")); }
   const STEP_PRESETS={
-    initial:{type:"call",note:"stepInitial",days:0},
+    initial:{type:"message",note:"stepInitial",days:0},
     estimate:{type:"estimate",days:1},
     followup:{type:"followup",days:3},
     followup2:{type:"followup",note:"stepSecond",days:4}
@@ -1150,7 +1150,7 @@ button{font-family:inherit;cursor:pointer;}
   function fmtDate(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{month:"short",day:"numeric"}); }catch(e){ return ""; } }
   function fmtExact(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{year:"numeric",month:"short",day:"numeric"})+" \u00b7 "+t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
   function fmtWhen(d){ try{ const t=new Date(d),n=new Date(); const sd=t.toDateString()===n.toDateString(); const tm=new Date(n); tm.setDate(n.getDate()+1); const it=t.toDateString()===tm.toDateString(); const hm=t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); if(sd)return T("today")+" "+hm; if(it)return T("tomorrow")+" "+hm; return t.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u00b7 "+hm; }catch(e){ return ""; } }
-  function actionLabel(k){ return {call:T("actCall"),followup:T("actFollow"),estimate:T("actEstimate"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
+  function actionLabel(k){ return {call:T("actCall"),message:T("actMessage"),followup:T("actFollow"),estimate:T("actEstimate"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
   const startOfDay=d=>{ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime(); };
   const isToday=d=>startOfDay(d)===startOfDay(new Date());
 
@@ -1193,7 +1193,7 @@ button{font-family:inherit;cursor:pointer;}
     // sched sheet
     $("schedTitle").textContent=T("schedTitle"); $("schedSub").textContent=T("schedSub");
     $("lblSType").textContent=T("sType"); $("lblSNote").textContent=T("sNote"); $("lblSWhen").textContent=T("sWhen"); $("schedSubmit").textContent=T("schedBtn");
-    const st=$("sType"); if(st){ const m=["actCall","actFollow","actEstimate","actAppt","actEmail","actOther"]; Array.from(st.options).forEach((o,i)=>{ if(m[i])o.textContent=T(m[i]); }); }
+    const st=$("sType"); if(st){ const m=["actCall","actMessage","actFollow","actEstimate","actAppt","actEmail","actOther"]; Array.from(st.options).forEach((o,i)=>{ if(m[i])o.textContent=T(m[i]); }); }
     renderViewTitle(); render(); renderNotifs(); try{ renderPushCard(); }catch(e){}
   }
 
@@ -1273,7 +1273,7 @@ button{font-family:inherit;cursor:pointer;}
 
     // ── onboarding card (empty account) ──
     if(!realInq.length && !openTasks){
-      html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div><div class="onboard-link">itshellovirtually.com/form?c='+esc(encodeURIComponent((user&&user.email)||""))+'</div></div>';
+      html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div><div class="onboard-link">'+esc(formLink().replace(/^https?:\/\//,""))+'</div></div>';
     }
 
     // ── editorial numbers strip ──
@@ -1495,7 +1495,7 @@ function inqMiniRow(r){
         '<button class="mini-btn alt" data-msgch="copy">'+esc(T("copyShort"))+'</button>'+
       '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
     '</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">'+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button>'+((isAdmin||r.created_by==="client")?'<button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button>':'')+'</div></div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">'+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button></div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     $("drawerBody").innerHTML=body;
@@ -1803,7 +1803,7 @@ function inqMiniRow(r){
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
     // quick action: copy contact
     const cc=e.target.closest("[data-copyc]"); if(cc){ e.stopPropagation(); const val=cc.getAttribute("data-copyc"); try{ await navigator.clipboard.writeText(val); const sp=cc.querySelector("span"); if(sp){ const old=sp.textContent; sp.textContent=T("contactCopied"); setTimeout(()=>{sp.textContent=old;},1500); } }catch(err){ prompt(T("copyContact"),val); } return; }
-    const cl=e.target.closest('[data-act="copylink"]'); if(cl){ const link="https://itshellovirtually.com/form?c="+encodeURIComponent((user&&user.email)||""); try{ await navigator.clipboard.writeText(link); cl.textContent=T("linkCopied"); setTimeout(()=>{cl.textContent=T("copyLink");},1800); }catch(err){ prompt(T("copyLink"),link); } return; }
+    const cl=e.target.closest('[data-act="copylink"]'); if(cl){ const link=formLink(); try{ await navigator.clipboard.writeText(link); cl.textContent=T("linkCopied"); setTimeout(()=>{cl.textContent=T("copyLink");},1800); }catch(err){ prompt(T("copyLink"),link); } return; }
     // onboarding: add inquiry / add task shortcuts open the add modal
     const ga=e.target.closest('[data-go-add]'); if(ga){ $("quickAddBtn").click(); return; }
     const at=e.target.closest('[data-act="addtask"]'); if(at){ setView("tasks"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
