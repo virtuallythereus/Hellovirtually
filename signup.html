@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Set up your account — Hello, Virtually</title>
+<meta name="theme-color" content="#173D35">
+<style>
+  :root{ --ink:#173D35; --ink-3:rgba(23,61,53,.6); --paper:#F7F5F0; --white:#fff; --line:rgba(23,61,53,.14);
+    --coral:#F45145; --coral-soft:#e03b31; --lav:#B9A7FF; --lav-pale:#EEE9FF; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .wrap{max-width:400px;width:100%;}
+  .brand{font-family:Arial,Helvetica,sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:6px;text-align:center;}
+  h1{font-size:1.5rem;font-weight:700;margin:0 0 22px;text-align:center;line-height:1.25;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px 20px;}
+  label{display:block;font-family:Arial,Helvetica,sans-serif;font-size:.85rem;font-weight:600;margin:14px 0 6px;}
+  label:first-child{margin-top:0;}
+  input{width:100%;font-family:Arial,Helvetica,sans-serif;font-size:1rem;padding:11px 12px;
+    border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);}
+  input:focus{outline:2px solid var(--lav);outline-offset:1px;border-color:var(--lav);}
+  button{width:100%;margin-top:18px;padding:14px;font-family:Arial,Helvetica,sans-serif;font-size:1rem;font-weight:700;
+    background:var(--coral);color:#fff;border:0;border-radius:10px;cursor:pointer;}
+  button:hover{background:var(--coral-soft);}
+  button:disabled{opacity:.6;cursor:default;}
+  .hint{font-family:Arial,Helvetica,sans-serif;font-size:.78rem;color:var(--ink-3);margin-top:10px;text-align:center;}
+  .msg{display:none;font-family:Arial,Helvetica,sans-serif;padding:14px;border-radius:10px;margin-top:14px;font-size:.88rem;}
+  .msg.ok{background:var(--lav-pale);color:var(--ink);border:1px solid var(--lav);display:block;}
+  .msg.err{background:#fff0ee;color:var(--coral-soft);border:1px solid var(--coral);display:block;}
+  .center{text-align:center;color:var(--ink-3);font-family:Arial,Helvetica,sans-serif;padding:20px 0;}
+  a.btn{display:inline-block;margin-top:16px;background:var(--coral);color:#fff;text-decoration:none;
+    padding:12px 22px;border-radius:9px;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:.9rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Hello, Virtually</div>
+  <h1 id="pageTitle">Set up your account</h1>
+  <div class="card" id="card">
+    <div class="center" id="loadingMsg">Loading&hellip;</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const sb = supabase.createClient(
+    "https://yjrotvqtprlkzbxgyhtk.supabase.co",
+    "sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD"
+  );
+  const slug = new URLSearchParams(window.location.search).get("c");
+  const card = document.getElementById("card");
+  const title = document.getElementById("pageTitle");
+
+  function showForm(businessName){
+    title.textContent = "Set up your account";
+    card.innerHTML =
+      '<p style="font-family:Arial,Helvetica,sans-serif;font-size:.9rem;color:var(--ink-3);margin:0 0 4px;">For <b style="color:var(--ink)">' + businessName + '</b></p>' +
+      '<label for="fEmail">Email</label><input type="email" id="fEmail" autocomplete="email">' +
+      '<label for="fPass">Password</label><input type="password" id="fPass" autocomplete="new-password" placeholder="At least 6 characters">' +
+      '<button id="submitBtn">Create account</button>' +
+      '<div class="msg" id="formMsg"></div>' +
+      '<div class="hint">You\'ll use this email and password to log into your workspace.</div>';
+    document.getElementById("submitBtn").addEventListener("click", submit);
+  }
+
+  function showDone(){
+    title.textContent = "You're all set!";
+    card.innerHTML =
+      '<div class="center" style="padding:6px 0 4px;">Your account is ready. Log in to your workspace to see your leads.</div>' +
+      '<a class="btn" href="/portal.html" style="display:block;text-align:center;">Go to my workspace</a>';
+  }
+
+  function showError(text){
+    title.textContent = "We couldn't find this link";
+    card.innerHTML = '<div class="msg err">' + text + '</div>';
+  }
+
+  async function submit(){
+    const email = document.getElementById("fEmail").value.trim();
+    const pass = document.getElementById("fPass").value;
+    const btn = document.getElementById("submitBtn");
+    const msg = document.getElementById("formMsg");
+    msg.className = "msg";
+    if (!email || pass.length < 6) {
+      msg.className = "msg err"; msg.textContent = "Enter a valid email and a password with at least 6 characters.";
+      return;
+    }
+    btn.disabled = true; btn.textContent = "Creating\u2026";
+
+    const { error: signErr } = await sb.auth.signUp({ email, password: pass });
+    if (signErr) {
+      btn.disabled = false; btn.textContent = "Create account";
+      msg.className = "msg err";
+      msg.textContent = signErr.message && signErr.message.includes("already registered")
+        ? "This email already has an account. Try logging in instead."
+        : "Something went wrong. Please try again.";
+      return;
+    }
+
+    const { data: claimed, error: claimErr } = await sb.rpc("claim_client_slug", { p_slug: slug, p_email: email });
+    btn.disabled = false; btn.textContent = "Create account";
+
+    if (claimErr || !claimed) {
+      msg.className = "msg err";
+      msg.textContent = "Your account was created, but we couldn't link it automatically. Contact us and we'll finish setup.";
+      return;
+    }
+    showDone();
+  }
+
+  (async function init(){
+    if (!slug) { showError("This signup link is missing information. Please use the link we sent you."); return; }
+    const { data, error } = await sb.rpc("get_client_by_slug", { p_slug: slug });
+    const row = data && data[0];
+    if (error || !row) { showError("This signup link isn't valid. Please contact us for a new one."); return; }
+    if (row.claimed) { showError("This account has already been set up. Please log in instead."); return; }
+    showForm(row.business_name);
+  })();
+</script>
+</body>
+</html>

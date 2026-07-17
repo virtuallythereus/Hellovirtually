@@ -1496,7 +1496,7 @@ function inqMiniRow(r){
         '<button class="mini-btn alt" data-msgch="copy">'+esc(T("copyShort"))+'</button>'+
       '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
     '</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn'+(r.called?" done":"")+'" data-act="call">'+esc(calledLbl)+'</button><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button></div></div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button></div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     $("drawerBody").innerHTML=body;

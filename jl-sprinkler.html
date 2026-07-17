@@ -150,7 +150,7 @@
   const CFG = {
     url: "https://yjrotvqtprlkzbxgyhtk.supabase.co",
     key: "sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD",
-    clientEmail: "salamo.pineiro@gmail.com"
+    clientSlug: "jl-sprinkler"
   };
   const sb = supabase.createClient(CFG.url, CFG.key);
 
@@ -182,8 +182,8 @@
     if (services.includes("Irrigation Repair/Service")) formData.irrigation = { problem: irrProblem.value, urgent: document.querySelector('input[name=irrUrgent]:checked').value };
 
     btn.disabled = true; btn.textContent = "Sending…";
-    const { error } = await sb.rpc("submit_inquiry", {
-      p_client_email: CFG.clientEmail,
+    const { error } = await sb.rpc("submit_inquiry_by_slug", {
+      p_slug: CFG.clientSlug,
       p_customer_name: fName.value,
       p_customer_contact: fPhone.value + (fAddr.value ? " · " + fAddr.value : ""),
       p_channel: "Form",
