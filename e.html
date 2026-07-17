@@ -20,22 +20,31 @@
 </head>
 <body>
   <div class="box">
-    <div class="dot"></div>
-    <p>Opening your estimate&hellip;</p>
-    <a id="manualLink" href="#" style="display:none">Open estimate</a>
+    <div class="dot" id="spin"></div>
+    <p id="msg">Opening your estimate&hellip;</p>
+    <a id="manualLink" href="#" style="display:none" target="_blank" rel="noopener">Open estimate</a>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const u = params.get("u");
-  if (u) {
-    let target = "";
-    try { target = decodeURIComponent(u); } catch(e) { target = u; }
-    document.getElementById("manualLink").href = target;
-    window.location.replace(target);
+  const sb = supabase.createClient(
+    "https://yjrotvqtprlkzbxgyhtk.supabase.co",
+    "sb_publishable_PbrUG6KkvkCJsZ7uES5uFw_DdeEa0eD"
+  );
+  const id = new URLSearchParams(window.location.search).get("id");
+
+  async function go(){
+    if (!id) { fail(); return; }
+    const { data, error } = await sb.rpc("get_estimate_url", { p_id: id });
+    if (error || !data) { fail(); return; }
+    document.getElementById("manualLink").href = data;
+    window.location.replace(data);
     setTimeout(() => { document.getElementById("manualLink").style.display = "inline-block"; }, 1500);
-  } else {
-    document.querySelector("p").textContent = "This link is missing its document.";
   }
+  function fail(){
+    document.getElementById("spin").style.display = "none";
+    document.getElementById("msg").textContent = "We couldn't find this estimate. Please contact us for a new link.";
+  }
+  go();
 </script>
 </body>
 </html>
