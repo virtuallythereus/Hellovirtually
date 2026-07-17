@@ -1120,12 +1120,13 @@ button{font-family:inherit;cursor:pointer;}
     const ph=((raw.replace(em,"").match(/\+?\d[\d\s().-]{6,}/)||[""])[0]).replace(/[^\d+]/g,"");
     return {em:em,ph:ph};
   }
+  function estLink(u){ return u?("https://itshellovirtually.com/e.html?u="+encodeURIComponent(u)):u; }
   function fillTpl(k,r){
     const first=((r.customer_name||"").trim().split(" ")[0])||"";
     const proj=(r.message&&r.message.length<=35)?r.message:T("projFallback");
     const amt=parseFloat(r.estimate_amount)>0?" ("+fmtMoney(r.estimate_amount)+")":"";
     let out=T("tplb_"+k).replace(/\{name\}/g,first).replace(/\{project\}/g,proj).replace(/\{amount\}/g,amt);
-    if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="followup2"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+r.estimate_url;
+    if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="followup2"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+estLink(r.estimate_url);
     return out;
   }
   let myFormUrl=null;
@@ -1480,7 +1481,7 @@ function inqMiniRow(r){
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
       '<div class="est-doc">'+(r.estimate_url
-        ?'<a class="doc-link" href="'+esc(r.estimate_url)+'" target="_blank" rel="noopener">'+esc(T("viewDoc"))+' \u2197</a><button class="del-link" data-act="docRemove">\u00d7</button>'
+        ?'<a class="doc-link" href="'+esc(estLink(r.estimate_url))+'" target="_blank" rel="noopener">'+esc(T("viewDoc"))+' \u2197</a><button class="del-link" data-act="docRemove">\u00d7</button>'
         :'<label class="mini-btn alt doc-btn">'+esc(T("attachDoc"))+'<input type="file" id="estFile" accept="application/pdf,image/*" hidden></label>')+
       '</div></div>';
     const ct=contactOf(r);
@@ -1874,7 +1875,7 @@ function inqMiniRow(r){
       if(error){ console.warn(error); if(lbl) lbl.textContent=T("uploadErr"); return; }
       const {data}=sb.storage.from("estimates").getPublicUrl(path);
       const okp=await patchInq(id,{estimate_url:data.publicUrl});
-      if(okp){ autoNote(id,T("noteDoc")); openDetail(id,true); } else if(lbl) lbl.textContent=T("uploadErr");
+      if(okp){ autoNote(id,T("noteDoc")); openDetail(id,true); const mt=$("msgTpl"); if(mt){ mt.value="estimate"; const r2=inquiries.find(x=>x.id===id); if(r2)$("msgBody").value=fillTpl("estimate",r2); } } else if(lbl) lbl.textContent=T("uploadErr");
     }
   });
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
