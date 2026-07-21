@@ -405,6 +405,7 @@ button{font-family:inherit;cursor:pointer;}
 .wait-item:hover .day-t{color:var(--coral);}
 .wait-main{flex:1;min-width:0;}
 .fa-list{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:4px 13px;}
+.dsec-fa .fa-list{border-left:3px solid var(--lav);}
 .fa-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line-2);}
 .fa-row:last-child{border-bottom:none;}
 .fa-k{flex:0 0 38%;font-size:.72rem;font-weight:700;color:var(--ink-3);text-transform:capitalize;padding-top:1px;}
@@ -468,6 +469,17 @@ button{font-family:inherit;cursor:pointer;}
 .form-hint{font-size:.76rem;color:var(--ink-3);line-height:1.5;margin:12px 0;}
 .qr-box{display:flex;justify-content:center;background:var(--white);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:10px;}
 .qr-box img{width:100%;max-width:220px;height:auto;image-rendering:pixelated;}
+.form-hero{max-width:860px;margin:0 0 18px;}
+.form-hero-t{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.form-hero-s{font-size:.86rem;color:var(--ink-3);margin-top:4px;line-height:1.5;max-width:620px;}
+.form-side{display:flex;flex-direction:column;gap:18px;}
+.form-open-link{font-size:.74rem;font-weight:700;color:var(--coral);white-space:nowrap;}
+.form-open-link:hover{color:var(--coral-soft);}
+.device{max-width:330px;margin:4px auto 0;border:9px solid var(--ink);border-radius:30px;background:var(--ink);box-shadow:var(--shadow-md);overflow:hidden;}
+.device-screen{background:var(--white);border-radius:21px;overflow:hidden;line-height:0;}
+.device-screen iframe{width:100%;height:540px;border:0;display:block;background:var(--white);}
+.form-tailored{margin-top:14px;font-size:.78rem;color:var(--ink-2);line-height:1.5;text-align:center;background:var(--mint);border:1px solid var(--mint-2);border-radius:var(--radius-sm);padding:10px 12px;}
+@media(max-width:900px){.device-screen iframe{height:480px;}}
 /* Results */
 .res-wrap{max-width:640px;}
 .res-month{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
@@ -982,6 +994,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
     tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
     formTitle:"Your inquiry form",formCaptured:"inquiries captured with this form",
+    formHero:"This is exactly what your customers fill out.",formHeroSub:"Every request reaches you with the details you need, so there is no back and forth before you can send an estimate.",formPreview:"Live preview",formOpen:"Open form",formTailored:"Built for your trade. Want to add or change a question? Just ask us.",formShareTitle:"Share your form",
     qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
     noInqYet:"No inquiries yet \u2014 add one first",
     pushBody:"Get an alert on this phone the moment a new lead comes in.",pushOn:"Turn on lead alerts",pushEnabled:"Lead alerts are on for this device \u2713",
@@ -1052,6 +1065,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
     tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
     formTitle:"Tu formulario de consultas",formCaptured:"consultas capturadas con este formulario",
+    formHero:"Esto es exactamente lo que llena tu cliente.",formHeroSub:"Cada solicitud te llega con los datos que necesitas, sin ir y venir antes de enviar un estimado.",formPreview:"Vista previa en vivo",formOpen:"Abrir formulario",formTailored:"Hecho para tu oficio. \u00bfQuieres agregar o cambiar una pregunta? Solo d\u00ednos.",formShareTitle:"Comparte tu formulario",
     qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
     noInqYet:"A\u00fan no hay consultas \u2014 crea una primero",
     pushBody:"Recibe una alerta en este tel\u00e9fono en el momento en que entre un lead nuevo.",pushOn:"Activar alertas de leads",pushEnabled:"Alertas de leads activadas en este dispositivo \u2713",
@@ -1471,13 +1485,14 @@ function inqMiniRow(r){
     const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.o.title)+'</div><div class="lr-sub">'+(a.o.due_at?esc(fmtWhen(a.o.due_at)):'')+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.o.id+'" data-rk="'+a.k+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
     const calledLbl=r.called?(T("called")+(r.called_at?" \u00b7 "+fmtExact(r.called_at):"")):T("markCalled");
     let body='';
+    if(r.form_data&&typeof r.form_data==="object"){
+      const faEntries=Object.entries(r.form_data).filter(([k,v])=>v!==null&&v!=="");
+      const faRows=faEntries.map(([k,v])=>'<div class="fa-row"><span class="fa-k">'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</span><span class="fa-v">'+esc(String(v))+'</span></div>').join("");
+      if(faRows) body+='<div class="dsec dsec-fa"><div class="dsec-l">'+esc(T("formAnswers"))+' \u00b7 '+faEntries.length+'</div><div class="fa-list">'+faRows+'</div></div>';
+    }
     const stepIds=STAGE_STEPS[stOf(r)]||[];
     if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
     if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
-    if(r.form_data&&typeof r.form_data==="object"){
-      const faRows=Object.entries(r.form_data).filter(([k,v])=>v!==null&&v!=="").map(([k,v])=>'<div class="fa-row"><span class="fa-k">'+esc(String(k).replace(/_/g," "))+'</span><span class="fa-v">'+esc(String(v))+'</span></div>').join("");
-      if(faRows) body+='<div class="dsec"><div class="dsec-l">'+esc(T("formAnswers"))+'</div><div class="fa-list">'+faRows+'</div></div>';
-    }
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
       '<div class="est-doc">'+(r.estimate_url
@@ -1659,15 +1674,22 @@ function inqMiniRow(r){
   function renderForm(){
     const c=$("content"); const link=formLink();
     const captured=inquiries.filter(r=>r.kind!=="booking").length;
-    c.innerHTML='<div class="form-grid">'+
-      '<div class="panel"><div class="panel-h"><h3>'+esc(T("formTitle"))+'</h3></div>'+
-        '<div class="form-link-row"><span class="form-link">'+esc(link)+'</span><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button></div>'+
-        '<div class="form-cap"><b>'+captured+'</b> '+esc(T("formCaptured"))+'</div>'+
+    c.innerHTML='<div class="form-hero"><div class="form-hero-t">'+esc(T("formHero"))+'</div><div class="form-hero-s">'+esc(T("formHeroSub"))+'</div></div>'+
+      '<div class="form-grid">'+
+      '<div class="panel form-preview-panel"><div class="panel-h"><h3>'+esc(T("formPreview"))+'</h3><a class="form-open-link" href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(T("formOpen"))+' \u2197</a></div>'+
+        '<div class="device"><div class="device-screen"><iframe src="'+esc(link)+'" title="'+esc(T("formPreview"))+'" loading="lazy"></iframe></div></div>'+
+        '<div class="form-tailored">'+esc(T("formTailored"))+'</div>'+
       '</div>'+
-      '<div class="panel qr-panel"><div class="panel-h"><h3>'+esc(T("qrTitle"))+'</h3></div>'+
-        '<div id="qrBox" class="qr-box"></div>'+
-        '<div class="form-hint">'+esc(T("qrHint"))+'</div>'+
-        '<button class="btn btn-ghost btn-sm btn-block" id="qrDl">'+esc(T("qrDownload"))+'</button>'+
+      '<div class="form-side">'+
+        '<div class="panel"><div class="panel-h"><h3>'+esc(T("formShareTitle"))+'</h3></div>'+
+          '<div class="form-link-row"><span class="form-link">'+esc(link.replace(/^https?:\/\//,""))+'</span><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button></div>'+
+          '<div class="form-cap"><b>'+captured+'</b> '+esc(T("formCaptured"))+'</div>'+
+        '</div>'+
+        '<div class="panel qr-panel"><div class="panel-h"><h3>'+esc(T("qrTitle"))+'</h3></div>'+
+          '<div id="qrBox" class="qr-box"></div>'+
+          '<div class="form-hint">'+esc(T("qrHint"))+'</div>'+
+          '<button class="btn btn-ghost btn-sm btn-block" id="qrDl">'+esc(T("qrDownload"))+'</button>'+
+        '</div>'+
       '</div></div>';
     try{
       const qr=window.qrcode(0,"M"); qr.addData(link); qr.make();
