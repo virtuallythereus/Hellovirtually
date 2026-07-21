@@ -311,9 +311,11 @@ button{font-family:inherit;cursor:pointer;}
 .inq-qa{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap;}
 .qa-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Helvena','Helvetica Neue',sans-serif;font-size:.7rem;font-weight:700;padding:7px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--white);color:var(--ink-2);cursor:pointer;transition:all var(--anim);white-space:nowrap;}
 .qa-btn svg{width:14px;height:14px;}
-.qa-btn:hover{border-color:var(--ink);background:var(--ink);color:#fff;}
-.qa-btn.qa-primary{border-color:rgba(244,81,69,.3);color:var(--coral);background:#fff6f5;}
-.qa-btn.qa-primary:hover{background:var(--coral);border-color:var(--coral);color:#fff;}
+.qa-btn:hover{border-color:var(--ink);background:var(--paper-2);color:var(--ink);}
+.qa-btn.qa-primary{border-color:var(--ink);color:#fff;background:var(--ink);}
+.qa-btn.qa-primary:hover{background:var(--ink-2);border-color:var(--ink-2);color:#fff;transform:translateY(-1px);}
+.qa-btn.qa-quiet{border-color:transparent;background:transparent;color:var(--ink-3);padding-left:8px;padding-right:8px;}
+.qa-btn.qa-quiet:hover{border-color:transparent;background:var(--paper-2);color:var(--ink);}
 
 /* View toggle */
 .view-toggle{display:flex;gap:3px;background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:3px;flex-shrink:0;}
@@ -369,8 +371,6 @@ button{font-family:inherit;cursor:pointer;}
 .pill.new .pill-dot{background:var(--lav);}
 .pill.contacting,.pill.contacted{background:var(--blue-pale);border-color:rgba(201,231,245,.5);color:#2a7fa8;}
 .pill.contacting .pill-dot,.pill.contacted .pill-dot{background:var(--blue);}
-.pill.qualified{background:#edfaf3;border-color:#c5eed9;color:#1a7a45;}
-.pill.qualified .pill-dot{background:#4caf50;}
 .pill.estimate_sent,.pill.estimate-sent{background:#fff3e0;border-color:#ffd99e;color:#b36000;}
 .pill.estimate_sent .pill-dot,.pill.estimate-sent .pill-dot{background:#ff9800;}
 .pill.follow_up,.pill.follow-up{background:var(--mint);border-color:var(--mint-2);color:var(--ink-2);}
@@ -934,6 +934,17 @@ button{font-family:inherit;cursor:pointer;}
   <div class="focus-prog"><div id="focusBar"></div></div>
   <div class="focus-card" id="focusCard"></div>
 </div>
+<div class="overlay" id="msgOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="msgOverlay">&times;</button>
+    <h3 id="msgTitle">Send a message</h3>
+    <div class="sub" id="msgSub"></div>
+    <select id="mTpl" class="msg-tpl"></select>
+    <textarea id="mBody" class="msg-body" rows="5"></textarea>
+    <div class="msg-ch" id="mCh"></div>
+    <div class="msg-none" id="mNone" style="display:none"></div>
+  </div>
+</div>
 <div class="overlay" id="schedOverlay">
   <div class="sheet">
     <button class="sheet-close" data-close="schedOverlay">&times;</button>
@@ -963,7 +974,7 @@ button{font-family:inherit;cursor:pointer;}
 
   const EN={
     navToday:"Today",navInq:"Inquiries",navTasks:"Tasks",navCal:"Calendar",navClients:"Clients",
-    quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",listView:"List view",boardView:"Board view",dropHere:"Drop here",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
+    quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
     gateTitle:"Your <em>workspace</em>",gateSub:"Log in to see everything we've handled for you.",
     email:"Email",password:"Password",login:"Log in",noAccount:"No account yet?",goSite:"Create one on our site",
     titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
@@ -986,14 +997,14 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
-    composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",
+    composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
     tplb_initial:"Hey {name}! We got your request about {project} \u2014 thanks so much for reaching out. We're already working on your estimate and you'll have it soon. Anything you'd like to add, just reply here.",
     tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
     tplb_followup:"Hi {name}, just following up on the estimate{amount} \u2014 any questions, or anything you'd like me to adjust?",
     tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
     tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
-    formTitle:"Your inquiry form",formCaptured:"inquiries captured with this form",
+    formCaptured:"inquiries captured with this form",
     formHero:"This is exactly what your customers fill out.",formHeroSub:"Every request reaches you with the details you need, so there is no back and forth before you can send an estimate.",formPreview:"Live preview",formOpen:"Open form",formTailored:"Built for your trade. Want to add or change a question? Just ask us.",formShareTitle:"Share your form",
     qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
     noInqYet:"No inquiries yet \u2014 add one first",
@@ -1034,7 +1045,7 @@ button{font-family:inherit;cursor:pointer;}
   };
   const ES={
     navToday:"Hoy",navInq:"Consultas",navTasks:"Tareas",navCal:"Calendario",navClients:"Clientes",
-    quickAdd:"+ Nuevo",quickAddInq:"+ Nueva consulta",addTask:"A\u00f1adir tarea",copyLink:"Copiar enlace",greetSub:"Esto es lo que necesita tu atenci\u00f3n hoy.",advanceTo:"Marcar",listView:"Vista lista",boardView:"Vista tablero",dropHere:"Soltar aqu\u00ed",addFollowup:"A\u00f1adir seguimiento",followShort:"Seguir",copyContact:"Copiar contacto",copyShort:"Copiar",contactCopied:"Copiado",addInquiry:"A\u00f1adir consulta",onbTitle:"\u00bfListo para recibir tu primera consulta?",onbText:"Comparte tu formulario o a\u00f1ade una solicitud manualmente para empezar a organizar el inter\u00e9s de tus clientes.",linkCopied:"Enlace copiado",reviewInq:"Revisar",addStep:"A\u00f1adir paso",markDone:"Completar",followUp:"Seguimiento",thisWeek:"esta semana",received:"recibidas",nothingDue:"Nada para hoy",overdueCount:"vencidas",allInquiries:"Ver todas",noActionsSub:"A\u00f1ade un seguimiento o tarea para organizar tu d\u00eda.",caughtUpSub:"Ninguna consulta o seguimiento necesita tu atenci\u00f3n ahora.",activitySub:"Las consultas y actualizaciones nuevas aparecer\u00e1n aqu\u00ed.", logout:"Salir",
+    quickAdd:"+ Nuevo",quickAddInq:"+ Nueva consulta",addTask:"A\u00f1adir tarea",copyLink:"Copiar enlace",greetSub:"Esto es lo que necesita tu atenci\u00f3n hoy.",advanceTo:"Marcar",addFollowup:"A\u00f1adir seguimiento",followShort:"Seguir",copyContact:"Copiar contacto",copyShort:"Copiar",contactCopied:"Copiado",addInquiry:"A\u00f1adir consulta",onbTitle:"\u00bfListo para recibir tu primera consulta?",onbText:"Comparte tu formulario o a\u00f1ade una solicitud manualmente para empezar a organizar el inter\u00e9s de tus clientes.",linkCopied:"Enlace copiado",reviewInq:"Revisar",addStep:"A\u00f1adir paso",markDone:"Completar",followUp:"Seguimiento",thisWeek:"esta semana",received:"recibidas",nothingDue:"Nada para hoy",overdueCount:"vencidas",allInquiries:"Ver todas",noActionsSub:"A\u00f1ade un seguimiento o tarea para organizar tu d\u00eda.",caughtUpSub:"Ninguna consulta o seguimiento necesita tu atenci\u00f3n ahora.",activitySub:"Las consultas y actualizaciones nuevas aparecer\u00e1n aqu\u00ed.", logout:"Salir",
     gateTitle:"Tu <em>espacio</em>",gateSub:"Inicia sesi\u00f3n para ver todo lo que manejamos por ti.",
     email:"Correo",password:"Contrase\u00f1a",login:"Iniciar sesi\u00f3n",noAccount:"\u00bfA\u00fan no tienes cuenta?",goSite:"Cr\u00e9ala en nuestro sitio",
     titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
@@ -1057,14 +1068,14 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
-    composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",
+    composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
     tplb_initial:"\u00a1Hola {name}! Recibimos tu solicitud sobre {project} \u2014 mil gracias por escribirnos. Ya estamos trabajando en tu estimado y pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
     tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
     tplb_followup:"Hola {name}, dando seguimiento al estimado{amount} \u2014 \u00bfalguna pregunta o algo que quieras ajustar?",
     tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
     tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
-    formTitle:"Tu formulario de consultas",formCaptured:"consultas capturadas con este formulario",
+    formCaptured:"consultas capturadas con este formulario",
     formHero:"Esto es exactamente lo que llena tu cliente.",formHeroSub:"Cada solicitud te llega con los datos que necesitas, sin ir y venir antes de enviar un estimado.",formPreview:"Vista previa en vivo",formOpen:"Abrir formulario",formTailored:"Hecho para tu oficio. \u00bfQuieres agregar o cambiar una pregunta? Solo d\u00ednos.",formShareTitle:"Comparte tu formulario",
     qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
     noInqYet:"A\u00fan no hay consultas \u2014 crea una primero",
@@ -1284,7 +1295,7 @@ button{font-family:inherit;cursor:pointer;}
     const who=isAdmin?"":(", "+displayName());
     const hi=isAdmin?(T(greetKey)+", "+displayName()):(T(greetKey)+who);
 
-    let html='<div class="greet-row"><div class="hi">'+esc(hi)+'</div><div class="date">'+esc(T("greetSub"))+'</div></div>';
+    let html='<div class="greet-row"><div class="hi">'+esc(hi)+'</div><div class="date">'+esc(dateStr.charAt(0).toUpperCase()+dateStr.slice(1))+'</div></div>';
 
     // ── onboarding card (empty account) ──
     if(!realInq.length && !openTasks){
@@ -1411,12 +1422,14 @@ function inqMiniRow(r){
       const nextLbl=nextSt?T("advanceTo")+" "+stLbl(nextSt):"";
       const canArch=(stOf(r)==="hired"||stOf(r)==="not_hired")&&!r.archived;
       const contact=(r.customer_contact||r.customer_email||r.customer_phone||"");
+      const isNewLead=stOf(r)==="new";
       const qa='<div class="inq-qa">'+
-        (nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>':(canArch?'<button class="qa-btn" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>':''))+
-        '<button class="qa-btn" data-followup="'+r.id+'" title="'+esc(T("addFollowup"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M12 13v3M10.5 14.5h3"/></svg><span>'+esc(T("followShort"))+'</span></button>'+
-        (contact?'<button class="qa-btn" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'" title="'+esc(T("copyContact"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>'+esc(T("copyShort"))+'</span></button>':'')+
+        (isNewLead?'<button class="qa-btn qa-primary" data-msg="'+r.id+'">'+esc(T("qaSendIntro"))+'</button>':(nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>':(canArch?'<button class="qa-btn" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>':'')))+
+        '<button class="qa-btn qa-quiet" data-followup="'+r.id+'" title="'+esc(T("addFollowup"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M12 13v3M10.5 14.5h3"/></svg><span>'+esc(T("followShort"))+'</span></button>'+
+        (contact?'<button class="qa-btn qa-quiet" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'" title="'+esc(T("copyContact"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>'+esc(T("copyShort"))+'</span></button>':'')+
       '</div>';
-      const subLine=na?'<span class="inq-task"><b>Task:</b> '+esc(na.title||actionLabel(na.kind))+(na.due_at?' &middot; '+esc(fmtWhen(na.due_at)):'')+'</span>':(lastNote?esc(lastNote.body.slice(0,60)):'');
+      const humanNote=(lastNote&&lastNote.author_role!=='system')?lastNote:null;
+      const subLine=na?'<span class="inq-task"><b>Task:</b> '+esc(na.title||actionLabel(na.kind))+(na.due_at?' &middot; '+esc(fmtWhen(na.due_at)):'')+'</span>':(humanNote?esc(humanNote.body.slice(0,60)):'');
       return '<div class="inq-card" data-open="'+r.id+'">'+
         '<div class="inq-av">'+initials+'</div>'+
         '<div class="inq-main">'+
@@ -1655,6 +1668,35 @@ function inqMiniRow(r){
     if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); if(detailId===id) openDetail(id,true); }
   });
 
+  // ===== MESSAGE POPUP (quick reach out from a card) =====
+  let msgInqId=null;
+  function openMsg(id){
+    const r=inquiries.find(x=>x.id===id); if(!r) return; msgInqId=id;
+    const ct=contactOf(r);
+    $("msgTitle").textContent=T("msgPopTitle");
+    $("msgSub").textContent=(r.customer_name||"\u2014")+(r.channel?" \u00b7 "+r.channel:"");
+    const tKeys=["initial","estimate","followup","lastcall","thanks"];
+    const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
+    $("mTpl").innerHTML=tKeys.map(k=>'<option value="'+k+'"'+(k===defT?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("");
+    $("mBody").value=fillTpl(defT,r);
+    const none=(!ct.ph&&!ct.em);
+    $("mCh").innerHTML=(ct.ph?'<button class="mini-btn" data-mch="wa">WhatsApp</button><button class="mini-btn" data-mch="sms">SMS</button><button class="mini-btn" data-mch="tel">'+esc(T("actCall"))+'</button>':'')+(ct.em?'<button class="mini-btn" data-mch="mail">Email</button>':'')+'<button class="mini-btn alt" data-mch="copy">'+esc(T("copyShort"))+'</button>';
+    $("mNone").style.display=none?"block":"none"; if(none)$("mNone").textContent=T("noContact");
+    openOverlay("msgOverlay");
+  }
+  $("msgOverlay").addEventListener("click",async e=>{
+    const mc=e.target.closest("[data-mch]"); if(!mc) return;
+    const id=msgInqId; const r=inquiries.find(x=>x.id===id); if(!r) return; const ct=contactOf(r); const txt=$("mBody")?$("mBody").value:""; const ch=mc.getAttribute("data-mch");
+    if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
+    if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(id,T("noteMsg")+" WhatsApp"); }
+    else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
+    else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
+    else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
+    markFirstResponse(id);
+    if(stOf(r)==="new"){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
+    closeOverlay("msgOverlay"); render();
+  });
+
   // ===== ACTIVITY LOG =====
   async function autoNote(inqId,txt){
     if(!inqId||!sb||!user) return;
@@ -1821,6 +1863,7 @@ function inqMiniRow(r){
     // quick action: advance status
     if(e.target.closest('[data-act="focusStart"]')){ startFocus(); return; }
     const ar=e.target.closest("[data-arch]"); if(ar){ e.stopPropagation(); const okp=await patchInq(ar.getAttribute("data-arch"),{archived:true}); if(okp) render(); return; }
+    const msgb=e.target.closest("[data-msg]"); if(msgb){ e.stopPropagation(); openMsg(msgb.getAttribute("data-msg")); return; }
     const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,statusPatch(aid,ns)); if(ok){ render(); autoNote(aid,T("noteStatus")+" "+stLbl(ns)); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
@@ -1889,6 +1932,7 @@ function inqMiniRow(r){
   });
   document.addEventListener("change",async e=>{
     if(e.target&&e.target.id==="msgTpl"&&detailId){ const r=inquiries.find(x=>x.id===detailId); if(r)$("msgBody").value=fillTpl(e.target.value,r); return; }
+    if(e.target&&e.target.id==="mTpl"&&msgInqId){ const r=inquiries.find(x=>x.id===msgInqId); if(r)$("mBody").value=fillTpl(e.target.value,r); return; }
     if(e.target&&e.target.id==="estFile"&&detailId){
       const f=e.target.files[0]; if(!f) return;
       const id=detailId; const lbl=e.target.closest("label"); if(lbl) lbl.textContent=T("uploading");
