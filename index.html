@@ -176,7 +176,7 @@ p{font-size:clamp(15px,1.65vw,17.5px)}
 .down svg{width:26px;height:26px}
 
 /* ============================================================
-   PORTAL MOCKUP  (faithful to portal.html)
+   MINI DEMO  (portal markup, curated data)
    ============================================================ */
 .app{
   border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--paper);
@@ -184,89 +184,86 @@ p{font-size:clamp(15px,1.65vw,17.5px)}
   transition:opacity .7s var(--ease) .5s,transform .7s var(--ease) .5s;
 }
 .stage.go .app{opacity:1;transform:none}
-.app.static{opacity:1;transform:none;transition:none}
 .app-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;background:var(--white);border-bottom:1px solid var(--line)}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--ink);opacity:.16}
-.app-url{
-  margin-left:8px;font-size:11.5px;color:var(--ink-4);background:var(--paper);
-  border:1px solid var(--line);border-radius:50px;padding:4px 13px;
-}
-.app-body{display:grid;grid-template-columns:186px 1fr;min-height:390px}
+.app-url{margin-left:8px;font-size:11.5px;color:var(--ink-4);background:var(--paper);border:1px solid var(--line);border-radius:50px;padding:4px 13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-tag{margin-left:auto;font-family:var(--f-label);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--mint);border-radius:50px;padding:5px 11px;white-space:nowrap}
+.app-body{display:grid;grid-template-columns:196px 1fr;min-height:430px}
+.app-hint{margin-top:14px;font-family:var(--f-note);font-size:clamp(14px,1.8vw,17px);color:var(--ink-3);text-align:center}
 
-.sb{background:var(--white);border-right:1px solid var(--line);padding:18px 12px}
-.sb-brand{font-size:13.5px;font-weight:800;letter-spacing:-.03em;padding:0 8px 16px;display:flex;align-items:center;gap:5px}
+.sb{background:var(--ink);padding:18px 12px;display:flex;flex-direction:column}
+.sb-brand{font-size:13.5px;font-weight:800;letter-spacing:-.03em;color:var(--paper);padding:0 8px 16px;display:flex;align-items:center;gap:5px}
 .sb-brand i{width:6px;height:6px;border-radius:50%;background:var(--coral)}
 .nav-item{
-  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;
-  font-size:13px;font-weight:500;color:var(--ink-3);margin-bottom:2px;
+  display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;width:100%;
+  font-size:13px;font-weight:500;color:rgba(247,245,240,.66);margin-bottom:2px;
+  background:transparent;border:0;font-family:var(--f-body);cursor:pointer;text-align:left;
+  transition:background .16s var(--ease),color .16s var(--ease);
 }
-.nav-item svg{width:16px;height:16px;flex:0 0 16px;opacity:.75}
-.nav-item.active{background:var(--mint);color:var(--ink);font-weight:700}
+.nav-item svg{width:16px;height:16px;flex:0 0 16px;opacity:.8}
+.nav-item:hover{background:rgba(247,245,240,.07);color:var(--paper)}
+.nav-item.active{background:rgba(247,245,240,.13);color:var(--paper);font-weight:700}
 .nav-item.active svg{opacity:1}
-.nav-item .badge{
-  margin-left:auto;min-width:17px;height:17px;padding:0 5px;border-radius:50px;background:var(--coral);
-  color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
-}
+.badge{margin-left:auto;min-width:17px;height:17px;padding:0 5px;border-radius:50px;background:var(--coral);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.sb-user{margin-top:auto;display:flex;align-items:center;gap:9px;padding:10px 8px 0;border-top:1px solid rgba(247,245,240,.12);font-size:12px;color:var(--paper)}
+.sb-user span{display:flex;flex-direction:column;line-height:1.25}
+.sb-user em{font-style:normal;font-size:10px;color:rgba(247,245,240,.5)}
+.sb-av{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 26px}
 
-.content{padding:20px 22px 26px;min-width:0}
-.greet .hi{font-size:20px;font-weight:600;letter-spacing:-.02em}
-.greet .hi em{font-style:italic;color:var(--coral)}
-.greet .date{color:var(--ink-4);font-size:12.5px;margin-top:3px}
-
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:18px 0 20px}
-.stat{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px 11px}
-.stat-ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;margin-bottom:8px}
-.stat-ic svg{width:15px;height:15px}
-.stat.s1 .stat-ic{background:var(--lav-pale);color:#6b52cc}
-.stat.s2 .stat-ic{background:var(--peach);color:var(--coral)}
-.stat.s3 .stat-ic{background:var(--mint);color:var(--ink-2)}
-.stat.s4 .stat-ic{background:var(--blue-pale);color:#2a7fa8}
-.stat .n{font-size:25px;font-weight:600;line-height:1;letter-spacing:-.03em}
-.stat .k{font-size:11px;color:var(--ink-4);margin-top:4px}
-
-.sec-h{display:flex;align-items:center;gap:10px;margin:0 0 10px}
-.sec-h h4{font-size:13px;font-weight:700;letter-spacing:-.01em}
-.sec-h a{margin-left:auto;font-size:11.5px;color:var(--ink-4);text-decoration:none}
-
-.pipe-bar{display:flex;gap:4px;height:26px;margin-bottom:9px}
-.pipe-seg{
-  display:flex;align-items:center;justify-content:center;min-width:26px;border-radius:7px;
-  font-size:11px;font-weight:700;
-}
-.pipe-seg.p1{background:var(--lav-pale);color:#5b45b8;flex:3}
-.pipe-seg.p2{background:var(--blue-pale);color:#2a7fa8;flex:4}
-.pipe-seg.p3{background:var(--mint);color:var(--ink);flex:2}
-.pipe-seg.p4{background:var(--line-2);color:var(--ink-4);flex:1}
-.pipe-key{display:flex;gap:14px;font-size:10.5px;color:var(--ink-4);margin-bottom:18px}
-.pipe-key i{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
-
-.attn{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.attn-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line-2)}
-.attn-row:last-child{border-bottom:0}
-.av{
-  width:30px;height:30px;border-radius:50%;flex:0 0 30px;display:grid;place-items:center;
-  font-size:11px;font-weight:700;background:var(--mint);color:var(--ink);
-}
-.av.a2{background:var(--lav-pale);color:#5b45b8}
-.av.a3{background:var(--blue-pale);color:#2a7fa8}
-.av.a4{background:var(--peach);color:var(--coral-soft)}
-.attn-row .nm{font-size:13px;font-weight:600;letter-spacing:-.01em}
-.attn-row .sb2{font-size:11.5px;color:var(--ink-4)}
-.tag{
-  margin-left:auto;font-size:10px;font-weight:700;padding:4px 10px;border-radius:50px;white-space:nowrap;
-}
-.tag.new{background:var(--coral);color:#fff}
-.tag.wait{background:var(--peach);color:var(--coral-soft)}
-.tag.soon{background:var(--blue-pale);color:#2a7fa8}
-.tag.book{background:var(--mint);color:var(--ink)}
+.content{padding:20px 22px 24px;min-width:0;animation:fade .3s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.greet{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.gdate{color:var(--ink-4);font-size:12.5px;margin-top:3px}
+.kpis{display:flex;gap:26px;margin:18px 0;padding-bottom:16px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.kpi b{font-size:26px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.kpi b.hot{color:var(--coral)}
+.kpi span{font-size:12px;color:var(--ink-4);margin-left:6px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.card-h{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line-2)}
+.card-h h4{font-size:14px;font-weight:700}
+.card-h .cnt{margin-left:auto;font-size:11px;font-weight:700;background:var(--mint);border-radius:50px;padding:3px 9px}
+.mini-btn{font-size:11.5px;font-weight:700;padding:7px 14px;border-radius:50px;background:var(--coral);color:#fff;border:0;font-family:var(--f-body)}
+.li{display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line-2);font-size:13.5px}
+.li:last-child{border-bottom:0}
+.li-n{font-size:11px;font-weight:700;color:var(--lav);flex:0 0 18px}
+.li-t{font-weight:600}
+.li-s{font-size:11.5px;color:var(--ink-4)}
+.li-s.over{color:var(--coral);font-weight:700}
+.li-a{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--ink-3);border:1px solid var(--line);border-radius:50px;padding:6px 13px;white-space:nowrap}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fp{font-size:11px;font-weight:700;padding:6px 12px;border-radius:50px;border:1px solid var(--line);background:var(--white);color:var(--ink-3)}
+.fp.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.iq{display:flex;align-items:center;gap:11px;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:8px}
+.iq-av{width:32px;height:32px;border-radius:50%;flex:0 0 32px;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--mint)}
+.iq-n{font-size:13.5px;font-weight:700}
+.iq-m{font-size:11.5px;color:var(--ink-4)}
+.st{margin-left:auto;font-size:10px;font-weight:700;padding:4px 11px;border-radius:50px;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.st i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.chk{width:17px;height:17px;border:1.5px solid var(--ink);border-radius:5px;flex:0 0 17px;display:grid;place-items:center;font-size:10px}
+.chk.on{background:var(--ink);color:var(--paper)}
+.done .li-t{text-decoration:line-through;color:var(--ink-4)}
+.formbox{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px}
+.formbox .lk{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:13px;color:var(--ink-3);margin-top:10px}
+.formbox .lk b{margin-left:auto;font-size:11px;color:var(--coral)}
+.qr{width:74px;height:74px;border-radius:10px;background:var(--ink);margin-top:14px;display:grid;place-items:center;color:var(--paper);font-size:9px;font-family:var(--f-label);letter-spacing:.1em}
 
 @media(max-width:760px){
   .app-body{grid-template-columns:1fr}
-  .sb{display:none}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .frag{max-width:none;flex:1 1 100%}
-  .stage.go .frag:nth-child(n){transform:none}
+  .sb{flex-direction:row;overflow-x:auto;padding:10px;gap:6px}
+  .sb-brand,.sb-user{display:none}
+  .nav-item{width:auto;white-space:nowrap;margin-bottom:0;padding:9px 13px}
+  .app-tag{display:none}
 }
+
+/* ============================================================
+   WORKSPACE LIST
+   ============================================================ */
+.ws-list{background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.ws-row{display:grid;grid-template-columns:minmax(88px,.34fr) 1fr;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line-2);align-items:baseline}
+.ws-row:last-child{border-bottom:0}
+.ws-k{font-size:14.5px;font-weight:700;letter-spacing:-.02em}
+.ws-v{font-size:13.5px;color:var(--ink-3)}
+@media(max-width:520px){.ws-row{grid-template-columns:1fr;gap:3px}}
 
 /* ============================================================
    PROBLEM BAND
@@ -338,6 +335,8 @@ p{font-size:clamp(15px,1.65vw,17.5px)}
 .landed-h{padding:12px 16px;background:var(--lav-pale);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .landed-h b{font-family:var(--f-label);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5b45b8}
 .landed-b{padding:14px 18px}
+.tag{font-size:10px;font-weight:700;padding:4px 10px;border-radius:50px;white-space:nowrap}
+.tag.new{background:var(--coral);color:#fff}
 .kv{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:13.5px}
 .kv:last-child{border-bottom:0}
 .kv span{color:var(--ink-4);flex:0 0 auto}
@@ -378,6 +377,7 @@ p{font-size:clamp(15px,1.65vw,17.5px)}
 .amount .per{font-size:15px;color:var(--ink-4);align-self:flex-end;margin-bottom:8px;font-weight:600}
 .setup{margin-top:16px;display:inline-flex;align-items:baseline;gap:8px;padding:9px 16px;border-radius:50px;background:var(--blue-pale);border:1px solid var(--line);font-size:14px;font-weight:700}
 .setup span{font-weight:400;color:var(--ink-3);font-size:13px}
+.term{margin-top:14px;font-size:13.5px;color:var(--ink-3);max-width:36ch}
 .plan-b{padding:clamp(22px,3vw,30px)}
 .feat{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px}
 .feat svg{width:17px;height:17px;flex:0 0 17px;margin-top:2.5px;color:var(--coral)}
@@ -534,7 +534,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     <p class="lead rv" data-d="2">Somewhere in your phone right now is a job you already forgot about. We build you one custom form and one workspace where every lead lands, so you never lose another one to a buried message.</p>
 
     <div class="cta-row rv" data-d="3">
-      <a class="btn btn-primary" href="#build">Build your form now</a>
+      <a class="btn btn-primary" href="#build">See how your form would look</a>
       <a class="btn btn-ghost" href="#workspace">See the workspace</a>
     </div>
 
@@ -554,110 +554,38 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>
       </div>
 
-      <!-- ===== PORTAL MOCKUP ===== -->
+      <!-- ===== MINI DEMO (portal markup, sample data, interactive) ===== -->
       <div class="app">
         <div class="app-bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <span class="app-url">itshellovirtually.com/portal</span>
+          <span class="app-tag">Sample data &middot; try the tabs</span>
         </div>
         <div class="app-body">
           <aside class="sb">
             <div class="sb-brand">Hello, Virtually<i></i></div>
-            <div class="nav-item active">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><circle cx="12" cy="15" r="2.2" fill="currentColor" stroke="none"/></svg>
+            <button class="nav-item active" type="button" data-v="today">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
               Today
-            </div>
-            <div class="nav-item">
+            </button>
+            <button class="nav-item" type="button" data-v="inquiries">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"/></svg>
-              Inquiries <span class="badge">3</span>
-            </div>
-            <div class="nav-item">
+              Inquiries <span class="badge">1</span>
+            </button>
+            <button class="nav-item" type="button" data-v="tasks">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2 2 4-4"/><rect x="3" y="4" width="18" height="17" rx="2"/></svg>
-              Tasks
-            </div>
-            <div class="nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
-              Calendar
-            </div>
-            <div class="nav-item">
+              Tasks <span class="badge">2</span>
+            </button>
+            <button class="nav-item" type="button" data-v="form">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
               My form
-            </div>
-            <div class="nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
-              Results
-            </div>
-            <div class="nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
-              Clients
-            </div>
+            </button>
+            <div class="sb-user"><span class="sb-av">M</span><span>Marcus<em>Bright Build Co.</em></span></div>
           </aside>
-
-          <div class="content">
-            <div class="greet">
-              <div class="hi">Good morning, <em>Marcus</em></div>
-              <div class="date">Tuesday, March 18</div>
-            </div>
-
-            <div class="stats">
-              <div class="stat s1">
-                <div class="stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"/></svg></div>
-                <div class="n" data-count="3">0</div><div class="k">New inquiries</div>
-              </div>
-              <div class="stat s2">
-                <div class="stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-                <div class="n" data-count="2">0</div><div class="k">Follow-ups due</div>
-              </div>
-              <div class="stat s3">
-                <div class="stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2 2 4-4"/><rect x="3" y="4" width="18" height="17" rx="2"/></svg></div>
-                <div class="n" data-count="5">0</div><div class="k">Open tasks</div>
-              </div>
-              <div class="stat s4">
-                <div class="stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div>
-                <div class="n" data-count="2">0</div><div class="k">Upcoming</div>
-              </div>
-            </div>
-
-            <div class="sec-h"><h4>Pipeline</h4></div>
-            <div class="pipe-bar">
-              <div class="pipe-seg p1">3</div>
-              <div class="pipe-seg p2">4</div>
-              <div class="pipe-seg p3">2</div>
-              <div class="pipe-seg p4">1</div>
-            </div>
-            <div class="pipe-key">
-              <span><i style="background:#B9A7FF"></i>New</span>
-              <span><i style="background:#C9E7F5"></i>Contacted</span>
-              <span><i style="background:#DCEBE8"></i>Booked</span>
-              <span><i style="background:rgba(23,61,53,.18)"></i>Closed</span>
-            </div>
-
-            <div class="sec-h"><h4>Needs attention</h4><a href="#">View all</a></div>
-            <div class="attn">
-              <div class="attn-row">
-                <div class="av">SK</div>
-                <div><div class="nm">Sarah K.</div><div class="sb2">Deep clean, 3 bed · WhatsApp</div></div>
-                <span class="tag new">New</span>
-              </div>
-              <div class="attn-row">
-                <div class="av a2">TB</div>
-                <div><div class="nm">Taylor Brooks</div><div class="sb2">Kitchen cabinets · 2 days waiting</div></div>
-                <span class="tag wait">No reply</span>
-              </div>
-              <div class="attn-row">
-                <div class="av a4">JC</div>
-                <div><div class="nm">Jordan C.</div><div class="sb2">Roofing · estimate $4,200 sent</div></div>
-                <span class="tag wait">Overdue</span>
-              </div>
-              <div class="attn-row">
-                <div class="av a3">TR</div>
-                <div><div class="nm">Tom R.</div><div class="sb2">Deck rebuild · starts Monday</div></div>
-                <span class="tag book">Booked</span>
-              </div>
-            </div>
-          </div>
+          <div class="content" id="demoContent"></div>
         </div>
       </div>
+      <p class="app-hint">Sample data, but this is how the workspace actually behaves.</p>
     </div>
   </div>
 </header>
@@ -667,22 +595,24 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   <div class="wrap">
     <span class="eyebrow rv">Try it right now</span>
     <h2 class="rv" data-d="1">Type your name.<br>Watch your <span class="hl">form appear</span>.</h2>
-    <p class="lead rv" data-d="2">This is close to what we hand you, except the real one is built with you on a call. Change anything below and the preview updates as you type.</p>
+    <p class="lead rv" data-d="2">A rough idea of what yours could look like. The real one gets built around how you actually price a job. Change anything below and it updates as you type.</p>
 
     <div class="builder">
       <div class="controls rv" data-d="1">
         <div class="ctrl">
           <label for="bizName">Your business name</label>
-          <input class="text-in" id="bizName" type="text" value="Sparkle Clean Co." maxlength="28" autocomplete="off" spellcheck="false">
+          <input class="text-in" id="bizName" type="text" value="Ridgeline Roofing" maxlength="28" autocomplete="off" spellcheck="false">
         </div>
 
         <div class="ctrl">
-          <label>What do you do?</label>
+          <label>What kind of work do you do?</label>
           <div class="opts" id="tradeOpts">
-            <button class="opt" type="button" aria-pressed="true"  data-trade="cleaning">Cleaning</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="roofing">Roofing</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="landscaping">Landscaping</button>
+            <button class="opt" type="button" aria-pressed="true"  data-trade="roofing">Roofing</button>
             <button class="opt" type="button" aria-pressed="false" data-trade="remodeling">Remodeling</button>
+            <button class="opt" type="button" aria-pressed="false" data-trade="concrete">Concrete</button>
+            <button class="opt" type="button" aria-pressed="false" data-trade="hvac">HVAC</button>
+            <button class="opt" type="button" aria-pressed="false" data-trade="landscaping">Landscaping</button>
+            <button class="opt" type="button" aria-pressed="false" data-trade="cleaning">Cleaning</button>
           </div>
         </div>
 
@@ -703,13 +633,13 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
         <div class="device" id="device">
           <div class="device-bar">
             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="device-url" id="pvUrl">sparklecleanco.com/estimate</span>
+            <span class="device-url" id="pvUrl">ridgelineroofing.com/estimate</span>
           </div>
           <div class="form-body">
             <div class="form-brand">
-              <div class="form-mark" id="pvMark">S</div>
+              <div class="form-mark" id="pvMark">R</div>
               <div>
-                <b id="pvName">Sparkle Clean Co.</b>
+                <b id="pvName">Ridgeline Roofing</b>
                 <span>Request an estimate</span>
               </div>
             </div>
@@ -759,25 +689,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
     <div class="portal-grid">
       <div class="rv" data-d="1">
-        <div class="app static">
-          <div class="app-bar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="app-url">Inquiries</span>
-          </div>
-          <div class="app-body" style="grid-template-columns:1fr;min-height:0">
-            <div class="content">
-              <div class="sec-h"><h4>Inquiries</h4><a href="#">View all</a></div>
-              <div class="attn">
-                <div class="attn-row"><div class="av">SK</div><div><div class="nm">Sarah K.</div><div class="sb2">WhatsApp · added today</div></div><span class="tag new">New</span></div>
-                <div class="attn-row"><div class="av a2">TB</div><div><div class="nm">Taylor Brooks</div><div class="sb2">Instagram · next: send estimate</div></div><span class="tag wait">No reply</span></div>
-                <div class="attn-row"><div class="av a4">JC</div><div><div class="nm">Jordan C.</div><div class="sb2">Form · estimate $4,200 out</div></div><span class="tag soon">Contacted</span></div>
-                <div class="attn-row"><div class="av a3">TR</div><div><div class="nm">Tom R.</div><div class="sb2">Phone · starts Monday 8am</div></div><span class="tag book">Booked</span></div>
-                <div class="attn-row"><div class="av">MP</div><div><div class="nm">Maria P.</div><div class="sb2">Form · went with someone else</div></div><span class="tag" style="background:var(--line-2);color:var(--ink-4)">Closed</span></div>
-              </div>
-              <p class="note" style="margin-top:16px;color:var(--ink-4);font-size:14px">Every inquiry keeps its channel, its notes, its estimate, and its next action.</p>
-            </div>
-          </div>
+        <div class="ws-list">
+          <div class="ws-row"><span class="ws-k">Today</span><span class="ws-v">What came in, what is due, who is waiting</span></div>
+          <div class="ws-row"><span class="ws-k">Inquiries</span><span class="ws-v">Every lead with its channel, notes, and next step</span></div>
+          <div class="ws-row"><span class="ws-k">Tasks</span><span class="ws-v">The things you promised, before you forget them</span></div>
+          <div class="ws-row"><span class="ws-k">Calendar</span><span class="ws-v">Estimates, visits, and start dates in one place</span></div>
+          <div class="ws-row"><span class="ws-k">My form</span><span class="ws-v">Your link and QR code, ready to share</span></div>
+          <div class="ws-row"><span class="ws-k">Results</span><span class="ws-v">What turned into work, and what did not</span></div>
         </div>
+        <p class="note" style="margin-top:18px;color:var(--ink-3);font-size:14.5px">Six places, not forty. <a href="#top" style="color:var(--coral);font-weight:700">Try the live demo above</a>.</p>
       </div>
 
       <div class="composer rv" data-d="2">
@@ -832,29 +752,29 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <section class="section tl-band">
   <div class="wrap">
     <div class="tl-head">
-      <h2 class="rv">What the setup<br>actually buys you.</h2>
-      <p class="rv" data-d="1">Most of the work happens before you ever log in. That is what the one-time fee covers.</p>
+      <h2 class="rv">Five days from<br>call to live.</h2>
+      <p class="rv" data-d="1">Most of the work happens before you ever log in. That is what the one-time setup fee covers.</p>
     </div>
 
     <div class="tl-grid">
       <div class="tl-item rv">
-        <span class="tl-num">Week one</span>
+        <span class="tl-num">Day one</span>
         <h3>We learn how you quote</h3>
         <p>One conversation, about twenty minutes, by email or call, whichever you prefer. What you install, what you need to know before you can price it, and what you always end up asking twice.</p>
       </div>
       <div class="tl-item rv" data-d="1">
-        <span class="tl-num">Week two</span>
+        <span class="tl-num">Days two to four</span>
         <h3>We build and brand it</h3>
         <p>Your form, your logo and colors, your questions, plus your workspace configured with the stages you actually use. You review it before it goes anywhere.</p>
       </div>
       <div class="tl-item rv" data-d="2">
-        <span class="tl-num">Then</span>
+        <span class="tl-num">Day five</span>
         <h3>You start sending the link</h3>
         <p>Put it in your Instagram bio, text it to callers, print the QR on the truck. We stay on to update the form when your work changes.</p>
       </div>
     </div>
 
-    <p class="tl-foot rv">Live in about two weeks. <b>No contract, cancel anytime</b>, and your inquiries export with you if you go.</p>
+    <p class="tl-foot rv">Live in about five days, then it runs. <b>Three months minimum</b>, because that is how long it takes a full cycle of leads to show you whether it worked.</p>
   </div>
 </section>
 
@@ -877,6 +797,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
           <span class="eyebrow">The whole thing</span>
           <div class="amount"><span class="cur">$</span><span class="num">149</span><span class="per">/month</span></div>
           <div class="setup"><span>One-time setup from</span> $750</div>
+          <p class="term">Three-month minimum. Pay monthly, or every three months in one go.</p>
         </div>
         <div class="plan-b">
           <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>A custom inquiry form, built and branded for your work</span></div>
@@ -886,7 +807,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
           <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Leads from any channel logged in the same place</span></div>
           <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>We keep it running and update your form when your work changes</span></div>
         </div>
-        <div class="plan-f"><a class="btn btn-primary" href="#start">Start with a free form preview</a></div>
+        <div class="plan-f"><a class="btn btn-primary" href="#start">Start with a form draft</a></div>
       </div>
 
       <div class="rv" data-d="2">
@@ -917,30 +838,30 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <!-- ========================= TRUST ========================= -->
 <section class="section bg-blue" id="trust">
   <div class="wrap">
-    <span class="eyebrow rv">No leap of faith</span>
-    <h2 class="rv" data-d="1">See it before you<br>spend a <span class="hl">dollar</span>.</h2>
-    <p class="lead rv" data-d="2">You do not have to trust a landing page. Trust the form we send you with your own name already on it.</p>
+    <span class="eyebrow rv">What you are actually buying</span>
+    <h2 class="rv" data-d="1">Not software.<br>A <span class="hl">system</span>, built for you.</h2>
+    <p class="lead rv" data-d="2">Anyone can sell you a login. What you are paying for here is the part nobody else does: someone building the thing around how you actually work.</p>
 
     <div class="trust-grid">
       <div class="trust-card rv">
         <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>See your real form first</h3>
-        <p>We build a branded preview before you pay anything. If it is not right, you have lost nothing but the time it took to read this.</p>
+        <h3>Built around your work</h3>
+        <p>We learn how you price a job, then write the questions around it. Not a template with your logo dropped on top.</p>
       </div>
       <div class="trust-card rv" data-d="1">
         <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
-        <h3>No contract, ever</h3>
-        <p>Month to month. Cancel whenever you want, no phone call and no one trying to talk you out of it.</p>
+        <h3>Three months, on purpose</h3>
+        <p>You are running in five days, but a lead you catch this week might not sign until next month. Three months is the shortest honest test of whether it made you money. After that it is month to month.</p>
       </div>
       <div class="trust-card rv" data-d="2">
         <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg></div>
-        <h3>Your data leaves with you</h3>
-        <p>Every inquiry and customer detail exports to a spreadsheet you keep. Nothing is locked inside our walls.</p>
+        <h3>Your data is yours</h3>
+        <p>Ask us any time and we send you every inquiry and customer detail as a spreadsheet, yours to keep. Nothing is held hostage.</p>
       </div>
       <div class="trust-card rv" data-d="3">
         <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <h3>We do the building</h3>
-        <p>You are not learning software on a Sunday night. We set the whole thing up and hand it over finished.</p>
+        <h3>You never touch the setup</h3>
+        <p>No learning software on a Sunday night. We build it, test it, and hand it over working, then keep it updated as your work changes.</p>
       </div>
     </div>
 
@@ -956,20 +877,20 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
     <div class="faq-grid">
       <div class="faq-item rv">
-        <h3>I already pay for Jobber. Why this too?</h3>
-        <p>Those handle the job after it is sold: scheduling, invoicing, dispatch. This handles the part before, when someone is still deciding whether to hire you. Plenty of people run both, and plenty of people find out they were only using the quoting half anyway.</p>
+        <h3>How fast can I actually start using it?</h3>
+        <p>About five days from the first conversation. One call to learn how you quote, a couple of days to build and brand it, then you review it and we hand over the link. You are sending it out the same week.</p>
       </div>
       <div class="faq-item rv" data-d="1">
         <h3>I am not good with technology.</h3>
         <p>You do not build anything. We do the setup, the branding, and the configuration, and hand it to you finished. What you actually do day to day is open one page and answer people.</p>
       </div>
       <div class="faq-item rv" data-d="2">
-        <h3>What if my customers will not fill out a form?</h3>
+        <h3>What if my customers will not fill it out?</h3>
         <p>Some will not, and that is fine. Those you log in the same place with one tap so they do not live in your phone. The form is there to save you the four texts it usually takes to find out what the job even is.</p>
       </div>
       <div class="faq-item rv" data-d="3">
-        <h3>What happens if I cancel?</h3>
-        <p>No contract, so you cancel whenever. Your inquiries and customer details export to a spreadsheet you keep. The setup fee is not refundable, since the build is already done and it is yours.</p>
+        <h3>Why three months minimum?</h3>
+        <p>Because one month proves nothing. You are live in five days, but the lead you catch in week one might not sign until week eight. You need a full cycle of leads coming in and closing to judge it. After the three months it is month to month.</p>
       </div>
     </div>
   </div>
@@ -979,11 +900,11 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <section class="wrap" id="start">
   <div class="cta rv">
     <span class="eyebrow" style="color:rgba(247,245,240,.55)">Start here</span>
-    <h2>See your real form before you pay anything.</h2>
-    <p>Tell us what you do and how you quote it. We build a preview branded for your business and send it over. Email, text, or a call, whichever you actually answer. No card, no commitment.</p>
+    <h2>Start with a draft of your form.</h2>
+    <p>Tell us what you do and how you quote it. We put together a short draft of your form so you can see the shape of it before we build the real one. Email or text, whichever you actually answer.</p>
     <div class="cta-row">
       <!-- TODO: cambiar href por la URL del form de intake de Hello, Virtually -->
-      <a class="btn btn-primary" href="#start">Get my free form preview</a>
+      <a class="btn btn-primary" href="#start">Get my form draft</a>
       <a class="btn btn-paper" href="mailto:hello@itshellovirtually.com?subject=Form%20preview">Email us instead</a>
     </div>
   </div>
@@ -1040,6 +961,56 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   var stage = $("stage");
   if (stage) { reduce ? stage.classList.add("go") : setTimeout(function(){stage.classList.add("go");}, 240); }
 
+  /* ---------- mini demo: portal views ---------- */
+  var VIEWS = {
+    today: '<div class="greet">Good morning, Marcus</div><div class="gdate">Tuesday, March 18</div>'
+      + '<div class="kpis">'
+      + '<div class="kpi"><b>3</b><span>new inquiries</span></div>'
+      + '<div class="kpi"><b class="hot">2</b><span>follow-ups due</span></div>'
+      + '<div class="kpi"><b>1</b><span>estimate out</span></div></div>'
+      + '<div class="card"><div class="card-h"><h4>Your day</h4><span class="cnt">3</span>'
+      + '<button class="mini-btn" type="button">Start my day</button></div>'
+      + '<div class="li"><span class="li-n">01</span><span><span class="li-t">Follow up with Taylor</span><br><span class="li-s over">Overdue &middot; quoted Friday</span></span><span class="li-a">Mark done</span></div>'
+      + '<div class="li"><span class="li-n">02</span><span><span class="li-t">Sarah Klein</span><br><span class="li-s">New inquiry &middot; WhatsApp</span></span><span class="li-a">Add next step</span></div>'
+      + '<div class="li"><span class="li-n">03</span><span><span class="li-t">Call Jordan about roof photos</span><br><span class="li-s">Due today</span></span><span class="li-a">Add next step</span></div>'
+      + '</div>',
+
+    inquiries: '<div class="pills"><span class="fp on">All 6</span><span class="fp">New 1</span><span class="fp">Contacted 1</span><span class="fp">Estimate sent 1</span><span class="fp">Follow-up 1</span><span class="fp">Hired 1</span></div>'
+      + iq('SK','Sarah Klein','Deep clean, 3 bed &middot; WhatsApp','New','#B9A7FF','#EEE9FF')
+      + iq('TB','Taylor Brooks','Kitchen cabinets &middot; Instagram','Contacted','#2a7fa8','#E8F5FC')
+      + iq('JC','Jordan Cole','Roof replacement &middot; $4,200 sent','Estimate sent','#b4700a','#FDF0DC')
+      + iq('PN','Priya Nair','Bathroom remodel &middot; $25k to $40k','Follow-up','#347D79','#DCEBE8')
+      + iq('TR','Tom Reyes','Deck rebuild &middot; starts Monday','Hired','#2f7d32','#DFF0DF'),
+
+    tasks: '<div class="card">'
+      + '<div class="card-h"><h4>Open tasks</h4><span class="cnt">2</span></div>'
+      + '<div class="li done"><span class="chk on">&#10003;</span><span><span class="li-t">Send Sarah the deep-clean estimate</span><br><span class="li-s">Done 9:02 AM</span></span></div>'
+      + '<div class="li"><span class="chk"></span><span><span class="li-t">Call Jordan about the roof photos</span><br><span class="li-s">Today</span></span></div>'
+      + '<div class="li"><span class="chk"></span><span><span class="li-t">Order deck materials for Tom</span><br><span class="li-s">Thursday</span></span></div>'
+      + '</div>',
+
+    form: '<div class="formbox"><h4 style="font-size:15px;font-weight:700">Your inquiry form</h4>'
+      + '<p style="font-size:13px;color:var(--ink-3);margin-top:6px">Share it anywhere. Every submission lands in Inquiries.</p>'
+      + '<div class="lk">brightbuild.com/estimate<b>Copy</b></div>'
+      + '<div class="qr">QR</div>'
+      + '<p style="font-size:12px;color:var(--ink-4);margin-top:12px">Put the code on the truck, the yard sign, or your invoices.</p></div>'
+  };
+  function iq(ini,name,meta,label,fg,bg){
+    return '<div class="iq"><span class="iq-av">'+ini+'</span><span><span class="iq-n">'+name+'</span><br><span class="iq-m">'+meta+'</span></span>'
+      + '<span class="st" style="color:'+fg+';background:'+bg+'"><i></i>'+label+'</span></div>';
+  }
+  var demoContent = $("demoContent");
+  if (demoContent) {
+    demoContent.innerHTML = VIEWS.today;
+    document.querySelectorAll(".nav-item").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        document.querySelectorAll(".nav-item").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        demoContent.innerHTML = VIEWS[btn.dataset.v] || VIEWS.today;
+      });
+    });
+  }
+
   /* counters */
   var counters = document.querySelectorAll("[data-count]");
   if (counters.length) {
@@ -1060,45 +1031,78 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
   /* ---------- live form builder ---------- */
   var TRADES = {
-    cleaning: {
-      fields: [
-        { t:"input", l:"What needs cleaning?", v:"3 bedroom house, 2 baths" },
-        { t:"chips", l:"Type of service", o:["One time deep clean","Recurring","Move out"], s:0 },
-        { t:"chips", l:"How soon?", o:["This week","Next 2 weeks","Flexible"], s:0 },
-        { t:"input", l:"Anything we should know?", v:"Two cats, please no bleach" }
-      ],
-      landed: [["Job","Deep clean, 3 bed / 2 bath"],["Timing","This week"],["Notes","Two cats, no bleach"],["Channel","Form"]]
-    },
     roofing: {
+      label:"Roofing", biz:"Ridgeline Roofing",
       fields: [
-        { t:"chips", l:"What do you need?", o:["Repair","Full replacement","Inspection"], s:1 },
-        { t:"chips", l:"Roof material", o:["Asphalt shingle","Metal","Tile","Not sure"], s:0 },
+        { t:"chips", l:"What do you need?", o:["Repair","Full replacement","Inspection","Storm damage"], s:1 },
+        { t:"chips", l:"Roof material", o:["Asphalt shingle","Metal","Tile","Flat / TPO","Not sure"], s:0 },
+        { t:"chips", l:"How many stories?", o:["1","2","3+"], s:1 },
         { t:"input", l:"Roughly how old is the roof?", v:"About 18 years" },
+        { t:"input", l:"Is this going through insurance?", v:"Yes, adjuster came out last week" },
         { t:"input", l:"Photos of the problem area", v:"3 photos attached" }
       ],
-      landed: [["Job","Full replacement, asphalt"],["Roof age","About 18 years"],["Photos","3 attached"],["Channel","Form"]]
-    },
-    landscaping: {
-      fields: [
-        { t:"chips", l:"What are we doing?", o:["Maintenance","New install","Cleanup"], s:1 },
-        { t:"input", l:"Roughly how big is the area?", v:"Back yard, about 1,200 sq ft" },
-        { t:"chips", l:"Irrigation needed?", o:["Yes","No","Not sure"], s:2 },
-        { t:"input", l:"When would you want it done?", v:"Before the end of next month" }
-      ],
-      landed: [["Job","New install, 1,200 sq ft"],["Irrigation","Not sure, needs a visit"],["Timing","Within 6 weeks"],["Channel","Form"]]
+      landed: [["Job","Full replacement, asphalt"],["Property","2 story"],["Roof age","About 18 years"],["Insurance","Yes, adjuster seen"],["Photos","3 attached"]]
     },
     remodeling: {
+      label:"Remodeling", biz:"Bright Build Co.",
       fields: [
-        { t:"chips", l:"Which room?", o:["Kitchen","Bathroom","Basement","Other"], s:0 },
-        { t:"chips", l:"Scope", o:["Cosmetic refresh","Full gut","Not sure yet"], s:1 },
-        { t:"input", l:"Budget range you had in mind", v:"$25k to $40k" },
-        { t:"input", l:"Are plans already drawn?", v:"No, need help with design" }
+        { t:"chips", l:"Which room?", o:["Kitchen","Bathroom","Basement","Whole home"], s:0 },
+        { t:"chips", l:"Scope of work", o:["Cosmetic refresh","Full gut","Not sure yet"], s:1 },
+        { t:"chips", l:"Are you moving plumbing or walls?", o:["Yes","No","Not sure"], s:0 },
+        { t:"input", l:"Budget range you had in mind", v:"$25,000 to $40,000" },
+        { t:"input", l:"Are plans already drawn?", v:"No, need help with design" },
+        { t:"input", l:"When would you want to start?", v:"After the holidays" }
       ],
-      landed: [["Job","Kitchen, full gut"],["Budget","$25k to $40k"],["Plans","None yet, needs design"],["Channel","Form"]]
+      landed: [["Job","Kitchen, full gut"],["Plumbing","Moving, needs permit"],["Budget","$25k to $40k"],["Plans","None yet, needs design"],["Start","After the holidays"]]
+    },
+    concrete: {
+      label:"Concrete", biz:"Stoneline Concrete",
+      fields: [
+        { t:"chips", l:"What are we pouring?", o:["Driveway","Patio","Slab","Sidewalk","Foundation"], s:0 },
+        { t:"input", l:"Roughly what size?", v:"About 20 x 40, two cars" },
+        { t:"chips", l:"Is there old concrete to tear out?", o:["Yes","No","Part of it"], s:0 },
+        { t:"chips", l:"Finish", o:["Broom","Stamped","Exposed aggregate","Not sure"], s:3 },
+        { t:"input", l:"How is truck access?", v:"Tight, gate on the side of the house" }
+      ],
+      landed: [["Job","Driveway, ~800 sq ft"],["Tear-out","Yes, existing slab"],["Finish","Undecided, needs options"],["Access","Tight, side gate"],["Channel","Form"]]
+    },
+    hvac: {
+      label:"HVAC", biz:"Coastal Air & Heat",
+      fields: [
+        { t:"chips", l:"What do you need?", o:["Repair","New system","Maintenance","Second opinion"], s:1 },
+        { t:"chips", l:"System type", o:["Central AC","Heat pump","Mini split","Furnace","Not sure"], s:0 },
+        { t:"input", l:"Square footage of the home", v:"About 1,900 sq ft" },
+        { t:"input", l:"How old is the current unit?", v:"14 years, original to the house" },
+        { t:"chips", l:"How soon?", o:["Emergency","This week","Getting quotes"], s:2 }
+      ],
+      landed: [["Job","New central AC system"],["Home","~1,900 sq ft"],["Current unit","14 years old"],["Timing","Getting quotes"],["Channel","Form"]]
+    },
+    landscaping: {
+      label:"Landscaping", biz:"Cedar & Stone",
+      fields: [
+        { t:"chips", l:"What are we doing?", o:["Maintenance","New install","Cleanup","Hardscape"], s:1 },
+        { t:"input", l:"Roughly how big is the area?", v:"Back yard, about 1,200 sq ft" },
+        { t:"chips", l:"Irrigation needed?", o:["Yes","No","Not sure"], s:2 },
+        { t:"chips", l:"Any grading or drainage issues?", o:["Yes, it pools","No","Not sure"], s:0 },
+        { t:"input", l:"When would you want it done?", v:"Before the end of next month" }
+      ],
+      landed: [["Job","New install, 1,200 sq ft"],["Drainage","Pools after rain"],["Irrigation","Not sure, needs a visit"],["Timing","Within 6 weeks"],["Channel","Form"]]
+    },
+    cleaning: {
+      label:"Cleaning", biz:"Sparkle Clean Co.",
+      fields: [
+        { t:"input", l:"What needs cleaning?", v:"3 bedroom house, 2 baths" },
+        { t:"chips", l:"Type of service", o:["One time deep clean","Recurring","Move out","Post construction"], s:0 },
+        { t:"chips", l:"How soon?", o:["This week","Next 2 weeks","Flexible"], s:0 },
+        { t:"chips", l:"Pets in the home?", o:["Yes","No"], s:0 },
+        { t:"input", l:"Anything we should know?", v:"Two cats, please no bleach" }
+      ],
+      landed: [["Job","Deep clean, 3 bed / 2 bath"],["Timing","This week"],["Pets","Two cats"],["Notes","No bleach"],["Channel","Form"]]
     }
   };
 
-  var trade = "cleaning";
+
+  var trade = "roofing";
   var pvFields=$("pvFields"), pvLanded=$("pvLanded"), pvName=$("pvName"),
       pvMark=$("pvMark"), pvUrl=$("pvUrl"), bizName=$("bizName"), device=$("device");
 
@@ -1130,8 +1134,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     }).join("");
   }
 
+  var bizTouched = false;
   if (bizName) {
-    bizName.addEventListener("input", paintBrand);
+    bizName.addEventListener("input", function(){ bizTouched = true; paintBrand(); });
     bizName.addEventListener("focus", function(){ this.select(); });
   }
 
@@ -1141,7 +1146,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       var b = e.target.closest(".opt"); if (!b) return;
       tradeOpts.querySelectorAll(".opt").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
       b.setAttribute("aria-pressed","true");
-      trade = b.dataset.trade; paintForm();
+      trade = b.dataset.trade;
+      if (bizName && !bizTouched && TRADES[trade].biz) { bizName.value = TRADES[trade].biz; paintBrand(); }
+      paintForm();
     });
   }
 
