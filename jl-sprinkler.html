@@ -44,6 +44,17 @@
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(11,203,255,.14);background:#fff;}
   textarea{resize:vertical;min-height:76px;}
 
+  .ph-drop{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:16px;
+    border:2px dashed var(--line);border-radius:14px;background:var(--paper);color:var(--ink-2);
+    font-family:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .18s;}
+  .ph-drop:hover{border-color:var(--cyan);color:var(--ink);}
+  .ph-drop svg{width:20px;height:20px;}
+  .ph-grid{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px;}
+  .ph{position:relative;width:82px;height:82px;border-radius:12px;overflow:hidden;border:2px solid var(--line);}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ph-x{position:absolute;top:3px;right:3px;width:22px;height:22px;border:none;border-radius:50%;
+    background:rgba(10,21,32,.72);color:#fff;font-size:1rem;line-height:1;cursor:pointer;}
+  .ph-hint{font-size:.8rem;color:var(--muted);margin-top:9px;}
   .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .svc{position:relative;display:flex;align-items:center;gap:10px;padding:14px 13px;border:2px solid var(--line);border-radius:14px;background:var(--paper);cursor:pointer;font-weight:600;font-size:.86rem;transition:all .18s;user-select:none;}
   .svc:hover{border-color:var(--cyan);transform:translateY(-1px);}
@@ -159,6 +170,15 @@
         </div>
         <label for="fMsg" style="margin-top:15px;">Anything else we should know?</label>
         <textarea id="fMsg" placeholder="Optional details, gate codes, best time to reach you&hellip;"></textarea>
+
+        <label style="margin-top:15px;">Photos of the area</label>
+        <button type="button" class="ph-drop" id="phBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-4 4-2-2-4 4"/></svg>
+          Add photos
+        </button>
+        <input type="file" id="phInput" accept="image/*" multiple hidden>
+        <div class="ph-grid" id="phGrid"></div>
+        <div class="ph-hint" id="phHint">A couple of photos usually save you a site visit. Up to 6.</div>
       </div>
 
       <button type="submit" class="btn-submit" id="submitBtn">Request My Estimate</button>
@@ -193,6 +213,51 @@
   }
   ["fName","fPhone"].forEach(id=>$(id).addEventListener("input",updateProgress));
 
+  /* ---------- fotos ---------- */
+  const MAX_PH = 6, MAX_MB = 10;
+  let phFiles = [];
+  $("phBtn").addEventListener("click", () => $("phInput").click());
+  $("phInput").addEventListener("change", e => {
+    let rejected = 0;
+    for (const f of e.target.files) {
+      if (phFiles.length >= MAX_PH) break;
+      if (!/^image\//.test(f.type)) { rejected++; continue; }
+      if (f.size > MAX_MB * 1024 * 1024) { rejected++; continue; }
+      phFiles.push(f);
+    }
+    e.target.value = "";
+    paintPhotos(rejected);
+  });
+  $("phGrid").addEventListener("click", e => {
+    const b = e.target.closest("[data-ph]"); if (!b) return;
+    const i = +b.getAttribute("data-ph");
+    URL.revokeObjectURL(b.previousElementSibling.src);
+    phFiles.splice(i, 1); paintPhotos(0);
+  });
+  function paintPhotos(rejected){
+    $("phGrid").innerHTML = phFiles.map((f,i) =>
+      '<div class="ph"><img src="'+URL.createObjectURL(f)+'" alt=""><button type="button" class="ph-x" data-ph="'+i+'">&times;</button></div>'
+    ).join("");
+    $("phHint").textContent = rejected
+      ? "Some files were skipped. Images only, up to "+MAX_MB+" MB each."
+      : (phFiles.length ? phFiles.length+" of "+MAX_PH+" added." : "A couple of photos usually save you a site visit. Up to "+MAX_PH+".");
+  }
+  async function uploadPhotos(){
+    if (!phFiles.length) return [];
+    const batch = Date.now()+"-"+Math.random().toString(36).slice(2,8);
+    const urls = [];
+    for (let i = 0; i < phFiles.length; i++) {
+      const f = phFiles[i];
+      const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,5) || "jpg";
+      const path = CFG.clientSlug+"/"+batch+"/"+(i+1)+"."+ext;
+      const { error } = await sb.storage.from("inquiry-photos").upload(path, f, { contentType: f.type });
+      if (error) { console.warn("photo upload", error); continue; }
+      const { data } = sb.storage.from("inquiry-photos").getPublicUrl(path);
+      if (data && data.publicUrl) urls.push(data.publicUrl);
+    }
+    return urls;
+  }
+
   $("estForm").addEventListener("submit", async e => {
     e.preventDefault();
     $("okMsg").classList.remove("ok"); $("errMsg").classList.remove("err");
@@ -200,7 +265,7 @@
     if(!$("fName").value || !$("fPhone").value){ alert("Please add your name and phone."); return; }
     if(services.length===0){ alert("Please select at least one service."); return; }
 
-    const fd = { property_type:$("fType").value, email:$("fEmail").value, services, timeline:document.querySelector('input[name=timeline]:checked').value };
+    const fd = { address:$("fAddr").value.trim(), property_type:$("fType").value, email:$("fEmail").value, services, timeline:document.querySelector('input[name=timeline]:checked').value };
     if(services.includes("Landscaping Installation")) fd.landscaping={ project_type:$("lsType").value, area:$("lsSize").value, condition:$("lsCond").value };
     if(services.includes("Sod Installation")) fd.sod={ area:$("sodSize").value, grass_type:$("sodGrass").value, reason:$("sodReason").value };
     if(services.includes("Paver Border/Edge")) fd.paver={ linear_feet:$("pavFeet").value, location:$("pavWhere").value };
@@ -209,7 +274,11 @@
     if(services.includes("Irrigation Repair/Service")) fd.irrigation={ problem:$("irrProblem").value, urgent:document.querySelector('input[name=irrUrgent]:checked').value };
     if(services.includes("Drainage System Installation")) fd.drainage={ issue:$("drIssue").value, notes:$("drNotes").value };
 
-    const btn=$("submitBtn"); btn.disabled=true; btn.textContent="Sending\u2026";
+    const btn=$("submitBtn"); btn.disabled=true;
+    btn.textContent = phFiles.length ? "Uploading photos\u2026" : "Sending\u2026";
+    const photoUrls = await uploadPhotos();
+    if (photoUrls.length) fd.photos = photoUrls;
+    btn.textContent="Sending\u2026";
     const contact = $("fPhone").value + ($("fEmail").value?" \u00b7 "+$("fEmail").value:"") + ($("fAddr").value?" \u00b7 "+$("fAddr").value:"");
     const { error } = await sb.rpc("submit_inquiry_by_slug", {
       p_slug:CFG.clientSlug, p_customer_name:$("fName").value, p_customer_contact:contact,
@@ -219,6 +288,7 @@
     if(error){ $("errMsg").classList.add("err"); console.error(error); return; }
     $("okMsg").classList.add("ok");
     $("estForm").reset();
+    phFiles=[]; paintPhotos(0);
     document.querySelectorAll(".detail.show").forEach(d=>d.classList.remove("show"));
     document.querySelectorAll(".svc.on").forEach(s=>s.classList.remove("on"));
     updateProgress();
