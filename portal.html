@@ -391,7 +391,10 @@ button{font-family:inherit;cursor:pointer;}
 /* Your day list */
 .day-count{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-02);font-weight:800;color:var(--ink-2);background:var(--mint);border-radius:var(--radius-pill);min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;}
 .day-list{display:flex;flex-direction:column;}
-.day-item{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line-2);}
+.day-item{display:block;padding:12px 2px;border-bottom:1px solid var(--line-2);}
+.day-line{display:flex;align-items:center;gap:12px;}
+.day-item .composer{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-2);}
+.attn-btn.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
 .day-item:last-child{border-bottom:none;}
 .day-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0;cursor:pointer;}
 .day-idx{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-03);font-weight:800;color:var(--lav);letter-spacing:.02em;flex-shrink:0;}
@@ -875,17 +878,6 @@ button{font-family:inherit;cursor:pointer;}
   <div class="focus-prog"><div id="focusBar"></div></div>
   <div class="focus-card" id="focusCard"></div>
 </div>
-<div class="overlay" id="msgOverlay">
-  <div class="sheet">
-    <button class="sheet-close" data-close="msgOverlay">&times;</button>
-    <h3 id="msgTitle">Send a message</h3>
-    <div class="sub" id="msgSub"></div>
-    <select id="mTpl" class="msg-tpl"></select>
-    <textarea id="mBody" class="msg-body" rows="5"></textarea>
-    <div class="msg-ch" id="mCh"></div>
-    <div class="msg-none" id="mNone" style="display:none"></div>
-  </div>
-</div>
 <div class="overlay" id="schedOverlay">
   <div class="sheet">
     <button class="sheet-close" data-close="schedOverlay">&times;</button>
@@ -938,7 +930,7 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
-    composerLbl:"Send a message",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
+    composerLbl:"Send a message",replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
     tplb_initial:"Hey {name}! We got your request about {project} \u2014 thanks so much for reaching out. We're already working on your estimate and you'll have it soon. Anything you'd like to add, just reply here.",
     tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
@@ -1009,7 +1001,7 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
-    composerLbl:"Enviar un mensaje",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
+    composerLbl:"Enviar un mensaje",replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
     tplb_initial:"\u00a1Hola {name}! Recibimos tu solicitud sobre {project} \u2014 mil gracias por escribirnos. Ya estamos trabajando en tu estimado y pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
     tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
@@ -1219,6 +1211,90 @@ button{font-family:inherit;cursor:pointer;}
   function icoBell(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'; }
   function icoCheck(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h2.5l1.5 1.5L11 4"/><path d="M13 6h7M4 13h2.5L8 14.5 11 11M13 13h7M4 20h2.5L8 21.5 11 18M13 20h7"/></svg>'; }
   function icoCal(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>'; }
+
+  // ===== COMPOSER (unico, usado en Today, drawer y focus) =====
+  let composerOpen=null, composerText=null, composerTpl=null;
+  const CTPL_KEYS=["initial","estimate","followup","lastcall","thanks"];
+  function composerDefTpl(r){
+    return {new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
+  }
+  function composerHTML(r,mode){
+    const ct=contactOf(r);
+    const keep=(composerOpen!==null&&String(composerOpen)===String(r.id));
+    const tpl=(keep&&composerTpl)?composerTpl:composerDefTpl(r);
+    const txt=(keep&&composerText!==null)?composerText:fillTpl(tpl,r);
+    return '<div class="composer" data-cid="'+r.id+'">'+
+      '<select class="msg-tpl" data-ctpl>'+CTPL_KEYS.map(k=>'<option value="'+k+'"'+(k===tpl?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("")+'</select>'+
+      '<textarea class="msg-body" data-cbody rows="'+(mode==="row"?3:4)+'">'+esc(txt)+'</textarea>'+
+      '<div class="msg-ch">'+
+        (ct.ph?'<button class="mini-btn" data-mch="wa">WhatsApp</button><button class="mini-btn" data-mch="sms">SMS</button><button class="mini-btn" data-mch="tel">'+esc(T("actCall"))+'</button>':'')+
+        (ct.em?'<button class="mini-btn" data-mch="mail">Email</button>':'')+
+        '<button class="mini-btn alt" data-mch="copy">'+esc(T("copyShort"))+'</button>'+
+      '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
+    '</div>';
+  }
+  function composerReset(){ composerOpen=null; composerText=null; composerTpl=null; }
+  async function composerSend(id,ch,txt,btn){
+    const r=inquiries.find(x=>String(x.id)===String(id)); if(!r) return;
+    const ct=contactOf(r);
+    if(ch==="copy"){
+      try{ await navigator.clipboard.writeText(txt); btn.textContent=T("contactCopied"); setTimeout(()=>{btn.textContent=T("copyShort");},1500); }
+      catch(err){ prompt("",txt); }
+      return;
+    }
+    if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(id,T("noteMsg")+" WhatsApp"); }
+    else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
+    else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
+    else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
+    markFirstResponse(id);
+    if(stOf(r)==="new"){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
+    composerReset();
+    if(detailId) openDetail(detailId,true);
+    render();
+  }
+  document.addEventListener("input",e=>{
+    const b=e.target&&e.target.closest?e.target.closest("[data-cbody]"):null; if(!b) return;
+    const c=b.closest(".composer"); if(!c) return;
+    composerOpen=c.getAttribute("data-cid"); composerText=b.value;
+  });
+  document.addEventListener("change",e=>{
+    const s=e.target&&e.target.closest?e.target.closest("[data-ctpl]"):null; if(!s) return;
+    const c=s.closest(".composer"); if(!c) return;
+    const id=c.getAttribute("data-cid");
+    const r=inquiries.find(x=>String(x.id)===String(id)); if(!r) return;
+    const b=c.querySelector("[data-cbody]"); if(b) b.value=fillTpl(s.value,r);
+    composerOpen=id; composerTpl=s.value; composerText=b?b.value:null;
+  });
+  document.addEventListener("click",async e=>{
+    const rb=e.target&&e.target.closest?e.target.closest("[data-reply]"):null;
+    if(rb){
+      e.preventDefault(); e.stopPropagation();
+      const id=rb.getAttribute("data-reply");
+      if(composerOpen!==null&&String(composerOpen)===String(id)) composerReset();
+      else { composerReset(); composerOpen=id; }
+      render(); return;
+    }
+    const mc=e.target&&e.target.closest?e.target.closest("[data-mch]"):null; if(!mc) return;
+    const c=mc.closest(".composer"); if(!c) return;
+    e.stopPropagation();
+    const b=c.querySelector("[data-cbody]");
+    await composerSend(c.getAttribute("data-cid"),mc.getAttribute("data-mch"),b?b.value:"",mc);
+  });
+  function dayRow(idx,mainHTML,openId,btns,inqId){
+    const has=(inqId!==null&&inqId!==undefined&&inqId!=="");
+    const r=has?inquiries.find(x=>String(x.id)===String(inqId)):null;
+    const open=!!r&&composerOpen!==null&&String(composerOpen)===String(inqId);
+    const ct=r?contactOf(r):null;
+    const reply=(ct&&(ct.ph||ct.em))?'<button class="attn-btn reply'+(open?" on":"")+'" data-reply="'+inqId+'">'+esc(T("replyNow"))+'</button>':'';
+    return '<div class="day-item">'+
+      '<div class="day-line">'+
+        '<div class="day-main"'+(openId?' data-open="'+openId+'"':'')+'>'+idx+'<div>'+mainHTML+'</div></div>'+
+        reply+btns+
+      '</div>'+
+      (open?composerHTML(r,"row"):'')+
+    '</div>';
+  }
+
   function renderToday(){
     const c=$("content");
     const now=new Date();
@@ -1276,13 +1352,13 @@ button{font-family:inherit;cursor:pointer;}
       html+='<div class="day-list">'+day.slice(0,6).map(function(a,i){
         const idx='<span class="day-idx">'+String(i+1).padStart(2,"0")+'</span>';
         if(a.kind==="stale"){ const r=a.r; const days=Math.floor((now-new Date(r.created_at))/dayMs);
-          return '<div class="day-item"><div class="day-main" data-open="'+r.id+'">'+idx+'<div><div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason">'+esc(T("stuckLbl"))+'</span> \u00b7 '+days+'d '+esc(T("waitingSince"))+'</div></div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button></div>';
+          return dayRow(idx,'<div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason">'+esc(T("stuckLbl"))+'</span> \u00b7 '+days+'d '+esc(T("waitingSince"))+'</div>',r.id,'',r.id);
         }
         if(a.kind==="nostep"){ const r=a.r;
-          return '<div class="day-item"><div class="day-main" data-open="'+r.id+'">'+idx+'<div><div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason lav">'+esc(T("addStep"))+'</span></div></div></div><button class="attn-btn" data-open="'+r.id+'">'+esc(T("addStep"))+'</button></div>';
+          return dayRow(idx,'<div class="day-t">'+esc(r.customer_name||'\u2014')+'</div><div class="day-s"><span class="day-reason lav">'+esc(T("addStep"))+'</span></div>',r.id,'<button class="attn-btn" data-open="'+r.id+'">'+esc(T("addStep"))+'</button>',r.id);
         }
         const o=a.o; const late=a.kind==="od";
-        return '<div class="day-item"><div class="day-main"'+(o.inquiry_id?' data-open="'+o.inquiry_id+'"':'')+'>'+idx+'<div><div class="day-t">'+esc(o.title)+'</div><div class="day-s">'+(late?'<span class="day-reason">'+esc(T("overdueLbl"))+'</span> \u00b7 ':'')+esc(fmtWhen(o.due_at))+'</div></div></div><button class="attn-btn done" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button></div>';
+        return dayRow(idx,'<div class="day-t">'+esc(o.title)+'</div><div class="day-s">'+(late?'<span class="day-reason">'+esc(T("overdueLbl"))+'</span> \u00b7 ':'')+esc(fmtWhen(o.due_at))+'</div>',(o.inquiry_id||''),'<button class="attn-btn done" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button>',o.inquiry_id||null);
       }).join("")+'</div>';
     }
     html+='</div>';
@@ -1438,32 +1514,21 @@ function inqMiniRow(r){
     const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.o.title)+'</div><div class="lr-sub">'+(a.o.due_at?esc(fmtWhen(a.o.due_at)):'')+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.o.id+'" data-rk="'+a.k+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
     const calledLbl=r.called?(T("called")+(r.called_at?" \u00b7 "+fmtExact(r.called_at):"")):T("markCalled");
     let body='';
+    if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
+    body+='<div class="dsec"><div class="dsec-l">'+esc(T("composerLbl"))+'</div>'+composerHTML(r,"panel")+'</div>';
     if(r.form_data&&typeof r.form_data==="object"){
       const faEntries=Object.entries(r.form_data).filter(([k,v])=>v!==null&&v!=="");
       const faRows=faEntries.map(([k,v])=>'<div class="fa-row"><span class="fa-k">'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</span><span class="fa-v">'+esc(String(v))+'</span></div>').join("");
       if(faRows) body+='<div class="dsec dsec-fa"><div class="dsec-l">'+esc(T("formAnswers"))+' \u00b7 '+faEntries.length+'</div><div class="fa-list">'+faRows+'</div></div>';
     }
-    const stepIds=STAGE_STEPS[stOf(r)]||[];
-    if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
-    if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
       '<div class="est-doc">'+(r.estimate_url
         ?'<a class="doc-link" href="'+esc(estLink(r))+'" target="_blank" rel="noopener">'+esc(T("viewDoc"))+' \u2197</a><button class="del-link" data-act="docRemove">\u00d7</button>'
         :'<label class="mini-btn alt doc-btn">'+esc(T("attachDoc"))+'<input type="file" id="estFile" accept="application/pdf,image/*" hidden></label>')+
       '</div></div>';
-    const ct=contactOf(r);
-    const tKeys=["initial","estimate","followup","lastcall","thanks"];
-    const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"followup";
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("composerLbl"))+'</div>'+
-      '<select id="msgTpl" class="msg-tpl">'+tKeys.map(k=>'<option value="'+k+'"'+(k===defT?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("")+'</select>'+
-      '<textarea id="msgBody" class="msg-body" rows="4">'+esc(fillTpl(defT,r))+'</textarea>'+
-      '<div class="msg-ch">'+
-        (ct.ph?'<button class="mini-btn" data-msgch="wa">WhatsApp</button><button class="mini-btn" data-msgch="sms">SMS</button><button class="mini-btn" data-msgch="tel">'+esc(T("actCall"))+'</button>':'')+
-        (ct.em?'<button class="mini-btn" data-msgch="mail">Email</button>':'')+
-        '<button class="mini-btn alt" data-msgch="copy">'+esc(T("copyShort"))+'</button>'+
-      '</div>'+((!ct.ph&&!ct.em)?'<div class="msg-none">'+esc(T("noContact"))+'</div>':'')+
-    '</div>';
+    const stepIds=STAGE_STEPS[stOf(r)]||[];
+    if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button></div></div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
@@ -1609,33 +1674,6 @@ function inqMiniRow(r){
   });
 
   // ===== MESSAGE POPUP (quick reach out from a card) =====
-  let msgInqId=null;
-  function openMsg(id){
-    const r=inquiries.find(x=>x.id===id); if(!r) return; msgInqId=id;
-    const ct=contactOf(r);
-    $("msgTitle").textContent=T("msgPopTitle");
-    $("msgSub").textContent=(r.customer_name||"\u2014")+(r.channel?" \u00b7 "+r.channel:"");
-    const tKeys=["initial","estimate","followup","lastcall","thanks"];
-    const defT={new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
-    $("mTpl").innerHTML=tKeys.map(k=>'<option value="'+k+'"'+(k===defT?' selected':'')+'>'+esc(T("tpl_"+k))+'</option>').join("");
-    $("mBody").value=fillTpl(defT,r);
-    const none=(!ct.ph&&!ct.em);
-    $("mCh").innerHTML=(ct.ph?'<button class="mini-btn" data-mch="wa">WhatsApp</button><button class="mini-btn" data-mch="sms">SMS</button><button class="mini-btn" data-mch="tel">'+esc(T("actCall"))+'</button>':'')+(ct.em?'<button class="mini-btn" data-mch="mail">Email</button>':'')+'<button class="mini-btn alt" data-mch="copy">'+esc(T("copyShort"))+'</button>';
-    $("mNone").style.display=none?"block":"none"; if(none)$("mNone").textContent=T("noContact");
-    openOverlay("msgOverlay");
-  }
-  $("msgOverlay").addEventListener("click",async e=>{
-    const mc=e.target.closest("[data-mch]"); if(!mc) return;
-    const id=msgInqId; const r=inquiries.find(x=>x.id===id); if(!r) return; const ct=contactOf(r); const txt=$("mBody")?$("mBody").value:""; const ch=mc.getAttribute("data-mch");
-    if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
-    if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(id,T("noteMsg")+" WhatsApp"); }
-    else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
-    else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
-    else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
-    markFirstResponse(id);
-    if(stOf(r)==="new"){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
-    closeOverlay("msgOverlay"); render();
-  });
 
   // ===== ACTIVITY LOG =====
   async function autoNote(inqId,txt){
@@ -1803,7 +1841,7 @@ function inqMiniRow(r){
     // quick action: advance status
     if(e.target.closest('[data-act="focusStart"]')){ startFocus(); return; }
     const ar=e.target.closest("[data-arch]"); if(ar){ e.stopPropagation(); const okp=await patchInq(ar.getAttribute("data-arch"),{archived:true}); if(okp) render(); return; }
-    const msgb=e.target.closest("[data-msg]"); if(msgb){ e.stopPropagation(); openMsg(msgb.getAttribute("data-msg")); return; }
+    const msgb=e.target.closest("[data-msg]"); if(msgb){ e.stopPropagation(); composerReset(); composerOpen=msgb.getAttribute("data-msg"); openDetail(msgb.getAttribute("data-msg")); return; }
     const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,statusPatch(aid,ns)); if(ok){ render(); autoNote(aid,T("noteStatus")+" "+stLbl(ns)); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
@@ -1840,15 +1878,6 @@ function inqMiniRow(r){
       const id=detailId;
       if(e.target.closest('[data-act="pstep"]')){ const st=e.target.closest('[data-act="pstep"]').getAttribute("data-st"); await patchInq(id,statusPatch(id,st)); autoNote(id,T("noteStatus")+" "+stLbl(st)); openDetail(id,true); render(); if(st==="estimate_sent") suggestFollowup(id); else if(st==="hired") celebrate(); else if(st==="not_hired") openLost(id); return; }
       if(e.target.closest('[data-act="saveEst"]')){ const inp=$("dEstInput"); const v=parseFloat(inp.value); const b=e.target.closest('[data-act="saveEst"]'); const ok=await patchInq(id,{estimate_amount:(isNaN(v)||v<=0)?null:v}); if(ok){ b.textContent=T("estSaved")+" \u2713"; if(!isNaN(v)&&v>0)autoNote(id,T("noteEst")+" "+fmtMoney(v)); setTimeout(()=>{ openDetail(id,true); render(); },500); } else { b.textContent=T("estErr"); b.style.color="var(--coral)"; setTimeout(()=>{ b.textContent=T("saveEst"); b.style.color=""; },2600); } return; }
-      const mc=e.target.closest("[data-msgch]");
-      if(mc){ const ch=mc.getAttribute("data-msgch"); const r=inquiries.find(x=>x.id===id); const ct=contactOf(r); const txt=$("msgBody")?$("msgBody").value:"";
-        if(ch==="copy"){ try{ await navigator.clipboard.writeText(txt); mc.textContent=T("contactCopied"); setTimeout(()=>{mc.textContent=T("copyShort");},1500); }catch(err){ prompt("",txt); } return; }
-        if(ch==="wa"){ window.open("https://wa.me/"+ct.ph.replace(/^\+/,"")+"?text="+encodeURIComponent(txt),"_blank"); autoNote(id,T("noteMsg")+" WhatsApp"); }
-        else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
-        else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
-        else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
-        markFirstResponse(id);
-        return; }
       if(e.target.closest('[data-act="archToggle"]')){ const r=inquiries.find(x=>String(x.id)===String(id)); const nv=!(r&&r.archived); const okp=await patchInq(id,{archived:nv}); if(okp){ if(nv){ closeDetail(); } else { openDetail(id,true); } render(); } return; }
       if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
@@ -1871,8 +1900,6 @@ function inqMiniRow(r){
     if(!e.target.closest("#notifPanel")&&!e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open");
   });
   document.addEventListener("change",async e=>{
-    if(e.target&&e.target.id==="msgTpl"&&detailId){ const r=inquiries.find(x=>x.id===detailId); if(r)$("msgBody").value=fillTpl(e.target.value,r); return; }
-    if(e.target&&e.target.id==="mTpl"&&msgInqId){ const r=inquiries.find(x=>x.id===msgInqId); if(r)$("mBody").value=fillTpl(e.target.value,r); return; }
     if(e.target&&e.target.id==="estFile"&&detailId){
       const f=e.target.files[0]; if(!f) return;
       const id=detailId; const lbl=e.target.closest("label"); if(lbl) lbl.textContent=T("uploading");
@@ -1881,7 +1908,7 @@ function inqMiniRow(r){
       if(error){ console.warn(error); if(lbl) lbl.textContent=T("uploadErr"); return; }
       const {data}=sb.storage.from("estimates").getPublicUrl(path);
       const okp=await patchInq(id,{estimate_url:data.publicUrl});
-      if(okp){ autoNote(id,T("noteDoc")); openDetail(id,true); const mt=$("msgTpl"); if(mt){ mt.value="estimate"; const r2=inquiries.find(x=>x.id===id); if(r2)$("msgBody").value=fillTpl("estimate",r2); } } else if(lbl) lbl.textContent=T("uploadErr");
+       if(okp){ autoNote(id,T("noteDoc")); composerReset(); composerOpen=id; composerTpl="estimate"; openDetail(id,true); } else if(lbl) lbl.textContent=T("uploadErr");
     }
   });
   document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="dNoteInput"){ const b=$("drawerBody").querySelector('[data-act="noteSend"]'); if(b)b.click(); } });
