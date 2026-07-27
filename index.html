@@ -277,71 +277,16 @@ p{font-size:clamp(15px,1.65vw,17.5px)}
 .cost-item b{display:block;font-size:clamp(34px,5vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1}
 .cost-item p{margin-top:8px;font-size:14.5px;color:rgba(247,245,240,.72)}
 @media(max-width:760px){.cost{grid-template-columns:1fr;gap:26px}}
-
-/* ============================================================
-   BUILDER
-   ============================================================ */
-.builder{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(22px,3.6vw,50px);margin-top:46px;align-items:start}
-.controls{position:sticky;top:96px}
-.ctrl{margin-bottom:22px}
-.ctrl > label{display:block;font-family:var(--f-label);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:9px}
-.text-in{
-  width:100%;border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:16px;
-  font-family:var(--f-body);font-weight:600;background:var(--white);color:var(--ink);
-  outline:none;transition:border-color .16s,box-shadow .16s;
-}
-.text-in:focus{border-color:var(--ink);box-shadow:var(--shadow-md)}
-.opts{display:flex;flex-wrap:wrap;gap:8px}
-.opt{
-  font-size:14px;font-weight:600;padding:9px 16px;border-radius:50px;border:1px solid var(--line);
-  background:var(--white);cursor:pointer;font-family:var(--f-body);color:var(--ink-2);
-  transition:background .18s var(--ease),color .18s,border-color .18s,transform .16s var(--ease);
-}
-.opt:hover{transform:translateY(-1px);border-color:var(--ink-4)}
-.opt[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.swatches{display:flex;gap:10px}
-.sw{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;transition:transform .16s var(--ease),box-shadow .16s}
-.sw:hover{transform:translateY(-2px)}
-.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--paper),0 0 0 4.5px var(--ink)}
-
-.preview-col{display:flex;flex-direction:column;gap:16px}
 .device{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--white);box-shadow:var(--shadow-md)}
+.form-embed{display:block;width:100%;height:660px;border:0;background:#173D35}
+@media(max-width:640px){.form-embed{height:580px}}
+.build-open{margin-top:20px;text-align:center}
 .device-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:var(--paper);border-bottom:1px solid var(--line)}
 .device-url{margin-left:8px;font-size:11.5px;color:var(--ink-4);background:var(--white);border:1px solid var(--line);border-radius:50px;padding:4px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62%}
-.form-body{padding:20px 22px 22px}
-.form-brand{display:flex;align-items:center;gap:11px;padding-bottom:15px;border-bottom:1px solid var(--line-2)}
-.form-mark{
-  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
-  font-weight:900;font-size:15px;flex:0 0 36px;
-  background:var(--fc,#F45145);color:var(--ft,#fff);transition:background .3s,color .3s;
-}
-.form-brand b{display:block;font-size:15px;font-weight:800;letter-spacing:-.02em}
-.form-brand span{font-size:11.5px;color:var(--ink-4)}
-.field{margin-top:14px;animation:pop .32s var(--ease) both}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.field label{display:block;font-family:var(--f-label);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
-.fake-input{border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--ink-4);background:var(--paper)}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{font-size:13px;font-weight:500;padding:8px 14px;border-radius:50px;border:1px solid var(--line);background:var(--paper);color:var(--ink-2)}
-.chip.sel{background:var(--fc,#F45145);color:var(--ft,#fff);border-color:transparent;font-weight:600}
-.form-foot{margin-top:18px;padding-top:15px;border-top:1px solid var(--line-2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.form-btn{
-  display:inline-flex;padding:11px 22px;border-radius:50px;font-size:14px;font-weight:700;
-  background:var(--fc,#F45145);color:var(--ft,#fff);transition:background .3s,color .3s;
-}
-.form-foot em{font-style:normal;font-family:var(--f-note);font-size:13.5px;color:var(--ink-4)}
-
-.landed{border:1px solid var(--line);border-radius:var(--r);background:var(--white);box-shadow:var(--shadow-md);overflow:hidden}
-.landed-h{padding:12px 16px;background:var(--lav-pale);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.landed-h b{font-family:var(--f-label);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5b45b8}
-.landed-b{padding:14px 18px}
 .tag{font-size:10px;font-weight:700;padding:4px 10px;border-radius:50px;white-space:nowrap}
 .tag.new{background:var(--coral);color:#fff}
-.kv{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:13.5px}
-.kv:last-child{border-bottom:0}
-.kv span{color:var(--ink-4);flex:0 0 auto}
-.kv b{font-weight:600;text-align:right}
-@media(max-width:900px){.builder{grid-template-columns:1fr}.controls{position:static}}
+
 
 /* ============================================================
    COMPOSER
@@ -594,72 +539,16 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <section class="section" id="build">
   <div class="wrap">
     <span class="eyebrow rv">Try it right now</span>
-    <h2 class="rv" data-d="1">Type your name.<br>Watch your <span class="hl">form appear</span>.</h2>
-    <p class="lead rv" data-d="2">A rough idea of what yours could look like. The real one gets built around how you actually price a job. Change anything below and it updates as you type.</p>
-
-    <div class="builder">
-      <div class="controls rv" data-d="1">
-        <div class="ctrl">
-          <label for="bizName">Your business name</label>
-          <input class="text-in" id="bizName" type="text" value="Ridgeline Roofing" maxlength="28" autocomplete="off" spellcheck="false">
-        </div>
-
-        <div class="ctrl">
-          <label>What kind of work do you do?</label>
-          <div class="opts" id="tradeOpts">
-            <button class="opt" type="button" aria-pressed="true"  data-trade="roofing">Roofing</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="remodeling">Remodeling</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="concrete">Concrete</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="hvac">HVAC</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="landscaping">Landscaping</button>
-            <button class="opt" type="button" aria-pressed="false" data-trade="cleaning">Cleaning</button>
-          </div>
-        </div>
-
-        <div class="ctrl">
-          <label>Your brand color</label>
-          <div class="swatches" id="swatches">
-            <button class="sw" type="button" aria-pressed="true"  data-c="#F45145" data-t="#FFFFFF" style="background:#F45145" aria-label="Coral"></button>
-            <button class="sw" type="button" aria-pressed="false" data-c="#173D35" data-t="#F7F5F0" style="background:#173D35" aria-label="Ink green"></button>
-            <button class="sw" type="button" aria-pressed="false" data-c="#B9A7FF" data-t="#173D35" style="background:#B9A7FF" aria-label="Lavender"></button>
-            <button class="sw" type="button" aria-pressed="false" data-c="#C9E7F5" data-t="#173D35" style="background:#C9E7F5" aria-label="Sky blue"></button>
-          </div>
-        </div>
-
-        <p class="note" style="margin-top:26px;color:var(--ink-3)">Not a template. We learn how you price a job and write the questions around it.</p>
+    <h2 class="rv" data-d="1">This is the real form.<br>Not a <span class="hl">mockup</span>.</h2>
+    <p class="lead rv" data-d="2">The same form we send you, running live right here. Fill it in and it lands in our workspace, exactly the way yours will land in yours.</p>
+    <div class="device rv" data-d="3">
+      <div class="device-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="device-url">itshellovirtually.com</span>
       </div>
-
-      <div class="preview-col rv" data-d="2">
-        <div class="device" id="device">
-          <div class="device-bar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="device-url" id="pvUrl">ridgelineroofing.com/estimate</span>
-          </div>
-          <div class="form-body">
-            <div class="form-brand">
-              <div class="form-mark" id="pvMark">R</div>
-              <div>
-                <b id="pvName">Ridgeline Roofing</b>
-                <span>Request an estimate</span>
-              </div>
-            </div>
-            <div id="pvFields"></div>
-            <div class="form-foot">
-              <span class="form-btn">Send request</span>
-              <em>takes 90 seconds</em>
-            </div>
-          </div>
-        </div>
-
-        <div class="landed">
-          <div class="landed-h">
-            <b>Lands in your workspace</b>
-            <span class="tag new">New</span>
-          </div>
-          <div class="landed-b" id="pvLanded"></div>
-        </div>
-      </div>
+      <iframe class="form-embed" src="hellovirtually.html" title="Hello, Virtually inquiry form" loading="lazy"></iframe>
     </div>
+    <div class="build-open rv" data-d="4"><a class="btn btn-paper" href="hellovirtually.html">Open it full screen</a></div>
   </div>
 </section>
 
@@ -1027,169 +916,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       counters.forEach(function (c) { cio.observe(c); });
     }
   }
-
-  /* ---------- live form builder ---------- */
-  var TRADES = {
-    roofing: {
-      label:"Roofing", biz:"Ridgeline Roofing",
-      fields: [
-        { t:"chips", l:"What do you need?", o:["Repair","Full replacement","Inspection","Storm damage"], s:1 },
-        { t:"chips", l:"Roof material", o:["Asphalt shingle","Metal","Tile","Flat / TPO","Not sure"], s:0 },
-        { t:"chips", l:"How many stories?", o:["1","2","3+"], s:1 },
-        { t:"input", l:"Roughly how old is the roof?", v:"About 18 years" },
-        { t:"input", l:"Is this going through insurance?", v:"Yes, adjuster came out last week" },
-        { t:"input", l:"Photos of the problem area", v:"3 photos attached" }
-      ],
-      landed: [["Job","Full replacement, asphalt"],["Property","2 story"],["Roof age","About 18 years"],["Insurance","Yes, adjuster seen"],["Photos","3 attached"]]
-    },
-    remodeling: {
-      label:"Remodeling", biz:"Bright Build Co.",
-      fields: [
-        { t:"chips", l:"Which room?", o:["Kitchen","Bathroom","Basement","Whole home"], s:0 },
-        { t:"chips", l:"Scope of work", o:["Cosmetic refresh","Full gut","Not sure yet"], s:1 },
-        { t:"chips", l:"Are you moving plumbing or walls?", o:["Yes","No","Not sure"], s:0 },
-        { t:"input", l:"Budget range you had in mind", v:"$25,000 to $40,000" },
-        { t:"input", l:"Are plans already drawn?", v:"No, need help with design" },
-        { t:"input", l:"When would you want to start?", v:"After the holidays" }
-      ],
-      landed: [["Job","Kitchen, full gut"],["Plumbing","Moving, needs permit"],["Budget","$25k to $40k"],["Plans","None yet, needs design"],["Start","After the holidays"]]
-    },
-    concrete: {
-      label:"Concrete", biz:"Stoneline Concrete",
-      fields: [
-        { t:"chips", l:"What are we pouring?", o:["Driveway","Patio","Slab","Sidewalk","Foundation"], s:0 },
-        { t:"input", l:"Roughly what size?", v:"About 20 x 40, two cars" },
-        { t:"chips", l:"Is there old concrete to tear out?", o:["Yes","No","Part of it"], s:0 },
-        { t:"chips", l:"Finish", o:["Broom","Stamped","Exposed aggregate","Not sure"], s:3 },
-        { t:"input", l:"How is truck access?", v:"Tight, gate on the side of the house" }
-      ],
-      landed: [["Job","Driveway, ~800 sq ft"],["Tear-out","Yes, existing slab"],["Finish","Undecided, needs options"],["Access","Tight, side gate"],["Channel","Form"]]
-    },
-    hvac: {
-      label:"HVAC", biz:"Coastal Air & Heat",
-      fields: [
-        { t:"chips", l:"What do you need?", o:["Repair","New system","Maintenance","Second opinion"], s:1 },
-        { t:"chips", l:"System type", o:["Central AC","Heat pump","Mini split","Furnace","Not sure"], s:0 },
-        { t:"input", l:"Square footage of the home", v:"About 1,900 sq ft" },
-        { t:"input", l:"How old is the current unit?", v:"14 years, original to the house" },
-        { t:"chips", l:"How soon?", o:["Emergency","This week","Getting quotes"], s:2 }
-      ],
-      landed: [["Job","New central AC system"],["Home","~1,900 sq ft"],["Current unit","14 years old"],["Timing","Getting quotes"],["Channel","Form"]]
-    },
-    landscaping: {
-      label:"Landscaping", biz:"Cedar & Stone",
-      fields: [
-        { t:"chips", l:"What are we doing?", o:["Maintenance","New install","Cleanup","Hardscape"], s:1 },
-        { t:"input", l:"Roughly how big is the area?", v:"Back yard, about 1,200 sq ft" },
-        { t:"chips", l:"Irrigation needed?", o:["Yes","No","Not sure"], s:2 },
-        { t:"chips", l:"Any grading or drainage issues?", o:["Yes, it pools","No","Not sure"], s:0 },
-        { t:"input", l:"When would you want it done?", v:"Before the end of next month" }
-      ],
-      landed: [["Job","New install, 1,200 sq ft"],["Drainage","Pools after rain"],["Irrigation","Not sure, needs a visit"],["Timing","Within 6 weeks"],["Channel","Form"]]
-    },
-    cleaning: {
-      label:"Cleaning", biz:"Sparkle Clean Co.",
-      fields: [
-        { t:"input", l:"What needs cleaning?", v:"3 bedroom house, 2 baths" },
-        { t:"chips", l:"Type of service", o:["One time deep clean","Recurring","Move out","Post construction"], s:0 },
-        { t:"chips", l:"How soon?", o:["This week","Next 2 weeks","Flexible"], s:0 },
-        { t:"chips", l:"Pets in the home?", o:["Yes","No"], s:0 },
-        { t:"input", l:"Anything we should know?", v:"Two cats, please no bleach" }
-      ],
-      landed: [["Job","Deep clean, 3 bed / 2 bath"],["Timing","This week"],["Pets","Two cats"],["Notes","No bleach"],["Channel","Form"]]
-    }
-  };
-
-
-  var trade = "roofing";
-  var pvFields=$("pvFields"), pvLanded=$("pvLanded"), pvName=$("pvName"),
-      pvMark=$("pvMark"), pvUrl=$("pvUrl"), bizName=$("bizName"), device=$("device");
-
-  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]/g,"") || "yourbusiness"; }
-
-  function paintBrand(){
-    if (!bizName) return;
-    var raw = bizName.value.trim() || "Your Business";
-    pvName.textContent = raw;
-    pvMark.textContent = raw.charAt(0).toUpperCase();
-    pvUrl.textContent = slug(raw).slice(0,22) + ".com/estimate";
-  }
-
-  function paintForm(){
-    var d = TRADES[trade];
-    if (!d || !pvFields) return;
-    pvFields.innerHTML = d.fields.map(function(f,i){
-      var st = ' style="animation-delay:'+(i*45)+'ms"';
-      if (f.t === "chips") {
-        var chips = f.o.map(function(o,j){
-          return '<span class="chip'+(j===f.s?" sel":"")+'">'+esc(o)+"</span>";
-        }).join("");
-        return '<div class="field"'+st+"><label>"+esc(f.l)+'</label><div class="chips">'+chips+"</div></div>";
-      }
-      return '<div class="field"'+st+"><label>"+esc(f.l)+'</label><div class="fake-input">'+esc(f.v)+"</div></div>";
-    }).join("");
-    pvLanded.innerHTML = d.landed.map(function(r){
-      return '<div class="kv"><span>'+esc(r[0])+"</span><b>"+esc(r[1])+"</b></div>";
-    }).join("");
-  }
-
-  var bizTouched = false;
-  if (bizName) {
-    bizName.addEventListener("input", function(){ bizTouched = true; paintBrand(); });
-    bizName.addEventListener("focus", function(){ this.select(); });
-  }
-
-  var tradeOpts = $("tradeOpts");
-  if (tradeOpts) {
-    tradeOpts.addEventListener("click", function(e){
-      var b = e.target.closest(".opt"); if (!b) return;
-      tradeOpts.querySelectorAll(".opt").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
-      b.setAttribute("aria-pressed","true");
-      trade = b.dataset.trade;
-      if (bizName && !bizTouched && TRADES[trade].biz) { bizName.value = TRADES[trade].biz; paintBrand(); }
-      paintForm();
-    });
-  }
-
-  /* brand color scoped to the form preview only */
-  var swatches = $("swatches");
-  if (swatches && device) {
-    swatches.addEventListener("click", function(e){
-      var b = e.target.closest(".sw"); if (!b) return;
-      swatches.querySelectorAll(".sw").forEach(function(s){ s.setAttribute("aria-pressed","false"); });
-      b.setAttribute("aria-pressed","true");
-      device.style.setProperty("--fc", b.dataset.c);
-      device.style.setProperty("--ft", b.dataset.t);
-    });
-  }
-
-  /* prefill from URL: ?biz=Ridgeline%20Roofing&trade=roofing&c=ink */
-  (function prefill(){
-    if (!window.URLSearchParams) return;
-    var q = new URLSearchParams(window.location.search);
-    var b = q.get("biz"), t = (q.get("trade")||"").toLowerCase(), c = (q.get("c")||"").toLowerCase();
-
-    if (b && bizName) { bizName.value = b.slice(0,28); }
-
-    if (TRADES[t] && tradeOpts) {
-      trade = t;
-      tradeOpts.querySelectorAll(".opt").forEach(function(o){
-        o.setAttribute("aria-pressed", o.dataset.trade === t ? "true" : "false");
-      });
-    }
-
-    var MAP = { coral:"#F45145", ink:"#173D35", lavender:"#B9A7FF", sky:"#C9E7F5" };
-    if (MAP[c] && swatches && device) {
-      var hex = MAP[c], txt = (c === "coral" ? "#FFFFFF" : c === "ink" ? "#F7F5F0" : "#173D35");
-      device.style.setProperty("--fc", hex);
-      device.style.setProperty("--ft", txt);
-      swatches.querySelectorAll(".sw").forEach(function(s){
-        s.setAttribute("aria-pressed", s.dataset.c.toLowerCase() === hex.toLowerCase() ? "true" : "false");
-      });
-    }
-  })();
-
-  paintBrand(); paintForm();
 
   /* ---------- composer ---------- */
   var CH = {

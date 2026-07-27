@@ -938,7 +938,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
     tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
     formCaptured:"inquiries captured with this form",
-    formHero:"This is exactly what your customers fill out.",formHeroSub:"Every request reaches you with the details you need, so there is no back and forth before you can send an estimate.",formPreview:"Live preview",formOpen:"Open form",formTailored:"Built for your trade. Want to add or change a question? Just ask us.",formShareTitle:"Share your form",
+    formHero:"This is exactly what your customers fill out.",formHeroSub:"Every request reaches you with the details you need, so there is no back and forth before you can send an estimate.",formSoonT:"Your form is being set up",formSoonS:"We are building it now. It shows up here the moment it is live.",formPreview:"Live preview",formOpen:"Open form",formTailored:"Built for your trade. Want to add or change a question? Just ask us.",formShareTitle:"Share your form",
     qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
     noInqYet:"No inquiries yet \u2014 add one first",
     pushBody:"Get an alert on this phone the moment a new lead comes in.",pushOn:"Turn on lead alerts",pushEnabled:"Lead alerts are on for this device \u2713",
@@ -1009,7 +1009,7 @@ button{font-family:inherit;cursor:pointer;}
     tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
     tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
     formCaptured:"consultas capturadas con este formulario",
-    formHero:"Esto es exactamente lo que llena tu cliente.",formHeroSub:"Cada solicitud te llega con los datos que necesitas, sin ir y venir antes de enviar un estimado.",formPreview:"Vista previa en vivo",formOpen:"Abrir formulario",formTailored:"Hecho para tu oficio. \u00bfQuieres agregar o cambiar una pregunta? Solo d\u00ednos.",formShareTitle:"Comparte tu formulario",
+    formHero:"Esto es exactamente lo que llena tu cliente.",formHeroSub:"Cada solicitud te llega con los datos que necesitas, sin ir y venir antes de enviar un estimado.",formSoonT:"Tu formulario se est\u00e1 preparando",formSoonS:"Lo estamos armando. Aparece aqu\u00ed en cuanto est\u00e9 listo.",formPreview:"Vista previa en vivo",formOpen:"Abrir formulario",formTailored:"Hecho para tu oficio. \u00bfQuieres agregar o cambiar una pregunta? Solo d\u00ednos.",formShareTitle:"Comparte tu formulario",
     qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
     noInqYet:"A\u00fan no hay consultas \u2014 crea una primero",
     pushBody:"Recibe una alerta en este tel\u00e9fono en el momento en que entre un lead nuevo.",pushOn:"Activar alertas de leads",pushEnabled:"Alertas de leads activadas en este dispositivo \u2713",
@@ -1087,7 +1087,7 @@ button{font-family:inherit;cursor:pointer;}
     return out;
   }
   let myFormUrl=null;
-  function formLink(){ return myFormUrl||("https://itshellovirtually.com/form?c="+encodeURIComponent((user&&user.email)||"")); }
+  function formLink(){ return myFormUrl||""; }
   const STEP_PRESETS={
     initial:{type:"message",note:"stepInitial",days:0},
     estimate:{type:"estimate",days:1},
@@ -1125,7 +1125,7 @@ button{font-family:inherit;cursor:pointer;}
     $("navClients").style.display=isAdmin?"":"none";
     $("fClientWrap").style.display=isAdmin?"":"none"; $("tClientWrap").style.display=isAdmin?"":"none";
     applyLang();
-    if(!isAdmin){ try{ const {data}=await sb.from("clients").select("form_url").eq("email",user.email).maybeSingle(); myFormUrl=(data&&data.form_url)||null; }catch(e){ myFormUrl=null; } }
+    try{ const {data}=await sb.from("clients").select("form_url").eq("email",user.email).maybeSingle(); myFormUrl=(data&&data.form_url)||null; }catch(e){ myFormUrl=null; }
     await loadAll(); subscribe(); renderPushCard();
   }
 
@@ -1693,6 +1693,12 @@ function inqMiniRow(r){
   // ===== MY FORM =====
   function renderForm(){
     const c=$("content"); const link=formLink();
+    if(!link){
+      c.innerHTML='<div class="form-hero"><div class="form-hero-t">'+esc(T("formHero"))+'</div><div class="form-hero-s">'+esc(T("formHeroSub"))+'</div></div>'+
+        '<div class="panel"><div class="empty-mini"><div class="empty-mini-t">'+esc(T("formSoonT"))+'</div>'+
+        '<div class="empty-mini-s">'+esc(T("formSoonS"))+'</div></div></div>';
+      return;
+    }
     const captured=inquiries.filter(r=>r.kind!=="booking").length;
     c.innerHTML='<div class="form-hero"><div class="form-hero-t">'+esc(T("formHero"))+'</div><div class="form-hero-s">'+esc(T("formHeroSub"))+'</div></div>'+
       '<div class="form-grid">'+
