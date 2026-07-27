@@ -103,32 +103,40 @@ button{font-family:inherit;cursor:pointer;}
 /* ===== MAIN ===== */
 .main{flex:1;margin-left:var(--sidebar);min-width:0;display:flex;flex-direction:column;}
 .topbar{
-  position:sticky;top:0;z-index:40;background:rgba(247,245,240,.92);
+  position:sticky;top:0;z-index:40;background:rgba(247,245,240,.86);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);padding:14px 28px;
+  border-bottom:none;padding:18px 28px 6px;
   display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
-.topbar h1{font-size:var(--t-06);font-weight:500;color:var(--ink);}
+.topbar h1{display:none;}
+@media(max-width:900px){.topbar h1{display:block;font-size:var(--t-05);font-weight:600;color:var(--ink);}}
 .topbar h1 em{font-style:italic;color:var(--coral);}
 .tb-actions{display:flex;align-items:center;gap:8px;}
 .bell{
-  position:relative;background:var(--white);border:1.5px solid var(--line);
-  width:36px;height:36px;border-radius:var(--radius-sm);
+  position:relative;background:none;border:none;
+  width:34px;height:34px;border-radius:var(--radius-sm);
   display:inline-flex;align-items:center;justify-content:center;
-  transition:all var(--anim);color:var(--ink);
+  transition:all var(--anim);color:var(--ink-3);
 }
-.bell:hover{border-color:var(--ink);background:var(--paper-2);}
+.bell:hover{background:rgba(23,61,53,.06);color:var(--ink);}
+.tb-actions .btn-primary{background:none;border:1px solid var(--line);color:var(--ink-2);font-weight:600;}
+.tb-actions .btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--white);transform:none;box-shadow:none;}
 .bell-badge{
   position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;
   border-radius:var(--radius-pill);background:var(--coral);color:var(--white);font-size:var(--t-01);font-weight:800;
   display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);
 }
 .content{padding:24px 28px 70px;max-width:1200px;width:100%;}
+.view-today .main{justify-content:stretch;}
+.view-today .content{max-width:none;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:0 28px 60px;}
+.view-today .greet-row{text-align:center;margin-bottom:20px;}
+.view-today .td-card,.view-today .focus-card,.view-today .td-foot-line{width:100%;}
+@media(max-width:900px){.view-today .content{justify-content:flex-start;padding-top:8px;}}
 
 /* ===== TODAY ===== */
 .greet-row{margin-bottom:22px;}
 .greet-row .hi{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;color:var(--ink-3);letter-spacing:-.01em;}
-.greet-row .date{color:var(--ink-3);font-size:var(--t-04);margin-top:3px;}
+.greet-row .date{color:rgba(23,61,53,.38);font-size:var(--t-03);margin-top:3px;}
 .greet-row .hi em{font-style:italic;color:var(--coral);}
 .greet-row .hi .hi-acc{display:none;}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px 20px;}
@@ -349,11 +357,12 @@ button{font-family:inherit;cursor:pointer;}
   font-size:clamp(30px,4.8vw,48px);font-weight:600;line-height:1.02;
   letter-spacing:-.035em;color:var(--paper);
 }
-.td-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:14px;font-size:var(--t-03);color:rgba(247,245,240,.52);}
+.td-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:10px;font-size:var(--t-03);color:rgba(247,245,240,.52);}
 .td-meta b{color:rgba(247,245,240,.9);font-weight:600;}
 .td-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0;}
 .td-x{color:rgba(247,245,240,.26);}
-.td-ask{margin-top:20px;font-size:var(--t-04);line-height:1.6;color:rgba(247,245,240,.78);}
+.td-late{color:var(--coral);font-weight:600;}
+.td-ask{margin-top:22px;font-size:var(--t-04);line-height:1.6;color:rgba(247,245,240,.78);}
 .td-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(247,245,240,.13);}
 .td-acts{display:flex;align-items:center;gap:14px;}
 .td-link{background:none;border:none;padding:0;font-family:inherit;font-size:var(--t-03);font-weight:600;color:rgba(247,245,240,.5);cursor:pointer;transition:color var(--anim);}
@@ -386,10 +395,10 @@ button{font-family:inherit;cursor:pointer;}
 .mini-btn.send:hover{background:var(--coral-soft);border-color:var(--coral-soft);color:#fff;}
 .composer{margin-top:22px;}
 /* dentro de la tarjeta de tinta */
-.td-card .tpl{background:rgba(247,245,240,.07);border-color:rgba(247,245,240,.15);color:rgba(247,245,240,.62);}
+.td-card .tpl{background:none;border-color:rgba(247,245,240,.17);color:rgba(247,245,240,.55);}
 .td-card .tpl:hover{color:var(--paper);border-color:rgba(247,245,240,.3);}
 .td-card .tpl.on{background:var(--paper);border-color:var(--paper);color:var(--ink);}
-.td-card .msg-body{background:var(--paper);border:none;border-radius:16px;padding:17px 19px;min-height:112px;color:var(--ink);}
+.td-card .msg-body{background:var(--paper);border:none;border-radius:16px;padding:16px 18px;min-height:auto;color:var(--ink);}
 .td-card .msg-body:focus{outline:none;box-shadow:0 0 0 2px rgba(247,245,240,.35);}
 .td-card .mini-btn{background:rgba(247,245,240,.08);border-color:rgba(247,245,240,.16);color:rgba(247,245,240,.78);}
 .td-card .mini-btn:hover{background:rgba(247,245,240,.15);border-color:rgba(247,245,240,.3);color:var(--paper);}
@@ -898,7 +907,7 @@ button{font-family:inherit;cursor:pointer;}
     titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
     hi:"Hi", hiAdmin:"Here's your day", greetAM:"Good morning", greetPM:"Good afternoon", greetEve:"Good evening", 
     stNew:"New inquiries",stActions:"Follow-ups due",stTasks:"Open tasks",stAppts:"Upcoming",
-    needsAttn:"Needs attention",noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",stuckLbl:"no reply",
+    needsAttn:"Needs attention",noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",agoNow:"now",agoWaiting:"waiting",stuckLbl:"no reply",
     todaysActions:"Today's actions",newInquiries:"New inquiries",viewAll:"View all",
     nothingToday:"Nothing scheduled today.",noNew:"No new inquiries.",allCaught:"All caught up.",
     search:"Search name, message, channel...",
@@ -969,7 +978,7 @@ button{font-family:inherit;cursor:pointer;}
     titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
     hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda", greetAM:"Buenos d\u00edas", greetPM:"Buenas tardes", greetEve:"Buenas noches",
     stNew:"Consultas nuevas",stActions:"Seguimientos hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
-    needsAttn:"Requiere atenci\u00f3n",noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",stuckLbl:"sin respuesta",
+    needsAttn:"Requiere atenci\u00f3n",noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",agoNow:"ahora",agoWaiting:"esperando",stuckLbl:"sin respuesta",
     todaysActions:"Acciones de hoy",newInquiries:"Consultas nuevas",viewAll:"Ver todas",
     nothingToday:"Nada agendado para hoy.",noNew:"Sin consultas nuevas.",allCaught:"Est\u00e1s al d\u00eda.",
     search:"Buscar nombre, mensaje, canal...",
@@ -1091,6 +1100,14 @@ button{font-family:inherit;cursor:pointer;}
     document.querySelectorAll("#schedPresets .step-chip").forEach(b=>b.classList.toggle("on",b.getAttribute("data-preset")===pid));
   }
   function fmtExact(d){ try{ const t=new Date(d); return t.toLocaleDateString(locale(),{year:"numeric",month:"short",day:"numeric"})+" \u00b7 "+t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
+  function agoShort(d){
+    if(!d) return "";
+    const m=Math.floor((Date.now()-new Date(d))/60000);
+    if(m<1) return T("agoNow");
+    if(m<60) return m+"m";
+    const h=Math.floor(m/60); if(h<24) return h+"h";
+    return Math.floor(h/24)+"d";
+  }
   function fmtWhen(d){ try{ const t=new Date(d),n=new Date(); const sd=t.toDateString()===n.toDateString(); const tm=new Date(n); tm.setDate(n.getDate()+1); const it=t.toDateString()===tm.toDateString(); const hm=t.toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"}); if(sd)return T("today")+" "+hm; if(it)return T("tomorrow")+" "+hm; return t.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u00b7 "+hm; }catch(e){ return ""; } }
   function actionLabel(k){ return {call:T("actCall"),message:T("actMessage"),followup:T("actFollow"),estimate:T("actEstimate"),appointment:T("actAppt"),email:T("actEmail"),other:T("actOther")}[k]||T("actOther"); }
   const startOfDay=d=>{ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime(); };
@@ -1173,7 +1190,7 @@ button{font-family:inherit;cursor:pointer;}
   }
 
   // ===== view routing =====
-  function setView(v){ view=v; try{localStorage.setItem("hv_view",v);}catch(e){} document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===v)); closeSidebar(); renderViewTitle(); render(); }
+  function setView(v){ view=v; try{localStorage.setItem("hv_view",v);}catch(e){} document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.getAttribute("data-view")===v)); document.body.classList.toggle("view-today",v==="today"); closeSidebar(); renderViewTitle(); render(); }
   function renderViewTitle(){ const map={today:"titleToday",inquiries:"titleInq",tasks:"titleTasks",calendar:"titleCal",form:"titleForm",results:"titleRes",clients:"titleClients"}; $("viewTitle").textContent=T(map[view]||"titleToday"); }
   function render(){
     if($("shell").style.display==="none") return;
@@ -1322,7 +1339,7 @@ button{font-family:inherit;cursor:pointer;}
       html+='<div class="td-name">'+esc(r.customer_name||"\u2014")+'</div>';
       html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(stLbl(stOf(r)))+'</b>'+
         (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
-        (late?'<span class="td-x">\u00b7</span>'+days+'d':'')+'</div>';
+        '<span class="td-x">\u00b7</span><span'+(late?' class="td-late"':'')+'>'+esc(agoShort(r.created_at))+' '+esc(T("agoWaiting"))+'</span></div>';
       if(r.message) html+='<div class="td-ask">'+esc(r.message.slice(0,180))+'</div>';
       html+=composerHTML(r,"panel");
       html+='<div class="td-foot"><button class="td-link" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button>'+
