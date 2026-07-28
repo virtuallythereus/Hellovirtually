@@ -988,8 +988,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"avg. time to first response",resVs:"vs",resSources:"Where they came from",resOther:"Other",resFollow:"Worth a follow-up",
     resShare:"Share this report",resCopied:"Copied \u2713",resReport:"Monthly report",resNoMonth:"No inquiries this month yet",resDays:"d",
     schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
-    chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
-    stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
+    chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",stepSecond:"Second follow-up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
@@ -1000,6 +999,7 @@ button{font-family:inherit;cursor:pointer;}
     sub_needsReply:"Needs first reply",sub_pendEst:"Pending estimate",sub_readySend:"Ready to send",sub_awaitReply:"Awaiting reply",
     markSent:"Mark estimate sent",wsPend:"Pending estimate",
     hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
+    actWrite:"Write message",
     ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Wants it as soon as possible.",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
@@ -1064,8 +1064,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"tiempo promedio de primera respuesta",resVs:"vs",resSources:"De d\u00f3nde llegaron",resOther:"Otro",resFollow:"Valen un seguimiento",
     resShare:"Compartir este reporte",resCopied:"Copiado \u2713",resReport:"Reporte mensual",resNoMonth:"A\u00fan no hay consultas este mes",resDays:"d",
     schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
-    chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
-    stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
+    chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
@@ -1076,6 +1075,7 @@ button{font-family:inherit;cursor:pointer;}
     sub_needsReply:"Falta primera respuesta",sub_pendEst:"Estimado pendiente",sub_readySend:"Listo para enviar",sub_awaitReply:"Esperando respuesta",
     markSent:"Marcar estimado enviado",wsPend:"Estimados pendientes",
     hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
+    actWrite:"Escribir mensaje",
     ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"Lo quiere lo antes posible.",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
@@ -1152,12 +1152,11 @@ button{font-family:inherit;cursor:pointer;}
   let myFormUrl=null, myBizName=null, todayIdx=0;
   function formLink(){ return myFormUrl||""; }
   const STEP_PRESETS={
-    initial:{type:"message",note:"stepInitial",days:0},
     estimate:{type:"estimate",days:1},
     followup:{type:"followup",days:3},
-    followup2:{type:"followup",note:"stepSecond",days:4}
+    followup2:{type:"followup",note:"stepSecond",days:4},
+    visit:{type:"appointment",days:1}
   };
-  const STAGE_STEPS={new:["initial","estimate"],contacting:["estimate","followup"],estimate_sent:["followup"],follow_up:["followup2"],hired:[],not_hired:[]};
   function applyPreset(pid){
     const pr=STEP_PRESETS[pid]; if(!pr) return;
     try{ $("sType").value=pr.type; }catch(e){}
@@ -1322,6 +1321,7 @@ button{font-family:inherit;cursor:pointer;}
   // ===== COMPOSER (unico, usado en Today, drawer y focus) =====
   let composerOpen=null, composerText=null, composerTpl=null;
   const CTPL_KEYS=["initial","estimate","followup","lastcall","thanks"];
+  const TPL_BY_STAGE={new:["initial","estimate"],contacting:["initial","estimate","followup"],estimate_sent:["estimate","followup","lastcall"],follow_up:["followup","lastcall"],hired:["thanks"],not_hired:["lastcall","thanks"]};
   function composerDefTpl(r){
     return {new:"initial",contacting:"initial",estimate_sent:"estimate",follow_up:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
   }
@@ -1333,7 +1333,7 @@ button{font-family:inherit;cursor:pointer;}
     const primary=ct.ph?"wa":(ct.em?"mail":"copy");
     const ch=(k,label,p)=>'<button class="mini-btn'+(k===p?" send":"")+'" data-mch="'+k+'">'+esc(label)+'</button>';
     return '<div class="composer" data-cid="'+r.id+'">'+
-      '<div class="tpl-row">'+CTPL_KEYS.map(k=>'<button type="button" class="tpl'+(k===tpl?' on':'')+'" data-ctpl="'+k+'">'+esc(T("tpl_"+k))+'</button>').join("")+'</div>'+
+      '<div class="tpl-row">'+(TPL_BY_STAGE[stOf(r)]||CTPL_KEYS).map(k=>'<button type="button" class="tpl'+(k===tpl?' on':'')+'" data-ctpl="'+k+'">'+esc(T("tpl_"+k))+'</button>').join("")+'</div>'+
       '<textarea class="msg-body" data-cbody rows="'+(mode==="row"?3:4)+'">'+esc(txt)+'</textarea>'+
       '<div class="msg-ch">'+
         (ct.ph?ch("wa","WhatsApp",primary)+ch("sms","SMS",primary)+ch("tel",T("actCall"),primary):'')+
@@ -1372,14 +1372,6 @@ button{font-family:inherit;cursor:pointer;}
     composerOpen=c.getAttribute("data-cid"); composerText=b.value;
   });
   document.addEventListener("click",async e=>{
-    const rb=e.target&&e.target.closest?e.target.closest("[data-reply]"):null;
-    if(rb){
-      e.preventDefault(); e.stopPropagation();
-      const id=rb.getAttribute("data-reply");
-      if(composerOpen!==null&&String(composerOpen)===String(id)) composerReset();
-      else { composerReset(); composerOpen=id; }
-      render(); return;
-    }
     const tp=e.target&&e.target.closest?e.target.closest("[data-ctpl]"):null;
     if(tp){
       e.preventDefault(); e.stopPropagation();
@@ -1576,7 +1568,11 @@ button{font-family:inherit;cursor:pointer;}
       const contact=(r.customer_contact||r.customer_email||r.customer_phone||"");
       const isNewLead=stOf(r)==="new";
       const qa='<div class="inq-qa">'+
-        (isNewLead?'<button class="qa-btn qa-primary" data-msg="'+r.id+'">'+esc(T("qaSendIntro"))+'</button>':(nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>':(canArch?'<button class="qa-btn" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>':'')))+
+        (isNewLead?'<button class="qa-btn qa-primary" data-msg="'+r.id+'">'+esc(T("qaSendIntro"))+'</button>'
+         :(pendEst(r)?'<button class="qa-btn qa-primary" data-open="'+r.id+'">'+esc(T("actEstimate"))+'</button>'
+         :(readyToSend(r)?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="estimate_sent">'+esc(T("markSent"))+'</button>'
+         :(nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>'
+         :(canArch?'<button class="qa-btn" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>':'')))))+
         '<button class="qa-btn qa-quiet" data-followup="'+r.id+'" title="'+esc(T("addFollowup"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M12 13v3M10.5 14.5h3"/></svg><span>'+esc(T("followShort"))+'</span></button>'+
         (contact?'<button class="qa-btn qa-quiet" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'" title="'+esc(T("copyContact"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>'+esc(T("copyShort"))+'</span></button>':'')+
       '</div>';
@@ -1720,8 +1716,8 @@ button{font-family:inherit;cursor:pointer;}
     const st=stOf(r);
     const A=[];
     if(ct.ph) A.push('<a class="dact" href="tel:'+esc(ct.ph)+'" data-act="markCall">'+esc(T("actCall"))+'</a>');
-    A.push('<button class="dact primary" data-act="focusCmp">'+esc(st==="new"?T("qaSendIntro"):T("actMessage"))+'</button>');
-    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="schedule">'+esc(T("actAppt"))+'</button>');
+    A.push('<button class="dact primary" data-act="focusCmp">'+esc(T("actWrite"))+'</button>');
+    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="visit">'+esc(T("actAppt"))+'</button>');
     if(st==="contacting") A.push(readyToSend(r)
       ? '<button class="dact win" data-act="pstep" data-st="estimate_sent">'+esc(T("markSent"))+'</button>'
       : '<button class="dact" data-act="stepPreset" data-preset="estimate">'+esc(T("actEstimate"))+'</button>');
@@ -1734,7 +1730,6 @@ button{font-family:inherit;cursor:pointer;}
     head+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body=head+body;
 
-    const stepIds=STAGE_STEPS[stOf(r)]||[];
     body+='<div class="dcard"><div class="dsec-l">'+esc(T("workLbl"))+'</div>'+
       '<div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
       '<div class="est-doc">'+(r.estimate_url
@@ -1743,8 +1738,7 @@ button{font-family:inherit;cursor:pointer;}
       '</div>'+
       '<div class="dsplit"></div>'+
       '<div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+
-      '<div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+
-        '<button class="step-chip" data-act="schedule">+ '+esc(T("schedule"))+'</button></div>'+
+      '<div class="step-chips"><button class="step-chip" data-act="schedule">+ '+esc(T("schedule"))+'</button></div>'+
     '</div>';
     body+='<div class="dcard"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     body+='<div class="d-foot"><button class="del-link" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq">'+esc(T("del"))+'</button></div>';
@@ -2037,7 +2031,8 @@ button{font-family:inherit;cursor:pointer;}
     // quick action: advance status
     const ar=e.target.closest("[data-arch]"); if(ar){ e.stopPropagation(); const okp=await patchInq(ar.getAttribute("data-arch"),{archived:true}); if(okp) render(); return; }
     const msgb=e.target.closest("[data-msg]"); if(msgb){ e.stopPropagation(); composerReset(); composerOpen=msgb.getAttribute("data-msg"); openDetail(msgb.getAttribute("data-msg")); return; }
-    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,statusPatch(aid,ns)); if(ok){ render(); autoNote(aid,T("noteStatus")+" "+stLbl(ns)); if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
+    const adv=e.target.closest("[data-adv]"); if(adv){ e.stopPropagation(); const aid=adv.getAttribute("data-adv"); const ns=adv.getAttribute("data-next"); const ok=await patchInq(aid,statusPatch(aid,ns)); if(ok){ render(); autoNote(aid,T("noteStatus")+" "+stLbl(ns)); if(ns==="contacting"&&!nextActionFor(aid)){ const rr=inquiries.find(x=>String(x.id)===String(aid)); if(pendEst(rr)) setTimeout(()=>{ openSchedule(aid); $("schedSub").textContent=T("hintPendEst"); applyPreset("estimate"); },350); }
+      if(ns==="estimate_sent") suggestFollowup(aid); else if(ns==="hired") celebrate(); } return; }
     // quick action: add follow-up
     const fu=e.target.closest("[data-followup]"); if(fu){ e.stopPropagation(); openSchedule(fu.getAttribute("data-followup")); return; }
     // quick action: copy contact
@@ -2079,7 +2074,6 @@ button{font-family:inherit;cursor:pointer;}
       if(e.target.closest('[data-act="archToggle"]')){ const r=inquiries.find(x=>String(x.id)===String(id)); const nv=!(r&&r.archived); const okp=await patchInq(id,{archived:nv}); if(okp){ if(nv){ closeDetail(); } else { openDetail(id,true); } render(); } return; }
       if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
-      if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; const cf={called:now,called_at:now?new Date().toISOString():null}; if(now&&!r.first_response_at) cf.first_response_at=new Date().toISOString(); await patchInq(id,cf); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
       if(e.target.closest('[data-act="focusCmp"]')){ const c=$("drawerBody").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
       if(e.target.closest('[data-act="markCall"]')){ const rr=inquiries.find(x=>String(x.id)===String(id)); if(rr&&!rr.first_response_at) patchInq(id,{first_response_at:new Date().toISOString(),called:true,called_at:new Date().toISOString()}); autoNote(id,"Call \u00b7 "+T("noteCall")); return; }
@@ -2147,7 +2141,7 @@ button{font-family:inherit;cursor:pointer;}
   function openSchedule(id){
     schedInqId=id; $("schedMsg").textContent=""; $("sNote").value=""; $("sWhen").value="";
     $("lblSPicks").textContent=T("quickPicks");
-    $("schedPresets").innerHTML=["initial","estimate","followup"].map(pid=>'<button class="step-chip" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("");
+    $("schedPresets").innerHTML=["visit","estimate","followup"].map(pid=>'<button class="step-chip" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("");
     openOverlay("schedOverlay");
   }
   function suggestFollowup(id){
