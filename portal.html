@@ -302,12 +302,12 @@ button{font-family:inherit;cursor:pointer;}
 .doc-btn{display:inline-flex;cursor:pointer;}
 .doc-link{font-size:var(--t-03);font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--lav);text-underline-offset:3px;}
 .doc-link:hover{color:var(--coral);}
-.fa-list{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:4px 13px;}
-.dsec-fa .fa-list{border-left:3px solid var(--lav);}
-.fa-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line-2);}
+
+
+
 .fa-row:last-child{border-bottom:none;}
-.fa-k{flex:0 0 38%;font-size:var(--t-02);font-weight:700;color:var(--ink-3);text-transform:capitalize;padding-top:1px;}
-.fa-v{flex:1;font-size:var(--t-04);color:var(--ink);font-weight:500;word-break:break-word;}
+
+
 /* Tarjeta de Today */
 .focus-card{max-width:620px;}
 
@@ -459,32 +459,48 @@ button{font-family:inherit;cursor:pointer;}
 .drawer-head .dh-sub{font-size:var(--t-03);color:var(--ink-3);margin-top:4px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
 .drawer-close{background:none;border:none;font-size:var(--t-07);color:var(--ink-3);cursor:pointer;line-height:1;padding:2px 4px;border-radius:var(--radius-xs);transition:all var(--anim);}
 .drawer-close:hover{color:var(--ink);background:var(--paper-2);}
-.drawer-body{flex:1;overflow-y:auto;padding:20px 22px;}
-.dsec{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line-2);}
-.dsec:last-child{border-bottom:none;}
-.dsec-l{font-size:var(--t-01);font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.drawer-body{flex:1;overflow-y:auto;padding:20px 22px;background:var(--paper);}
+.dsec{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
+.wait-pill{display:inline-flex;align-items:center;font-size:var(--t-02);font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);background:var(--mint);color:var(--ink);margin-right:4px;font-variant-numeric:tabular-nums;}
+.wait-pill.hot{background:var(--coral);color:#fff;}
+
+.dsec-l{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;text-transform:none;color:var(--ink);margin-bottom:6px;}
+.dcard{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
+.dfield{padding:13px 0;border-bottom:1px solid var(--line-2);}
+.dfield:last-child{border-bottom:none;padding-bottom:0;}
+.dfl{font-size:var(--t-03);color:var(--ink-3);letter-spacing:-.005em;}
+.dfv{font-size:var(--t-04);color:var(--ink);margin-top:4px;line-height:1.5;word-break:break-word;}
+.dlink{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;}
+.drive-chip{display:flex;align-items:center;gap:10px;background:var(--mint);border-radius:var(--radius-sm);padding:13px 15px;margin-top:14px;font-size:var(--t-04);font-weight:500;color:var(--ink);min-height:48px;}
+.drive-chip svg{width:18px;height:18px;flex-shrink:0;}
 .d-addr{display:flex;align-items:center;gap:9px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;font-size:var(--t-04);font-weight:600;color:var(--ink);text-decoration:none;transition:border-color var(--anim);}
-.d-addr:hover{border-color:var(--ink);}
-.d-addr svg{width:18px;height:18px;flex-shrink:0;color:var(--ink-3);}
+
+
 .ph-strip{display:flex;flex-wrap:wrap;gap:8px;}
 .ph-strip a{display:block;width:86px;height:86px;border-radius:var(--radius-xs);overflow:hidden;border:1px solid var(--line);}
 .ph-strip img{width:100%;height:100%;object-fit:cover;display:block;}
-.dsec-site{background:var(--mint);border-radius:var(--radius);padding:14px 16px;margin:0 0 18px;border-bottom:none;}
-.dmsg{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 16px;font-size:var(--t-04);white-space:pre-wrap;line-height:1.6;}
 
-.dsec-cmp{position:sticky;bottom:0;z-index:3;background:var(--paper);margin:0 -22px -20px;padding:14px 22px 20px;border-bottom:none;border-top:1px solid var(--line);}
+
+
+.dsec-cmp{position:sticky;bottom:0;z-index:3;background:var(--paper);border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;margin:0 -22px -20px;padding:14px 22px 20px;}
 .dsec-cmp .dsec-l{margin-bottom:10px;}
 /* Pipeline steps */
-.pipe{display:flex;gap:5px;flex-wrap:wrap;}
+
 .pipe{gap:6px;}
+.pipe{display:flex;gap:4px;}
 .pstep{
-  font-size:var(--t-02);font-weight:700;letter-spacing:.02em;
-  padding:7px 12px;border-radius:var(--radius-pill);border:1px solid var(--line);
-  background:var(--white);color:var(--ink-3);cursor:pointer;transition:all var(--anim);white-space:nowrap;
+  flex:1;position:relative;font-size:var(--t-02);font-weight:500;letter-spacing:-.005em;
+  min-height:48px;padding:26px 2px 0;border:none;background:none;color:var(--ink-3);
+  cursor:pointer;transition:color var(--anim);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
+.pstep::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:50px;background:var(--line);transition:background var(--anim);}
+.pstep.past::before{background:var(--ink);}
+.pstep.on::before{background:var(--coral);}
+.pstep.on{color:var(--coral);font-weight:600;}
+.pstep:hover{color:var(--ink);}
 .pstep:hover{border-color:var(--ink-2);color:var(--ink);}
-.pstep.past{background:var(--mint);border-color:var(--mint-2);color:var(--ink-2);}
-.pstep.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
+
+
 
 /* Actions in drawer */
 .drow{display:flex;gap:8px;flex-wrap:wrap;}
@@ -927,7 +943,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
-    detMessage:"Message",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
@@ -998,7 +1014,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
-    detMessage:"Mensaje",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
@@ -1439,7 +1455,8 @@ button{font-family:inherit;cursor:pointer;}
     const r=inquiries.find(x=>x.id===id); if(!r) return;
     detailId=id;
     $("dName").textContent=r.customer_name||"\u2014";
-    $("dSub").innerHTML=(r.channel?'<span class="type-chip">'+esc(r.channel)+'</span>':'')+(r.customer_contact?' '+esc(r.customer_contact):'')+' \u00b7 '+esc(fmtExact(r.created_at));
+    const dU=(stOf(r)==="new")?urgency(r.created_at):0;
+    $("dSub").innerHTML=(dU>=1?'<span class="wait-pill'+(dU>=2?' hot':'')+'">'+esc(T("agoWaiting2"))+' '+esc(agoShort(r.created_at))+'</span>':'')+(r.channel?'<span class="type-chip">'+esc(r.channel)+'</span>':'')+(r.customer_contact?' '+esc(r.customer_contact):'')+' \u00b7 '+esc(fmtExact(r.created_at));
     const notes=(notesByInq[id]||[]);
     const myRole=isAdmin?"admin":"client";
     const notesHTML=notes.map(n=>{
@@ -1457,25 +1474,24 @@ button{font-family:inherit;cursor:pointer;}
     const fdo=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
     const addr=String(fdo.address||"").trim();
     const photos=Array.isArray(fdo.photos)?fdo.photos.filter(u=>typeof u==="string"&&u):[];
-    if(addr||photos.length){
-      body+='<div class="dsec dsec-site">';
-      if(addr){
-        body+='<div class="dsec-l">'+esc(T("detAddress"))+'</div>'+
-          '<a class="d-addr" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr)+'" target="_blank" rel="noopener">'+
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>'+
-          '<span>'+esc(addr)+'</span></a>';
-      }
-      if(photos.length){
-        body+='<div class="dsec-l" style="margin-top:'+(addr?'14px':'0')+'">'+esc(T("detPhotos"))+' \u00b7 '+photos.length+'</div>'+
-          '<div class="ph-strip">'+photos.map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="" loading="lazy"></a>').join("")+'</div>';
-      }
+    const SKIPD=/^(address|photos|email|e_?mail|correo|phone|tel|telefono|mobile|cell|contact|contact_?name|customer_?name|full_?name|name|first_?name|last_?name|business_?name|company|company_?name|source|referrer|utm.*|consent|terms|id|client_?email)$/i;
+    const askEntries=Object.entries(fdo).filter(([k,v])=>v!==null&&v!==""&&!(Array.isArray(v)&&!v.length)&&!SKIPD.test(String(k).replace(/\s+/g,"_")));
+    if(askEntries.length||r.message){
+      body+='<div class="dcard"><div class="dsec-l">'+esc(T("askedFor"))+'</div>';
+      body+=askEntries.map(([k,v])=>'<div class="dfield"><div class="dfl">'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</div><div class="dfv">'+esc(Array.isArray(v)?v.join(", "):String(v))+'</div></div>').join("");
+      if(r.message) body+='<div class="dfield"><div class="dfl">'+esc(T("detMessage"))+'</div><div class="dfv">'+esc(r.message)+'</div></div>';
+      if(photos.length) body+='<div class="dfield"><div class="dfl">'+esc(T("detPhotos"))+' \u00b7 '+photos.length+'</div><div class="ph-strip">'+photos.map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="" loading="lazy"></a>').join("")+'</div></div>';
       body+='</div>';
     }
-    if(r.message) body+='<div class="dsec"><div class="dsec-l">'+esc(T("detMessage"))+'</div><div class="dmsg">'+esc(r.message)+'</div></div>';
-    if(r.form_data&&typeof r.form_data==="object"){
-      const faEntries=Object.entries(r.form_data).filter(([k,v])=>v!==null&&v!==""&&k!=="address"&&k!=="photos"&&!(Array.isArray(v)&&!v.length));
-      const faRows=faEntries.map(([k,v])=>'<div class="fa-row"><span class="fa-k">'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</span><span class="fa-v">'+esc(Array.isArray(v)?v.join(", "):String(v))+'</span></div>').join("");
-      if(faRows) body+='<div class="dsec dsec-fa"><div class="dsec-l">'+esc(T("formAnswers"))+' \u00b7 '+faEntries.length+'</div><div class="fa-list">'+faRows+'</div></div>';
+    const dPhone=String(fdo.phone||fdo.Phone||r.customer_contact||"").trim();
+    if(dPhone||addr){
+      body+='<div class="dcard"><div class="dsec-l">'+esc(T("contactProp"))+'</div>';
+      if(dPhone) body+='<div class="dfield"><div class="dfl">'+esc(T("detPhone"))+'</div><div class="dfv"><a class="dlink" href="tel:'+esc(dPhone.replace(/[^0-9+]/g,""))+'">'+esc(dPhone)+'</a></div></div>';
+      if(addr) body+='<div class="dfield"><div class="dfl">'+esc(T("detAddress"))+'</div><div class="dfv">'+esc(addr)+'</div></div>'+
+        '<a class="drive-chip" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr)+'" target="_blank" rel="noopener">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>'+
+        '<span>'+esc(T("openInMaps"))+'</span></a>';
+      body+='</div>';
     }
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
     body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
