@@ -260,7 +260,8 @@ button{font-family:inherit;cursor:pointer;}
 .inq-svc{font-size:13px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .inq-sub{font-size:13px;color:var(--ink-4);margin-top:2px;}
 .inq-task b{color:var(--ink-2);font-weight:700;}
-.inq-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;font-size:12.5px;color:var(--ink-4);white-space:nowrap;text-align:right;}
+.inq-right{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0;font-size:12.5px;color:var(--ink-4);white-space:nowrap;text-align:right;}
+@media(max-width:640px){.inq-right{flex-direction:column;align-items:flex-end;gap:6px;}}
 .inq-arr{
   width:48px;height:48px;border-radius:50%;border:1px solid var(--line);
   background:transparent;color:var(--ink-3);font-size:var(--t-04);
@@ -302,10 +303,12 @@ button{font-family:inherit;cursor:pointer;}
 /* status colors */
 .pill.new{background:var(--coral-pale);color:#B32418;}
 .pill.new .pill-dot{background:var(--lav);}
-.pill.contacting,.pill.contacted{background:#E8F5FB;color:#14536E;}
-.pill.contacting .pill-dot,.pill.contacted .pill-dot{background:var(--blue);}
-.pill.estimate_sent,.pill.estimate-sent{background:var(--mint);color:var(--ink);}
-.pill.estimate_sent .pill-dot,.pill.estimate-sent .pill-dot{background:var(--ink-2);}
+.pill.pending{background:var(--paper-2);color:var(--ink);}
+.pill.pending .pill-dot{background:var(--coral);}
+.pill.ready{background:#E8F5FB;color:#14536E;}
+.pill.ready .pill-dot{background:var(--blue);}
+.pill.awaiting{background:var(--mint);color:var(--ink);}
+.pill.awaiting .pill-dot{background:var(--ink-2);}
 .pill.follow_up,.pill.follow-up{background:#F0ECFF;color:#463489;}
 .pill.follow_up .pill-dot,.pill.follow-up .pill-dot{background:var(--ink);}
 .pill.won,.pill.hired{background:var(--ink);color:var(--white);}
@@ -509,8 +512,6 @@ button{font-family:inherit;cursor:pointer;}
 .d-ctx-l{font-size:var(--t-01);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);margin-bottom:4px;}
 .d-ctx-v{font-size:var(--t-04);font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
 .d-ctx-v.hot{color:var(--coral);}
-.sub-pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--radius-pill);background:var(--paper-2);color:var(--ink-3);font-size:var(--t-01);font-weight:600;white-space:nowrap;}
-.sub-pill.hot{background:var(--coral-pale);color:var(--coral-soft);}
 .d-hint{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;background:var(--blue-pale);border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:12px;font-size:var(--t-03);line-height:1.4;}
 .d-hint.hot{background:var(--coral-pale);}
 .d-hint-l{font-weight:600;color:var(--ink);}
@@ -993,12 +994,11 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
-    wsNew:"New",wsFollow:"Follow ups",wsEst:"Estimates out",wsVisits:"Visits today",
+    wsVisits:"Visits today",
     detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     called:"Called",schedule:"Schedule action",del:"Delete",
-    sub_needsReply:"Needs first reply",sub_pendEst:"Pending estimate",sub_readySend:"Ready to send",sub_awaitReply:"Awaiting reply",
-    markSent:"Mark estimate sent",wsPend:"Pending estimate",
-    hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
+    markSent:"Mark estimate sent",hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
+    live_new:"New",live_pending:"Pending estimate",live_ready:"Ready to send",live_awaiting:"Awaiting reply",live_follow_up:"Follow-up",live_hired:"Hired",live_not_hired:"Not hired",live_all:"All",live_closed:"Closed",
     actWrite:"Write message",
     ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Wants it as soon as possible.",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
@@ -1069,12 +1069,11 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
-    wsNew:"Nuevas",wsFollow:"Seguimientos",wsEst:"Estimados enviados",wsVisits:"Visitas hoy",
+    wsVisits:"Visitas hoy",
     detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
-    sub_needsReply:"Falta primera respuesta",sub_pendEst:"Estimado pendiente",sub_readySend:"Listo para enviar",sub_awaitReply:"Esperando respuesta",
-    markSent:"Marcar estimado enviado",wsPend:"Estimados pendientes",
-    hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
+    markSent:"Marcar estimado enviado",hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
+    live_new:"Nueva",live_pending:"Estimado pendiente",live_ready:"Listo para enviar",live_awaiting:"Esperando respuesta",live_follow_up:"Seguimiento",live_hired:"Contratado",live_not_hired:"No contratado",live_all:"Todas",live_closed:"Cerradas",
     actWrite:"Escribir mensaje",
     ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"Lo quiere lo antes posible.",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
@@ -1195,15 +1194,13 @@ button{font-family:inherit;cursor:pointer;}
   }
   function pendEst(r){ return r && stOf(r)==="contacting" && !(parseFloat(r.estimate_amount)>0); }
   function readyToSend(r){ return r && stOf(r)==="contacting" && parseFloat(r.estimate_amount)>0; }
-  function subState(r){
-    if(!r) return null;
+  const LIVE=["new","pending","ready","awaiting","follow_up","hired","not_hired"];
+  function liveState(r){
     const st=stOf(r);
-    if(st==="new") return {k:"needsReply",hot:true};
-    if(pendEst(r)) return {k:"pendEst",hot:true};
-    if(readyToSend(r)) return {k:"readySend",hot:false};
-    if(st==="estimate_sent") return {k:"awaitReply",hot:false};
-    return null;
+    if(st==="contacting") return parseFloat(r.estimate_amount)>0?"ready":"pending";
+    return st;
   }
+  function liveLbl(k){ return T("live_"+k); }
   function attnScore(r){
     if(!r) return 0;
     const now=Date.now(); const st=stOf(r); let s=0;
@@ -1436,10 +1433,10 @@ button{font-family:inherit;cursor:pointer;}
     const wsPend=realInq.filter(r=>pendEst(r)).length;
     const wsEstOut=realInq.filter(r=>stOf(r)==="estimate_sent").length;
     const wsCells=[
-      {n:newInq.length,l:T("wsNew"),hot:newInq.length>0,attr:'data-go="inquiries" data-filt="new"'},
-      {n:wsPend,l:T("wsPend"),hot:wsPend>0,attr:'data-go="inquiries" data-filt="contacting"'},
-      {n:wsEstOut,l:T("wsEst"),sub:estSum>0?fmtMoney(estSum):"",attr:'data-go="inquiries" data-filt="estimate_sent"'},
-      {n:wsFollow,l:T("wsFollow"),attr:'data-go="inquiries" data-filt="follow_up"'},
+      {n:newInq.length,l:T("live_new"),hot:newInq.length>0,attr:'data-go="inquiries" data-filt="new"'},
+      {n:wsPend,l:T("live_pending"),hot:wsPend>0,attr:'data-go="inquiries" data-filt="pending"'},
+      {n:wsEstOut,l:T("live_awaiting"),sub:estSum>0?fmtMoney(estSum):"",attr:'data-go="inquiries" data-filt="awaiting"'},
+      {n:wsFollow,l:T("live_follow_up"),attr:'data-go="inquiries" data-filt="follow_up"'},
       {n:wsVisits,l:T("wsVisits"),attr:'data-go="schedule"'}
     ];
     html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+'" '+x.attr+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
@@ -1555,60 +1552,55 @@ button{font-family:inherit;cursor:pointer;}
   function inqCardHTML(r){
       const na=nextActionFor(r.id);
       const notes=(notesByInq[r.id]||[]);
-      const unread=notes.some(n=>n.author_role&&n.author_role!==(isAdmin?"admin":"client")&&!notifRead["note-"+n.id]);
-      const initials=(r.customer_name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-      const lastNote=(notesByInq[r.id]||[]).slice(-1)[0];
-      const waitLvl=(stOf(r)==="new")?urgency(r.created_at):0;
+      const unread=notes.some(n=>n.author_role&&n.author_role!==(isAdmin?"admin":"client")&&n.author_role!=="system"&&!notifRead["note-"+n.id]);
+      const lastNote=notes.slice(-1)[0];
+      const lv=liveState(r);
+      const waitLvl=(lv==="new")?urgency(r.created_at):0;
       const waitBadge=waitLvl>=1?'<span class="inq-wait'+(waitLvl>=2?' urgent':'')+'">'+agoShort(r.created_at)+'</span>':'';
-      const chain=["new","contacting","estimate_sent","follow_up","hired"];
-      const sIdx=chain.indexOf(stOf(r));
-      const nextSt=(sIdx>=0&&sIdx<chain.length-1)?chain[sIdx+1]:null;
-      const nextLbl=nextSt?T("advanceTo")+" "+stLbl(nextSt):"";
-      const canArch=(stOf(r)==="hired"||stOf(r)==="not_hired")&&!r.archived;
       const contact=(r.customer_contact||r.customer_email||r.customer_phone||"");
-      const isNewLead=stOf(r)==="new";
-      const qa='<div class="inq-qa">'+
-        (isNewLead?'<button class="qa-btn qa-primary" data-msg="'+r.id+'">'+esc(T("qaSendIntro"))+'</button>'
-         :(pendEst(r)?'<button class="qa-btn qa-primary" data-open="'+r.id+'">'+esc(T("actEstimate"))+'</button>'
-         :(readyToSend(r)?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="estimate_sent">'+esc(T("markSent"))+'</button>'
-         :(nextSt?'<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="'+nextSt+'" title="'+esc(nextLbl)+'">'+esc(nextLbl)+'</button>'
-         :(canArch?'<button class="qa-btn" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>':'')))))+
-        '<button class="qa-btn qa-quiet" data-followup="'+r.id+'" title="'+esc(T("addFollowup"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M12 13v3M10.5 14.5h3"/></svg><span>'+esc(T("followShort"))+'</span></button>'+
-        (contact?'<button class="qa-btn qa-quiet" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'" title="'+esc(T("copyContact"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>'+esc(T("copyShort"))+'</span></button>':'')+
-      '</div>';
+      // una sola accion primaria: la que toca en este estado
+      let prim="";
+      if(lv==="new") prim='<button class="qa-btn qa-primary" data-msg="'+r.id+'">'+esc(T("qaSendIntro"))+'</button>';
+      else if(lv==="pending") prim='<button class="qa-btn qa-primary" data-open="'+r.id+'">'+esc(T("actEstimate"))+'</button>';
+      else if(lv==="ready") prim='<button class="qa-btn qa-primary" data-adv="'+r.id+'" data-next="estimate_sent">'+esc(T("markSent"))+'</button>';
+      else if(lv==="awaiting"||lv==="follow_up") prim='<button class="qa-btn qa-primary" data-followup="'+r.id+'">'+esc(T("actFollow"))+'</button>';
+      else if(!r.archived) prim='<button class="qa-btn qa-primary" data-arch="'+r.id+'">'+esc(T("archive"))+'</button>';
+      const win=(lv==="awaiting"||lv==="follow_up")?'<button class="qa-btn" data-adv="'+r.id+'" data-next="hired">'+esc(T("markHired"))+'</button>':'';
+      const fu=(lv==="new"||lv==="pending"||lv==="ready")?'<button class="qa-btn qa-quiet" data-followup="'+r.id+'">'+esc(T("followShort"))+'</button>':'';
+      const cp=contact?'<button class="qa-btn qa-quiet" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'">'+esc(T("copyShort"))+'</button>':'';
+      const qa='<div class="inq-qa">'+prim+win+fu+cp+'</div>';
       const humanNote=(lastNote&&lastNote.author_role!=='system')?lastNote:null;
-      const subLine=na?'<span class="inq-task"><b>Task:</b> '+esc(na.title||actionLabel(na.kind))+(na.due_at?' &middot; '+esc(fmtWhen(na.due_at)):'')+'</span>':(humanNote?esc(humanNote.body.slice(0,60)):'');
+      const subLine=na?'<span class="inq-task">'+esc(na.title||actionLabel(na.kind))+(na.due_at?' \u00b7 '+esc(fmtWhen(na.due_at)):'')+'</span>':(humanNote?esc(humanNote.body.slice(0,60)):'');
       return '<div class="inq-card" data-open="'+r.id+'">'+
-        '<div class="inq-av tick-'+stOf(r)+'" title="'+esc(initials)+'"></div>'+
         '<div class="inq-main">'+
-          '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
+          '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAsap(r)&&lv!=="hired"&&lv!=="not_hired"?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
           '<div class="inq-svc">'+esc(r.message?r.message.slice(0,50):(r.channel||'\u2014'))+'</div>'+
           (subLine?'<div class="inq-sub">'+subLine+'</div>':'')+
           qa+
         '</div>'+
         '<div class="inq-right">'+
-          (waitBadge)+
+          '<span class="pill '+lv+'"><span class="pill-dot"></span>'+esc(liveLbl(lv))+'</span>'+
           (parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'')+
-          '<span class="pill '+stOf(r)+'"><span class="pill-dot"></span>'+esc(stLbl(stOf(r)))+'</span>'+
-          (function(){ const ss=subState(r); return (ss&&ss.k!=="needsReply")?'<span class="sub-pill'+(ss.hot?' hot':'')+'">'+esc(T("sub_"+ss.k))+'</span>':''; })()+
+          waitBadge+
           '<button class="inq-arr" data-open="'+r.id+'" aria-label="Open">&#8594;</button>'+
         '</div>'+
       '</div>';
     }
-  
+
   function renderInquiries(){
     const c=$("content");
     const allInq=inquiries.filter(r=>r.kind!=="booking");
     const rInq=allInq.filter(r=>!r.archived);
     const archived=allInq.filter(r=>!!r.archived);
-    const cnt=(s)=>rInq.filter(r=>stOf(r)===s).length;
+    const cnt=(k)=>rInq.filter(r=>k==="closed"?(liveState(r)==="hired"||liveState(r)==="not_hired"):liveState(r)===k).length;
+    const FILTS=["new","pending","ready","awaiting","follow_up","closed"];
     let html='<div class="tbl-toolbar"><div class="search"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span><input type="text" id="searchInput" placeholder="'+esc(T("search"))+'" value="'+esc(search)+'"></div>'+
       '<div class="filter-pills">'+
-        pill2("all",T("fAll"),rInq.length)+STAGES.map(s=>pill2(s,stLbl(s),cnt(s))).join("")+(archived.length?pill2("archived",T("archivedLbl"),archived.length):"")+
+        pill2("all",T("live_all"),rInq.length)+FILTS.filter(k=>cnt(k)>0||inqFilter===k).map(k=>pill2(k,T("live_"+k),cnt(k))).join("")+(archived.length?pill2("archived",T("archivedLbl"),archived.length):"")+
       '</div></div>';
     let list=inquiries.slice();
     if(inqFilter==="archived") list=list.filter(r=>!!r.archived);
-    else { list=list.filter(r=>!r.archived); if(inqFilter!=="all") list=list.filter(r=>stOf(r)===inqFilter); }
+    else { list=list.filter(r=>!r.archived); if(inqFilter!=="all") list=list.filter(r=>inqFilter==="closed"?(liveState(r)==="hired"||liveState(r)==="not_hired"):liveState(r)===inqFilter); }
     if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
     if(!list.length){ html+='<div class="empty"><div class="big">'+esc(T("noInq"))+'</div><div>'+esc(T("noInqSub"))+'</div></div>'; c.innerHTML=html; bindSearch(); return; }
     html+='<div class="inq-list">';
@@ -1700,17 +1692,15 @@ button{font-family:inherit;cursor:pointer;}
       {l:T("ctxLast"),v:lastTouch?agoShort(lastTouch):T("ctxNever"),hot:!lastTouch}
     ];
     let head='<div class="d-ctx">'+ctxCells.map(x=>'<div class="d-ctx-c"><div class="d-ctx-l">'+esc(x.l)+'</div><div class="d-ctx-v'+(x.hot?' hot':'')+'">'+esc(x.v)+'</div></div>').join("")+'</div>';
-    const ss=subState(r);
-    const urg=isAsap(r)&&stOf(r)!=="hired"&&stOf(r)!=="not_hired";
-    if(ss||urg){
-      const lbl=ss?T("sub_"+ss.k):T("asapLbl");
-      let det="";
-      if(ss&&ss.k==="pendEst") det=T("hintPendEst");
-      else if(ss&&ss.k==="readySend") det=fmtMoney(r.estimate_amount)+" \u00b7 "+T("hintReadySend");
-      else if(ss&&ss.k==="awaitReply") det=T("hintAwait");
-      else if(ss&&ss.k==="needsReply") det=T("hintNeedsReply");
+    const lv=liveState(r);
+    const urg=isAsap(r)&&lv!=="hired"&&lv!=="not_hired";
+    const DET={new:"hintNeedsReply",pending:"hintPendEst",awaiting:"hintAwait"};
+    if(lv!=="hired"&&lv!=="not_hired"){
+      let det=DET[lv]?T(DET[lv]):"";
+      if(lv==="ready") det=fmtMoney(r.estimate_amount)+" \u00b7 "+T("hintReadySend");
       if(urg) det=T("asapNote")+(det?" "+det:"");
-      head+='<div class="d-hint'+((urg||(ss&&ss.hot))?' hot':'')+'">'+(urg?'<span class="d-hint-u">'+esc(T("asapLbl"))+'</span>':'')+'<span class="d-hint-l">'+esc(lbl)+'</span><span class="d-hint-d">'+esc(det)+'</span></div>';
+      const hot=urg||lv==="new"||lv==="pending";
+      head+='<div class="d-hint'+(hot?' hot':'')+'">'+(urg?'<span class="d-hint-u">'+esc(T("asapLbl"))+'</span>':'')+'<span class="d-hint-l">'+esc(liveLbl(lv))+'</span><span class="d-hint-d">'+esc(det)+'</span></div>';
     }
 
     const st=stOf(r);
