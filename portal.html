@@ -140,6 +140,20 @@ button{font-family:inherit;cursor:pointer;}
 .greet-row .hi em{font-style:italic;color:var(--coral);}
 .greet-row .hi .hi-acc{display:none;}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);}
+.ws-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
+.ws-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 13px;cursor:pointer;transition:border-color var(--anim),background var(--anim);box-shadow:var(--shadow);}
+.ws-cell:hover{border-color:var(--ink);}
+.ws-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-08);font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;}
+.ws-l{font-size:var(--t-02);font-weight:500;color:var(--ink-3);letter-spacing:-.005em;line-height:1.25;}
+.ws-cell.hot .ws-n{color:var(--coral);}
+.ws-cell.zero{background:transparent;box-shadow:none;}
+.ws-cell.zero .ws-n{color:var(--ink-4);}
+@media(max-width:760px){
+  .ws-strip{grid-template-columns:repeat(3,1fr);gap:6px;}
+  .ws-cell{padding:11px 11px 10px;border-radius:var(--radius-sm);}
+  .ws-n{font-size:var(--t-07);}
+  .ws-l{font-size:var(--t-01);}
+}
 .panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .panel-h h3{font-size:var(--t-04);font-weight:700;color:var(--ink);letter-spacing:.01em;}
 
@@ -972,6 +986,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
+    wsAttention:"Needs attention",wsNew:"New",wsFollow:"Follow ups",wsEst:"Estimates out",wsVisits:"Visits today",
     detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",yourPipeline:"Your pipeline",openLbl:"Open",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
@@ -1043,6 +1058,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
+    wsAttention:"Requiere atenci\u00f3n",wsNew:"Nuevas",wsFollow:"Seguimientos",wsEst:"Estimados enviados",wsVisits:"Visitas hoy",
     detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",yourPipeline:"Tu pipeline",openLbl:"Abrir",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
@@ -1361,6 +1377,20 @@ button{font-family:inherit;cursor:pointer;}
     const estSum=estOut.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
     const pending=estOut.length?'<button class="td-pending" data-go="inquiries" data-filt="estimate_sent">'+estOut.length+' '+esc(T("edEst"))+(estSum>0?' \u00b7 '+fmtMoney(estSum):'')+'</button>':'';
 
+    // ---- Today's Workspace: panorama de un vistazo ----
+    const wsEvsMap=calEvents(); const wsKey=now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate();
+    const wsVisits=(wsEvsMap[wsKey]||[]).filter(x=>x.type==="booking"&&!x.done).length;
+    const wsFollow=realInq.filter(r=>stOf(r)==="follow_up").length;
+    const wsEstOut=realInq.filter(r=>stOf(r)==="estimate_sent").length;
+    const wsCells=[
+      {n:day.length,l:T("wsAttention"),hot:day.length>0,attr:'data-treset="1"'},
+      {n:newInq.length,l:T("wsNew"),attr:'data-go="inquiries" data-filt="new"'},
+      {n:wsFollow,l:T("wsFollow"),attr:'data-go="inquiries" data-filt="follow_up"'},
+      {n:wsEstOut,l:T("wsEst"),attr:'data-go="inquiries" data-filt="estimate_sent"'},
+      {n:wsVisits,l:T("wsVisits"),attr:'data-go="schedule"'}
+    ];
+    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+'" '+x.attr+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span></button>').join("")+'</div>';
+
     if(!day.length||todayIdx>=day.length){
       html+='<div class="panel focus-card"><div class="focus-done"><span class="attn-check big">\u2713</span>'+
         '<div class="focus-done-t">'+esc(T("focusDoneT"))+'</div>'+
@@ -1438,7 +1468,7 @@ button{font-family:inherit;cursor:pointer;}
     }
 
     // ---- Lo que hay hoy en la agenda ----
-    const evsMap=calEvents(); const tkey=now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate();
+    const evsMap=wsEvsMap; const tkey=wsKey;
     const tEvs=(evsMap[tkey]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
     if(tEvs.length){
       html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
