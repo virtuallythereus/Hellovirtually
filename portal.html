@@ -516,6 +516,26 @@ button{font-family:inherit;cursor:pointer;}
 
 .dsec-l{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;text-transform:none;color:var(--ink);margin-bottom:6px;}
 .dcard{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
+.d-ctx{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
+.d-ctx-c{background:var(--white);padding:12px 13px;}
+.d-ctx-l{font-size:var(--t-01);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);margin-bottom:4px;}
+.d-ctx-v{font-size:var(--t-04);font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
+.d-ctx-v.hot{color:var(--coral);}
+.d-asap{display:flex;align-items:center;gap:8px;background:var(--coral-pale);color:var(--coral-soft);font-size:var(--t-03);font-weight:600;border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:12px;}
+.d-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.dact{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-size:var(--t-03);font-weight:600;min-height:46px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;text-decoration:none;transition:background var(--anim),border-color var(--anim),color var(--anim);}
+.dact:hover{border-color:var(--ink);}
+.dact.primary{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.dact.primary:hover{background:var(--ink-deep);}
+.dact.win{background:var(--mint);border-color:transparent;}
+.dsplit{height:1px;background:var(--line-2);margin:16px 0 14px;}
+.d-foot{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 10px;}
+.asap-tag{display:inline-flex;align-items:center;margin-left:7px;padding:2px 7px;border-radius:var(--radius-pill);background:var(--coral);color:var(--white);font-size:var(--t-01);font-weight:600;letter-spacing:.05em;vertical-align:middle;}
+.asap-tag.sm{font-size:var(--t-01);padding:1px 6px;}
+@media(max-width:760px){
+  .d-ctx{grid-template-columns:repeat(2,1fr);}
+  .dact{min-height:44px;padding:0 15px;font-size:var(--t-02);flex:1 1 auto;}
+}
 .dfield{padding:13px 0;border-bottom:1px solid var(--line-2);}
 .dfield:last-child{border-bottom:none;padding-bottom:0;}
 .dfl{font-size:var(--t-03);color:var(--ink-3);letter-spacing:-.005em;}
@@ -958,7 +978,7 @@ button{font-family:inherit;cursor:pointer;}
     editTitle:"Edit",linkInq:"Link to inquiry (optional)",saveChanges:"Save changes",needDate:"Add a date",
     attachDoc:"Attach estimate (PDF)",viewDoc:"View estimate",uploading:"Uploading\u2026",uploadErr:"Upload failed \u2014 check the bucket",docLine:"Here's your estimate:",
     waitingTitle:"Waiting on estimates",noWaiting:"No estimates out",noWaitingSub:"When you send an estimate, it shows up here until you get an answer.",estErr:"Couldn't save",detAddress:"Address",detPhotos:"Photos",formAnswers:"Form answers",
-    startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Skip",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
+    startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Next",nextInq:"Next inquiry",asapLbl:"ASAP",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
@@ -979,7 +999,7 @@ button{font-family:inherit;cursor:pointer;}
     resCaptured:"inquiries captured",resOut:"estimates out",resOutSub:"waiting for an answer",resWon:"jobs won this month",resRate:"close rate",
     resSpeed:"avg. time to first response",resVs:"vs",resSources:"Where they came from",resOther:"Other",resFollow:"Worth a follow-up",
     resShare:"Share this report",resCopied:"Copied \u2713",resReport:"Monthly report",resNoMonth:"No inquiries this month yet",resDays:"d",
-    nextStepLbl:"Next step",quickPicks:"Quick picks",actEstimate:"Send estimate",
+    nextStepLbl:"Next step",schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
     stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
@@ -989,6 +1009,7 @@ button{font-family:inherit;cursor:pointer;}
     wsAttention:"Needs attention",wsNew:"New",wsFollow:"Follow ups",wsEst:"Estimates out",wsVisits:"Visits today",
     detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",yourPipeline:"Your pipeline",openLbl:"Open",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
+    ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Customer asked for this as soon as possible.",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
     inquiryT:"Inquiry",bookingT:"Booking",taskT:"Task",
@@ -1030,7 +1051,7 @@ button{font-family:inherit;cursor:pointer;}
     editTitle:"Editar",linkInq:"Vincular a consulta (opcional)",saveChanges:"Guardar cambios",needDate:"Falta la fecha",
     attachDoc:"Adjuntar estimado (PDF)",viewDoc:"Ver estimado",uploading:"Subiendo\u2026",uploadErr:"No se pudo subir \u2014 revisa el bucket",docLine:"Aqu\u00ed est\u00e1 tu estimado:",
     waitingTitle:"Esperando respuesta",noWaiting:"No hay estimados enviados",noWaitingSub:"Cuando env\u00edes un estimado, aparece aqu\u00ed hasta que te contesten.",estErr:"No se guard\u00f3",detAddress:"Direcci\u00f3n",detPhotos:"Fotos",formAnswers:"Respuestas del formulario",
-    startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Saltar",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
+    startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Siguiente",nextInq:"Siguiente consulta",asapLbl:"URGENTE",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
@@ -1051,7 +1072,7 @@ button{font-family:inherit;cursor:pointer;}
     resCaptured:"consultas capturadas",resOut:"estimados enviados",resOutSub:"esperando respuesta",resWon:"trabajos ganados este mes",resRate:"tasa de cierre",
     resSpeed:"tiempo promedio de primera respuesta",resVs:"vs",resSources:"De d\u00f3nde llegaron",resOther:"Otro",resFollow:"Valen un seguimiento",
     resShare:"Compartir este reporte",resCopied:"Copiado \u2713",resReport:"Reporte mensual",resNoMonth:"A\u00fan no hay consultas este mes",resDays:"d",
-    nextStepLbl:"Pr\u00f3ximo paso",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
+    nextStepLbl:"Pr\u00f3ximo paso",schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
     stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
@@ -1061,6 +1082,7 @@ button{font-family:inherit;cursor:pointer;}
     wsAttention:"Requiere atenci\u00f3n",wsNew:"Nuevas",wsFollow:"Seguimientos",wsEst:"Estimados enviados",wsVisits:"Visitas hoy",
     detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",yourPipeline:"Tu pipeline",openLbl:"Abrir",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
+    ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"El cliente lo pidi\u00f3 lo antes posible.",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
     inquiryT:"Consulta",bookingT:"Reserva",taskT:"Tarea",
@@ -1160,6 +1182,24 @@ button{font-family:inherit;cursor:pointer;}
     if(m<60) return m+"m";
     const h=Math.floor(m/60); if(h<24) return h+"h";
     return Math.floor(h/24)+"d";
+  }
+  function isAsap(r){
+    if(!r) return false;
+    const fd=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
+    let hay=Object.values(fd).map(v=>Array.isArray(v)?v.join(" "):(v==null?"":String(v))).join(" ");
+    hay+=" "+(r.message||"")+" "+(r.service||"")+" "+(r.timeline||"");
+    return /(\basap\b|urgent|urgente|emergenc|inmediat|right away|lo antes posible)/i.test(hay);
+  }
+  function attnScore(r){
+    if(!r) return 0;
+    const now=Date.now(); const st=stOf(r); let s=0;
+    s+=({new:40,contacting:26,estimate_sent:24,follow_up:22,hired:0,not_hired:0})[st]||0;
+    const days=r.created_at?(now-new Date(r.created_at))/86400000:0;
+    s+=Math.min(days*6,42);
+    if(isAsap(r)) s+=35;
+    if(!nextActionFor(r.id)&&st!=="hired"&&st!=="not_hired") s+=15;
+    s+=reminders.filter(x=>x.inquiry_id===r.id&&!x.done&&x.due_at&&new Date(x.due_at)<now).length*18;
+    return Math.round(s);
   }
   function urgency(d){
     if(!d) return 0;
@@ -1301,11 +1341,15 @@ button{font-family:inherit;cursor:pointer;}
     else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" SMS"); }
     else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,T("noteCall")); }
     else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,T("noteMsg")+" Email"); }
+    const wasNew=(stOf(r)==="new");
     markFirstResponse(id);
-    if(stOf(r)==="new"){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
+    if(wasNew){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
     composerReset();
     if(detailId) openDetail(detailId,true);
     render();
+    if(wasNew&&ch!=="copy"&&!nextActionFor(id)){
+      setTimeout(()=>{ openSchedule(id); $("schedSub").textContent=T("schedAfterSend"); applyPreset("estimate"); },500);
+    }
   }
   document.addEventListener("input",e=>{
     const b=e.target&&e.target.closest?e.target.closest("[data-cbody]"):null; if(!b) return;
@@ -1364,11 +1408,13 @@ button{font-family:inherit;cursor:pointer;}
     const noStep=realInq.filter(r=>stOf(r)!=="hired"&&stOf(r)!=="not_hired"&&!nextActionFor(r.id)&&!stale.includes(r));
     const overdue=reminders.filter(r=>!r.done&&r.due_at&&new Date(r.due_at)<now).concat(tasks.filter(t=>!t.done&&t.due_at&&new Date(t.due_at)<now));
     const day=[];
-    stale.slice(0,3).forEach(r=>day.push({kind:"stale",r:r}));
+    stale.sort((a,b)=>attnScore(b)-attnScore(a)).slice(0,4).forEach(r=>day.push({kind:"stale",r:r}));
     overdue.slice(0,3).forEach(o=>day.push({kind:"od",o:o}));
     actionsToday.filter(x=>!overdue.includes(x)).slice(0,4).forEach(o=>day.push({kind:"due",o:o}));
     tasksToday.filter(t=>t.due_at&&isToday(t.due_at)&&!overdue.includes(t)).slice(0,3).forEach(o=>day.push({kind:"duet",o:o}));
-    noStep.slice(0,2).forEach(r=>day.push({kind:"nostep",r:r}));
+    noStep.sort((a,b)=>attnScore(b)-attnScore(a)).slice(0,4).forEach(r=>day.push({kind:"nostep",r:r}));
+    day.forEach(it=>{ it.sc=it.r?attnScore(it.r):(it.kind==="od"?72:(it.kind==="due"?52:46)); });
+    day.sort((a,b)=>b.sc-a.sc);
     dayQueue=day;
     if(todayIdx>day.length) todayIdx=day.length;
 
@@ -1408,7 +1454,7 @@ button{font-family:inherit;cursor:pointer;}
       const r=inquiries.find(x=>String(x.id)===String(a.r.id))||a.r;
       const days=r.created_at?Math.floor((now-new Date(r.created_at))/dayMs):0;
       const late=a.kind==="stale";
-      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("stuckLbl"):T("addStep"))+'</span><span class="td-count">'+pos+'</span></div>';
+      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("stuckLbl"):T("addStep"))+'</span>'+(isAsap(r)?'<span class="asap-tag">'+esc(T("asapLbl"))+'</span>':'')+'<span class="td-count">'+pos+'</span></div>';
       html+='<div class="td-name">'+esc(r.customer_name||"\u2014")+'</div>';
       html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(stLbl(stOf(r)))+'</b>'+
         (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
@@ -1426,7 +1472,7 @@ button{font-family:inherit;cursor:pointer;}
       if(phC.length) html+='<div class="td-ph">'+phC.slice(0,6).map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="" loading="lazy"></a>').join("")+'</div>';
       html+=composerHTML(r,"panel");
       html+='<div class="td-foot"><button class="td-link" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button>'+
-        '<button class="td-link" data-tskip="1">'+esc(T("focusSkip"))+' \u2192</button></div>';
+        '<button class="td-link" data-tskip="1">'+esc(T("nextInq"))+' \u2192</button></div>';
     } else {
       const o=a.o;
       const linked=o.inquiry_id?inquiries.find(x=>String(x.id)===String(o.inquiry_id)):null;
@@ -1451,7 +1497,7 @@ button{font-family:inherit;cursor:pointer;}
           const u=urgency(r.created_at);
           return '<div class="inq-card" data-tgo="'+x.i+'">'+
             '<div class="inq-av tick-'+stOf(r)+'"></div>'+
-            '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+'</div>'+
+            '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+'</div>'+
             '<div class="inq-svc">'+esc((r.service||r.message||"").slice(0,52)||stLbl(stOf(r)))+'</div></div>'+
             '<div class="inq-right"><span class="pill '+stOf(r)+'">'+esc(stLbl(stOf(r)))+'</span>'+
             '<span class="'+(u>=2?"tw-hot":(u===1?"tw-warm":""))+'">'+esc(agoShort(r.created_at))+'</span></div></div>';
@@ -1535,7 +1581,7 @@ button{font-family:inherit;cursor:pointer;}
       return '<div class="inq-card" data-open="'+r.id+'">'+
         '<div class="inq-av tick-'+stOf(r)+'" title="'+esc(initials)+'"></div>'+
         '<div class="inq-main">'+
-          '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
+          '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
           '<div class="inq-svc">'+esc(r.message?r.message.slice(0,50):(r.channel||'\u2014'))+'</div>'+
           (subLine?'<div class="inq-sub">'+subLine+'</div>':'')+
           qa+
@@ -1599,7 +1645,6 @@ button{font-family:inherit;cursor:pointer;}
     const pipe='<div class="pipe">'+steps.map((s,i)=>'<button class="pstep'+(i===ci?' on':'')+(i<ci?' past':'')+'" data-act="pstep" data-st="'+s[0]+'">'+esc(s[1])+'</button>').join("")+'</div>';
     const acts=reminders.filter(x=>x.inquiry_id===id&&!x.done).map(x=>({o:x,k:"rem"})).concat(tasks.filter(t=>String(t.inquiry_id||"")===String(id)&&!t.done).map(t=>({o:t,k:"task"}))).sort((a,b)=>new Date(a.o.due_at||8640000000000000)-new Date(b.o.due_at||8640000000000000));
     const actsHTML=acts.length?acts.map(a=>'<div class="lrow" style="padding:10px 0;border:none;cursor:default"><span class="prio-dot prio-normal"></span><div class="lr-main"><div class="lr-title">'+esc(a.o.title)+'</div><div class="lr-sub">'+(a.o.due_at?esc(fmtWhen(a.o.due_at)):'')+'</div></div><button class="del-link" data-act="doneAct" data-rid="'+a.o.id+'" data-rk="'+a.k+'">\u2713</button></div>').join(""):'<div class="lr-sub">'+esc(T("none"))+'</div>';
-    const calledLbl=r.called?(T("called")+(r.called_at?" \u00b7 "+fmtExact(r.called_at):"")):T("markCalled");
     let body='';
     const fdo=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
     const addr=String(fdo.address||"").trim();
@@ -1623,18 +1668,54 @@ button{font-family:inherit;cursor:pointer;}
         '<span>'+esc(T("openInMaps"))+'</span></a>';
       body+='</div>';
     }
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("estimateLbl"))+'</div><div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
+    // ===== contexto, acciones por etapa y trabajo =====
+    const ct=contactOf(r);
+    const nextAct=acts.length?acts[0].o:null;
+    const lastTouch=(function(){
+      let t=r.first_response_at?new Date(r.first_response_at):null;
+      const ns=(notesByInq[id]||[]);
+      ns.forEach(n=>{ const d=new Date(n.created_at); if(!t||d>t) t=d; });
+      if(r.called_at){ const d=new Date(r.called_at); if(!t||d>t) t=d; }
+      return t;
+    })();
+    const ctxCells=[
+      {l:T("ctxWaiting"),v:agoShort(r.created_at)||"\u2014",hot:urgency(r.created_at)>=2&&stOf(r)==="new"},
+      {l:T("estimateLbl"),v:parseFloat(r.estimate_amount)>0?fmtMoney(r.estimate_amount):"\u2014"},
+      {l:T("ctxNext"),v:nextAct?fmtWhen(nextAct.due_at):T("ctxNothing"),hot:!nextAct},
+      {l:T("ctxLast"),v:lastTouch?agoShort(lastTouch):T("ctxNever"),hot:!lastTouch}
+    ];
+    let head='<div class="d-ctx">'+ctxCells.map(x=>'<div class="d-ctx-c"><div class="d-ctx-l">'+esc(x.l)+'</div><div class="d-ctx-v'+(x.hot?' hot':'')+'">'+esc(x.v)+'</div></div>').join("")+'</div>';
+    if(isAsap(r)) head+='<div class="d-asap">'+esc(T("asapNote"))+'</div>';
+
+    const st=stOf(r);
+    const A=[];
+    if(ct.ph) A.push('<a class="dact" href="tel:'+esc(ct.ph)+'" data-act="markCall">'+esc(T("actCall"))+'</a>');
+    A.push('<button class="dact primary" data-act="focusCmp">'+esc(st==="new"?T("qaSendIntro"):T("actMessage"))+'</button>');
+    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="schedule">'+esc(T("actAppt"))+'</button>');
+    if(st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="estimate">'+esc(T("actEstimate"))+'</button>');
+    if(st==="estimate_sent"||st==="follow_up"){
+      A.push('<button class="dact" data-act="stepPreset" data-preset="'+(st==="follow_up"?"followup2":"followup")+'">'+esc(T("actFollow"))+'</button>');
+      A.push('<button class="dact win" data-act="pstep" data-st="hired">'+esc(T("markHired"))+'</button>');
+    }
+    head+='<div class="d-acts">'+A.join("")+'</div>';
+    head+='<div class="dsec dsec-cmp">'+composerHTML(r,"panel")+'</div>';
+    head+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
+    body=head+body;
+
+    const stepIds=STAGE_STEPS[stOf(r)]||[];
+    body+='<div class="dcard"><div class="dsec-l">'+esc(T("workLbl"))+'</div>'+
+      '<div class="est-row"><span class="est-cur">$</span><input type="number" id="dEstInput" min="0" step="1" inputmode="decimal" placeholder="0" value="'+(r.estimate_amount!=null?esc(r.estimate_amount):'')+'"><button class="btn btn-ghost btn-sm" data-act="saveEst">'+esc(T("saveEst"))+'</button></div>'+
       '<div class="est-doc">'+(r.estimate_url
         ?'<a class="doc-link" href="'+esc(estLink(r))+'" target="_blank" rel="noopener">'+esc(T("viewDoc"))+' \u2197</a><button class="del-link" data-act="docRemove">\u00d7</button>'
         :'<label class="mini-btn alt doc-btn">'+esc(T("attachDoc"))+'<input type="file" id="estFile" accept="application/pdf,image/*" hidden></label>')+
-      '</div></div>';
-    const stepIds=STAGE_STEPS[stOf(r)]||[];
-    if(stepIds.length) body+='<div class="dsec"><div class="dsec-l">'+esc(T("nextStepLbl"))+'</div><div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+'</div></div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detActions"))+'</div><div class="drow"><button class="mini-btn alt" data-act="schedule">+ '+esc(T("schedule"))+'</button><button class="mini-btn" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq" style="margin-left:auto">'+esc(T("del"))+'</button></div></div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+'</div>';
-    body+='<div class="dsec"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
-    body+='<div class="dsec dsec-cmp"><div class="dsec-l">'+esc(T("composerLbl"))+'</div>'+composerHTML(r,"panel")+'</div>';
+      '</div>'+
+      '<div class="dsplit"></div>'+
+      '<div class="dsec-l">'+esc(T("detNext"))+'</div>'+actsHTML+
+      '<div class="step-chips">'+stepIds.map(pid=>'<button class="step-chip" data-act="stepPreset" data-preset="'+pid+'">'+esc(T("chip_"+pid))+'</button>').join("")+
+        '<button class="step-chip" data-act="schedule">+ '+esc(T("schedule"))+'</button></div>'+
+    '</div>';
+    body+='<div class="dcard"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
+    body+='<div class="d-foot"><button class="del-link" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq">'+esc(T("del"))+'</button></div>';
     $("drawerBody").innerHTML=body;
     // mark notes read
     notes.forEach(n=>{ notifRead["note-"+n.id]=1; }); saveNotifState(); updateBadge();
@@ -1966,6 +2047,8 @@ button{font-family:inherit;cursor:pointer;}
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="call"]')){ const r=inquiries.find(x=>x.id===id); const now=!r.called; const cf={called:now,called_at:now?new Date().toISOString():null}; if(now&&!r.first_response_at) cf.first_response_at=new Date().toISOString(); await patchInq(id,cf); openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
+      if(e.target.closest('[data-act="focusCmp"]')){ const c=$("drawerBody").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
+      if(e.target.closest('[data-act="markCall"]')){ const rr=inquiries.find(x=>String(x.id)===String(id)); if(rr&&!rr.first_response_at) patchInq(id,{first_response_at:new Date().toISOString(),called:true,called_at:new Date().toISOString()}); autoNote(id,T("noteCall")); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
       if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr){rr.done=true; autoNote(id,"\u2713 "+T("noteDone")+": "+rr.title);} openDetail(id,true); render(); return; }
       if(e.target.closest('[data-act="noteSend"]')){ const inp=$("dNoteInput"); const body=(inp.value||"").trim(); if(!body)return; const r=inquiries.find(x=>x.id===id); const note={inquiry_id:id,client_email:r.client_email,body:body,author_role:isAdmin?"admin":"client",author_email:user.email}; const {data,error}=await sb.from("notes").insert(note).select(); if(!error){ (notesByInq[id]=notesByInq[id]||[]).push((data&&data[0])||note); openDetail(id,true); } return; }
