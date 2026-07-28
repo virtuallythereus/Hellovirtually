@@ -28,11 +28,10 @@
   --sidebar:234px;
   /* escala tipografica */
   --t-01:.6rem; --t-02:.7rem; --t-03:.78rem; --t-04:.875rem;
-  --t-05:1rem; --t-06:1.2rem; --t-07:1.6rem; --t-08:1.9rem; --t-09:2.4rem;
+  --t-05:1rem; --t-06:1.2rem; --t-07:1.6rem; --t-08:1.9rem;
   /* radios */
   --radius-xxs:4px; --radius-lg:18px; --radius-pill:50px;
   /* movimiento */
-  --ease:cubic-bezier(.22,.61,.36,1);
   --anim:.18s cubic-bezier(.22,.61,.36,1);
   --anim-slow:.28s cubic-bezier(.22,.61,.36,1);
 }
@@ -130,7 +129,7 @@ button{font-family:inherit;cursor:pointer;}
 .view-today .main{justify-content:stretch;}
 .view-today .content{max-width:none;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:0 28px 60px;}
 .view-today .greet-row{text-align:center;margin-bottom:20px;}
-.view-today .td-card,.view-today .focus-card,.view-today .td-foot-line{width:100%;}
+.view-today .td-card,.view-today .focus-card{width:100%;}
 @media(max-width:900px){.view-today .content{justify-content:flex-start;padding-top:8px;}}
 
 /* ===== TODAY ===== */
@@ -140,11 +139,12 @@ button{font-family:inherit;cursor:pointer;}
 .greet-row .hi em{font-style:italic;color:var(--coral);}
 .greet-row .hi .hi-acc{display:none;}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);}
-.ws-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:18px;}
+.ws-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
 .ws-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 13px;cursor:pointer;transition:border-color var(--anim),background var(--anim);box-shadow:var(--shadow);}
 .ws-cell:hover{border-color:var(--ink);}
 .ws-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-08);font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;}
 .ws-l{font-size:var(--t-02);font-weight:500;color:var(--ink-3);letter-spacing:-.005em;line-height:1.25;}
+.ws-s{font-size:var(--t-01);font-weight:600;color:var(--ink-4);margin-top:3px;font-variant-numeric:tabular-nums;}
 .ws-cell.hot .ws-n{color:var(--coral);}
 .ws-cell.zero{background:transparent;box-shadow:none;}
 .ws-cell.zero .ws-n{color:var(--ink-4);}
@@ -245,7 +245,6 @@ button{font-family:inherit;cursor:pointer;}
 .inq-card:last-child{border-bottom:none;}
 .inq-card:hover{border-color:var(--ink-2);box-shadow:var(--shadow-md);transform:translateY(-1px);}
 .inq-av{width:6px;height:6px;border-radius:50%;flex:0 0 6px;font-size:0;overflow:hidden;background:var(--line);align-self:center;}
-.inq-main{flex:1;min-width:0;}
 .inq-name{font-size:14.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink);line-height:1.3;margin-bottom:0;display:flex;align-items:center;gap:6px;font-family:'Helvena','Helvetica Neue',sans-serif;}
 .inq-name .nd{width:7px;height:7px;border-radius:50%;background:var(--coral);flex-shrink:0;}
 .inq-qa{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
@@ -275,7 +274,6 @@ button{font-family:inherit;cursor:pointer;}
 .tick-follow_up,.tick-follow-up{background:var(--lav);}
 .tick-hired,.tick-won{background:var(--ink);}
 .tick-not_hired,.tick-lost{background:var(--line);}
-.calendar-wrap{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;box-shadow:var(--shadow);}
 .day{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line-2);}
 .day:last-child{border-bottom:none;}
 .day-d{flex:0 0 54px;text-align:center;}
@@ -291,7 +289,6 @@ button{font-family:inherit;cursor:pointer;}
 .evt-t{font-size:12px;color:var(--ink-4);font-weight:600;letter-spacing:.02em;}
 .evt-n{font-size:14.5px;font-weight:600;margin-top:3px;color:var(--ink);letter-spacing:-.005em;}
 .day-empty{font-size:13.5px;color:var(--ink-4);padding:10px 0;}
-.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .sec{margin-top:28px;}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
 .sec-head h2{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;color:var(--ink);}
@@ -299,12 +296,6 @@ button{font-family:inherit;cursor:pointer;}
 .inq-main{flex:1;min-width:0;}
 .tw-hot{color:var(--coral);font-weight:600;}
 .tw-warm{color:var(--ink);font-weight:600;}
-.strip{display:flex;gap:3px;margin-bottom:10px;}
-.strip>div{height:7px;border-radius:50px;}
-.strip-l{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;}
-.strip-b{background:none;border:none;font-family:inherit;font-size:11.5px;color:var(--ink-3);cursor:pointer;padding:6px 2px;min-height:40px;}
-.strip-b b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;}
-.strip-b:hover{color:var(--ink);}
 /* Status pills */
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);letter-spacing:.01em;border:none;}
 .pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -387,9 +378,6 @@ button{font-family:inherit;cursor:pointer;}
 .td-acts{display:flex;align-items:center;gap:14px;}
 .td-link{display:inline-flex;align-items:center;background:none;border:none;min-height:48px;padding:0;font-family:inherit;font-size:var(--t-04);font-weight:600;color:rgba(247,245,240,.56);cursor:pointer;transition:color var(--anim);}
 .td-link:hover{color:var(--paper);}
-.td-foot-line{max-width:660px;margin-top:16px;text-align:center;}
-.td-pending{background:none;border:none;font-family:inherit;font-size:var(--t-03);color:var(--ink-3);cursor:pointer;padding:0;}
-.td-pending:hover{color:var(--ink);}
 .focus-done{text-align:center;padding:34px 0 26px;}
 .attn-check.big{width:54px;height:54px;font-size:var(--t-07);margin-bottom:18px;}
 .focus-done-t{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-08);font-weight:600;color:var(--ink);}
@@ -523,11 +511,13 @@ button{font-family:inherit;cursor:pointer;}
 .d-ctx-v.hot{color:var(--coral);}
 .sub-pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--radius-pill);background:var(--paper-2);color:var(--ink-3);font-size:var(--t-01);font-weight:600;white-space:nowrap;}
 .sub-pill.hot{background:var(--coral-pale);color:var(--coral-soft);}
-.d-hint{background:var(--blue-pale);border-radius:var(--radius-sm);padding:11px 13px;margin-bottom:12px;font-size:var(--t-03);color:var(--ink-2);line-height:1.45;}
-.d-hint.hot{background:var(--coral-pale);color:var(--coral-soft);}
-.d-hint-l{display:block;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.d-hint{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;background:var(--blue-pale);border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:12px;font-size:var(--t-03);line-height:1.4;}
+.d-hint.hot{background:var(--coral-pale);}
+.d-hint-l{font-weight:600;color:var(--ink);}
+.d-hint-d{color:var(--ink-3);}
 .d-hint.hot .d-hint-l{color:var(--coral-soft);}
-.d-asap{display:flex;align-items:center;gap:8px;background:var(--coral-pale);color:var(--coral-soft);font-size:var(--t-03);font-weight:600;border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:12px;}
+.d-hint.hot .d-hint-d{color:var(--coral-soft);opacity:.85;}
+.d-hint-u{font-size:var(--t-01);font-weight:600;letter-spacing:.05em;background:var(--coral);color:var(--white);border-radius:var(--radius-pill);padding:2px 7px;}
 .d-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
 .dact{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-size:var(--t-03);font-weight:600;min-height:46px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;text-decoration:none;transition:background var(--anim),border-color var(--anim),color var(--anim);}
 .dact:hover{border-color:var(--ink);}
@@ -562,7 +552,6 @@ button{font-family:inherit;cursor:pointer;}
 .dsec-cmp .dsec-l{margin-bottom:10px;}
 /* Pipeline steps */
 
-.pipe{gap:6px;}
 .pipe{display:flex;gap:4px;}
 .pstep{
   flex:1;position:relative;font-size:var(--t-02);font-weight:500;letter-spacing:-.005em;
@@ -573,13 +562,11 @@ button{font-family:inherit;cursor:pointer;}
 .pstep.past::before{background:var(--ink);}
 .pstep.on::before{background:var(--coral);}
 .pstep.on{color:var(--coral);font-weight:600;}
-.pstep:hover{color:var(--ink);}
 .pstep:hover{border-color:var(--ink-2);color:var(--ink);}
 
 
 
 /* Actions in drawer */
-.drow{display:flex;gap:8px;flex-wrap:wrap;}
 .mini-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:var(--t-03);font-weight:600;
   min-height:48px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);
@@ -966,7 +953,7 @@ button{font-family:inherit;cursor:pointer;}
     titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
     hi:"Hi", hiAdmin:"Here's your day", greetAM:"Good morning", greetPM:"Good afternoon", greetEve:"Good evening", 
     stNew:"New inquiries",stActions:"Follow-ups due",stTasks:"Open tasks",stAppts:"Upcoming",
-    needsAttn:"Needs attention",noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",agoNow:"now",agoWaiting:"waiting",stuckLbl:"no reply",
+    noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",agoNow:"now",agoWaiting:"waiting",stuckLbl:"no reply",
     todaysActions:"Today's actions",newInquiries:"New inquiries",viewAll:"View all",
     nothingToday:"Nothing scheduled today.",noNew:"No new inquiries.",allCaught:"All caught up.",
     search:"Search name, message, channel...",
@@ -982,8 +969,8 @@ button{font-family:inherit;cursor:pointer;}
     startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Next",nextInq:"Next inquiry",asapLbl:"ASAP",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
-    yourDay:"Your day",edNew:"new inquiries",edDue:"due today",edEst:"estimates out",edEstVal:"waiting on estimates",
-    composerLbl:"Send a message",replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",andWord:"and",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
+    yourDay:"Your day",
+    replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",andWord:"and",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
     tplb_initial:"Hey {name}! We got your request about {project} \u2014 thanks so much for reaching out. We're already working on your estimate and you'll have it soon. Anything you'd like to add, just reply here.",
     tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
@@ -1000,22 +987,20 @@ button{font-family:inherit;cursor:pointer;}
     resCaptured:"inquiries captured",resOut:"estimates out",resOutSub:"waiting for an answer",resWon:"jobs won this month",resRate:"close rate",
     resSpeed:"avg. time to first response",resVs:"vs",resSources:"Where they came from",resOther:"Other",resFollow:"Worth a follow-up",
     resShare:"Share this report",resCopied:"Copied \u2713",resReport:"Monthly report",resNoMonth:"No inquiries this month yet",resDays:"d",
-    nextStepLbl:"Next step",schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
+    schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_initial:"Initial contact",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",chip_followup2:"Another follow-up",
     stepInitial:"Initial contact",stepSecond:"Second follow-up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
-    wsAttention:"Needs attention",wsNew:"New",wsFollow:"Follow ups",wsEst:"Estimates out",wsVisits:"Visits today",
-    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",yourPipeline:"Your pipeline",openLbl:"Open",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
-    markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
-    sub_needsReply:"Needs first reply",sub_pendEst:"Pending estimate",sub_readySend:"Estimate ready to send",sub_awaitReply:"Awaiting customer reply",
+    wsNew:"New",wsFollow:"Follow ups",wsEst:"Estimates out",wsVisits:"Visits today",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    called:"Called",schedule:"Schedule action",del:"Delete",
+    sub_needsReply:"Needs first reply",sub_pendEst:"Pending estimate",sub_readySend:"Ready to send",sub_awaitReply:"Awaiting reply",
     markSent:"Mark estimate sent",wsPend:"Pending estimate",
-    hintPendEst:"Contacted, no estimate yet. Add the amount below, then mark it sent.",
-    hintReadySend:"Estimate is set. Send it to the customer, then mark it sent.",
-    hintAwait:"Estimate is out. Waiting on the customer.",
-    ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Customer asked for this as soon as possible.",
+    hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
+    ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Wants it as soon as possible.",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
     inquiryT:"Inquiry",bookingT:"Booking",taskT:"Task",
@@ -1044,7 +1029,7 @@ button{font-family:inherit;cursor:pointer;}
     titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
     hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda", greetAM:"Buenos d\u00edas", greetPM:"Buenas tardes", greetEve:"Buenas noches",
     stNew:"Consultas nuevas",stActions:"Seguimientos hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
-    needsAttn:"Requiere atenci\u00f3n",noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",agoNow:"ahora",agoWaiting:"esperando",stuckLbl:"sin respuesta",
+    noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",agoNow:"ahora",agoWaiting:"esperando",stuckLbl:"sin respuesta",
     todaysActions:"Acciones de hoy",newInquiries:"Consultas nuevas",viewAll:"Ver todas",
     nothingToday:"Nada agendado para hoy.",noNew:"Sin consultas nuevas.",allCaught:"Est\u00e1s al d\u00eda.",
     search:"Buscar nombre, mensaje, canal...",
@@ -1060,8 +1045,8 @@ button{font-family:inherit;cursor:pointer;}
     startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Siguiente",nextInq:"Siguiente consulta",asapLbl:"URGENTE",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
-    yourDay:"Tu d\u00eda",edNew:"consultas nuevas",edDue:"para hoy",edEst:"estimados enviados",edEstVal:"esperando respuesta",
-    composerLbl:"Enviar un mensaje",replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",andWord:"y",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
+    yourDay:"Tu d\u00eda",
+    replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",andWord:"y",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
     tplb_initial:"\u00a1Hola {name}! Recibimos tu solicitud sobre {project} \u2014 mil gracias por escribirnos. Ya estamos trabajando en tu estimado y pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
     tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
@@ -1078,22 +1063,20 @@ button{font-family:inherit;cursor:pointer;}
     resCaptured:"consultas capturadas",resOut:"estimados enviados",resOutSub:"esperando respuesta",resWon:"trabajos ganados este mes",resRate:"tasa de cierre",
     resSpeed:"tiempo promedio de primera respuesta",resVs:"vs",resSources:"De d\u00f3nde llegaron",resOther:"Otro",resFollow:"Valen un seguimiento",
     resShare:"Compartir este reporte",resCopied:"Copiado \u2713",resReport:"Reporte mensual",resNoMonth:"A\u00fan no hay consultas este mes",resDays:"d",
-    nextStepLbl:"Pr\u00f3ximo paso",schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
+    schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_initial:"Contacto inicial",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",chip_followup2:"Otro seguimiento",
     stepInitial:"Contacto inicial",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
-    wsAttention:"Requiere atenci\u00f3n",wsNew:"Nuevas",wsFollow:"Seguimientos",wsEst:"Estimados enviados",wsVisits:"Visitas hoy",
-    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",yourPipeline:"Tu pipeline",openLbl:"Abrir",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
-    markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
-    sub_needsReply:"Falta primera respuesta",sub_pendEst:"Estimado pendiente",sub_readySend:"Estimado listo para enviar",sub_awaitReply:"Esperando al cliente",
+    wsNew:"Nuevas",wsFollow:"Seguimientos",wsEst:"Estimados enviados",wsVisits:"Visitas hoy",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
+    sub_needsReply:"Falta primera respuesta",sub_pendEst:"Estimado pendiente",sub_readySend:"Listo para enviar",sub_awaitReply:"Esperando respuesta",
     markSent:"Marcar estimado enviado",wsPend:"Estimados pendientes",
-    hintPendEst:"Contactada y sin estimado. Escribe el monto abajo y luego m\u00e1rcalo como enviado.",
-    hintReadySend:"El estimado ya tiene monto. Env\u00edaselo al cliente y m\u00e1rcalo como enviado.",
-    hintAwait:"El estimado est\u00e1 fuera. Esperando respuesta del cliente.",
-    ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"El cliente lo pidi\u00f3 lo antes posible.",
+    hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
+    ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"Lo quiere lo antes posible.",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
     inquiryT:"Consulta",bookingT:"Reserva",taskT:"Tarea",
@@ -1453,7 +1436,6 @@ button{font-family:inherit;cursor:pointer;}
     // una sola linea discreta, y solo si hay algo que decir
     const estOut=realInq.filter(r=>stOf(r)==="estimate_sent"||stOf(r)==="follow_up");
     const estSum=estOut.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
-    const pending=estOut.length?'<button class="td-pending" data-go="inquiries" data-filt="estimate_sent">'+estOut.length+' '+esc(T("edEst"))+(estSum>0?' \u00b7 '+fmtMoney(estSum):'')+'</button>':'';
 
     // ---- Today's Workspace: panorama de un vistazo ----
     const wsEvsMap=calEvents(); const wsKey=now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate();
@@ -1462,14 +1444,13 @@ button{font-family:inherit;cursor:pointer;}
     const wsPend=realInq.filter(r=>pendEst(r)).length;
     const wsEstOut=realInq.filter(r=>stOf(r)==="estimate_sent").length;
     const wsCells=[
-      {n:day.length,l:T("wsAttention"),hot:day.length>0,attr:'data-treset="1"'},
-      {n:newInq.length,l:T("wsNew"),attr:'data-go="inquiries" data-filt="new"'},
+      {n:newInq.length,l:T("wsNew"),hot:newInq.length>0,attr:'data-go="inquiries" data-filt="new"'},
       {n:wsPend,l:T("wsPend"),hot:wsPend>0,attr:'data-go="inquiries" data-filt="contacting"'},
+      {n:wsEstOut,l:T("wsEst"),sub:estSum>0?fmtMoney(estSum):"",attr:'data-go="inquiries" data-filt="estimate_sent"'},
       {n:wsFollow,l:T("wsFollow"),attr:'data-go="inquiries" data-filt="follow_up"'},
-      {n:wsEstOut,l:T("wsEst"),attr:'data-go="inquiries" data-filt="estimate_sent"'},
       {n:wsVisits,l:T("wsVisits"),attr:'data-go="schedule"'}
     ];
-    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+'" '+x.attr+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span></button>').join("")+'</div>';
+    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+'" '+x.attr+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
 
     if(!day.length||todayIdx>=day.length){
       html+='<div class="panel focus-card"><div class="focus-done"><span class="attn-check big">\u2713</span>'+
@@ -1477,7 +1458,6 @@ button{font-family:inherit;cursor:pointer;}
         '<div class="focus-done-s">'+esc(T("focusDoneS"))+'</div>'+
         (day.length?'<button class="btn btn-ghost btn-sm" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+
       '</div></div>';
-      if(pending) html+='<div class="td-foot">'+pending+'</div>';
       c.innerHTML=html; return;
     }
 
@@ -1562,16 +1542,6 @@ button{font-family:inherit;cursor:pointer;}
       html+='</div></div>';
     }
 
-    // ---- Panorama del pipeline ----
-    const STG=[["new","--coral"],["contacted","--blue"],["estimate_sent","--mint-2"],["follow_up","--lav"],["hired","--ink"]];
-    const cnt=STG.map(g=>realInq.filter(r=>stOf(r)===g[0]).length);
-    if(cnt.some(v=>v>0)){
-      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("yourPipeline"))+'</h2><button class="btn btn-sm" data-go="inquiries">'+esc(T("openLbl"))+'</button></div>';
-      html+='<div class="strip">'+STG.map((g,i)=>cnt[i]?'<div style="flex:'+cnt[i]+';background:var('+g[1]+')"></div>':'').join("")+'</div>';
-      html+='<div class="strip-l">'+STG.map((g,i)=>cnt[i]?'<button class="strip-b" data-go="inquiries" data-filt="'+g[0]+'"><b>'+cnt[i]+'</b> '+esc(stLbl(g[0]))+'</button>':'').join("")+'</div></div>';
-    }
-
-    if(pending) html+='<div class="td-foot-line">'+pending+'</div>';
     c.innerHTML=html;
   }
   function taskRow(item,kind){
@@ -1624,7 +1594,7 @@ button{font-family:inherit;cursor:pointer;}
           (waitBadge)+
           (parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'')+
           '<span class="pill '+stOf(r)+'"><span class="pill-dot"></span>'+esc(stLbl(stOf(r)))+'</span>'+
-          (function(){ const ss=subState(r); return ss?'<span class="sub-pill'+(ss.hot?' hot':'')+'">'+esc(T("sub_"+ss.k))+'</span>':''; })()+
+          (function(){ const ss=subState(r); return (ss&&ss.k!=="needsReply")?'<span class="sub-pill'+(ss.hot?' hot':'')+'">'+esc(T("sub_"+ss.k))+'</span>':''; })()+
           '<button class="inq-arr" data-open="'+r.id+'" aria-label="Open">&#8594;</button>'+
         '</div>'+
       '</div>';
@@ -1734,11 +1704,17 @@ button{font-family:inherit;cursor:pointer;}
       {l:T("ctxLast"),v:lastTouch?agoShort(lastTouch):T("ctxNever"),hot:!lastTouch}
     ];
     let head='<div class="d-ctx">'+ctxCells.map(x=>'<div class="d-ctx-c"><div class="d-ctx-l">'+esc(x.l)+'</div><div class="d-ctx-v'+(x.hot?' hot':'')+'">'+esc(x.v)+'</div></div>').join("")+'</div>';
-    if(isAsap(r)) head+='<div class="d-asap">'+esc(T("asapNote"))+'</div>';
     const ss=subState(r);
-    if(ss&&ss.k!=="needsReply"){
-      const hintK={pendEst:"hintPendEst",readySend:"hintReadySend",awaitReply:"hintAwait"}[ss.k];
-      if(hintK) head+='<div class="d-hint'+(ss.hot?' hot':'')+'"><span class="d-hint-l">'+esc(T("sub_"+ss.k))+'</span>'+esc(T(hintK))+'</div>';
+    const urg=isAsap(r)&&stOf(r)!=="hired"&&stOf(r)!=="not_hired";
+    if(ss||urg){
+      const lbl=ss?T("sub_"+ss.k):T("asapLbl");
+      let det="";
+      if(ss&&ss.k==="pendEst") det=T("hintPendEst");
+      else if(ss&&ss.k==="readySend") det=fmtMoney(r.estimate_amount)+" \u00b7 "+T("hintReadySend");
+      else if(ss&&ss.k==="awaitReply") det=T("hintAwait");
+      else if(ss&&ss.k==="needsReply") det=T("hintNeedsReply");
+      if(urg) det=T("asapNote")+(det?" "+det:"");
+      head+='<div class="d-hint'+((urg||(ss&&ss.hot))?' hot':'')+'">'+(urg?'<span class="d-hint-u">'+esc(T("asapLbl"))+'</span>':'')+'<span class="d-hint-l">'+esc(lbl)+'</span><span class="d-hint-d">'+esc(det)+'</span></div>';
     }
 
     const st=stOf(r);
