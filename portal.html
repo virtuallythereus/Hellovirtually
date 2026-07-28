@@ -1315,7 +1315,8 @@ button{font-family:inherit;cursor:pointer;}
         (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
         '<span class="td-x">\u00b7</span><span'+(late?' class="td-late"':'')+'>'+esc(agoShort(r.created_at))+' '+esc(T("agoWaiting"))+'</span></div>';
       const fdc=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
-      const chips=Object.entries(fdc).filter(([k,v])=>v!==null&&v!==""&&k!=="address"&&k!=="photos"&&!Array.isArray(v)&&typeof v!=="object").slice(0,3);
+      const SKIPK=/^(address|photos|email|e_?mail|correo|phone|tel|telefono|mobile|cell|contact|contact_?name|customer_?name|full_?name|name|first_?name|last_?name|business_?name|company|company_?name|message|notes?|comments?|source|referrer|utm.*|consent|terms|id|client_?email)$/i;
+      const chips=Object.entries(fdc).filter(([k,v])=>v!==null&&v!==""&&!Array.isArray(v)&&typeof v!=="object"&&!SKIPK.test(String(k).replace(/\s+/g,"_"))&&String(v).length<60).slice(0,3);
       if(chips.length) html+='<div class="td-chips">'+chips.map(([k,v])=>'<span class="td-chip"><b>'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</b>'+esc(String(v).slice(0,42))+'</span>').join("")+'</div>';
       if(r.message) html+='<div class="td-ask">'+esc(r.message.slice(0,180))+'</div>';
       html+=composerHTML(r,"panel");
