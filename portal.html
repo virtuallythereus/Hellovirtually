@@ -261,6 +261,36 @@ button{font-family:inherit;cursor:pointer;}
 .tick-follow_up,.tick-follow-up{background:var(--lav);}
 .tick-hired,.tick-won{background:var(--ink);}
 .tick-not_hired,.tick-lost{background:var(--line);}
+.calendar-wrap{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;box-shadow:var(--shadow);}
+.day{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line-2);}
+.day:last-child{border-bottom:none;}
+.day-d{flex:0 0 54px;text-align:center;}
+.day-d .n{font-variant-numeric:tabular-nums;font-family:'Helvena','Helvetica Neue',sans-serif;font-size:23px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--ink);}
+.day-d .m{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;font-weight:600;}
+.day.today .day-d .n{color:var(--coral);}
+.day-evs{flex:1;min-width:0;}
+.evt{background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:12px 15px;margin-bottom:8px;}
+.evt:last-child{margin-bottom:0;}
+.evt.clickable{cursor:pointer;transition:border-color var(--anim);}
+.evt.clickable:hover{border-color:var(--ink-3);}
+.evt.done{opacity:.6;}
+.evt-t{font-size:12px;color:var(--ink-4);font-weight:600;letter-spacing:.02em;}
+.evt-n{font-size:14.5px;font-weight:600;margin-top:3px;color:var(--ink);letter-spacing:-.005em;}
+.day-empty{font-size:13.5px;color:var(--ink-4);padding:10px 0;}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.sec{margin-top:28px;}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.sec-head h2{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;color:var(--ink);}
+.sec-c{font-size:13px;color:var(--ink-4);}
+.inq-main{flex:1;min-width:0;}
+.tw-hot{color:var(--coral);font-weight:600;}
+.tw-warm{color:var(--ink);font-weight:600;}
+.strip{display:flex;gap:3px;margin-bottom:10px;}
+.strip>div{height:7px;border-radius:50px;}
+.strip-l{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;}
+.strip-b{background:none;border:none;font-family:inherit;font-size:11.5px;color:var(--ink-3);cursor:pointer;padding:6px 2px;min-height:40px;}
+.strip-b b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;}
+.strip-b:hover{color:var(--ink);}
 /* Status pills */
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);letter-spacing:.01em;border:none;}
 .pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -428,8 +458,8 @@ button{font-family:inherit;cursor:pointer;}
 @media(max-width:560px){.res-n{font-size:var(--t-08);min-width:80px;}}
 /* Completed in calendar */
 .cal-ev.done{opacity:.55;text-decoration:line-through;}
-.cal-di.done{opacity:.65;}
-.cal-di.done .cal-di-t{text-decoration:line-through;}
+
+.cal-di.done 
 
 /* Empty state */
 .empty{text-align:center;padding:60px 20px;color:var(--ink-3);}
@@ -621,28 +651,24 @@ button{font-family:inherit;cursor:pointer;}
   transition:all var(--anim);
 }
 .cal-nav button:hover{border-color:var(--ink);background:var(--paper-2);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
-.cal-dow{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;font-weight:600;text-align:center;padding:6px 0;}
-.cal-cell{
-  min-height:70px;border:1px solid var(--line-2);border-radius:var(--radius-xs);
-  padding:6px;background:var(--white);display:flex;flex-direction:column;gap:3px;
-  cursor:pointer;transition:all var(--anim);
-}
-.cal-cell:hover{border-color:var(--ink-2);background:var(--paper-2);}
-.cal-cell.empty{background:transparent;border:none;cursor:default;}
-.cal-cell.today{border-color:var(--coral);background:var(--coral-pale);}
+
+
+
+
+
+
 .cal-date{font-variant-numeric:tabular-nums;font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.02em;}
-.cal-cell.today .cal-date{color:var(--coral);}
+
 .cal-ev{background:var(--paper);border:1px solid var(--line-2);border-radius:10px;padding:7px 9px;margin-bottom:4px;font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .cal-ev.rem{background:var(--mint);color:var(--ink-2);}
-.cal-more{font-size:var(--t-03);color:var(--ink-3);}
-.cal-day-detail{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px;}
-.cal-di{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line-2);font-size:var(--t-04);}
+
+
+
 .cal-di .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);flex-shrink:0;}
 .cal-di .dot.rem{background:var(--ink-2);}
 .cal-di.clickable{cursor:pointer;border-radius:var(--radius-xs);margin:0 -8px;padding-left:8px;padding-right:8px;transition:background var(--anim);}
 .cal-di.clickable:hover{background:var(--paper-2);}
-.cal-di-arr{margin-left:auto;color:var(--ink-3);font-size:var(--t-04);}
+
 .cal-di.clickable:hover .cal-di-arr{color:var(--coral);}
 
 /* ===== CLIENTS ===== */
@@ -938,7 +964,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
-    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",yourPipeline:"Your pipeline",openLbl:"Open",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     markCalled:"Mark as called",called:"Called",schedule:"Schedule action",del:"Delete",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
@@ -1009,7 +1035,7 @@ button{font-family:inherit;cursor:pointer;}
     estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
-    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",yourPipeline:"Tu pipeline",openLbl:"Abrir",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     markCalled:"Marcar llamado",called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
@@ -1356,6 +1382,58 @@ button{font-family:inherit;cursor:pointer;}
         '<button class="mini-btn send" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button></span></div>';
     }
     html+='</div>';
+
+    // ---- Lo demas de la cola: visible y accionable sin hacer skip ----
+    const rest=day.map((it,i)=>({it:it,i:i})).filter(x=>x.i!==todayIdx);
+    if(rest.length){
+      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("upNext"))+'</h2><span class="sec-c">'+rest.length+'</span></div><div class="inq-list">';
+      html+=rest.map(function(x){
+        const it=x.it;
+        if(it.kind==="stale"||it.kind==="nostep"){
+          const r=inquiries.find(z=>String(z.id)===String(it.r.id))||it.r;
+          const u=urgency(r.created_at);
+          return '<div class="inq-card" data-tgo="'+x.i+'">'+
+            '<div class="inq-av tick-'+stOf(r)+'"></div>'+
+            '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+'</div>'+
+            '<div class="inq-svc">'+esc((r.service||r.message||"").slice(0,52)||stLbl(stOf(r)))+'</div></div>'+
+            '<div class="inq-right"><span class="pill '+stOf(r)+'">'+esc(stLbl(stOf(r)))+'</span>'+
+            '<span class="'+(u>=2?"tw-hot":(u===1?"tw-warm":""))+'">'+esc(agoShort(r.created_at))+'</span></div></div>';
+        }
+        const o=it.o, late=it.kind==="od";
+        const linked=o.inquiry_id?inquiries.find(z=>String(z.id)===String(o.inquiry_id)):null;
+        return '<div class="inq-card" data-tgo="'+x.i+'">'+
+          '<div class="inq-av '+(late?"tick-new":"tick-follow_up")+'"></div>'+
+          '<div class="inq-main"><div class="inq-name">'+esc(o.title||"\u2014")+'</div>'+
+          '<div class="inq-svc">'+esc(fmtWhen(o.due_at))+(linked?" \u00b7 "+esc(linked.customer_name||""):"")+'</div></div>'+
+          '<div class="inq-right"><span class="'+(late?"tw-hot":"")+'">'+esc(late?T("overdueLbl"):T("dueTodayLbl"))+'</span></div></div>';
+      }).join("");
+      html+='</div></div>';
+    }
+
+    // ---- Lo que hay hoy en la agenda ----
+    const evsMap=calEvents(); const tkey=now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate();
+    const tEvs=(evsMap[tkey]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
+    if(tEvs.length){
+      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
+      html+=tEvs.map(function(x){
+        const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
+        const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
+        const lbl=x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
+        return '<div class="inq-card"'+attr+'><div class="inq-main"><div class="inq-name">'+esc(t)+' \u00b7 '+esc(lbl)+'</div>'+
+          '<div class="inq-svc">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div></div></div>';
+      }).join("");
+      html+='</div></div>';
+    }
+
+    // ---- Panorama del pipeline ----
+    const STG=[["new","--coral"],["contacted","--blue"],["estimate_sent","--mint-2"],["follow_up","--lav"],["hired","--ink"]];
+    const cnt=STG.map(g=>realInq.filter(r=>stOf(r)===g[0]).length);
+    if(cnt.some(v=>v>0)){
+      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("yourPipeline"))+'</h2><button class="btn btn-sm" data-go="inquiries">'+esc(T("openLbl"))+'</button></div>';
+      html+='<div class="strip">'+STG.map((g,i)=>cnt[i]?'<div style="flex:'+cnt[i]+';background:var('+g[1]+')"></div>':'').join("")+'</div>';
+      html+='<div class="strip-l">'+STG.map((g,i)=>cnt[i]?'<button class="strip-b" data-go="inquiries" data-filt="'+g[0]+'"><b>'+cnt[i]+'</b> '+esc(stLbl(g[0]))+'</button>':'').join("")+'</div></div>';
+    }
+
     if(pending) html+='<div class="td-foot-line">'+pending+'</div>';
     c.innerHTML=html;
   }
@@ -1533,25 +1611,38 @@ button{font-family:inherit;cursor:pointer;}
   }
 
   // ===== CALENDAR =====
-  let calRef=new Date(); calRef.setDate(1); let calSel=null;
+  let calRef=new Date();
   function calEvents(){ const map={}; const add=(d,ev)=>{ if(!d)return; const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); (map[k]=map[k]||[]).push(ev); };
     inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) add(new Date(r.booking_at),{type:"booking",title:r.customer_name||T("booking"),time:r.booking_at,inqId:r.id}); });
     reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,done:!!r.done,eid:r.id,ekind:"rem"}); });
     tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at,done:!!t.done,eid:t.id,ekind:"task"}); });
     return map; }
+  function weekStart(d){ const x=new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate()-x.getDay()); return x; }
   function renderCalendar(){
-    const evs=calEvents(); const y=calRef.getFullYear(),m=calRef.getMonth();
-    const monthName=calRef.toLocaleDateString(locale(),{month:"long",year:"numeric"});
-    const firstDow=new Date(y,m,1).getDay(); const daysIn=new Date(y,m+1,0).getDate();
-    const dows=lang==="es"?["D","L","M","M","J","V","S"]:["S","M","T","W","T","F","S"];
-    const today=new Date(); let cells="";
-    for(let i=0;i<firstDow;i++) cells+='<div class="cal-cell empty"></div>';
-    for(let d=1;d<=daysIn;d++){ const k=y+"-"+m+"-"+d; const it=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===d; const list=evs[k]||[];
-      let e=list.slice(0,2).map(x=>'<div class="cal-ev'+(x.type==="rem"?" rem":"")+(x.done?" done":"")+'">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div>').join(""); if(list.length>2)e+='<div class="cal-more">+'+(list.length-2)+'</div>';
-      cells+='<div class="cal-cell'+(it?" today":"")+'" data-day="'+d+'"><span class="cal-date">'+d+'</span>'+e+'</div>'; }
-    let detail="";
-    if(calSel){ const k=y+"-"+m+"-"+calSel; const list=evs[k]||[]; detail='<div class="cal-day-detail"><h4>'+calSel+" "+calRef.toLocaleDateString(locale(),{month:"long"})+'</h4>'+(list.length?list.map(x=>'<div class="cal-di'+((x.inqId||x.eid)?' clickable':'')+(x.done?' done':'')+'"'+(x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':''))+'><span class="dot'+(x.type==="rem"?" rem":"")+'"></span><span>'+esc(fmtWhen(x.time))+'</span><span class="cal-di-t">'+(x.done?"\u2713 ":"")+esc(x.title)+'</span>'+(x.inqId?'<span class="cal-di-arr">&#8594;</span>':'')+'</div>').join(""):'<div class="cal-di">'+esc(T("nothingToday"))+'</div>')+'</div>'; }
-    $("content").innerHTML='<div class="calendar-wrap"><div class="cal-head"><h3>'+esc(monthName)+'</h3><div class="cal-nav"><button data-cal="prev">\u2039</button><button data-cal="today">\u2022</button><button data-cal="next">\u203a</button></div></div><div class="cal-grid">'+dows.map(d=>'<div class="cal-dow">'+d+'</div>').join("")+cells+'</div>'+detail+'</div>';
+    const evs=calEvents(); const start=weekStart(calRef); const today=new Date();
+    const dows=lang==="es"?["Dom","Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b"]:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const end=new Date(start); end.setDate(start.getDate()+6);
+    const sameMonth=start.getMonth()===end.getMonth();
+    const range=start.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u2013 "+end.toLocaleDateString(locale(),sameMonth?{day:"numeric"}:{month:"short",day:"numeric"});
+    const evLabel=x=>x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
+    let days="";
+    for(let i=0;i<7;i++){
+      const d=new Date(start); d.setDate(start.getDate()+i);
+      const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+      const list=(evs[k]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
+      const isToday=d.toDateString()===today.toDateString();
+      const evHTML=list.length
+        ? list.map(x=>{
+            const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
+            const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
+            return '<div class="evt'+(x.done?" done":"")+(attr?" clickable":"")+'"'+attr+'>'+
+              '<div class="evt-t">'+esc(t)+' \u00b7 '+esc(evLabel(x))+'</div>'+
+              '<div class="evt-n">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div></div>';
+          }).join("")
+        : '<div class="day-empty">'+esc(T("nothingBooked"))+'</div>';
+      days+='<div class="day'+(isToday?" today":"")+'"><div class="day-d"><div class="n">'+d.getDate()+'</div><div class="m">'+esc(dows[d.getDay()])+'</div></div><div class="day-evs">'+evHTML+'</div></div>';
+    }
+    $("content").innerHTML='<div class="cal-head"><h3>'+esc(range)+'</h3><div class="cal-nav"><button data-cal="prev" aria-label="prev">\u2039</button><button data-cal="today">'+esc(T("calToday"))+'</button><button data-cal="next" aria-label="next">\u203a</button></div></div><div class="calendar-wrap">'+days+'</div>';
   }
 
   // ===== EDIT TASK/REMINDER =====
@@ -1784,6 +1875,7 @@ button{font-family:inherit;cursor:pointer;}
     const cl=e.target.closest('[data-act="copylink"]'); if(cl){ const link=formLink(); try{ await navigator.clipboard.writeText(link); cl.textContent=T("linkCopied"); setTimeout(()=>{cl.textContent=T("copyLink");},1800); }catch(err){ prompt(T("copyLink"),link); } return; }
     // onboarding: add inquiry / add task shortcuts open the add modal
     const ga=e.target.closest('[data-go-add]'); if(ga){ $("quickAddBtn").click(); return; }
+    const tgo=e.target.closest("[data-tgo]"); if(tgo){ todayIdx=parseInt(tgo.getAttribute("data-tgo"),10)||0; renderToday(); window.scrollTo({top:0,behavior:"smooth"}); return; }
     const stb=e.target.closest("[data-schedtab]"); if(stb){ schedTab=stb.getAttribute("data-schedtab"); renderSchedule(); return; }
     const at=e.target.closest('[data-act="addtask"]'); if(at){ schedTab="tasks"; setView("schedule"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
     // needs-attention: mark reminder/task done
@@ -1795,8 +1887,7 @@ button{font-family:inherit;cursor:pointer;}
     // filter pills
     const fp=e.target.closest("[data-filt2]"); if(fp){ inqFilter=fp.getAttribute("data-filt2"); renderInquiries(); return; }
     // calendar
-    const cal=e.target.closest("[data-cal]"); if(cal){ const a=cal.getAttribute("data-cal"); if(a==="prev")calRef.setMonth(calRef.getMonth()-1); else if(a==="next")calRef.setMonth(calRef.getMonth()+1); else {calRef=new Date();calRef.setDate(1);} calSel=null; renderCalendar(); return; }
-    const cell=e.target.closest(".cal-cell[data-day]"); if(cell){ calSel=parseInt(cell.getAttribute("data-day"),10); renderCalendar(); return; }
+    const cal=e.target.closest("[data-cal]"); if(cal){ const a=cal.getAttribute("data-cal"); if(a==="prev")calRef.setDate(calRef.getDate()-7); else if(a==="next")calRef.setDate(calRef.getDate()+7); else calRef=new Date(); renderCalendar(); return; }
     // task rows
     const trow=e.target.closest("[data-task]");
     if(trow){
