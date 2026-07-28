@@ -318,8 +318,8 @@ button{font-family:inherit;cursor:pointer;}
   box-shadow:0 1px 2px rgba(23,61,53,.06),0 18px 44px rgba(23,61,53,.13);
 }
 .td-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;}
-.td-why{font-size:var(--t-01);font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--mint);}
-.td-why.late{color:var(--coral);}
+.td-why{font-size:var(--t-02);font-weight:600;letter-spacing:.01em;text-transform:none;color:var(--ink);background:var(--mint);padding:5px 13px;border-radius:var(--radius-pill);}
+.td-why.late{color:#fff;background:var(--coral);}
 .td-count{font-size:var(--t-01);font-weight:700;letter-spacing:.12em;color:rgba(247,245,240,.45);font-variant-numeric:tabular-nums;}
 .td-sep{color:rgba(247,245,240,.22);}
 .td-name{
@@ -332,6 +332,9 @@ button{font-family:inherit;cursor:pointer;}
 .td-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0;}
 .td-x{color:rgba(247,245,240,.26);}
 .td-late{color:var(--coral);font-weight:600;}
+.td-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+.td-chip{font-size:var(--t-03);color:rgba(247,245,240,.72);background:rgba(247,245,240,.08);border:1px solid rgba(247,245,240,.12);border-radius:var(--radius-xs);padding:6px 11px;line-height:1.3;}
+.td-chip b{color:rgba(247,245,240,.45);font-weight:500;text-transform:capitalize;margin-right:6px;}
 .td-ask{margin-top:22px;font-size:var(--t-04);line-height:1.6;color:rgba(247,245,240,.78);}
 .td-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(247,245,240,.13);}
 .td-acts{display:flex;align-items:center;gap:14px;}
@@ -1311,6 +1314,9 @@ button{font-family:inherit;cursor:pointer;}
       html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(stLbl(stOf(r)))+'</b>'+
         (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
         '<span class="td-x">\u00b7</span><span'+(late?' class="td-late"':'')+'>'+esc(agoShort(r.created_at))+' '+esc(T("agoWaiting"))+'</span></div>';
+      const fdc=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
+      const chips=Object.entries(fdc).filter(([k,v])=>v!==null&&v!==""&&k!=="address"&&k!=="photos"&&!Array.isArray(v)&&typeof v!=="object").slice(0,3);
+      if(chips.length) html+='<div class="td-chips">'+chips.map(([k,v])=>'<span class="td-chip"><b>'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</b>'+esc(String(v).slice(0,42))+'</span>').join("")+'</div>';
       if(r.message) html+='<div class="td-ask">'+esc(r.message.slice(0,180))+'</div>';
       html+=composerHTML(r,"panel");
       html+='<div class="td-foot"><button class="td-link" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button>'+
