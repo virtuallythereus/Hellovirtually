@@ -160,8 +160,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--ink);background:var(-
 .thumb button{
   position:absolute;top:3px;right:3px;width:19px;height:19px;
   border:0;border-radius:50%;background:rgba(23,61,53,.85);
-  color:#fff;font-size:12px;line-height:1;cursor:pointer;padding:0;
+  color:#fff;font-size:12px;line-height:1;cursor:pointer;padding:0;z-index:2;
 }
+.thumb.bad{border-color:var(--coral)}
+.thumb .spin,.thumb .bang{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(23,61,53,.55);
+}
+.thumb .bang{background:rgba(244,81,69,.75);color:#fff;font-weight:800;font-size:20px}
+.thumb .spin:after{
+  content:'';width:18px;height:18px;border-radius:50%;
+  border:2.5px solid rgba(247,245,240,.35);
+  border-top-color:var(--paper);
+  animation:sp .7s linear infinite;
+}
+@keyframes sp{to{transform:rotate(360deg)}}
 
 /* nav */
 .nav{display:flex;gap:10px;margin-top:26px}
@@ -402,23 +416,72 @@ const thumbs = document.getElementById('thumbs');
 document.getElementById('drop').addEventListener('click', function(){ filesInput.click(); });
 filesInput.addEventListener('change', function(){
   Array.from(filesInput.files).forEach(function(f){
-    if(state.photos.length < 6) state.photos.push(f);
+    if(state.photos.length < 6){
+      const item = { file:f, url:'', st:'up', preview:URL.createObjectURL(f) };
+      state.photos.push(item);
+      uploadOne(item);
+    }
   });
   filesInput.value = '';
   drawThumbs();
 });
+
+function mimeOf(f){
+  if(f.type && f.type.indexOf('image/') === 0) return f.type;
+  const ext = (f.name.split('.').pop() || '').toLowerCase();
+  const map = { jpg:'image/jpeg', jpeg:'image/jpeg', png:'image/png', webp:'image/webp', heic:'image/heic', heif:'image/heif' };
+  return map[ext] || 'image/jpeg';
+}
+
+async function uploadOne(item){
+  try{
+    const clean = item.file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    const path = SLUG + '/' + Date.now() + '-' + Math.random().toString(36).slice(2,7) + '-' + clean;
+    const r = await fetch(SB_URL + '/storage/v1/object/inquiry-photos/' + path, {
+      method:'POST',
+      headers:{
+        'apikey': SB_KEY,
+        'Authorization':'Bearer ' + SB_KEY,
+        'Content-Type': mimeOf(item.file),
+        'x-upsert':'true'
+      },
+      body: item.file
+    });
+    if(!r.ok) throw new Error(await r.text());
+    item.url = SB_URL + '/storage/v1/object/public/inquiry-photos/' + path;
+    item.st = 'ok';
+  }catch(e){
+    console.error('photo upload failed', e);
+    item.st = 'fail';
+    showErr('One photo could not upload. Tap it to remove and try another.');
+  }
+  drawThumbs();
+}
+
 function drawThumbs(){
   thumbs.innerHTML = '';
-  state.photos.forEach(function(f, i){
+  state.photos.forEach(function(item, i){
     const d = document.createElement('div');
-    d.className = 'thumb';
+    d.className = 'thumb' + (item.st === 'fail' ? ' bad' : '');
     const img = document.createElement('img');
-    img.src = URL.createObjectURL(f);
+    img.src = item.preview;
+    d.appendChild(img);
+    if(item.st === 'up'){
+      const s = document.createElement('span');
+      s.className = 'spin';
+      d.appendChild(s);
+    }
+    if(item.st === 'fail'){
+      const s = document.createElement('span');
+      s.className = 'bang';
+      s.textContent = '!';
+      d.appendChild(s);
+    }
     const x = document.createElement('button');
     x.type = 'button';
     x.textContent = '\u00d7';
-    x.addEventListener('click', function(e){ e.stopPropagation(); state.photos.splice(i,1); drawThumbs(); });
-    d.appendChild(img); d.appendChild(x);
+    x.addEventListener('click', function(e){ e.stopPropagation(); state.photos.splice(i,1); hideErr(); drawThumbs(); });
+    d.appendChild(x);
     thumbs.appendChild(d);
   });
 }
@@ -483,34 +546,17 @@ document.addEventListener('keydown', function(e){
 });
 
 /* submit */
-async function uploadPhotos(){
-  const urls = [];
-  for(let i = 0; i < state.photos.length; i++){
-    const f = state.photos[i];
-    const clean = f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-    const path = SLUG + '/' + Date.now() + '-' + i + '-' + clean;
-    const r = await fetch(SB_URL + '/storage/v1/object/inquiry-photos/' + path, {
-      method:'POST',
-      headers:{
-        'apikey': SB_KEY,
-        'Authorization':'Bearer ' + SB_KEY,
-        'Content-Type': f.type || 'application/octet-stream',
-        'x-upsert':'true'
-      },
-      body: f
-    });
-    if(r.ok) urls.push(SB_URL + '/storage/v1/object/public/inquiry-photos/' + path);
-  }
-  return urls;
-}
-
 async function submit(){
   if(!valid()) return;
+  if(state.photos.some(function(p){ return p.st === 'up'; })){
+    showErr('Your photos are still uploading. One moment.');
+    return;
+  }
+  const photos = state.photos.filter(function(p){ return p.st === 'ok'; }).map(function(p){ return p.url; });
   const btn = document.getElementById('next');
   btn.disabled = true;
   btn.textContent = 'SENDING...';
   try{
-    const photos = await uploadPhotos();
     const res = await fetch(SB_URL + '/rest/v1/rpc/submit_inquiry_by_slug', {
       method:'POST',
       headers:{
