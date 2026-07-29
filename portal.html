@@ -1131,6 +1131,7 @@ button{font-family:inherit;cursor:pointer;}
   const locale=()=>lang==="es"?"es-PR":"en-US";
   // ===== pipeline stages (estimate-driven) =====
   const STAGES=["new","contacting","estimate_sent","hired","not_hired"];
+  const TFL={new:"live_new",pending:"live_pending",awaiting:"live_awaiting"};
   const ST_MAP={contacted:"contacting",booked:"hired",closed:"not_hired"};
   const stOf=r=>{ const s=r.status||"new"; return ST_MAP[s]||s; };
   const stLbl=s=>T("st_"+s);
@@ -1340,7 +1341,7 @@ button{font-family:inherit;cursor:pointer;}
   const CTPL_KEYS=["initial","estimate","followup","lastcall","thanks"];
   const TPL_BY_STAGE={new:["initial","estimate"],contacting:["initial","estimate","followup"],estimate_sent:["estimate","followup","lastcall"],hired:["thanks"],not_hired:["lastcall","thanks"]};
   function composerDefTpl(r){
-    return {new:"initial",contacting:"initial",estimate_sent:"estimate",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
+    return {new:"initial",contacting:"initial",estimate_sent:"followup",hired:"thanks",not_hired:"lastcall"}[stOf(r)]||"initial";
   }
   function composerHTML(r,mode){
     const ct=contactOf(r);
@@ -1460,6 +1461,11 @@ button{font-family:inherit;cursor:pointer;}
     const TF={new:newInq,pending:realInq.filter(r=>pendEst(r)),awaiting:realInq.filter(r=>stOf(r)==="estimate_sent")};
     const tfOrder=["new","pending","awaiting"];
     if(!todayFilt||!TF[todayFilt]||!TF[todayFilt].length) todayFilt=tfOrder.find(k=>TF[k].length)||null;
+    if(todayFilt&&TF[todayFilt]&&TF[todayFilt].length){
+      day.length=0;
+      TF[todayFilt].forEach(r=>day.push({kind:"grp",r:r}));
+      if(todayIdx>=day.length) todayIdx=0;
+    }
     const wsCells=[
       {n:newInq.length,l:T("live_new"),hot:newInq.length>0,k:"new"},
       {n:wsPend,l:T("live_pending"),hot:wsPend>0,k:"pending"},
@@ -1486,11 +1492,11 @@ button{font-family:inherit;cursor:pointer;}
     const a=day[todayIdx];
     const pos=String(todayIdx+1).padStart(2,"0")+' <span class="td-sep">/</span> '+String(day.length).padStart(2,"0");
     html+='<div class="td-card">';
-    if(a.kind==="stale"||a.kind==="nostep"){
+    if(a.kind==="stale"||a.kind==="nostep"||a.kind==="grp"){
       const r=inquiries.find(x=>String(x.id)===String(a.r.id))||a.r;
       const days=r.created_at?Math.floor((now-new Date(r.created_at))/dayMs):0;
       const late=a.kind==="stale";
-      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("stuckLbl"):T("addStep"))+'</span>'+(isAsap(r)?'<span class="asap-tag">'+esc(T("asapLbl"))+'</span>':'')+'<span class="td-count">'+pos+'</span></div>';
+      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("stuckLbl"):(a.kind==="grp"&&TFL[todayFilt]?T(TFL[todayFilt]):T("addStep")))+'</span>'+(isAsap(r)?'<span class="asap-tag">'+esc(T("asapLbl"))+'</span>':'')+'<span class="td-count">'+pos+'</span></div>';
       html+='<div class="td-name">'+esc(r.customer_name||"\u2014")+'</div>';
       html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(stLbl(stOf(r)))+'</b>'+
         (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
@@ -1527,9 +1533,8 @@ button{font-family:inherit;cursor:pointer;}
   }
   function todayLists(TF,evsMap,tkey){
     let html="";
-    const TFL={new:"live_new",pending:"live_pending",awaiting:"live_awaiting"};
-    if(todayFilt&&TF[todayFilt]&&TF[todayFilt].length){
-      const grp=TF[todayFilt];
+    const grp=(todayFilt&&TF[todayFilt])?TF[todayFilt].filter((_,i)=>i!==todayIdx):[];
+    if(grp.length){
       html+='<div class="sec sec-leads"><div class="sec-head"><h2>'+esc(T(TFL[todayFilt]))+'</h2><span class="sec-c">'+grp.length+'</span>'+
         '<button class="sec-all" data-go="inquiries" data-filt="'+todayFilt+'">'+esc(T("seeAll"))+'</button></div><div class="inq-list">';
       html+=grp.map(function(r){
