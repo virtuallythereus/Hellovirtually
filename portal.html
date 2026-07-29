@@ -493,7 +493,7 @@ button{font-family:inherit;cursor:pointer;}
 .drawer-head .dh-sub{font-size:var(--t-03);color:var(--ink-3);margin-top:4px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
 .drawer-close{background:none;border:none;font-size:var(--t-07);color:var(--ink-3);cursor:pointer;line-height:1;padding:2px 4px;border-radius:var(--radius-xs);transition:all var(--anim);}
 .drawer-close:hover{color:var(--ink);background:var(--paper-2);}
-.drawer-body{flex:1;overflow-y:auto;padding:20px 22px;background:var(--paper);}
+.drawer-body{flex:1;overflow-y:auto;padding:20px 22px;background:var(--paper);overscroll-behavior:contain;}
 .dsec{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
 .wait-pill{display:inline-flex;align-items:center;font-size:var(--t-02);font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);background:var(--mint);color:var(--ink);margin-right:4px;font-variant-numeric:tabular-nums;}
 .wait-pill.hot{background:var(--coral);color:#fff;}
@@ -507,11 +507,10 @@ button{font-family:inherit;cursor:pointer;}
 .d-hint.hot .d-hint-l{color:var(--coral-soft);}
 .d-hint.hot .d-hint-d{color:var(--coral-soft);opacity:.85;}
 .d-hint-u{font-size:var(--t-01);font-weight:600;letter-spacing:.05em;background:var(--coral);color:var(--white);border-radius:var(--radius-pill);padding:2px 7px;}
-.d-acts{position:sticky;bottom:0;z-index:4;display:flex;flex-wrap:wrap;gap:8px;background:var(--paper);border-top:1px solid var(--line);margin:0 -22px -20px;padding:14px 22px 20px;}
-.d-acts .dact.primary{flex:1;min-width:170px;}
-.cmp-open .d-acts{display:none;}
-.dsec-cmp{display:none;}
-.cmp-open .dsec-cmp{display:block;}
+.d-acts{position:sticky;bottom:0;z-index:4;display:flex;flex-wrap:nowrap;gap:8px;background:var(--paper);border-top:1px solid var(--line);margin:0 -22px -20px;padding:14px 22px 20px;}
+.d-acts .dact{flex:0 0 auto;padding:0 14px;white-space:nowrap;}
+.d-acts .dact.primary{flex:1 1 auto;min-width:0;padding:0 18px;overflow:hidden;text-overflow:ellipsis;}
+
 .dact{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-size:var(--t-03);font-weight:600;min-height:46px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;text-decoration:none;transition:background var(--anim),border-color var(--anim),color var(--anim);}
 .dact:hover{border-color:var(--ink);}
 .dact.primary{background:var(--ink);border-color:var(--ink);color:var(--paper);}
@@ -539,8 +538,13 @@ button{font-family:inherit;cursor:pointer;}
 
 
 
-.dsec-cmp{position:sticky;bottom:0;z-index:3;background:var(--paper);border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;margin:0 -22px -20px;padding:14px 22px 20px;}
-.dsec-cmp .dsec-l{margin-bottom:10px;}
+.cmp-scrim{position:absolute;inset:0;z-index:5;background:rgba(23,61,53,.28);opacity:0;pointer-events:none;transition:opacity .22s;}
+.drawer.cmp-on .cmp-scrim{opacity:1;pointer-events:auto;}
+.cmp-sheet{position:absolute;left:0;right:0;bottom:0;z-index:6;max-height:82%;overflow-y:auto;background:var(--paper);border-top:1px solid var(--line);border-radius:18px 18px 0 0;box-shadow:0 -6px 28px rgba(23,61,53,.16);padding:10px 22px 20px;transform:translateY(101%);transition:transform .26s cubic-bezier(.4,0,.2,1);}
+.drawer.cmp-on .cmp-sheet{transform:translateY(0);}
+.cmp-grab{width:36px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto 12px;}
+.cmp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cmp-top h3{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;color:var(--ink);}
 /* Pipeline steps */
 
 .d-pipe{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 10px;margin-bottom:12px;box-shadow:var(--shadow);}
@@ -843,6 +847,8 @@ button{font-family:inherit;cursor:pointer;}
     <button class="drawer-close" id="drawerClose">&times;</button>
   </div>
   <div class="drawer-body" id="drawerBody"></div>
+  <div class="cmp-scrim" id="cmpScrim"></div>
+  <div class="cmp-sheet" id="cmpSheet"></div>
 </div>
 
 <!-- SHEET: quick add (inquiry/booking/task) -->
@@ -960,11 +966,12 @@ button{font-family:inherit;cursor:pointer;}
     yourDay:"Your day",
     replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",andWord:"and",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
-    tplb_initial:"Hey {name}! We got your request about {project} \u2014 thanks so much for reaching out. We're already working on your estimate and you'll have it soon. Anything you'd like to add, just reply here.",
-    tplb_estimate:"Hi {name}, I just sent over your estimate{amount}. Happy to answer any questions!",
-    tplb_followup:"Hi {name}, just following up on the estimate{amount} \u2014 any questions, or anything you'd like me to adjust?",
-    tplb_lastcall:"Hi {name}, checking in one last time about your project. If the timing isn't right, no problem \u2014 we're here when you're ready.",
-    tplb_thanks:"Thank you {name}! Excited to get started \u2014 I'll be in touch shortly with next steps.",
+    cmpTitle:"Message to",
+    tplb_initial:"Hi {name}[[, this is {business}]]. Got your request about {project} and we\u2019re on it. You\u2019ll have your estimate soon.",
+    tplb_estimate:"Hi {name}, your estimate{amount}[[ from {business}]] is ready. Take a look and let me know what you think.",
+    tplb_followup:"Hi {name}, checking in on the estimate{amount}. Want me to walk you through it, or adjust anything?",
+    tplb_lastcall:"Hi {name}, last check-in on your project. If the timing isn\u2019t right, no problem. We\u2019re here when you\u2019re ready.",
+    tplb_thanks:"Thanks {name}! We\u2019re glad to have the job. I\u2019ll reach out to confirm scheduling.",
     formCaptured:"inquiries captured with this form",
     formHero:"This is exactly what your customers fill out.",formHeroSub:"Every request reaches you with the details you need, so there is no back and forth before you can send an estimate.",formSoonT:"Your form is being set up",formSoonS:"We are building it now. It shows up here the moment it is live.",formPreview:"Live preview",formOpen:"Open form",formTailored:"Built for your trade. Want to add or change a question? Just ask us.",formShareTitle:"Share your form",
     qrTitle:"QR code",qrHint:"Print it on estimates, business cards, or your truck \u2014 customers scan it and their info lands right here.",qrDownload:"Download QR",
@@ -1035,11 +1042,12 @@ button{font-family:inherit;cursor:pointer;}
     yourDay:"Tu d\u00eda",
     replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",andWord:"y",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
-    tplb_initial:"\u00a1Hola {name}! Recibimos tu solicitud sobre {project} \u2014 mil gracias por escribirnos. Ya estamos trabajando en tu estimado y pronto lo tendr\u00e1s. Si quieres a\u00f1adir algo, resp\u00f3ndenos por aqu\u00ed.",
-    tplb_estimate:"Hola {name}, te acabo de enviar tu estimado{amount}. \u00a1Cualquier pregunta me dices!",
-    tplb_followup:"Hola {name}, dando seguimiento al estimado{amount} \u2014 \u00bfalguna pregunta o algo que quieras ajustar?",
-    tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema \u2014 aqu\u00ed estamos cuando est\u00e9s listo.",
-    tplb_thanks:"\u00a1Gracias {name}! Emocionados de empezar \u2014 pronto te escribo con los pr\u00f3ximos pasos.",
+    cmpTitle:"Mensaje para",
+    tplb_initial:"\u00a1Hola {name}![[ Te escribe {business}.]] Recibimos tu solicitud sobre {project} y ya estamos en eso. Pronto tendr\u00e1s tu estimado.",
+    tplb_estimate:"Hola {name}, tu estimado{amount}[[ de {business}]] est\u00e1 listo. \u00c9chale un vistazo y me dices qu\u00e9 piensas.",
+    tplb_followup:"Hola {name}, dando seguimiento al estimado{amount}. \u00bfQuieres que te lo explique o que ajuste algo?",
+    tplb_lastcall:"Hola {name}, te escribo una \u00faltima vez sobre tu proyecto. Si no es el momento, no hay problema. Aqu\u00ed estamos cuando est\u00e9s listo.",
+    tplb_thanks:"\u00a1Gracias {name}! Nos alegra mucho. Pronto te escribo para coordinar fechas.",
     formCaptured:"consultas capturadas con este formulario",
     formHero:"Esto es exactamente lo que llena tu cliente.",formHeroSub:"Cada solicitud te llega con los datos que necesitas, sin ir y venir antes de enviar un estimado.",formSoonT:"Tu formulario se est\u00e1 preparando",formSoonS:"Lo estamos armando. Aparece aqu\u00ed en cuanto est\u00e9 listo.",formPreview:"Vista previa en vivo",formOpen:"Abrir formulario",formTailored:"Hecho para tu oficio. \u00bfQuieres agregar o cambiar una pregunta? Solo d\u00ednos.",formShareTitle:"Comparte tu formulario",
     qrTitle:"C\u00f3digo QR",qrHint:"Impr\u00edmelo en estimados, tarjetas o la guagua \u2014 el cliente lo escanea y su informaci\u00f3n llega directo aqu\u00ed.",qrDownload:"Descargar QR",
@@ -1131,8 +1139,10 @@ button{font-family:inherit;cursor:pointer;}
     else if(s.length>2) proj=s.slice(0,-1).join(", ")+" "+T("andWord")+" "+s[s.length-1];
     else proj=(r.message&&r.message.length<=35)?r.message:T("projFallback");
     const amt=parseFloat(r.estimate_amount)>0?" ("+fmtMoney(r.estimate_amount)+")":"";
+    const biz=String(myBizName||"").trim();
     let out=T("tplb_"+k).replace(/\{name\}/g,first).replace(/\{project\}/g,proj).replace(/\{amount\}/g,amt);
-    if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="followup2"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+estLink(r);
+    out=out.replace(/\[\[([\s\S]*?)\]\]/g,biz?"$1":"").replace(/\{business\}/g,biz).replace(/[ \t]{2,}/g," ").trim();
+    if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+estLink(r);
     return out;
   }
   let myFormUrl=null, myBizName=null, todayIdx=0;
@@ -1340,10 +1350,17 @@ button{font-family:inherit;cursor:pointer;}
     else if(ch==="sms"){ window.location.href="sms:"+ct.ph+"?&body="+encodeURIComponent(txt); autoNote(id,"SMS \u00b7 "+sent); }
     else if(ch==="tel"){ window.location.href="tel:"+ct.ph; autoNote(id,"Call \u00b7 "+T("noteCall")); }
     else if(ch==="mail"){ window.location.href="mailto:"+ct.em+"?subject="+encodeURIComponent(T("mailSubj"))+"&body="+encodeURIComponent(txt); autoNote(id,"Email \u00b7 "+sent); }
-    const wasNew=(stOf(r)==="new");
+    const curSt=stOf(r);
+    const wasNew=(curSt==="new");
+    const tplUsed=((composerOpen!==null&&String(composerOpen)===String(id))&&composerTpl)?composerTpl:composerDefTpl(r);
+    let advTo=null;
+    if(curSt==="new") advTo="contacting";
+    else if(ch!=="tel"&&curSt==="contacting"&&tplUsed==="estimate"&&readyToSend(r)) advTo="estimate_sent";
+    else if(ch!=="tel"&&curSt==="estimate_sent"&&(tplUsed==="followup"||tplUsed==="lastcall")) advTo="follow_up";
     markFirstResponse(id);
-    if(wasNew){ const ok=await patchInq(id,statusPatch(id,"contacting")); if(ok) autoNote(id,T("noteStatus")+" "+stLbl("contacting")); }
+    if(advTo){ const ok=await patchInq(id,statusPatch(id,advTo)); if(ok) autoNote(id,T("noteStatus")+" "+stLbl(advTo)); }
     composerReset();
+    closeCmp();
     if(detailId) openDetail(detailId,true);
     render();
     if(wasNew&&ch!=="copy"&&!nextActionFor(id)){
@@ -1681,7 +1698,6 @@ button{font-family:inherit;cursor:pointer;}
     const A=[];
     if(st==="estimate_sent"||st==="follow_up"){
       A.push('<button class="dact primary" data-act="stepPreset" data-preset="'+(st==="follow_up"?"followup2":"followup")+'">'+esc(T("actFollow"))+'</button>');
-      A.push('<button class="dact win" data-act="pstep" data-st="hired">'+esc(T("markHired"))+'</button>');
       A.push(WRITE);
     }else if(st==="contacting"&&readyToSend(r)){
       A.push('<button class="dact primary" data-act="pstep" data-st="estimate_sent">'+esc(T("markSent"))+'</button>');
@@ -1690,7 +1706,7 @@ button{font-family:inherit;cursor:pointer;}
       A.push('<button class="dact primary" data-act="focusCmp">'+esc(T("actWrite"))+'</button>');
       if(st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="estimate">'+esc(T("actEstimate"))+'</button>');
     }
-    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="visit">'+esc(T("actAppt"))+'</button>');
+    if(st==="new") A.push('<button class="dact" data-act="stepPreset" data-preset="visit">'+esc(T("actAppt"))+'</button>');
     if(ct.ph) A.push('<a class="dact" href="tel:'+esc(ct.ph)+'" data-act="markCall">'+esc(T("actCall"))+'</a>');
     body=head+body;
 
@@ -1706,17 +1722,19 @@ button{font-family:inherit;cursor:pointer;}
     '</div>';
     body+='<div class="dcard"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     body+='<div class="d-foot"><button class="del-link" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq">'+esc(T("del"))+'</button></div>';
-    body+='<div class="dsec dsec-cmp">'+composerHTML(r,"panel")+'</div>';
     body+='<div class="d-acts">'+A.join("")+'</div>';
-    const wasCmp=keep&&$("drawerBody").classList.contains("cmp-open");
     $("drawerBody").innerHTML=body;
-    $("drawerBody").classList.toggle("cmp-open",!!wasCmp);
+    $("cmpSheet").innerHTML='<div class="cmp-grab"></div><div class="cmp-top"><h3>'+esc(T("cmpTitle"))+' '+esc(((r.customer_name||"").trim().split(" ")[0])||"")+'</h3><button class="drawer-close" data-act="cmpClose">\u00d7</button></div>'+composerHTML(r,"panel");
+    if(!keep) $("drawer").classList.remove("cmp-on");
     // mark notes read
     notes.forEach(n=>{ notifRead["note-"+n.id]=1; }); saveNotifState(); updateBadge();
     if(!keep){ $("drawer").classList.add("open"); $("drawerBg").classList.add("open"); }
   }
-  function closeDetail(){ detailId=null; $("drawer").classList.remove("open"); $("drawerBg").classList.remove("open"); }
+  function closeCmp(){ $("drawer").classList.remove("cmp-on"); }
+  function closeDetail(){ detailId=null; closeCmp(); $("drawer").classList.remove("open"); $("drawerBg").classList.remove("open"); }
   $("drawerClose").addEventListener("click",closeDetail);
+  $("cmpScrim").addEventListener("click",closeCmp);
+  document.addEventListener("click",e=>{ if(e.target&&e.target.closest&&e.target.closest('[data-act="cmpClose"]')) closeCmp(); });
   $("drawerBg").addEventListener("click",closeDetail);
 
   // ===== TASKS =====
@@ -2043,7 +2061,7 @@ button{font-family:inherit;cursor:pointer;}
       if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
-      if(e.target.closest('[data-act="focusCmp"]')){ $("drawerBody").classList.add("cmp-open"); const c=$("drawerBody").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
+      if(e.target.closest('[data-act="focusCmp"]')){ $("drawer").classList.add("cmp-on"); const c=$("cmpSheet").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
       if(e.target.closest('[data-act="markCall"]')){ const rr=inquiries.find(x=>String(x.id)===String(id)); if(rr&&!rr.first_response_at) patchInq(id,{first_response_at:new Date().toISOString(),called:true,called_at:new Date().toISOString()}); autoNote(id,"Call \u00b7 "+T("noteCall")); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
       if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr){rr.done=true; autoNote(id,"\u2713 "+T("noteDone")+": "+rr.title);} openDetail(id,true); render(); return; }
