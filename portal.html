@@ -150,15 +150,15 @@ button{font-family:inherit;cursor:pointer;}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);}
 .ws-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
 .ws-cell.on{border-color:var(--coral);box-shadow:inset 0 0 0 1px var(--coral);}
-.ws-cell.zero{opacity:.45;}
+.ws-cell.zero{opacity:.5;background:none;border-color:transparent;box-shadow:none;}
 .ws-cell.zero:hover{opacity:.75;}
 .sec-head .sec-all{background:none;border:0;font:inherit;font-size:var(--t-03);color:var(--ink-3);cursor:pointer;padding:0;}
 .sec-head .sec-all:hover{color:var(--ink);}
 @media(min-width:1024px){
   .tgrid{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;align-items:start;}
-  .tgrid>.greet-wrap,.tgrid>.ws-strip{grid-column:1/-1;}
-  .tgrid>.focus-card,.tgrid>.sec-leads{grid-column:1;}
-  .tgrid>.sec-agenda{grid-column:2;grid-row:3/span 2;margin-top:0;}
+  .tgrid>.greet-row,.tgrid>.ws-strip{grid-column:1/-1;}
+  .tgrid>.focus-card,.tgrid>.td-card,.tgrid>.sec-leads{grid-column:1;}
+  .tgrid>.sec-agenda{grid-column:2;grid-row:3/span 2;margin-top:0;align-self:start;}
 }
 .ws-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 13px;cursor:pointer;transition:border-color var(--anim),background var(--anim);box-shadow:var(--shadow);}
 .ws-cell:hover{border-color:var(--ink);}
@@ -260,10 +260,11 @@ button{font-family:inherit;cursor:pointer;}
 .inq-wait.urgent{background:var(--coral-pale);color:var(--coral);border:1px solid rgba(244,81,69,.25);}
 
 /* Inquiry card list */
-.inq-list{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.inq-list{background:none;}
+.sec>.inq-list>.inq-card:last-child{border-bottom:none;}
 .inq-card{display:flex;align-items:center;gap:13px;padding:15px 20px;border-bottom:1px solid var(--line-2);cursor:pointer;transition:background .12s;background:none;border-radius:0;box-shadow:none;}
 .inq-card:last-child{border-bottom:none;}
-.inq-card:hover{border-color:var(--ink-2);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.inq-card:hover{background:var(--paper);}
 .inq-av{width:6px;height:6px;border-radius:50%;flex:0 0 6px;font-size:0;overflow:hidden;background:var(--line);align-self:center;}
 .inq-name{font-size:14.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink);line-height:1.3;margin-bottom:0;display:flex;align-items:center;gap:6px;font-family:'Helvena','Helvetica Neue',sans-serif;}
 .inq-name .nd{width:7px;height:7px;border-radius:50%;background:var(--coral);flex-shrink:0;}
@@ -309,8 +310,10 @@ button{font-family:inherit;cursor:pointer;}
 .evt-t{font-size:12px;color:var(--ink-4);font-weight:600;letter-spacing:.02em;}
 .evt-n{font-size:14.5px;font-weight:600;margin-top:3px;color:var(--ink);letter-spacing:-.005em;}
 .day-empty{font-size:13.5px;color:var(--ink-4);padding:10px 0;}
-.sec{margin-top:28px;}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.day-line{grid-column:1/-1;display:flex;align-items:center;gap:9px;font-size:var(--t-03);color:var(--ink-3);padding:2px 0 4px;}
+.sec{margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.sec-head{display:flex;align-items:center;gap:9px;padding:14px 20px 12px;border-bottom:1px solid var(--line-2);}
+.sec-head .sec-all{margin-left:auto;}
 .sec-head h2{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;color:var(--ink);}
 .sec-c{font-size:13px;color:var(--ink-4);}
 .inq-main{flex:1;min-width:0;}
@@ -977,7 +980,7 @@ button{font-family:inherit;cursor:pointer;}
     editTitle:"Edit",linkInq:"Link to inquiry (optional)",saveChanges:"Save changes",needDate:"Add a date",
     attachDoc:"Attach estimate (PDF)",viewDoc:"View estimate",uploading:"Uploading\u2026",uploadErr:"Upload failed \u2014 check the bucket",docLine:"Here's your estimate:",
     waitingTitle:"Waiting on estimates",noWaiting:"No estimates out",noWaitingSub:"When you send an estimate, it shows up here until you get an answer.",estErr:"Couldn't save",detAddress:"Address",detPhotos:"Photos",formAnswers:"Form answers",
-    startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Next",nextInq:"Next inquiry",asapLbl:"ASAP",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
+    startDay:"Start my day",focusNext:"Next \u2192",focusSkip:"Next",nextInq:"Next inquiry",asapLbl:"ASAP",noneScheduled:"Nothing scheduled left for today.",focusDoneT:"Day cleared",focusDoneS:"Every inquiry and task got your attention. See you tomorrow.",focusClose:"Back to dashboard",dueTodayLbl:"Due today",
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",
@@ -1055,7 +1058,7 @@ button{font-family:inherit;cursor:pointer;}
     editTitle:"Editar",linkInq:"Vincular a consulta (opcional)",saveChanges:"Guardar cambios",needDate:"Falta la fecha",
     attachDoc:"Adjuntar estimado (PDF)",viewDoc:"Ver estimado",uploading:"Subiendo\u2026",uploadErr:"No se pudo subir \u2014 revisa el bucket",docLine:"Aqu\u00ed est\u00e1 tu estimado:",
     waitingTitle:"Esperando respuesta",noWaiting:"No hay estimados enviados",noWaitingSub:"Cuando env\u00edes un estimado, aparece aqu\u00ed hasta que te contesten.",estErr:"No se guard\u00f3",detAddress:"Direcci\u00f3n",detPhotos:"Fotos",formAnswers:"Respuestas del formulario",
-    startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Siguiente",nextInq:"Siguiente consulta",asapLbl:"URGENTE",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
+    startDay:"Empezar mi d\u00eda",focusNext:"Siguiente \u2192",focusSkip:"Siguiente",nextInq:"Siguiente consulta",asapLbl:"URGENTE",noneScheduled:"No queda nada agendado para hoy.",focusDoneT:"D\u00eda despachado",focusDoneS:"Cada consulta y tarea recibi\u00f3 tu atenci\u00f3n. Hasta ma\u00f1ana.",focusClose:"Volver al panel",dueTodayLbl:"Para hoy",
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",
@@ -1466,6 +1469,12 @@ button{font-family:inherit;cursor:pointer;}
     html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+(x.k&&x.k===todayFilt?' on':'')+'" '+(x.attr||('data-tfilt="'+x.k+'"'))+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
 
     if(!day.length||todayIdx>=day.length){
+      const hayLeads=tfOrder.some(k=>TF[k]&&TF[k].length);
+      if(hayLeads){
+        html+='<div class="day-line">\u2713 '+esc(T("noneScheduled"))+
+          (day.length?' <button class="sec-all" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+'</div>';
+        c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>'; return;
+      }
       html+='<div class="panel focus-card"><div class="focus-done"><span class="attn-check big">\u2713</span>'+
         '<div class="focus-done-t">'+esc(T("focusDoneT"))+'</div>'+
         '<div class="focus-done-s">'+esc(T("focusDoneS"))+'</div>'+
