@@ -149,6 +149,17 @@ button{font-family:inherit;cursor:pointer;}
 .greet-row .hi .hi-acc{display:none;}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);}
 .ws-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
+.ws-cell.on{border-color:var(--coral);box-shadow:inset 0 0 0 1px var(--coral);}
+.ws-cell.zero{opacity:.45;}
+.ws-cell.zero:hover{opacity:.75;}
+.sec-head .sec-all{background:none;border:0;font:inherit;font-size:var(--t-03);color:var(--ink-3);cursor:pointer;padding:0;}
+.sec-head .sec-all:hover{color:var(--ink);}
+@media(min-width:1024px){
+  .tgrid{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;align-items:start;}
+  .tgrid>.greet-wrap,.tgrid>.ws-strip{grid-column:1/-1;}
+  .tgrid>.focus-card,.tgrid>.sec-leads{grid-column:1;}
+  .tgrid>.sec-agenda{grid-column:2;grid-row:3/span 2;margin-top:0;}
+}
 .ws-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 13px;cursor:pointer;transition:border-color var(--anim),background var(--anim);box-shadow:var(--shadow);}
 .ws-cell:hover{border-color:var(--ink);}
 .ws-n{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-08);font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;}
@@ -998,7 +1009,7 @@ button{font-family:inherit;cursor:pointer;}
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
     wsVisits:"Visits today",
-    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",seeAll:"See all",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     called:"Called",schedule:"Schedule action",del:"Delete",
     markSent:"Mark estimate sent",hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
     live_new:"New",live_pending:"Pending estimate",live_ready:"Ready to send",live_awaiting:"Awaiting reply",live_follow_up:"Follow-up",live_hired:"Hired",live_not_hired:"Not hired",live_all:"All",live_closed:"Closed",
@@ -1076,7 +1087,7 @@ button{font-family:inherit;cursor:pointer;}
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
     wsVisits:"Visitas hoy",
-    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",seeAll:"Ver todos",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     markSent:"Marcar estimado enviado",hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
     live_new:"Nueva",live_pending:"Estimado pendiente",live_ready:"Listo para enviar",live_awaiting:"Esperando respuesta",live_follow_up:"Seguimiento",live_hired:"Contratado",live_not_hired:"No contratado",live_all:"Todas",live_closed:"Cerradas",
@@ -1158,7 +1169,7 @@ button{font-family:inherit;cursor:pointer;}
     if(r.estimate_url&&(k==="estimate"||k==="followup"||k==="lastcall")) out+="\n\n"+T("docLine")+" "+estLink(r);
     return out;
   }
-  let myFormUrl=null, myBizName=null, todayIdx=0;
+  let myFormUrl=null, myBizName=null, todayIdx=0, todayFilt=null;
   function formLink(){ return myFormUrl||""; }
   const STEP_PRESETS={
     estimate:{type:"estimate",days:1},
@@ -1449,14 +1460,17 @@ button{font-family:inherit;cursor:pointer;}
     const wsFollow=realInq.filter(r=>stOf(r)==="follow_up").length;
     const wsPend=realInq.filter(r=>pendEst(r)).length;
     const wsEstOut=realInq.filter(r=>stOf(r)==="estimate_sent").length;
+    const TF={new:newInq,pending:realInq.filter(r=>pendEst(r)),awaiting:realInq.filter(r=>stOf(r)==="estimate_sent"),follow_up:realInq.filter(r=>stOf(r)==="follow_up")};
+    const tfOrder=["new","pending","awaiting","follow_up"];
+    if(!todayFilt||!TF[todayFilt]||!TF[todayFilt].length) todayFilt=tfOrder.find(k=>TF[k].length)||null;
     const wsCells=[
-      {n:newInq.length,l:T("live_new"),hot:newInq.length>0,attr:'data-go="inquiries" data-filt="new"'},
-      {n:wsPend,l:T("live_pending"),hot:wsPend>0,attr:'data-go="inquiries" data-filt="pending"'},
-      {n:wsEstOut,l:T("live_awaiting"),sub:estSum>0?fmtMoney(estSum):"",attr:'data-go="inquiries" data-filt="awaiting"'},
-      {n:wsFollow,l:T("live_follow_up"),attr:'data-go="inquiries" data-filt="follow_up"'},
+      {n:newInq.length,l:T("live_new"),hot:newInq.length>0,k:"new"},
+      {n:wsPend,l:T("live_pending"),hot:wsPend>0,k:"pending"},
+      {n:wsEstOut,l:T("live_awaiting"),sub:estSum>0?fmtMoney(estSum):"",k:"awaiting"},
+      {n:wsFollow,l:T("live_follow_up"),k:"follow_up"},
       {n:wsVisits,l:T("wsVisits"),attr:'data-go="schedule"'}
     ];
-    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+'" '+x.attr+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
+    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+(x.k&&x.k===todayFilt?' on':'')+'" '+(x.attr||('data-tfilt="'+x.k+'"'))+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
 
     if(!day.length||todayIdx>=day.length){
       html+='<div class="panel focus-card"><div class="focus-done"><span class="attn-check big">\u2713</span>'+
@@ -1464,7 +1478,7 @@ button{font-family:inherit;cursor:pointer;}
         '<div class="focus-done-s">'+esc(T("focusDoneS"))+'</div>'+
         (day.length?'<button class="btn btn-ghost btn-sm" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+
       '</div></div>';
-      c.innerHTML=html; return;
+      c.innerHTML='<div class="tgrid">'+html+'</div>'; return;
     }
 
     const a=day[todayIdx];
@@ -1507,37 +1521,26 @@ button{font-family:inherit;cursor:pointer;}
     html+='</div>';
 
     // ---- Lo demas de la cola: visible y accionable sin hacer skip ----
-    const rest=day.map((it,i)=>({it:it,i:i})).filter(x=>x.i!==todayIdx);
-    if(rest.length){
-      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("upNext"))+'</h2><span class="sec-c">'+rest.length+'</span></div><div class="inq-list">';
-      html+=rest.map(function(x){
-        const it=x.it;
-        if(it.kind==="stale"||it.kind==="nostep"){
-          const r=inquiries.find(z=>String(z.id)===String(it.r.id))||it.r;
-          const u=urgency(r.created_at);
-          return '<div class="inq-card" data-tgo="'+x.i+'">'+
-            '<div class="inq-av tick-'+stOf(r)+'"></div>'+
-            '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+'</div>'+
-            '<div class="inq-svc">'+esc((r.service||r.message||"").slice(0,52)||stLbl(stOf(r)))+'</div></div>'+
-            '<div class="inq-right"><span class="pill '+stOf(r)+'">'+esc(stLbl(stOf(r)))+'</span>'+
-            '<span class="'+(u>=2?"tw-hot":(u===1?"tw-warm":""))+'">'+esc(agoShort(r.created_at))+'</span></div></div>';
-        }
-        const o=it.o, late=it.kind==="od";
-        const linked=o.inquiry_id?inquiries.find(z=>String(z.id)===String(o.inquiry_id)):null;
-        return '<div class="inq-card" data-tgo="'+x.i+'">'+
-          '<div class="inq-av '+(late?"tick-new":"tick-follow_up")+'"></div>'+
-          '<div class="inq-main"><div class="inq-name">'+esc(o.title||"\u2014")+'</div>'+
-          '<div class="inq-svc">'+esc(fmtWhen(o.due_at))+(linked?" \u00b7 "+esc(linked.customer_name||""):"")+'</div></div>'+
-          '<div class="inq-right"><span class="'+(late?"tw-hot":"")+'">'+esc(late?T("overdueLbl"):T("dueTodayLbl"))+'</span></div></div>';
+    const TFL={new:"live_new",pending:"live_pending",awaiting:"live_awaiting",follow_up:"live_follow_up"};
+    if(todayFilt&&TF[todayFilt]&&TF[todayFilt].length){
+      const grp=TF[todayFilt];
+      html+='<div class="sec sec-leads"><div class="sec-head"><h2>'+esc(T(TFL[todayFilt]))+'</h2><span class="sec-c">'+grp.length+'</span>'+
+        '<button class="sec-all" data-go="inquiries" data-filt="'+todayFilt+'">'+esc(T("seeAll"))+'</button></div><div class="inq-list">';
+      html+=grp.map(function(r){
+        const u=urgency(r.created_at);
+        return '<div class="inq-card" data-open="'+r.id+'">'+
+          '<div class="inq-av tick-'+stOf(r)+'"></div>'+
+          '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+'</div>'+
+          '<div class="inq-svc">'+esc((r.service||r.message||"").slice(0,52)||stLbl(stOf(r)))+'</div></div>'+
+          '<div class="inq-right"><span class="'+(u>=2?"tw-hot":(u===1?"tw-warm":""))+'">'+esc(agoShort(r.created_at))+'</span></div></div>';
       }).join("");
       html+='</div></div>';
     }
-
     // ---- Lo que hay hoy en la agenda ----
     const evsMap=wsEvsMap; const tkey=wsKey;
     const tEvs=(evsMap[tkey]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
     if(tEvs.length){
-      html+='<div class="sec"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
+      html+='<div class="sec sec-agenda"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
       html+=tEvs.map(function(x){
         const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
         const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
@@ -1548,7 +1551,7 @@ button{font-family:inherit;cursor:pointer;}
       html+='</div></div>';
     }
 
-    c.innerHTML=html;
+    c.innerHTML='<div class="tgrid">'+html+'</div>';
   }
   let toastTimer=null;
   function toast(msg,undoFn,commitFn,ms){
@@ -2066,6 +2069,7 @@ button{font-family:inherit;cursor:pointer;}
     // nav
     const nav=e.target.closest(".nav-item"); if(nav){ setView(nav.getAttribute("data-view")); return; }
     // go links / tiles
+    const tfb=e.target.closest("[data-tfilt]"); if(tfb){ todayFilt=tfb.getAttribute("data-tfilt"); renderToday(); return; }
     if(e.target.closest("[data-tskip]")){ todayIdx++; render(); return; }
     if(e.target.closest("[data-treset]")){ todayIdx=0; render(); return; }
     const go=e.target.closest("[data-go]"); if(go){ const f=go.getAttribute("data-filt"); if(f)inqFilter=f; setView(go.getAttribute("data-go")); return; }
