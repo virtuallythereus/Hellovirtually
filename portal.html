@@ -42,6 +42,15 @@ a{color:var(--coral);text-decoration:none;}
 button{font-family:inherit;cursor:pointer;}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:500;font-size:var(--t-04);letter-spacing:-.005em;min-height:48px;padding:0 22px;border-radius:var(--radius-pill);border:none;transition:background var(--anim),border-color var(--anim),color var(--anim);}
 .btn-primary{background:var(--coral);color:var(--white);}
+.hv-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:16px;box-shadow:0 2px 8px rgba(23,61,53,.15);padding:14px 18px;display:flex;align-items:center;gap:16px;font-size:.9rem;z-index:9000;max-width:calc(100vw - 32px);}
+.hv-toast button{background:none;border:0;color:var(--coral);font:inherit;font-weight:500;cursor:pointer;padding:0;}
+.snz-menu{position:fixed;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(23,61,53,.08);padding:6px;min-width:200px;z-index:9100;}
+.snz-menu button{display:block;width:100%;text-align:left;background:none;border:0;font:inherit;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;}
+.snz-menu button:hover{background:var(--mint);}
+.snz-menu button.pick{border-top:1px solid var(--line);border-radius:0;color:var(--ink-3);margin-top:4px;padding-top:12px;}
+.lr-sub.snz{cursor:pointer;display:inline-block;background:var(--mint);color:var(--ink);padding:4px 12px;border-radius:50px;font-size:.78rem;margin-top:4px;}
+.lr-edit{font-size:.95rem;opacity:.5;}
+.lr-edit:hover{opacity:1;}
 .btn-primary:hover{background:var(--coral-soft);}
 .btn-ghost{background:var(--white);border:1px solid var(--line);color:var(--ink);}
 .btn-ghost:hover{border-color:var(--ink);background:var(--paper-2);}
@@ -1008,6 +1017,8 @@ button{font-family:inherit;cursor:pointer;}
     notifOver:"Overdue",noName:"No name",yesterday:"Yesterday",
     notifNew:"New inquiry",notifAppt:"Upcoming appointment",notifRem:"Task due",notifNote:"New note",
     noTasks:"No tasks yet",noTasksSub:"Add a task or schedule an action from an inquiry.",
+    undo:"Undo",taskDeleted:"Task deleted",snzMoved:"Moved to",editTask:"Edit task",
+    snzTomorrow:"Tomorrow",snz3days:"In 3 days",snzNextWeek:"Next week",snzPick:"Pick a date",
     addTask:"+ Add task",linked:"Linked",standalone:"Task",needFields:"Please fill in the required fields.",added:"Added",
     admin:"Hello, virtually!",client:"You",today:"Today",tomorrow:"Tomorrow",overdue:"Overdue",
     roleAdmin:"OPERATOR",roleClient:"CLIENT",greetClient:"everything we've handled for you",
@@ -1084,6 +1095,8 @@ button{font-family:inherit;cursor:pointer;}
     notifOver:"Vencido",noName:"Sin nombre",yesterday:"Ayer",
     notifNew:"Consulta nueva",notifAppt:"Cita pr\u00f3xima",notifRem:"Tarea pendiente",notifNote:"Nota nueva",
     noTasks:"A\u00fan no hay tareas",noTasksSub:"Agrega una tarea o agenda una acci\u00f3n desde una consulta.",
+    undo:"Deshacer",taskDeleted:"Tarea borrada",snzMoved:"Movida a",editTask:"Editar tarea",
+    snzTomorrow:"Ma\u00f1ana",snz3days:"En 3 d\u00edas",snzNextWeek:"Pr\u00f3xima semana",snzPick:"Elegir fecha",
     addTask:"+ Agregar tarea",linked:"Ligada",standalone:"Tarea",needFields:"Completa los campos requeridos.",added:"Agregado",
     admin:"Hello, virtually!",client:"T\u00fa",today:"Hoy",tomorrow:"Ma\u00f1ana",overdue:"Vencido",
     roleAdmin:"OPERADORA",roleClient:"CLIENTE",greetClient:"todo lo que cuidamos por ti",
@@ -1537,6 +1550,50 @@ button{font-family:inherit;cursor:pointer;}
 
     c.innerHTML=html;
   }
+  let toastTimer=null;
+  function toast(msg,undoFn,commitFn,ms){
+    if(toastTimer){ clearTimeout(toastTimer.t); if(toastTimer.commit)toastTimer.commit(); }
+    const old=document.querySelector(".hv-toast"); if(old)old.remove();
+    const el=document.createElement("div"); el.className="hv-toast";
+    el.innerHTML='<span></span><button type="button">'+esc(T("undo"))+'</button>';
+    el.querySelector("span").textContent=msg;
+    document.body.appendChild(el);
+    const close=()=>{ el.remove(); toastTimer=null; };
+    const t=setTimeout(()=>{ if(commitFn)commitFn(); close(); }, ms||5000);
+    toastTimer={t:t,commit:commitFn};
+    el.querySelector("button").onclick=()=>{ clearTimeout(t); if(undoFn)undoFn(); close(); };
+  }
+  function closeSnooze(){ const m=document.querySelector(".snz-menu"); if(m)m.remove(); }
+  function openSnooze(anchor,id,kind){
+    closeSnooze();
+    const opts=[[T("snzTomorrow"),1],[T("snz3days"),3],[T("snzNextWeek"),7]];
+    const m=document.createElement("div"); m.className="snz-menu";
+    m.innerHTML=opts.map(o=>'<button type="button" data-days="'+o[1]+'">'+esc(o[0])+'</button>').join("")+
+      '<button type="button" class="pick" data-days="pick">'+esc(T("snzPick"))+'</button>';
+    document.body.appendChild(m);
+    const r=anchor.getBoundingClientRect();
+    m.style.left=Math.max(8,Math.min(r.left,window.innerWidth-m.offsetWidth-16))+"px";
+    m.style.top=(r.bottom+6+m.offsetHeight>window.innerHeight?Math.max(8,r.top-m.offsetHeight-6):r.bottom+6)+"px";
+    m.onclick=async(ev)=>{
+      const b=ev.target.closest("button[data-days]"); if(!b)return;
+      const v=b.getAttribute("data-days"); closeSnooze();
+      const arr=kind==="task"?tasks:reminders; const item=arr.find(x=>String(x.id)===String(id)); if(!item)return;
+      let d;
+      if(v==="pick"){ const cur=item.due_at?new Date(item.due_at):new Date();
+        const inp=prompt(T("snzPick"),cur.toISOString().slice(0,10)); if(!inp)return;
+        d=new Date(inp+"T09:00:00"); if(isNaN(d))return; }
+      else { d=new Date(); d.setDate(d.getDate()+parseInt(v,10)); d.setHours(9,0,0,0); }
+      const prev=item.due_at; const iso=d.toISOString();
+      item.due_at=iso; render();
+      const {error}=await sb.from(kind==="task"?"tasks":"reminders").update({due_at:iso}).eq("id",id);
+      if(error){ item.due_at=prev; render(); return; }
+      toast(T("snzMoved")+" "+fmtWhen(iso), async()=>{
+        item.due_at=prev; render();
+        await sb.from(kind==="task"?"tasks":"reminders").update({due_at:prev}).eq("id",id);
+      }, null);
+    };
+    setTimeout(()=>{ document.addEventListener("click",function h(e){ if(!e.target.closest(".snz-menu")){ closeSnooze(); document.removeEventListener("click",h); } }); },0);
+  }
   function taskRow(item,kind){
     const id=item.id; const done=item.done;
     const title=item.title;
@@ -1547,8 +1604,8 @@ button{font-family:inherit;cursor:pointer;}
     return '<div class="lrow" data-task="'+id+'" data-tkind="'+kind+'">'+
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
-      '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub">'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
-      '<div class="lr-right">'+linkTag+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'<button class="del-link lr-del" data-act="delTask">\u00d7</button></div>'+
+      '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub'+(done?'':' snz')+'"'+(done?'':' data-act="snooze"')+'>'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
+      '<div class="lr-right">'+linkTag+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'<button class="del-link lr-edit" data-act="editTask" title="'+esc(T("editTask"))+'">\u270e</button><button class="del-link lr-del" data-act="delTask">\u00d7</button></div>'+
     '</div>';
   }
 
@@ -2030,7 +2087,11 @@ button{font-family:inherit;cursor:pointer;}
     const stb=e.target.closest("[data-schedtab]"); if(stb){ schedTab=stb.getAttribute("data-schedtab"); renderSchedule(); return; }
     const at=e.target.closest('[data-act="addtask"]'); if(at){ schedTab="tasks"; setView("schedule"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
     // needs-attention: mark reminder/task done
-    const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){ openEdit(edRow.getAttribute("data-tkind"),edRow.getAttribute("data-task")); return; }
+    const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){
+      const rk=edRow.getAttribute("data-tkind"), rid=edRow.getAttribute("data-task");
+      const src=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid));
+      if(src&&src.inquiry_id) openDetail(src.inquiry_id); else openEdit(rk,rid);
+      return; }
     const ed=e.target.closest("[data-edit]"); if(ed){ openEdit(ed.getAttribute("data-ekind"),ed.getAttribute("data-edit")); return; }
     const dr=e.target.closest('[data-donerem]'); if(dr){ const rid=dr.getAttribute("data-donerem"); const rk=dr.getAttribute("data-kind"); if(rk==="task"){ const t=tasks.find(x=>x.id===rid); if(t){ const {error}=await sb.from("tasks").update({done:true}).eq("id",rid); if(!error){t.done=true;render(); if(t.inquiry_id)autoNote(t.inquiry_id,"\u2713 "+T("noteDone")+": "+t.title);} } } else { const r=reminders.find(x=>x.id===rid); if(r){ const {error}=await sb.from("reminders").update({done:true}).eq("id",rid); if(!error){r.done=true;render(); if(r.inquiry_id)autoNote(r.inquiry_id,"\u2713 "+T("noteDone")+": "+r.title);} } } return; }
     // open inquiry detail
@@ -2043,12 +2104,24 @@ button{font-family:inherit;cursor:pointer;}
     const trow=e.target.closest("[data-task]");
     if(trow){
       const id=trow.getAttribute("data-task"), tk=trow.getAttribute("data-tkind");
+      const snz=e.target.closest('[data-act="snooze"]');
+      if(snz){ openSnooze(snz,id,tk); return; }
+      if(e.target.closest('[data-act="editTask"]')){ openEdit(tk,id); return; }
       if(e.target.closest('[data-act="toggleTask"]')){
         if(tk==="task"){ const t=tasks.find(x=>x.id===id); const nd=!t.done; const {error}=await sb.from("tasks").update({done:nd}).eq("id",id); if(!error){t.done=nd;render(); if(nd&&t.inquiry_id)autoNote(t.inquiry_id,"\u2713 "+T("noteDone")+": "+t.title);} }
         else { const r=reminders.find(x=>x.id===id); const nd=!r.done; const {error}=await sb.from("reminders").update({done:nd}).eq("id",id); if(!error){r.done=nd;render(); if(nd&&r.inquiry_id)autoNote(r.inquiry_id,"\u2713 "+T("noteDone")+": "+r.title);} }
         return;
       }
-      if(e.target.closest('[data-act="delTask"]')){ if(confirm(lang==="es"?"\u00bfBorrar?":"Delete?")){ if(tk==="task"){ await sb.from("tasks").delete().eq("id",id); tasks=tasks.filter(x=>x.id!==id); } else { await sb.from("reminders").delete().eq("id",id); reminders=reminders.filter(x=>x.id!==id); } render(); } return; }
+      if(e.target.closest('[data-act="delTask"]')){
+        const tbl=tk==="task"?"tasks":"reminders";
+        const arr=tk==="task"?tasks:reminders;
+        const idx=arr.findIndex(x=>String(x.id)===String(id)); if(idx<0) return;
+        const snap=arr[idx];
+        arr.splice(idx,1); render();
+        toast(T("taskDeleted"),
+          ()=>{ arr.splice(idx,0,snap); render(); },
+          async()=>{ await sb.from(tbl).delete().eq("id",id); });
+        return; }
     }
     // drawer actions
     if(detailId && e.target.closest("#drawerBody")){
