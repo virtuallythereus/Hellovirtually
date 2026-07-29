@@ -321,9 +321,6 @@ button{font-family:inherit;cursor:pointer;}
 .est-row .est-cur{font-weight:600;color:var(--ink-3);font-size:var(--t-04);}
 .est-row input{flex:1;min-width:0;max-width:180px;border:1px solid var(--line);border-radius:var(--radius-xs);padding:9px 12px;font-family:inherit;font-size:var(--t-04);font-weight:700;color:var(--ink);background:var(--white);}
 .est-row input:focus{outline:none;border-color:var(--ink);}
-.pipe-val{display:flex;align-items:baseline;justify-content:space-between;gap:8px;background:var(--mint);border:1px solid var(--mint-2);border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:12px;}
-.pipe-val span{font-size:var(--t-02);font-weight:700;letter-spacing:.03em;color:var(--ink);}
-.pipe-val b{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;color:var(--ink);}
 /* Next-step chips */
 .step-chips{display:flex;flex-wrap:wrap;gap:7px;}
 .step-chip{display:inline-flex;align-items:center;font-family:inherit;font-size:var(--t-03);font-weight:600;min-height:48px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:all var(--anim);}
@@ -337,7 +334,6 @@ button{font-family:inherit;cursor:pointer;}
 
 
 
-.fa-row:last-child{border-bottom:none;}
 
 
 /* Tarjeta de Today */
@@ -390,9 +386,6 @@ button{font-family:inherit;cursor:pointer;}
 /* Confetti */
 .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:400;pointer-events:none;border-radius:var(--radius-xxs);animation:confettiFall 1.6s ease-in forwards;}
 @keyframes confettiFall{to{transform:translate(var(--dx,0),105vh) rotate(560deg);opacity:.85;}}
-.attn-btn.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
-.day-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0;cursor:pointer;}
-.day-reason.lav{color:var(--ink-3);}
 /* Message composer */
 .tpl-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
 .tpl{font-family:inherit;font-size:var(--t-02);font-weight:600;padding:7px 13px;border-radius:var(--radius-pill);
@@ -507,11 +500,6 @@ button{font-family:inherit;cursor:pointer;}
 
 .dsec-l{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;text-transform:none;color:var(--ink);margin-bottom:6px;}
 .dcard{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
-.d-ctx{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
-.d-ctx-c{background:var(--white);padding:12px 13px;}
-.d-ctx-l{font-size:var(--t-01);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);margin-bottom:4px;}
-.d-ctx-v{font-size:var(--t-04);font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
-.d-ctx-v.hot{color:var(--coral);}
 .d-hint{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;background:var(--blue-pale);border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:12px;font-size:var(--t-03);line-height:1.4;}
 .d-hint.hot{background:var(--coral-pale);}
 .d-hint-l{font-weight:600;color:var(--ink);}
@@ -519,7 +507,11 @@ button{font-family:inherit;cursor:pointer;}
 .d-hint.hot .d-hint-l{color:var(--coral-soft);}
 .d-hint.hot .d-hint-d{color:var(--coral-soft);opacity:.85;}
 .d-hint-u{font-size:var(--t-01);font-weight:600;letter-spacing:.05em;background:var(--coral);color:var(--white);border-radius:var(--radius-pill);padding:2px 7px;}
-.d-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.d-acts{position:sticky;bottom:0;z-index:4;display:flex;flex-wrap:wrap;gap:8px;background:var(--paper);border-top:1px solid var(--line);margin:0 -22px -20px;padding:14px 22px 20px;}
+.d-acts .dact.primary{flex:1;min-width:170px;}
+.cmp-open .d-acts{display:none;}
+.dsec-cmp{display:none;}
+.cmp-open .dsec-cmp{display:block;}
 .dact{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-size:var(--t-03);font-weight:600;min-height:46px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;text-decoration:none;transition:background var(--anim),border-color var(--anim),color var(--anim);}
 .dact:hover{border-color:var(--ink);}
 .dact.primary{background:var(--ink);border-color:var(--ink);color:var(--paper);}
@@ -530,7 +522,6 @@ button{font-family:inherit;cursor:pointer;}
 .asap-tag{display:inline-flex;align-items:center;margin-left:7px;padding:2px 7px;border-radius:var(--radius-pill);background:var(--coral);color:var(--white);font-size:var(--t-01);font-weight:600;letter-spacing:.05em;vertical-align:middle;}
 .asap-tag.sm{font-size:var(--t-01);padding:1px 6px;}
 @media(max-width:760px){
-  .d-ctx{grid-template-columns:repeat(2,1fr);}
   .dact{min-height:44px;padding:0 15px;font-size:var(--t-02);flex:1 1 auto;}
 }
 .dfield{padding:13px 0;border-bottom:1px solid var(--line-2);}
@@ -540,7 +531,6 @@ button{font-family:inherit;cursor:pointer;}
 .dlink{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;}
 .drive-chip{display:flex;align-items:center;gap:10px;background:var(--mint);border-radius:var(--radius-sm);padding:13px 15px;margin-top:14px;font-size:var(--t-04);font-weight:500;color:var(--ink);min-height:48px;}
 .drive-chip svg{width:18px;height:18px;flex-shrink:0;}
-.d-addr{display:flex;align-items:center;gap:9px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;font-size:var(--t-04);font-weight:600;color:var(--ink);text-decoration:none;transition:border-color var(--anim);}
 
 
 .ph-strip{display:flex;flex-wrap:wrap;gap:8px;}
@@ -553,11 +543,12 @@ button{font-family:inherit;cursor:pointer;}
 .dsec-cmp .dsec-l{margin-bottom:10px;}
 /* Pipeline steps */
 
+.d-pipe{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 10px;margin-bottom:12px;box-shadow:var(--shadow);}
 .pipe{display:flex;gap:4px;}
 .pstep{
   flex:1;position:relative;font-size:var(--t-02);font-weight:500;letter-spacing:-.005em;
   min-height:48px;padding:26px 2px 0;border:none;background:none;color:var(--ink-3);
-  cursor:pointer;transition:color var(--anim);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  cursor:pointer;transition:color var(--anim);text-align:center;white-space:normal;line-height:1.25;hyphens:auto;
 }
 .pstep::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:50px;background:var(--line);transition:background var(--anim);}
 .pstep.past::before{background:var(--ink);}
@@ -575,8 +566,8 @@ button{font-family:inherit;cursor:pointer;}
 }
 .mini-btn:hover{border-color:var(--ink);color:var(--ink);}
 .mini-btn.done{background:var(--ink);border-color:var(--ink);color:var(--white);}
-.mini-btn.alt{border-color:var(--lav);color:var(--ink);}
-.mini-btn.alt:hover{background:var(--lav-pale);}
+.mini-btn.alt{border-color:var(--line);color:var(--ink-2);}
+.mini-btn.alt:hover{border-color:var(--ink);color:var(--ink);}
 .del-link{background:none;border:none;color:var(--coral);font-weight:700;font-size:var(--t-02);cursor:pointer;transition:opacity var(--anim);}
 .del-link:hover{opacity:.7;}
 
@@ -699,15 +690,11 @@ button{font-family:inherit;cursor:pointer;}
 
 
 
-.cal-date{font-variant-numeric:tabular-nums;font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.02em;}
 
-.cal-ev{background:var(--paper);border:1px solid var(--line-2);border-radius:10px;padding:7px 9px;margin-bottom:4px;font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .cal-ev.rem{background:var(--mint);color:var(--ink-2);}
 
 
 
-.cal-di .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);flex-shrink:0;}
-.cal-di .dot.rem{background:var(--ink-2);}
 .cal-di.clickable{cursor:pointer;border-radius:var(--radius-xs);margin:0 -8px;padding-left:8px;padding-right:8px;transition:background var(--anim);}
 .cal-di.clickable:hover{background:var(--paper-2);}
 
@@ -991,16 +978,16 @@ button{font-family:inherit;cursor:pointer;}
     schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
     chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",stepSecond:"Second follow-up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_follow_up:"Follow-up",st_hired:"Hired",st_not_hired:"Not hired",
-    estimateLbl:"Estimate",estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
+    estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
     wsVisits:"Visits today",
-    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detStatus:"Status",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",upNext:"Up next",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     called:"Called",schedule:"Schedule action",del:"Delete",
     markSent:"Mark estimate sent",hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
     live_new:"New",live_pending:"Pending estimate",live_ready:"Ready to send",live_awaiting:"Awaiting reply",live_follow_up:"Follow-up",live_hired:"Hired",live_not_hired:"Not hired",live_all:"All",live_closed:"Closed",
     actWrite:"Write message",
-    ctxWaiting:"Waiting",ctxNext:"Next step",ctxLast:"Last contact",ctxNothing:"Nothing set",ctxNever:"No contact yet",workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Wants it as soon as possible.",
+    workLbl:"Estimate & next step",markHired:"Mark hired",asapNote:"Wants it as soon as possible.",
     notePlace:"Add a note...",send:"Send",none:"None scheduled.",
     addTitle:"Add new",addSub:"Log an inquiry, booking, or task.",
     inquiryT:"Inquiry",bookingT:"Booking",taskT:"Task",
@@ -1066,16 +1053,16 @@ button{font-family:inherit;cursor:pointer;}
     schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
     chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",stepSecond:"Segundo seguimiento",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_follow_up:"Seguimiento",st_hired:"Contratado",st_not_hired:"No contratado",
-    estimateLbl:"Estimado",estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
+    estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
     wsVisits:"Visitas hoy",
-    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detStatus:"Estado",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",upNext:"Sigue",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     markSent:"Marcar estimado enviado",hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
     live_new:"Nueva",live_pending:"Estimado pendiente",live_ready:"Listo para enviar",live_awaiting:"Esperando respuesta",live_follow_up:"Seguimiento",live_hired:"Contratado",live_not_hired:"No contratado",live_all:"Todas",live_closed:"Cerradas",
     actWrite:"Escribir mensaje",
-    ctxWaiting:"Esperando",ctxNext:"Pr\u00f3ximo paso",ctxLast:"\u00daltimo contacto",ctxNothing:"Sin definir",ctxNever:"Sin contacto a\u00fan",workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"Lo quiere lo antes posible.",
+    workLbl:"Estimado y pr\u00f3ximo paso",markHired:"Marcar contratado",asapNote:"Lo quiere lo antes posible.",
     notePlace:"Agrega una nota...",send:"Enviar",none:"Nada agendado.",
     addTitle:"Agregar",addSub:"Registra una consulta, reserva o tarea.",
     inquiryT:"Consulta",bookingT:"Reserva",taskT:"Tarea",
@@ -1677,21 +1664,7 @@ button{font-family:inherit;cursor:pointer;}
     }
     // ===== contexto, acciones por etapa y trabajo =====
     const ct=contactOf(r);
-    const nextAct=acts.length?acts[0].o:null;
-    const lastTouch=(function(){
-      let t=r.first_response_at?new Date(r.first_response_at):null;
-      const ns=(notesByInq[id]||[]);
-      ns.forEach(n=>{ const d=new Date(n.created_at); if(!t||d>t) t=d; });
-      if(r.called_at){ const d=new Date(r.called_at); if(!t||d>t) t=d; }
-      return t;
-    })();
-    const ctxCells=[
-      {l:T("ctxWaiting"),v:agoShort(r.created_at)||"\u2014",hot:urgency(r.created_at)>=2&&stOf(r)==="new"},
-      {l:T("estimateLbl"),v:parseFloat(r.estimate_amount)>0?fmtMoney(r.estimate_amount):"\u2014"},
-      {l:T("ctxNext"),v:nextAct?fmtWhen(nextAct.due_at):T("ctxNothing"),hot:!nextAct},
-      {l:T("ctxLast"),v:lastTouch?agoShort(lastTouch):T("ctxNever"),hot:!lastTouch}
-    ];
-    let head='<div class="d-ctx">'+ctxCells.map(x=>'<div class="d-ctx-c"><div class="d-ctx-l">'+esc(x.l)+'</div><div class="d-ctx-v'+(x.hot?' hot':'')+'">'+esc(x.v)+'</div></div>').join("")+'</div>';
+    let head='<div class="d-pipe">'+pipe+'</div>';
     const lv=liveState(r);
     const urg=isAsap(r)&&lv!=="hired"&&lv!=="not_hired";
     const DET={new:"hintNeedsReply",pending:"hintPendEst",awaiting:"hintAwait"};
@@ -1704,20 +1677,21 @@ button{font-family:inherit;cursor:pointer;}
     }
 
     const st=stOf(r);
+    const WRITE='<button class="dact" data-act="focusCmp">'+esc(T("actWrite"))+'</button>';
     const A=[];
-    if(ct.ph) A.push('<a class="dact" href="tel:'+esc(ct.ph)+'" data-act="markCall">'+esc(T("actCall"))+'</a>');
-    A.push('<button class="dact primary" data-act="focusCmp">'+esc(T("actWrite"))+'</button>');
-    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="visit">'+esc(T("actAppt"))+'</button>');
-    if(st==="contacting") A.push(readyToSend(r)
-      ? '<button class="dact win" data-act="pstep" data-st="estimate_sent">'+esc(T("markSent"))+'</button>'
-      : '<button class="dact" data-act="stepPreset" data-preset="estimate">'+esc(T("actEstimate"))+'</button>');
     if(st==="estimate_sent"||st==="follow_up"){
-      A.push('<button class="dact" data-act="stepPreset" data-preset="'+(st==="follow_up"?"followup2":"followup")+'">'+esc(T("actFollow"))+'</button>');
+      A.push('<button class="dact primary" data-act="stepPreset" data-preset="'+(st==="follow_up"?"followup2":"followup")+'">'+esc(T("actFollow"))+'</button>');
       A.push('<button class="dact win" data-act="pstep" data-st="hired">'+esc(T("markHired"))+'</button>');
+      A.push(WRITE);
+    }else if(st==="contacting"&&readyToSend(r)){
+      A.push('<button class="dact primary" data-act="pstep" data-st="estimate_sent">'+esc(T("markSent"))+'</button>');
+      A.push(WRITE);
+    }else{
+      A.push('<button class="dact primary" data-act="focusCmp">'+esc(T("actWrite"))+'</button>');
+      if(st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="estimate">'+esc(T("actEstimate"))+'</button>');
     }
-    head+='<div class="d-acts">'+A.join("")+'</div>';
-    head+='<div class="dsec dsec-cmp">'+composerHTML(r,"panel")+'</div>';
-    head+='<div class="dsec"><div class="dsec-l">'+esc(T("detStatus"))+'</div>'+pipe+'</div>';
+    if(st==="new"||st==="contacting") A.push('<button class="dact" data-act="stepPreset" data-preset="visit">'+esc(T("actAppt"))+'</button>');
+    if(ct.ph) A.push('<a class="dact" href="tel:'+esc(ct.ph)+'" data-act="markCall">'+esc(T("actCall"))+'</a>');
     body=head+body;
 
     body+='<div class="dcard"><div class="dsec-l">'+esc(T("workLbl"))+'</div>'+
@@ -1732,7 +1706,11 @@ button{font-family:inherit;cursor:pointer;}
     '</div>';
     body+='<div class="dcard"><div class="dsec-l">'+esc(T("detNotes"))+'</div>'+notesHTML+'<div class="note-add"><input type="text" id="dNoteInput" placeholder="'+esc(T("notePlace"))+'"><button class="btn btn-ghost btn-sm" data-act="noteSend">'+esc(T("send"))+'</button></div></div>';
     body+='<div class="d-foot"><button class="del-link" data-act="archToggle">'+esc(r.archived?T("unarchive"):T("archive"))+'</button><button class="del-link" data-act="delInq">'+esc(T("del"))+'</button></div>';
+    body+='<div class="dsec dsec-cmp">'+composerHTML(r,"panel")+'</div>';
+    body+='<div class="d-acts">'+A.join("")+'</div>';
+    const wasCmp=keep&&$("drawerBody").classList.contains("cmp-open");
     $("drawerBody").innerHTML=body;
+    $("drawerBody").classList.toggle("cmp-open",!!wasCmp);
     // mark notes read
     notes.forEach(n=>{ notifRead["note-"+n.id]=1; }); saveNotifState(); updateBadge();
     if(!keep){ $("drawer").classList.add("open"); $("drawerBg").classList.add("open"); }
@@ -2065,7 +2043,7 @@ button{font-family:inherit;cursor:pointer;}
       if(e.target.closest('[data-act="docRemove"]')){ await patchInq(id,{estimate_url:null}); openDetail(id,true); return; }
       if(e.target.closest('[data-act="stepPreset"]')){ const pid=e.target.closest('[data-act="stepPreset"]').getAttribute("data-preset"); openSchedule(id); applyPreset(pid); return; }
       if(e.target.closest('[data-act="schedule"]')){ openSchedule(id); return; }
-      if(e.target.closest('[data-act="focusCmp"]')){ const c=$("drawerBody").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
+      if(e.target.closest('[data-act="focusCmp"]')){ $("drawerBody").classList.add("cmp-open"); const c=$("drawerBody").querySelector(".composer .msg-body"); if(c){ c.scrollIntoView({block:"center",behavior:"smooth"}); setTimeout(()=>c.focus(),300); } return; }
       if(e.target.closest('[data-act="markCall"]')){ const rr=inquiries.find(x=>String(x.id)===String(id)); if(rr&&!rr.first_response_at) patchInq(id,{first_response_at:new Date().toISOString(),called:true,called_at:new Date().toISOString()}); autoNote(id,"Call \u00b7 "+T("noteCall")); return; }
       if(e.target.closest('[data-act="delInq"]')){ if(confirm(lang==="es"?"\u00bfEliminar esta consulta?":"Delete this inquiry?")){ await sb.from("inquiries").delete().eq("id",id); inquiries=inquiries.filter(x=>x.id!==id); closeDetail(); render(); } return; }
       if(e.target.closest('[data-act="doneAct"]')){ const bb=e.target.closest('[data-act="doneAct"]'); const rid=bb.getAttribute("data-rid"); const rk=bb.getAttribute("data-rk")||"rem"; const tbl=rk==="task"?"tasks":"reminders"; await sb.from(tbl).update({done:true}).eq("id",rid); const rr=(rk==="task"?tasks:reminders).find(x=>String(x.id)===String(rid)); if(rr){rr.done=true; autoNote(id,"\u2713 "+T("noteDone")+": "+rr.title);} openDetail(id,true); render(); return; }
