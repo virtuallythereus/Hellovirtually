@@ -1471,7 +1471,7 @@ button{font-family:inherit;cursor:pointer;}
         '<div class="focus-done-s">'+esc(T("focusDoneS"))+'</div>'+
         (day.length?'<button class="btn btn-ghost btn-sm" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+
       '</div></div>';
-      c.innerHTML='<div class="tgrid">'+html+'</div>'; return;
+      c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>'; return;
     }
 
     const a=day[todayIdx];
@@ -1514,6 +1514,10 @@ button{font-family:inherit;cursor:pointer;}
     html+='</div>';
 
     // ---- Lo demas de la cola: visible y accionable sin hacer skip ----
+    c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>';
+  }
+  function todayLists(TF,evsMap,tkey){
+    let html="";
     const TFL={new:"live_new",pending:"live_pending",awaiting:"live_awaiting"};
     if(todayFilt&&TF[todayFilt]&&TF[todayFilt].length){
       const grp=TF[todayFilt];
@@ -1530,7 +1534,6 @@ button{font-family:inherit;cursor:pointer;}
       html+='</div></div>';
     }
     // ---- Lo que hay hoy en la agenda ----
-    const evsMap=wsEvsMap; const tkey=wsKey;
     const tEvs=(evsMap[tkey]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
     if(tEvs.length){
       html+='<div class="sec sec-agenda"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
@@ -1544,8 +1547,9 @@ button{font-family:inherit;cursor:pointer;}
       html+='</div></div>';
     }
 
-    c.innerHTML='<div class="tgrid">'+html+'</div>';
+    return html;
   }
+
   let toastTimer=null;
   function toast(msg,undoFn,commitFn,ms){
     if(toastTimer){ clearTimeout(toastTimer.t); if(toastTimer.commit)toastTimer.commit(); }
