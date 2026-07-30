@@ -20,6 +20,7 @@
   --lav:#B9A7FF; --lav-pale:#EEE9FF;
   --blue:#C9E7F5; --blue-pale:#E8F5FC;
   --mint:#DCEBE8; --mint-2:#c8dbd7;
+  --green-mid:#5F9385;
   --line:rgba(23,61,53,.12); --line-2:rgba(23,61,53,.06);
   --shadow:0 1px 2px rgba(23,61,53,.04),0 4px 16px rgba(23,61,53,.05);
   --shadow-md:0 2px 4px rgba(23,61,53,.05),0 8px 26px rgba(23,61,53,.07);
@@ -222,8 +223,28 @@ button{font-family:inherit;cursor:pointer;}
 .lr-when.overdue{color:var(--coral);}
 .prio-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .prio-high{background:var(--coral);}
-.prio-normal{background:var(--lav);}
+.prio-normal{background:var(--mint-2);}
 .prio-low{background:var(--line);}
+.lr-bar{width:3px;align-self:stretch;min-height:32px;border-radius:2px;flex-shrink:0;}
+.lr-bar.tb-booking{background:var(--ink);}
+.lr-bar.tb-rem{background:var(--green-mid);}
+.lr-bar.tb-task{background:var(--mint-2);}
+.lr-mark{
+  width:20px;height:20px;border-radius:50%;background:var(--mint);color:var(--ink);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+}
+.lr-mark svg{width:12px;height:12px;}
+.lr-route{
+  display:inline-flex;align-items:center;gap:6px;flex-shrink:0;
+  background:var(--mint);color:var(--ink);text-decoration:none;
+  font-size:var(--t-03);font-weight:500;padding:7px 13px;border-radius:var(--radius-pill);
+  white-space:nowrap;transition:background var(--anim);
+}
+.lr-route:hover{background:var(--mint-2);}
+.lr-route svg{width:14px;height:14px;flex-shrink:0;}
+.sched-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:var(--t-02);color:var(--ink-3);}
+.sched-legend span{display:inline-flex;align-items:center;gap:6px;}
+.sched-legend i{width:3px;height:11px;border-radius:2px;display:inline-block;}
 .lr-right{display:flex;align-items:center;gap:9px;flex-shrink:0;}
 .type-chip{
   font-size:var(--t-03);font-weight:600;letter-spacing:-.005em;
@@ -304,21 +325,6 @@ button{font-family:inherit;cursor:pointer;}
 .tick-estimate_sent,.tick-estimate-sent{background:var(--mint-2);}
 .tick-hired,.tick-won{background:var(--ink);}
 .tick-not_hired,.tick-lost{background:var(--line);}
-.day{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line-2);}
-.day:last-child{border-bottom:none;}
-.day-d{flex:0 0 54px;text-align:center;}
-.day-d .n{font-variant-numeric:tabular-nums;font-family:'Helvena','Helvetica Neue',sans-serif;font-size:23px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--ink);}
-.day-d .m{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;font-weight:600;}
-.day.today .day-d .n{color:var(--coral);}
-.day-evs{flex:1;min-width:0;}
-.evt{background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:12px 15px;margin-bottom:8px;}
-.evt:last-child{margin-bottom:0;}
-.evt.clickable{cursor:pointer;transition:border-color var(--anim);}
-.evt.clickable:hover{border-color:var(--ink-3);}
-.evt.done{opacity:.6;}
-.evt-t{font-size:12px;color:var(--ink-4);font-weight:600;letter-spacing:.02em;}
-.evt-n{font-size:14.5px;font-weight:600;margin-top:3px;color:var(--ink);letter-spacing:-.005em;}
-.day-empty{font-size:13.5px;color:var(--ink-4);padding:10px 0;}
 .day-line{grid-column:1/-1;display:flex;align-items:center;gap:9px;font-size:var(--t-03);color:var(--ink-3);padding:2px 0 4px;}
 .sec{margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
 .sec-head{display:flex;align-items:center;gap:9px;padding:14px 20px 12px;border-bottom:1px solid var(--line-2);}
@@ -501,9 +507,6 @@ button{font-family:inherit;cursor:pointer;}
 .empty .big{font-family:'Helvena','Helvetica Neue',sans-serif;font-style:italic;font-size:var(--t-06);color:var(--ink-2);margin-bottom:8px;}
 .empty .hand{display:none;}
 
-.sched-tabs{display:flex;gap:4px;background:var(--paper-2);padding:4px;border-radius:var(--radius-pill);margin-bottom:18px;width:fit-content;}
-.sched-tab{border:none;background:none;font-family:inherit;font-size:var(--t-04);font-weight:500;color:var(--ink-3);padding:11px 22px;min-height:48px;border-radius:var(--radius-pill);cursor:pointer;transition:background var(--anim),color var(--anim);}
-.sched-tab.on{background:var(--white);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(23,61,53,.08);}
 /* ===== DETAIL DRAWER ===== */
 .drawer-bg{position:fixed;inset:0;background:rgba(23,61,53,.3);backdrop-filter:blur(4px);z-index:90;opacity:0;pointer-events:none;transition:opacity .25s;}
 .drawer-bg.open{opacity:1;pointer-events:auto;}
@@ -705,18 +708,6 @@ button{font-family:inherit;cursor:pointer;}
 @media(hover:none){ .nrow .nx{opacity:.5;} }
 .notif-empty{padding:28px 18px;text-align:center;color:var(--ink-3);font-size:var(--t-04);}
 
-/* ===== CALENDAR ===== */
-.calendar-wrap{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
-.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.cal-head h3{font-size:var(--t-05);font-weight:600;}
-.cal-nav{display:flex;gap:6px;}
-.cal-nav button{
-  width:32px;height:32px;border-radius:var(--radius-xs);
-  border:1px solid var(--line);background:var(--white);color:var(--ink);
-  font-size:var(--t-05);display:flex;align-items:center;justify-content:center;
-  transition:all var(--anim);
-}
-.cal-nav button:hover{border-color:var(--ink);background:var(--paper-2);}
 
 
 
@@ -978,11 +969,11 @@ button{font-family:inherit;cursor:pointer;}
   };
 
   const EN={
-    navToday:"Today",navInq:"Inquiries",navTasks:"Tasks",navSched:"Schedule",navCal:"Calendar",navClients:"Clients",
+    navToday:"Today",navInq:"Inquiries",navSched:"Schedule",navClients:"Clients",
     quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
     gateTitle:"Your <em>workspace</em>",gateSub:"Log in to see everything we've handled for you.",
     email:"Email",password:"Password",login:"Log in",noAccount:"No account yet?",goSite:"Create one on our site",
-    titleToday:"Today",titleInq:"Inquiries",titleTasks:"Tasks",titleCal:"Calendar",titleClients:"Clients",
+    titleToday:"Today",titleInq:"Inquiries",titleClients:"Clients",
     hi:"Hi", hiAdmin:"Here's your day", greetAM:"Good morning", greetPM:"Good afternoon", greetEve:"Good evening", 
     stNew:"New inquiries",stActions:"Follow-ups due",stTasks:"Open tasks",stAppts:"Upcoming",
     noAttn:"You're all caught up",pipeline:"Pipeline",recentActivity:"Recent activity",noActivity:"Nothing yet",waitingSince:"waiting",overdueLbl:"overdue",leftNote:"left a note",newInqMsg:"new inquiry",bookingMsg:"booking",agoNow:"now",agoWaiting:"waiting",stuckLbl:"no reply",
@@ -1027,7 +1018,7 @@ button{font-family:inherit;cursor:pointer;}
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
     inquiry:"Inquiry",booking:"Booking",
     wsVisits:"Visits today",
-    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",seeAll:"See all",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"ESTIMATE VISIT",evTask:"TASK",evReminder:"FOLLOW-UP",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
+    detMessage:"Notes",detPhone:"Phone",agoWaiting2:"Waiting",seeAll:"See all",todaySched:"On your schedule today",seeWeek:"This week",evVisit:"Estimate visit",route:"Directions",evTask:"Task",evReminder:"Follow-up",nothingBooked:"Nothing booked",calToday:"Today",askedFor:"What they asked for",contactProp:"Contact and property",openInMaps:"Open in Maps",detActions:"Actions",detNext:"Scheduled",detNotes:"Notes",
     called:"Called",schedule:"Schedule action",del:"Delete",
     markSent:"Mark estimate sent",hintPendEst:"No amount saved yet.",hintReadySend:"ready to send.",hintAwait:"Sent. Waiting on the customer.",hintNeedsReply:"No one has replied yet.",
     live_new:"New",live_pending:"Pending estimate",live_ready:"Ready to send",live_awaiting:"Awaiting reply",live_hired:"Hired",live_not_hired:"Not hired",live_all:"All",live_closed:"Closed",
@@ -1056,11 +1047,11 @@ button{font-family:inherit;cursor:pointer;}
     internalNotes:"Internal notes (only you)",addInternal:"Add a private note...",loading:"Loading..."
   };
   const ES={
-    navToday:"Hoy",navInq:"Consultas",navTasks:"Tareas",navSched:"Agenda",navCal:"Calendario",navClients:"Clientes",
+    navToday:"Hoy",navInq:"Consultas",navSched:"Agenda",navClients:"Clientes",
     quickAdd:"+ Nuevo",quickAddInq:"+ Nueva consulta",addTask:"A\u00f1adir tarea",copyLink:"Copiar enlace",greetSub:"Esto es lo que necesita tu atenci\u00f3n hoy.",advanceTo:"Marcar",addFollowup:"A\u00f1adir seguimiento",followShort:"Seguir",copyContact:"Copiar contacto",copyShort:"Copiar",contactCopied:"Copiado",addInquiry:"A\u00f1adir consulta",onbTitle:"\u00bfListo para recibir tu primera consulta?",onbText:"Comparte tu formulario o a\u00f1ade una solicitud manualmente para empezar a organizar el inter\u00e9s de tus clientes.",linkCopied:"Enlace copiado",reviewInq:"Revisar",addStep:"A\u00f1adir paso",markDone:"Completar",followUp:"Seguimiento",thisWeek:"esta semana",received:"recibidas",nothingDue:"Nada para hoy",overdueCount:"vencidas",allInquiries:"Ver todas",noActionsSub:"A\u00f1ade un seguimiento o tarea para organizar tu d\u00eda.",caughtUpSub:"Ninguna consulta o seguimiento necesita tu atenci\u00f3n ahora.",activitySub:"Las consultas y actualizaciones nuevas aparecer\u00e1n aqu\u00ed.", logout:"Salir",
     gateTitle:"Tu <em>espacio</em>",gateSub:"Inicia sesi\u00f3n para ver todo lo que manejamos por ti.",
     email:"Correo",password:"Contrase\u00f1a",login:"Iniciar sesi\u00f3n",noAccount:"\u00bfA\u00fan no tienes cuenta?",goSite:"Cr\u00e9ala en nuestro sitio",
-    titleToday:"Hoy",titleInq:"Consultas",titleTasks:"Tareas",titleCal:"Calendario",titleClients:"Clientes",
+    titleToday:"Hoy",titleInq:"Consultas",titleClients:"Clientes",
     hi:"Hola", hiAdmin:"Aqu\u00ed est\u00e1 tu d\u00eda", greetAM:"Buenos d\u00edas", greetPM:"Buenas tardes", greetEve:"Buenas noches",
     stNew:"Consultas nuevas",stActions:"Seguimientos hoy",stTasks:"Tareas abiertas",stAppts:"Pr\u00f3ximas",
     noAttn:"Todo al d\u00eda",pipeline:"Pipeline",recentActivity:"Actividad reciente",noActivity:"Nada a\u00fan",waitingSince:"esperando",overdueLbl:"vencido",leftNote:"dej\u00f3 una nota",newInqMsg:"consulta nueva",bookingMsg:"cita",agoNow:"ahora",agoWaiting:"esperando",stuckLbl:"sin respuesta",
@@ -1105,7 +1096,7 @@ button{font-family:inherit;cursor:pointer;}
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
     inquiry:"Consulta",booking:"Reserva",
     wsVisits:"Visitas hoy",
-    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",seeAll:"Ver todos",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"VISITA DE ESTIMADO",evTask:"TAREA",evReminder:"SEGUIMIENTO",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
+    detMessage:"Notas",detPhone:"Teléfono",agoWaiting2:"Esperando",seeAll:"Ver todos",todaySched:"Hoy en tu agenda",seeWeek:"Esta semana",evVisit:"Visita de estimado",route:"C\u00f3mo llegar",evTask:"Tarea",evReminder:"Seguimiento",nothingBooked:"Nada agendado",calToday:"Hoy",askedFor:"Lo que pidi\u00f3",contactProp:"Contacto y propiedad",openInMaps:"Abrir en Maps",detActions:"Acciones",detNext:"Agendado",detNotes:"Notas",
     called:"Llamado",schedule:"Agendar acci\u00f3n",del:"Eliminar",
     markSent:"Marcar estimado enviado",hintPendEst:"Todav\u00eda sin monto guardado.",hintReadySend:"listo para enviar.",hintAwait:"Enviado. Esperando al cliente.",hintNeedsReply:"Nadie ha respondido todav\u00eda.",
     live_new:"Nueva",live_pending:"Estimado pendiente",live_ready:"Listo para enviar",live_awaiting:"Esperando respuesta",live_hired:"Contratado",live_not_hired:"No contratado",live_all:"Todas",live_closed:"Cerradas",
@@ -1644,17 +1635,39 @@ button{font-family:inherit;cursor:pointer;}
     $("tkBody").dataset.id=id; $("tkBody").dataset.kind=kind;
     openOverlay("taskOverlay");
   }
-  function taskRow(item,kind){
+  function taskRow(item,kind,opts){
+    opts=opts||{};
+    if(kind==="booking") return bookingRow(item,opts);
     const id=item.id; const done=item.done;
     const title=item.title;
     const due=item.due_at;
     const overdue=due&&!done&&new Date(due)<new Date();
-    const prio=kind==="task"?(item.priority||"normal"):null;
+    const prio=(kind==="task"&&(item.priority||"normal")==="high")?"high":null;
     return '<div class="lrow" data-task="'+id+'" data-tkind="'+kind+'">'+
+      (opts.bar?'<span class="lr-bar tb-'+kind+'"></span>':'')+
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
       '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub'+(done?'':' snz')+'"'+(done?'':' data-act="snooze"')+'>'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
             '<div class="lr-right">'+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'</div>'+
+    '</div>';
+  }
+  function bookingRow(r,opts){
+    opts=opts||{};
+    const fdb=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
+    const addr=String(fdb.address||"").trim();
+    const when=r.booking_at;
+    const past=when&&new Date(when)<new Date();
+    return '<div class="lrow is-booking" data-open="'+r.id+'">'+
+      (opts.bar?'<span class="lr-bar tb-booking"></span>':'')+
+      '<span class="lr-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>'+
+      '<div class="lr-main"><div class="lr-title">'+esc(r.customer_name||T("evVisit"))+'</div>'+
+        '<div class="lr-sub">'+esc(fmtWhen(when))+' \u00b7 '+esc(T("evVisit"))+'</div></div>'+
+      '<div class="lr-right">'+
+        (past?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+
+        (addr?'<a class="lr-route" data-act="route" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr)+'">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+          esc(T("route"))+'</a>':'')+
+      '</div>'+
     '</div>';
   }
 
@@ -1849,72 +1862,48 @@ button{font-family:inherit;cursor:pointer;}
   document.addEventListener("click",e=>{ if(e.target&&e.target.closest&&e.target.closest('[data-act="cmpClose"]')) closeCmp(); });
   $("drawerBg").addEventListener("click",closeDetail);
 
-  // ===== TASKS =====
-  let schedTab="calendar";
-  function renderSchedule(){
-    if(schedTab==="tasks") renderTasks(); else renderCalendar();
-    $("content").insertAdjacentHTML("afterbegin",
-      '<div class="sched-tabs">'+
-        '<button class="sched-tab'+(schedTab==="calendar"?" on":"")+'" data-schedtab="calendar">'+esc(T("titleCal"))+'</button>'+
-        '<button class="sched-tab'+(schedTab==="tasks"?" on":"")+'" data-schedtab="tasks">'+esc(T("titleTasks"))+'</button>'+
-      '</div>');
-  }
-  let doneDeep=false;
-  function renderTasks(){
-    const c=$("content");
-    let html='<div class="tbl-toolbar"><button class="btn btn-primary btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
-    const open=tasks.filter(t=>!t.done), openR=reminders.filter(r=>!r.done);
-    const doneAll=tasks.filter(t=>t.done).map(t=>({_k:"task",d:t.due_at?new Date(t.due_at).getTime():0,o:t})).concat(reminders.filter(r=>r.done).map(r=>({_k:"rem",d:new Date(r.due_at).getTime(),o:r}))).sort((a,b)=>b.d-a.d);
-    if(!open.length&&!openR.length&&!doneAll.length){ html+='<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div>'; c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); }; return; }
-    // merge open reminders + open tasks, sort by due
-    const merged=open.map(t=>({_k:"task",d:t.due_at?new Date(t.due_at).getTime():Infinity,o:t})).concat(openR.map(r=>({_k:"rem",d:new Date(r.due_at).getTime(),o:r}))).sort((a,b)=>a.d-b.d);
-    const nowT=Date.now(), endToday=new Date(); endToday.setHours(23,59,59,999);
-    const gOver=merged.filter(m=>m.d!==Infinity&&m.d<nowT);
-    const gToday=merged.filter(m=>m.d!==Infinity&&m.d>=nowT&&m.d<=endToday.getTime());
-    const gNext=merged.filter(m=>m.d===Infinity||m.d>endToday.getTime());
-    const block=(cls,lbl,arr)=>arr.length?'<div class="sched-grp'+cls+'"><span>'+esc(lbl)+' \u00b7 '+arr.length+'</span></div><div class="rowlist">'+arr.map(m=>taskRow(m.o,m._k)).join("")+'</div>':"";
-    html+=block(" over",T("schedOver"),gOver)+block("",T("schedToday"),gToday)+block("",T("schedNext"),gNext);
-    if(doneAll.length){
-      const shown=doneAll.slice(0,doneDeep?15:2), hidden=Math.min(doneAll.length,15)-shown.length;
-      html+='<div class="section-block" style="margin-top:22px"><div class="sched-grp"><span>'+esc(T("completedLbl"))+' \u00b7 '+doneAll.length+'</span></div><div class="rowlist">'+shown.map(m=>taskRow(m.o,m._k)).join("")+'</div>'+
-        (hidden>0?'<button class="sched-more" data-donedeep="1">+ '+hidden+'</button>':'')+'</div>';
-    }
-    c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
-  }
-
-  // ===== CALENDAR =====
-  let calRef=new Date();
+  // ===== SCHEDULE (unified) =====
   function calEvents(){ const map={}; const add=(d,ev)=>{ if(!d)return; const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); (map[k]=map[k]||[]).push(ev); };
     inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) add(new Date(r.booking_at),{type:"booking",title:r.customer_name||T("booking"),time:r.booking_at,inqId:r.id}); });
     reminders.forEach(r=>{ add(new Date(r.due_at),{type:"rem",title:r.title,time:r.due_at,done:!!r.done,eid:r.id,ekind:"rem"}); });
     tasks.forEach(t=>{ if(t.due_at) add(new Date(t.due_at),{type:"rem",title:t.title,time:t.due_at,done:!!t.done,eid:t.id,ekind:"task"}); });
     return map; }
-  function weekStart(d){ const x=new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate()-x.getDay()); return x; }
-  function renderCalendar(){
-    const evs=calEvents(); const start=weekStart(calRef); const today=new Date();
-    const dows=lang==="es"?["Dom","Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b"]:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-    const end=new Date(start); end.setDate(start.getDate()+6);
-    const sameMonth=start.getMonth()===end.getMonth();
-    const range=start.toLocaleDateString(locale(),{month:"short",day:"numeric"})+" \u2013 "+end.toLocaleDateString(locale(),sameMonth?{day:"numeric"}:{month:"short",day:"numeric"});
-    const evLabel=x=>x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
-    let days="";
-    for(let i=0;i<7;i++){
-      const d=new Date(start); d.setDate(start.getDate()+i);
-      const k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
-      const list=(evs[k]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
-      const isToday=d.toDateString()===today.toDateString();
-      const evHTML=list.length
-        ? list.map(x=>{
-            const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
-            const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
-            return '<div class="evt'+(x.done?" done":"")+(attr?" clickable":"")+'"'+attr+'>'+
-              '<div class="evt-t">'+esc(t)+' \u00b7 '+esc(evLabel(x))+'</div>'+
-              '<div class="evt-n">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div></div>';
-          }).join("")
-        : '<div class="day-empty">'+esc(T("nothingBooked"))+'</div>';
-      days+='<div class="day'+(isToday?" today":"")+'"><div class="day-d"><div class="n">'+d.getDate()+'</div><div class="m">'+esc(dows[d.getDay()])+'</div></div><div class="day-evs">'+evHTML+'</div></div>';
+  let doneDeep=false;
+  function scheduleItems(){
+    const out=[];
+    tasks.forEach(t=>out.push({k:"task",d:t.due_at?new Date(t.due_at).getTime():Infinity,done:!!t.done,o:t}));
+    reminders.forEach(r=>out.push({k:"rem",d:new Date(r.due_at).getTime(),done:!!r.done,o:r}));
+    inquiries.forEach(r=>{ if(r.kind==="booking"&&r.booking_at) out.push({k:"booking",d:new Date(r.booking_at).getTime(),done:false,o:r}); });
+    return out;
+  }
+  function renderSchedule(){
+    const c=$("content");
+    const all=scheduleItems();
+    let html='<div class="tbl-toolbar"><button class="btn btn-primary btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
+    if(!all.length){
+      c.innerHTML=html+'<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div>';
+      $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); }; return;
     }
-    $("content").innerHTML='<div class="cal-head"><h3>'+esc(range)+'</h3><div class="cal-nav"><button data-cal="prev" aria-label="prev">\u2039</button><button data-cal="today">'+esc(T("calToday"))+'</button><button data-cal="next" aria-label="next">\u203a</button></div></div><div class="calendar-wrap">'+days+'</div>';
+    const open=all.filter(m=>!m.done).sort((a,b)=>a.d-b.d);
+    const doneAll=all.filter(m=>m.done).sort((a,b)=>b.d-a.d);
+    const nowT=Date.now(), endToday=new Date(); endToday.setHours(23,59,59,999);
+    const gOver=open.filter(m=>m.d!==Infinity&&m.d<nowT);
+    const gToday=open.filter(m=>m.d!==Infinity&&m.d>=nowT&&m.d<=endToday.getTime());
+    const gNext=open.filter(m=>m.d===Infinity||m.d>endToday.getTime());
+    const multi=new Set(open.map(m=>m.k)).size>1;
+    const block=(cls,lbl,arr)=>arr.length?'<div class="sched-grp'+cls+'"><span>'+esc(lbl)+' \u00b7 '+arr.length+'</span></div><div class="rowlist">'+arr.map(m=>taskRow(m.o,m.k,{bar:multi})).join("")+'</div>':"";
+    html+=block(" over",T("schedOver"),gOver)+block("",T("schedToday"),gToday)+block("",T("schedNext"),gNext);
+    if(!open.length) html+='<div class="empty"><div class="big">'+esc(T("nothingBooked"))+'</div></div>';
+    if(doneAll.length){
+      const shown=doneAll.slice(0,doneDeep?15:2), hidden=Math.min(doneAll.length,15)-shown.length;
+      html+='<div class="section-block" style="margin-top:22px"><div class="sched-grp"><span>'+esc(T("completedLbl"))+' \u00b7 '+doneAll.length+'</span></div><div class="rowlist">'+shown.map(m=>taskRow(m.o,m.k,{bar:multi})).join("")+'</div>'+
+        (hidden>0?'<button class="sched-more" data-donedeep="1">+ '+hidden+'</button>':'')+'</div>';
+    }
+    if(multi) html+='<div class="sched-legend">'+
+      '<span><i class="lr-bar tb-booking"></i>'+esc(T("evVisit"))+'</span>'+
+      '<span><i class="lr-bar tb-rem"></i>'+esc(T("evReminder"))+'</span>'+
+      '<span><i class="lr-bar tb-task"></i>'+esc(T("evTask"))+'</span></div>';
+    c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
   }
 
   // ===== EDIT TASK/REMINDER =====
@@ -2154,8 +2143,7 @@ button{font-family:inherit;cursor:pointer;}
     // onboarding: add inquiry / add task shortcuts open the add modal
     const ga=e.target.closest('[data-go-add]'); if(ga){ $("quickAddBtn").click(); return; }
     const tgo=e.target.closest("[data-tgo]"); if(tgo){ todayIdx=parseInt(tgo.getAttribute("data-tgo"),10)||0; renderToday(); window.scrollTo({top:0,behavior:"smooth"}); return; }
-    const stb=e.target.closest("[data-schedtab]"); if(stb){ schedTab=stb.getAttribute("data-schedtab"); renderSchedule(); return; }
-    const at=e.target.closest('[data-act="addtask"]'); if(at){ schedTab="tasks"; setView("schedule"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
+    const at=e.target.closest('[data-act="addtask"]'); if(at){ setView("schedule"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
     // needs-attention: mark reminder/task done
     const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){
       const rk=edRow.getAttribute("data-tkind"), rid=edRow.getAttribute("data-task");
@@ -2168,8 +2156,6 @@ button{font-family:inherit;cursor:pointer;}
     const op=e.target.closest("[data-open]"); if(op && !e.target.closest("[data-act]")){ openDetail(op.getAttribute("data-open")); return; }
     // filter pills
     const fp=e.target.closest("[data-filt2]"); if(fp){ inqFilter=fp.getAttribute("data-filt2"); renderInquiries(); return; }
-    // calendar
-    const cal=e.target.closest("[data-cal]"); if(cal){ const a=cal.getAttribute("data-cal"); if(a==="prev")calRef.setDate(calRef.getDate()-7); else if(a==="next")calRef.setDate(calRef.getDate()+7); else calRef=new Date(); renderCalendar(); return; }
     // task rows
     const trow=e.target.closest("[data-task]");
     if(trow){
