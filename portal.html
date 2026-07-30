@@ -229,6 +229,20 @@ button{font-family:inherit;cursor:pointer;}
 .lr-bar.tb-booking{background:var(--ink);}
 .lr-bar.tb-rem{background:var(--green-mid);}
 .lr-bar.tb-task{background:var(--mint-2);}
+.sched-wrap{max-width:900px;margin-inline:auto;}
+.sec-agenda .inq-name.is-done{color:var(--ink-3);text-decoration:line-through;}
+.sec-agenda .ag-done{color:var(--ink-2);font-size:var(--t-03);}
+.sched-wrap .tbl-toolbar{margin-bottom:14px;}
+.sched-wrap .lrow{padding:12px 18px;gap:11px;}
+.sched-wrap .lr-sub{margin-top:2px;}
+.sched-wrap .lr-sub.snz{
+  background:none;color:var(--ink-3);padding:0;border-radius:0;margin-top:2px;
+  border-bottom:1px dashed transparent;transition:color var(--anim),border-color var(--anim);
+}
+.sched-wrap .lr-sub.snz:hover{color:var(--ink);border-bottom-color:var(--ink-4);}
+.sched-wrap .lr-sub.od{color:var(--coral);font-weight:600;}
+.sched-wrap .lrow.is-done{opacity:.55;}
+.sched-wrap .lrow.is-done:hover{opacity:1;}
 .lr-mark{
   width:20px;height:20px;border-radius:50%;background:var(--mint);color:var(--ink);
   flex-shrink:0;display:flex;align-items:center;justify-content:center;
@@ -1565,8 +1579,9 @@ button{font-family:inherit;cursor:pointer;}
         const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
         const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
         const lbl=x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
-        return '<div class="inq-card"'+attr+'><div class="inq-main"><div class="inq-name">'+esc(t)+' \u00b7 '+esc(lbl)+'</div>'+
-          '<div class="inq-svc">'+(x.done?"\u2713 ":"")+esc(x.title)+'</div></div></div>';
+        return '<div class="inq-card"'+attr+'><div class="inq-main"><div class="inq-name'+(x.done?' is-done':'')+'">'+esc(x.title)+'</div>'+
+          '<div class="inq-svc">'+esc(t)+' \u00b7 '+esc(lbl)+'</div></div>'+
+          (x.done?'<div class="inq-right"><span class="ag-done">\u2713</span></div>':'')+'</div>';
       }).join("");
       html+='</div></div>';
     }
@@ -1643,12 +1658,12 @@ button{font-family:inherit;cursor:pointer;}
     const due=item.due_at;
     const overdue=due&&!done&&new Date(due)<new Date();
     const prio=(kind==="task"&&(item.priority||"normal")==="high")?"high":null;
-    return '<div class="lrow" data-task="'+id+'" data-tkind="'+kind+'">'+
+    return '<div class="lrow'+(done?' is-done':'')+'" data-task="'+id+'" data-tkind="'+kind+'">'+
       (opts.bar?'<span class="lr-bar tb-'+kind+'"></span>':'')+
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
-      '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub'+(done?'':' snz')+'"'+(done?'':' data-act="snooze"')+'>'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
-            '<div class="lr-right">'+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'</div>'+
+      '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+
+        (due?'<div class="lr-sub'+(done?'':' snz')+(overdue?' od':'')+'"'+(done?'':' data-act="snooze"')+'>'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
     '</div>';
   }
   function bookingRow(r,opts){
@@ -1661,9 +1676,8 @@ button{font-family:inherit;cursor:pointer;}
       (opts.bar?'<span class="lr-bar tb-booking"></span>':'')+
       '<span class="lr-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>'+
       '<div class="lr-main"><div class="lr-title">'+esc(r.customer_name||T("evVisit"))+'</div>'+
-        '<div class="lr-sub">'+esc(fmtWhen(when))+' \u00b7 '+esc(T("evVisit"))+'</div></div>'+
+        '<div class="lr-sub'+(past?' od':'')+'">'+esc(fmtWhen(when))+' \u00b7 '+esc(T("evVisit"))+'</div></div>'+
       '<div class="lr-right">'+
-        (past?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+
         (addr?'<a class="lr-route" data-act="route" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr)+'">'+
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
           esc(T("route"))+'</a>':'')+
@@ -1730,7 +1744,7 @@ button{font-family:inherit;cursor:pointer;}
         if(!g.length) return;
         const tot=g.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
         html+='<div class="inq-group'+(k==="new"||k==="pending"?' hot':'')+'"><span class="inq-group-l">'+esc(T("live_"+k))+' \u00b7 '+g.length+'</span>'+
-          (tot>0?'<span class="inq-group-v">'+fmtMoney(tot)+'</span>':'')+'</div>';
+          (tot>0&&g.length>1?'<span class="inq-group-v">'+fmtMoney(tot)+'</span>':'')+'</div>';
         html+=g.map(r=>inqCardHTML(r)).join("");
       });
     } else html+=list.map(r=>inqCardHTML(r)).join("");
@@ -1879,9 +1893,9 @@ button{font-family:inherit;cursor:pointer;}
   function renderSchedule(){
     const c=$("content");
     const all=scheduleItems();
-    let html='<div class="tbl-toolbar"><button class="btn btn-primary btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
+    let html='<div class="tbl-toolbar"><button class="btn btn-ghost btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
     if(!all.length){
-      c.innerHTML=html+'<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div>';
+      c.innerHTML='<div class="sched-wrap">'+html+'<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div></div>';
       $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); }; return;
     }
     const open=all.filter(m=>!m.done).sort((a,b)=>a.d-b.d);
@@ -1903,7 +1917,7 @@ button{font-family:inherit;cursor:pointer;}
       '<span><i class="lr-bar tb-booking"></i>'+esc(T("evVisit"))+'</span>'+
       '<span><i class="lr-bar tb-rem"></i>'+esc(T("evReminder"))+'</span>'+
       '<span><i class="lr-bar tb-task"></i>'+esc(T("evTask"))+'</span></div>';
-    c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
+    c.innerHTML='<div class="sched-wrap">'+html+'</div>'; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
   }
 
   // ===== EDIT TASK/REMINDER =====
@@ -2143,7 +2157,7 @@ button{font-family:inherit;cursor:pointer;}
     // onboarding: add inquiry / add task shortcuts open the add modal
     const ga=e.target.closest('[data-go-add]'); if(ga){ $("quickAddBtn").click(); return; }
     const tgo=e.target.closest("[data-tgo]"); if(tgo){ todayIdx=parseInt(tgo.getAttribute("data-tgo"),10)||0; renderToday(); window.scrollTo({top:0,behavior:"smooth"}); return; }
-    const at=e.target.closest('[data-act="addtask"]'); if(at){ setView("schedule"); setTimeout(()=>{ const b=$("quickAddBtn"); if(b)b.click(); },50); return; }
+    const at=e.target.closest('[data-act="addtask"]'); if(at){ setView("schedule"); setTimeout(()=>{ setAddKind("task"); openOverlay("addOverlay"); },50); return; }
     // needs-attention: mark reminder/task done
     const edRow=e.target.closest("[data-task]"); if(edRow&&!e.target.closest("[data-act]")){
       const rk=edRow.getAttribute("data-tkind"), rid=edRow.getAttribute("data-task");
