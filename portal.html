@@ -1992,6 +1992,8 @@ button{font-family:inherit;cursor:pointer;}
     const resp=capList.map(r=>{ const fr=r.first_response_at||r.called_at; return fr?new Date(fr)-new Date(r.created_at):null; }).filter(v=>v!=null&&v>=0);
     const fmtDur=ms=>{ const hh=ms/36e5; if(hh<1)return Math.max(1,Math.round(ms/6e4))+"min"; if(hh<48)return (Math.round(hh*10)/10)+"h"; return Math.round(hh/24)+T("resDays"); };
     const speed=resp.length?fmtDur(resp.reduce((a,b)=>a+b,0)/resp.length):"\u2014";
+    const respPrev=real.filter(r=>inMo(r.created_at,py,pm)).map(r=>{ const fr=r.first_response_at||r.called_at; return fr?new Date(fr)-new Date(r.created_at):null; }).filter(v=>v!=null&&v>=0);
+    const speedPrev=respPrev.length?fmtDur(respPrev.reduce((a,b)=>a+b,0)/respPrev.length):null;
 
     const monthName=base.toLocaleDateString(locale(),{month:"long",year:"numeric"});
     const pvName=pv.toLocaleDateString(locale(),{month:"long"});
@@ -2023,7 +2025,8 @@ button{font-family:inherit;cursor:pointer;}
     if(resM===0) rows.push([out.length,T("resOut"),outSum>0?fmtMoney(outSum)+" "+T("resOutSub"):T("resOutSub")]);
     rows.push([won.length,T("resWon"),(wonSum>0?fmtMoney(wonSum)+" \u00b7 ":"")+delta(won.length,wonPrev),1]);
     rows.push([rate,T("resRate"),""]);
-    rows.push([speed,T("resSpeed"),""]);
+    const speedSub=[(speedPrev?T("resVs")+" "+pvName+": "+speedPrev:""),(resp.length?resp.length+"/"+capList.length:"")].filter(Boolean).join(" \u00b7 ");
+    rows.push([speed,T("resSpeed"),speedSub]);
     let ri=0; const num=()=>String(++ri).padStart(2,"0");
     const rowsHtml=rows.map(r=>row(num(),r[0],r[1],r[2],r[3])).join("");
 
