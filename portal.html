@@ -235,7 +235,7 @@ button{font-family:inherit;cursor:pointer;}
 }
 
 /* ===== INQUIRY CARDS ===== */
-.tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;max-width:1180px;margin-inline:auto;}
 .search{
   flex:1;min-width:200px;display:flex;align-items:center;gap:8px;
   background:var(--white);border:1px solid var(--line);border-radius:var(--radius-pill);
@@ -260,7 +260,7 @@ button{font-family:inherit;cursor:pointer;}
 .inq-wait.urgent{background:var(--coral-pale);color:var(--coral);border:1px solid rgba(244,81,69,.25);}
 
 /* Inquiry card list */
-.inq-list{background:none;}
+.inq-list{background:none;max-width:1180px;margin-inline:auto;}
 .sec>.inq-list>.inq-card:last-child{border-bottom:none;}
 .inq-card{display:flex;align-items:center;gap:13px;padding:15px 20px;border-bottom:1px solid var(--line-2);cursor:pointer;transition:background .12s;background:none;border-radius:0;box-shadow:none;}
 .inq-card:last-child{border-bottom:none;}
