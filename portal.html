@@ -235,6 +235,13 @@ button{font-family:inherit;cursor:pointer;}
 }
 
 /* ===== INQUIRY CARDS ===== */
+.sched-grp{display:flex;align-items:baseline;justify-content:space-between;padding:9px 15px;background:var(--paper);border:1px solid var(--line);border-bottom:none;border-radius:12px 12px 0 0;margin-top:14px;}
+.sched-grp span{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);}
+.sched-grp.over{background:var(--coral-pale);border-color:rgba(244,81,69,.25);}
+.sched-grp.over span{color:var(--coral);}
+.sched-grp+.rowlist{border-top-left-radius:0;border-top-right-radius:0;margin-top:0;}
+.sched-more{display:block;width:100%;padding:9px;background:none;border:none;font-size:11px;color:var(--ink-4);cursor:pointer;}
+.sched-more:hover{color:var(--ink);}
 .tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;max-width:900px;margin-inline:auto;}
 .search{
   flex:1;min-width:200px;display:flex;align-items:center;gap:8px;
@@ -999,7 +1006,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"avg. time to first response",resVs:"vs",resSources:"Where they came from",resOther:"Other",resFollow:"Worth a follow-up",
     resShare:"Share this report",resCopied:"Copied \u2713",resReport:"Monthly report",resNoMonth:"No inquiries this month yet",resDays:"d",
     schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
-    chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",completedLbl:"Completed",
+    chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",schedOver:"Overdue",schedToday:"Today",schedNext:"Next up",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_hired:"Hired",st_not_hired:"Not hired",
     estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
@@ -1077,7 +1084,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"tiempo promedio de primera respuesta",resVs:"vs",resSources:"De d\u00f3nde llegaron",resOther:"Otro",resFollow:"Valen un seguimiento",
     resShare:"Compartir este reporte",resCopied:"Copiado \u2713",resReport:"Reporte mensual",resNoMonth:"A\u00fan no hay consultas este mes",resDays:"d",
     schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
-    chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",completedLbl:"Completadas",
+    chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",schedOver:"Vencidas",schedToday:"Hoy",schedNext:"Pr\u00f3ximas",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_hired:"Contratado",st_not_hired:"No contratado",
     estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
@@ -1821,6 +1828,7 @@ button{font-family:inherit;cursor:pointer;}
         '<button class="sched-tab'+(schedTab==="tasks"?" on":"")+'" data-schedtab="tasks">'+esc(T("titleTasks"))+'</button>'+
       '</div>');
   }
+  let doneDeep=false;
   function renderTasks(){
     const c=$("content");
     let html='<div class="tbl-toolbar"><button class="btn btn-primary btn-sm" id="openTask">'+esc(T("addTask"))+'</button></div>';
@@ -1829,8 +1837,17 @@ button{font-family:inherit;cursor:pointer;}
     if(!open.length&&!openR.length&&!doneAll.length){ html+='<div class="empty"><div class="big">'+esc(T("noTasks"))+'</div><div>'+esc(T("noTasksSub"))+'</div></div>'; c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); }; return; }
     // merge open reminders + open tasks, sort by due
     const merged=open.map(t=>({_k:"task",d:t.due_at?new Date(t.due_at).getTime():Infinity,o:t})).concat(openR.map(r=>({_k:"rem",d:new Date(r.due_at).getTime(),o:r}))).sort((a,b)=>a.d-b.d);
-    html+='<div class="rowlist">'+merged.map(m=>taskRow(m.o,m._k)).join("")+'</div>';
-    if(doneAll.length){ html+='<div class="section-block" style="margin-top:22px"><div class="section-h"><h3 style="font-size:.95rem;color:var(--ink-2)">'+esc(T("completedLbl"))+'</h3></div><div class="rowlist">'+doneAll.slice(0,15).map(m=>taskRow(m.o,m._k)).join("")+'</div></div>'; }
+    const nowT=Date.now(), endToday=new Date(); endToday.setHours(23,59,59,999);
+    const gOver=merged.filter(m=>m.d!==Infinity&&m.d<nowT);
+    const gToday=merged.filter(m=>m.d!==Infinity&&m.d>=nowT&&m.d<=endToday.getTime());
+    const gNext=merged.filter(m=>m.d===Infinity||m.d>endToday.getTime());
+    const block=(cls,lbl,arr)=>arr.length?'<div class="sched-grp'+cls+'"><span>'+esc(lbl)+' \u00b7 '+arr.length+'</span></div><div class="rowlist">'+arr.map(m=>taskRow(m.o,m._k)).join("")+'</div>':"";
+    html+=block(" over",T("schedOver"),gOver)+block("",T("schedToday"),gToday)+block("",T("schedNext"),gNext);
+    if(doneAll.length){
+      const shown=doneAll.slice(0,doneDeep?15:2), hidden=Math.min(doneAll.length,15)-shown.length;
+      html+='<div class="section-block" style="margin-top:22px"><div class="sched-grp"><span>'+esc(T("completedLbl"))+' \u00b7 '+doneAll.length+'</span></div><div class="rowlist">'+shown.map(m=>taskRow(m.o,m._k)).join("")+'</div>'+
+        (hidden>0?'<button class="sched-more" data-donedeep="1">+ '+hidden+'</button>':'')+'</div>';
+    }
     c.innerHTML=html; $("openTask").onclick=()=>{ setAddKind("task"); openOverlay("addOverlay"); };
   }
 
@@ -2087,6 +2104,7 @@ button{font-family:inherit;cursor:pointer;}
     const nav=e.target.closest(".nav-item"); if(nav){ setView(nav.getAttribute("data-view")); return; }
     // go links / tiles
     const tfb=e.target.closest("[data-tfilt]"); if(tfb){ todayFilt=tfb.getAttribute("data-tfilt"); renderToday(); return; }
+    if(e.target.closest("[data-donedeep]")){ doneDeep=true; renderSchedule(); return; }
     if(e.target.closest("[data-tskip]")){ todayIdx++; render(); return; }
     if(e.target.closest("[data-treset]")){ todayIdx=0; render(); return; }
     const go=e.target.closest("[data-go]"); if(go){ const f=go.getAttribute("data-filt"); if(f)inqFilter=f; setView(go.getAttribute("data-go")); return; }
