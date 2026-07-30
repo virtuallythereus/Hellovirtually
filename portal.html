@@ -1219,6 +1219,7 @@ button{font-family:inherit;cursor:pointer;}
   function liveState(r){
     const st=stOf(r);
     if(st==="contacting") return parseFloat(r.estimate_amount)>0?"ready":"pending";
+    if(st==="estimate_sent") return "awaiting";
     return st;
   }
   function liveLbl(k){ return T("live_"+k); }
