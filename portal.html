@@ -235,7 +235,7 @@ button{font-family:inherit;cursor:pointer;}
 }
 
 /* ===== INQUIRY CARDS ===== */
-.tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;max-width:1180px;margin-inline:auto;}
+.tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;max-width:900px;margin-inline:auto;}
 .search{
   flex:1;min-width:200px;display:flex;align-items:center;gap:8px;
   background:var(--white);border:1px solid var(--line);border-radius:var(--radius-pill);
@@ -256,11 +256,15 @@ button{font-family:inherit;cursor:pointer;}
 .fpill.active{background:var(--ink);color:var(--white);}
 .fpill-n{font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 5px;margin-left:6px;border-radius:var(--radius-pill);background:var(--line-2);color:var(--ink-2);font-size:var(--t-01);font-weight:600;line-height:1;vertical-align:middle;}
 .fpill.active .fpill-n{background:rgba(255,255,255,.22);color:var(--white);}
-.inq-wait{font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;justify-content:center;height:20px;padding:0 9px;border-radius:var(--radius-pill);background:var(--mint);color:var(--ink-2);font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-03);font-weight:600;letter-spacing:.02em;white-space:nowrap;}
-.inq-wait.urgent{background:var(--coral-pale);color:var(--coral);border:1px solid rgba(244,81,69,.25);}
 
 /* Inquiry card list */
-.inq-list{background:none;max-width:1180px;margin-inline:auto;}
+.inq-list{background:none;max-width:900px;margin-inline:auto;}
+.inq-group{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 16px 9px;background:var(--paper);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);}
+.inq-list>.inq-group:first-child{border-top:none;}
+.inq-group-l{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);}
+.inq-group.hot .inq-group-l{color:var(--coral);}
+.inq-group-v{font-size:12px;font-weight:600;color:var(--ink);}
+.inq-amt{width:70px;flex-shrink:0;text-align:right;font-size:14px;font-weight:600;color:var(--ink);}
 .sec>.inq-list>.inq-card:last-child{border-bottom:none;}
 .inq-card{display:flex;align-items:center;gap:13px;padding:15px 20px;border-bottom:1px solid var(--line-2);cursor:pointer;transition:background .12s;background:none;border-radius:0;box-shadow:none;}
 .inq-card:last-child{border-bottom:none;}
@@ -308,9 +312,7 @@ button{font-family:inherit;cursor:pointer;}
 .sec-head .sec-all{margin-left:auto;}
 .sec-head h2{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;color:var(--ink);}
 .sec-c{font-size:13px;color:var(--ink-4);}
-.inq-main{flex:1.5;min-width:0;}
-.inq-state{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.inq-when{width:112px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.inq-main{flex:1;min-width:0;}
 .tw-hot{color:var(--coral);font-weight:600;}
 .tw-warm{color:var(--ink);font-weight:600;}
 /* Status pills */
@@ -1625,8 +1627,6 @@ button{font-family:inherit;cursor:pointer;}
       const unread=notes.some(n=>n.author_role&&n.author_role!==(isAdmin?"admin":"client")&&n.author_role!=="system"&&!notifRead["note-"+n.id]);
       const lastNote=notes.slice(-1)[0];
       const lv=liveState(r);
-      const waitLvl=(lv==="new")?urgency(r.created_at):0;
-      const waitBadge=waitLvl>=1?'<span class="inq-wait'+(waitLvl>=2?' urgent':'')+'">'+agoShort(r.created_at)+'</span>':'';
       const contact=(r.customer_contact||r.customer_email||r.customer_phone||"");
       // una sola accion primaria: la que toca en este estado
       let prim="";
@@ -1641,18 +1641,15 @@ button{font-family:inherit;cursor:pointer;}
       const qa='<div class="inq-qa">'+prim+win+fu+cp+'</div>';
       const humanNote=(lastNote&&lastNote.author_role!=='system')?lastNote:null;
       const when=na&&na.due_at?fmtWhen(na.due_at):agoShort(r.created_at);
-      const sub=r.message?r.message.slice(0,64):(humanNote?humanNote.body.slice(0,64):(r.channel||'\u2014'));
+      const base=r.message?r.message.slice(0,58):(humanNote?humanNote.body.slice(0,58):(r.channel||'\u2014'));
+      const sub=base+(when?' \u00b7 '+when:'');
       return '<div class="inq-card" data-open="'+r.id+'">'+
         '<span class="inq-av tick-'+stOf(r)+'"></span>'+
         '<div class="inq-main">'+
           '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAsap(r)&&lv!=="hired"&&lv!=="not_hired"?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
           '<div class="inq-svc">'+esc(sub)+'</div>'+
         '</div>'+
-        '<div class="inq-state">'+
-          '<span class="pill '+lv+'"><span class="pill-dot"></span>'+esc(liveLbl(lv))+'</span>'+
-          (parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'')+
-        '</div>'+
-        '<div class="inq-when">'+esc(when)+waitBadge+'</div>'+
+        (parseFloat(r.estimate_amount)>0?'<span class="inq-amt">'+fmtMoney(r.estimate_amount)+'</span>':'<span class="inq-amt"></span>')+
         qa+
       '</div>';
     }
@@ -1663,18 +1660,29 @@ button{font-family:inherit;cursor:pointer;}
     const rInq=allInq.filter(r=>!r.archived);
     const archived=allInq.filter(r=>!!r.archived);
     const cnt=(k)=>rInq.filter(r=>k==="closed"?(liveState(r)==="hired"||liveState(r)==="not_hired"):liveState(r)===k).length;
-    const FILTS=["new","pending","ready","awaiting","closed"];
+    const GRP=["new","pending","ready","awaiting"];
+    const isClosed=r=>liveState(r)==="hired"||liveState(r)==="not_hired";
+    const openCnt=rInq.filter(r=>!isClosed(r)).length;
     let html='<div class="tbl-toolbar"><div class="search"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span><input type="text" id="searchInput" placeholder="'+esc(T("search"))+'" value="'+esc(search)+'"></div>'+
       '<div class="filter-pills">'+
-        pill2("all",T("live_all"),rInq.length)+FILTS.filter(k=>cnt(k)>0||inqFilter===k).map(k=>pill2(k,T("live_"+k),cnt(k))).join("")+(archived.length?pill2("archived",T("archivedLbl"),archived.length):"")+
+        pill2("all",T("live_all"),openCnt)+(cnt("closed")||inqFilter==="closed"?pill2("closed",T("live_closed"),cnt("closed")):"")+(archived.length?pill2("archived",T("archivedLbl"),archived.length):"")+
       '</div></div>';
     let list=inquiries.slice();
     if(inqFilter==="archived") list=list.filter(r=>!!r.archived);
-    else { list=list.filter(r=>!r.archived); if(inqFilter!=="all") list=list.filter(r=>inqFilter==="closed"?(liveState(r)==="hired"||liveState(r)==="not_hired"):liveState(r)===inqFilter); }
+    else { list=list.filter(r=>!r.archived); list=list.filter(r=>inqFilter==="closed"?isClosed(r):(inqFilter==="all"?!isClosed(r):liveState(r)===inqFilter)); }
     if(search){ const s=search.toLowerCase(); list=list.filter(r=>((r.customer_name||"")+" "+(r.message||"")+" "+(r.channel||"")+" "+(r.customer_contact||"")).toLowerCase().includes(s)); }
     if(!list.length){ html+='<div class="empty"><div class="big">'+esc(T("noInq"))+'</div><div>'+esc(T("noInqSub"))+'</div></div>'; c.innerHTML=html; bindSearch(); return; }
     html+='<div class="inq-list">';
-    html+=list.map(r=>inqCardHTML(r)).join("");
+    if(inqFilter==="all"){
+      GRP.forEach(function(k){
+        const g=list.filter(r=>liveState(r)===k);
+        if(!g.length) return;
+        const tot=g.reduce((a,r)=>a+(parseFloat(r.estimate_amount)||0),0);
+        html+='<div class="inq-group'+(k==="new"||k==="pending"?' hot':'')+'"><span class="inq-group-l">'+esc(T("live_"+k))+' \u00b7 '+g.length+'</span>'+
+          (tot>0?'<span class="inq-group-v">'+fmtMoney(tot)+'</span>':'')+'</div>';
+        html+=g.map(r=>inqCardHTML(r)).join("");
+      });
+    } else html+=list.map(r=>inqCardHTML(r)).join("");
     html+='</div>';
     c.innerHTML=html; bindSearch();
   }
