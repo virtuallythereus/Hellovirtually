@@ -268,7 +268,7 @@ button{font-family:inherit;cursor:pointer;}
 .inq-av{width:6px;height:6px;border-radius:50%;flex:0 0 6px;font-size:0;overflow:hidden;background:var(--line);align-self:center;}
 .inq-name{font-size:14.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink);line-height:1.3;margin-bottom:0;display:flex;align-items:center;gap:6px;font-family:'Helvena','Helvetica Neue',sans-serif;}
 .inq-name .nd{width:7px;height:7px;border-radius:50%;background:var(--coral);flex-shrink:0;}
-.inq-qa{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.inq-qa{display:flex;gap:6px;flex-wrap:nowrap;flex-shrink:0;justify-content:flex-end;}
 .qa-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-03);font-weight:600;min-height:48px;padding:0 17px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink-2);cursor:pointer;transition:all var(--anim);white-space:nowrap;}
 .qa-btn svg{width:14px;height:14px;}
 .qa-btn:hover{border-color:var(--ink);background:var(--paper-2);color:var(--ink);}
@@ -279,16 +279,8 @@ button{font-family:inherit;cursor:pointer;}
 
 .inq-owner{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-03);font-weight:700;letter-spacing:.02em;color:var(--ink-2);background:var(--lav-pale);border:1px solid rgba(185,167,255,.35);padding:2px 8px;border-radius:var(--radius-pill);margin-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
 .inq-svc{font-size:13px;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.inq-sub{font-size:13px;color:var(--ink-4);margin-top:2px;}
-.inq-task b{color:var(--ink-2);font-weight:700;}
 .inq-right{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0;font-size:12.5px;color:var(--ink-4);white-space:nowrap;text-align:right;}
 @media(max-width:640px){.inq-right{flex-direction:column;align-items:flex-end;gap:6px;}}
-.inq-arr{
-  width:48px;height:48px;border-radius:50%;border:1px solid var(--line);
-  background:transparent;color:var(--ink-3);font-size:var(--t-04);
-  display:flex;align-items:center;justify-content:center;transition:all var(--anim);
-}
-.inq-arr:hover{background:var(--ink);color:var(--white);border-color:var(--ink);}
 
 .tick-new{background:var(--coral);}
 .tick-contacting,.tick-contacted{background:var(--blue);}
@@ -316,7 +308,9 @@ button{font-family:inherit;cursor:pointer;}
 .sec-head .sec-all{margin-left:auto;}
 .sec-head h2{font-family:'Helvena','Helvetica Neue',sans-serif;font-size:var(--t-05);font-weight:600;letter-spacing:-.015em;color:var(--ink);}
 .sec-c{font-size:13px;color:var(--ink-4);}
-.inq-main{flex:1;min-width:0;}
+.inq-main{flex:1.5;min-width:0;}
+.inq-state{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.inq-when{width:84px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-4);white-space:nowrap;}
 .tw-hot{color:var(--coral);font-weight:600;}
 .tw-warm{color:var(--ink);font-weight:600;}
 /* Status pills */
@@ -1646,20 +1640,20 @@ button{font-family:inherit;cursor:pointer;}
       const cp=contact?'<button class="qa-btn qa-quiet" data-copyc="'+esc(contact).replace(/"/g,'&quot;')+'">'+esc(T("copyShort"))+'</button>':'';
       const qa='<div class="inq-qa">'+prim+win+fu+cp+'</div>';
       const humanNote=(lastNote&&lastNote.author_role!=='system')?lastNote:null;
-      const subLine=na?'<span class="inq-task">'+esc(na.title||actionLabel(na.kind))+(na.due_at?' \u00b7 '+esc(fmtWhen(na.due_at)):'')+'</span>':(humanNote?esc(humanNote.body.slice(0,60)):'');
+      const when=na&&na.due_at?fmtWhen(na.due_at):agoShort(r.created_at);
+      const sub=r.message?r.message.slice(0,64):(humanNote?humanNote.body.slice(0,64):(r.channel||'\u2014'));
       return '<div class="inq-card" data-open="'+r.id+'">'+
+        '<span class="inq-av tick-'+stOf(r)+'"></span>'+
         '<div class="inq-main">'+
           '<div class="inq-name">'+(unread?'<span class="nd"></span>':'')+esc(r.customer_name||'\u2014')+(isAsap(r)&&lv!=="hired"&&lv!=="not_hired"?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+(isAdmin&&r.client_email?'<span class="inq-owner">'+esc(r.client_email)+'</span>':'')+'</div>'+
-          '<div class="inq-svc">'+esc(r.message?r.message.slice(0,50):(r.channel||'\u2014'))+'</div>'+
-          (subLine?'<div class="inq-sub">'+subLine+'</div>':'')+
-          qa+
+          '<div class="inq-svc">'+esc(sub)+'</div>'+
         '</div>'+
-        '<div class="inq-right">'+
+        '<div class="inq-state">'+
           '<span class="pill '+lv+'"><span class="pill-dot"></span>'+esc(liveLbl(lv))+'</span>'+
           (parseFloat(r.estimate_amount)>0?'<span class="est-chip">'+fmtMoney(r.estimate_amount)+'</span>':'')+
-          waitBadge+
-          '<button class="inq-arr" data-open="'+r.id+'" aria-label="Open">&#8594;</button>'+
         '</div>'+
+        '<div class="inq-when">'+esc(when)+waitBadge+'</div>'+
+        qa+
       '</div>';
     }
 
