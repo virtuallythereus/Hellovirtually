@@ -49,8 +49,6 @@ button{font-family:inherit;cursor:pointer;}
 .snz-menu button:hover{background:var(--mint);}
 .snz-menu button.pick{border-top:1px solid var(--line);border-radius:0;color:var(--ink-3);margin-top:4px;padding-top:12px;}
 .lr-sub.snz{cursor:pointer;display:inline-block;background:var(--mint);color:var(--ink);padding:4px 12px;border-radius:50px;font-size:.78rem;margin-top:4px;}
-.lr-edit{font-size:.95rem;opacity:.5;}
-.lr-edit:hover{opacity:1;}
 .btn-primary:hover{background:var(--coral-soft);}
 .btn-ghost{background:var(--white);border:1px solid var(--line);color:var(--ink);}
 .btn-ghost:hover{border-color:var(--ink);background:var(--paper-2);}
@@ -227,14 +225,22 @@ button{font-family:inherit;cursor:pointer;}
 .prio-normal{background:var(--lav);}
 .prio-low{background:var(--line);}
 .lr-right{display:flex;align-items:center;gap:9px;flex-shrink:0;}
-.lr-del{font-size:var(--t-05);line-height:1;opacity:.45;}
-.lrow:hover .lr-del{opacity:1;}
 .type-chip{
   font-size:var(--t-03);font-weight:600;letter-spacing:-.005em;
   padding:3px 8px;border-radius:var(--radius-pill);background:var(--mint);color:var(--ink-2);white-space:nowrap;
 }
 
 /* ===== INQUIRY CARDS ===== */
+.tk-act{display:flex;align-items:center;gap:11px;width:100%;padding:13px 2px;background:none;border:none;border-bottom:1px solid var(--line-2);font-size:var(--t-04);color:var(--ink);cursor:pointer;text-align:left;font-family:inherit;}
+.tk-act:hover{color:var(--ink);opacity:.7;}
+.tk-act .ic{width:24px;height:24px;border-radius:50%;background:var(--mint);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.tk-act.done .ic{background:var(--ink);color:var(--white);}
+.tk-act.del{color:var(--coral);border-bottom:none;}
+.tk-act.del .ic{background:var(--coral-pale);color:var(--coral);}
+.tk-lbl{font-size:var(--t-02);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);margin:16px 0 9px;}
+.tk-snz{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px;}
+.tk-snz button{border:1px solid var(--line);background:var(--white);color:var(--ink);font-size:var(--t-03);padding:8px 15px;border-radius:50px;cursor:pointer;font-family:inherit;transition:all var(--anim);}
+.tk-snz button:hover{border-color:var(--ink);background:var(--mint);}
 .sched-grp{display:flex;align-items:baseline;justify-content:space-between;padding:9px 15px;background:var(--paper);border:1px solid var(--line);border-bottom:none;border-radius:12px 12px 0 0;margin-top:14px;}
 .sched-grp span{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);}
 .sched-grp.over{background:var(--coral-pale);border-color:rgba(244,81,69,.25);}
@@ -875,6 +881,15 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <!-- SHEET: quick add (inquiry/booking/task) -->
+<div class="overlay" id="taskOverlay">
+  <div class="sheet">
+    <button class="sheet-close" data-close="taskOverlay">&times;</button>
+    <h3 id="tkTitle">Task</h3>
+    <div class="sub" id="tkSub"></div>
+    <div id="tkBody"></div>
+  </div>
+</div>
+
 <div class="overlay" id="addOverlay">
   <div class="sheet">
     <button class="sheet-close" data-close="addOverlay">&times;</button>
@@ -1006,7 +1021,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"avg. time to first response",resVs:"vs",resSources:"Where they came from",resOther:"Other",resFollow:"Worth a follow-up",
     resShare:"Share this report",resCopied:"Copied \u2713",resReport:"Monthly report",resNoMonth:"No inquiries this month yet",resDays:"d",
     schedAfterSend:"Message sent. Set the next step so it does not slip.",quickPicks:"Quick picks",actEstimate:"Send estimate",
-    chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",schedOver:"Overdue",schedToday:"Today",schedNext:"Next up",completedLbl:"Completed",
+    chip_visit:"Site visit",chip_estimate:"Send estimate",chip_followup:"Schedule follow-up",schedOver:"Overdue",schedToday:"Today",schedNext:"Next up",tkDone:"Mark complete",tkUndone:"Mark not done",tkView:"View inquiry",tkMore:"More",snoozeLbl:"Snooze",snzTom:"Tomorrow",snz3d:"In 3 days",snzWeek:"Next week",completedLbl:"Completed",
     st_new:"New",st_contacting:"Contacted",st_estimate_sent:"Estimate sent",st_hired:"Hired",st_not_hired:"Not hired",
     estValue:"Estimates out",saveEst:"Save",estSaved:"Saved",
     suggestFU:"Estimate sent \u2014 schedule the follow-up so it doesn't go cold.",
@@ -1033,7 +1048,7 @@ button{font-family:inherit;cursor:pointer;}
     noTasks:"No tasks yet",noTasksSub:"Add a task or schedule an action from an inquiry.",
     undo:"Undo",taskDeleted:"Task deleted",snzMoved:"Moved to",editTask:"Edit task",
     snzTomorrow:"Tomorrow",snz3days:"In 3 days",snzNextWeek:"Next week",snzPick:"Pick a date",
-    addTask:"+ Add task",linked:"Linked",standalone:"Task",needFields:"Please fill in the required fields.",added:"Added",
+    addTask:"+ Add task",standalone:"Task",needFields:"Please fill in the required fields.",added:"Added",
     admin:"Hello, virtually!",client:"You",today:"Today",tomorrow:"Tomorrow",overdue:"Overdue",
     roleAdmin:"OPERATOR",roleClient:"CLIENT",greetClient:"everything we've handled for you",
     clClients:"Clients",clActive:"Active",clMRR:"Monthly revenue",clNone:"No active subscriptions yet.",
@@ -1084,7 +1099,7 @@ button{font-family:inherit;cursor:pointer;}
     resSpeed:"tiempo promedio de primera respuesta",resVs:"vs",resSources:"De d\u00f3nde llegaron",resOther:"Otro",resFollow:"Valen un seguimiento",
     resShare:"Compartir este reporte",resCopied:"Copiado \u2713",resReport:"Reporte mensual",resNoMonth:"A\u00fan no hay consultas este mes",resDays:"d",
     schedAfterSend:"Mensaje enviado. Deja listo el pr\u00f3ximo paso para que no se pierda.",quickPicks:"Sugerencias",actEstimate:"Enviar estimado",
-    chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",schedOver:"Vencidas",schedToday:"Hoy",schedNext:"Pr\u00f3ximas",completedLbl:"Completadas",
+    chip_visit:"Visita al sitio",chip_estimate:"Enviar estimado",chip_followup:"Agendar seguimiento",schedOver:"Vencidas",schedToday:"Hoy",schedNext:"Pr\u00f3ximas",tkDone:"Marcar completada",tkUndone:"Marcar pendiente",tkView:"Ver consulta",tkMore:"M\u00e1s",snoozeLbl:"Posponer",snzTom:"Ma\u00f1ana",snz3d:"En 3 d\u00edas",snzWeek:"Pr\u00f3xima semana",completedLbl:"Completadas",
     st_new:"Nueva",st_contacting:"Contactada",st_estimate_sent:"Estimado enviado",st_hired:"Contratado",st_not_hired:"No contratado",
     estValue:"Estimados enviados",saveEst:"Guardar",estSaved:"Guardado",
     suggestFU:"Estimado enviado \u2014 agenda el seguimiento para que no se enfr\u00ede.",
@@ -1111,7 +1126,7 @@ button{font-family:inherit;cursor:pointer;}
     noTasks:"A\u00fan no hay tareas",noTasksSub:"Agrega una tarea o agenda una acci\u00f3n desde una consulta.",
     undo:"Deshacer",taskDeleted:"Tarea borrada",snzMoved:"Movida a",editTask:"Editar tarea",
     snzTomorrow:"Ma\u00f1ana",snz3days:"En 3 d\u00edas",snzNextWeek:"Pr\u00f3xima semana",snzPick:"Elegir fecha",
-    addTask:"+ Agregar tarea",linked:"Ligada",standalone:"Tarea",needFields:"Completa los campos requeridos.",added:"Agregado",
+    addTask:"+ Agregar tarea",standalone:"Tarea",needFields:"Completa los campos requeridos.",added:"Agregado",
     admin:"Hello, virtually!",client:"T\u00fa",today:"Hoy",tomorrow:"Ma\u00f1ana",overdue:"Vencido",
     roleAdmin:"OPERADORA",roleClient:"CLIENTE",greetClient:"todo lo que cuidamos por ti",
     clClients:"Clientes",clActive:"Activos",clMRR:"Ingreso mensual",clNone:"A\u00fan no hay suscripciones activas.",
@@ -1612,18 +1627,34 @@ button{font-family:inherit;cursor:pointer;}
     };
     setTimeout(()=>{ document.addEventListener("click",function h(e){ if(!e.target.closest(".snz-menu")){ closeSnooze(); document.removeEventListener("click",h); } }); },0);
   }
+  function openTaskSheet(id,kind){
+    const arr=kind==="task"?tasks:reminders;
+    const it=arr.find(x=>String(x.id)===String(id)); if(!it) return;
+    const lk=it.inquiry_id?inquiries.find(x=>String(x.id)===String(it.inquiry_id)):null;
+    $("tkTitle").textContent=it.title||"";
+    $("tkSub").textContent=(lk&&lk.customer_name?lk.customer_name+" \u00b7 ":"")+(it.due_at?fmtWhen(it.due_at):"");
+    const snz=[["1",T("snzTom")],["3",T("snz3d")],["7",T("snzWeek")]];
+    $("tkBody").innerHTML=
+      '<button class="tk-act done" data-tk="done"><span class="ic">\u2713</span>'+esc(it.done?T("tkUndone"):T("tkDone"))+'</button>'+
+      (it.done?'':'<div class="tk-lbl">'+esc(T("snoozeLbl"))+'</div><div class="tk-snz">'+snz.map(x=>'<button data-tksnz="'+x[0]+'">'+esc(x[1])+'</button>').join("")+'</div>')+
+      '<div class="tk-lbl">'+esc(T("tkMore"))+'</div>'+
+      (lk?'<button class="tk-act" data-tk="view"><span class="ic">\u2192</span>'+esc(T("tkView"))+'</button>':'')+
+      '<button class="tk-act" data-tk="edit"><span class="ic">\u270e</span>'+esc(T("editTask"))+'</button>'+
+      '<button class="tk-act del" data-tk="del"><span class="ic">\u00d7</span>'+esc(T("del"))+'</button>';
+    $("tkBody").dataset.id=id; $("tkBody").dataset.kind=kind;
+    openOverlay("taskOverlay");
+  }
   function taskRow(item,kind){
     const id=item.id; const done=item.done;
     const title=item.title;
     const due=item.due_at;
     const overdue=due&&!done&&new Date(due)<new Date();
     const prio=kind==="task"?(item.priority||"normal"):null;
-    const linkTag=item.inquiry_id?'<span class="type-chip">'+esc(T("linked"))+'</span>':'';
     return '<div class="lrow" data-task="'+id+'" data-tkind="'+kind+'">'+
       '<div class="chk'+(done?' done':'')+'" data-act="toggleTask">'+(done?'\u2713':'')+'</div>'+
       (prio?'<span class="prio-dot prio-'+prio+'"></span>':'')+
       '<div class="lr-main"><div class="lr-title'+(done?' done':'')+'">'+esc(title)+'</div>'+(due?'<div class="lr-sub'+(done?'':' snz')+'"'+(done?'':' data-act="snooze"')+'>'+esc(fmtWhen(due))+'</div>':'')+'</div>'+
-      '<div class="lr-right">'+linkTag+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'<button class="del-link lr-edit" data-act="editTask" title="'+esc(T("editTask"))+'">\u270e</button><button class="del-link lr-del" data-act="delTask">\u00d7</button></div>'+
+            '<div class="lr-right">'+(overdue?'<span class="lr-when overdue">'+esc(T("overdue"))+'</span>':'')+'</div>'+
     '</div>';
   }
 
@@ -2161,6 +2192,35 @@ button{font-family:inherit;cursor:pointer;}
           ()=>{ arr.splice(idx,0,snap); render(); },
           async()=>{ await sb.from(tbl).delete().eq("id",id); });
         return; }
+      openTaskSheet(id,tk); return;
+    }
+    const tkb=e.target.closest("#tkBody [data-tk], #tkBody [data-tksnz]");
+    if(tkb){
+      const id=$("tkBody").dataset.id, tk=$("tkBody").dataset.kind;
+      const tbl=tk==="task"?"tasks":"reminders";
+      const arr=tk==="task"?tasks:reminders;
+      const it=arr.find(x=>String(x.id)===String(id)); if(!it) return;
+      const dys=tkb.getAttribute("data-tksnz");
+      if(dys){
+        const prev=it.due_at; const d=new Date(); d.setDate(d.getDate()+parseInt(dys,10)); d.setHours(9,0,0,0);
+        const iso=d.toISOString(); it.due_at=iso; closeOverlay("taskOverlay"); render();
+        const {error}=await sb.from(tbl).update({due_at:iso}).eq("id",id);
+        if(error){ it.due_at=prev; render(); return; }
+        toast(T("snzMoved")+" "+fmtWhen(iso),async()=>{ it.due_at=prev; render(); await sb.from(tbl).update({due_at:prev}).eq("id",id); },null);
+        return;
+      }
+      const a=tkb.getAttribute("data-tk");
+      closeOverlay("taskOverlay");
+      if(a==="done"){ const nv=!it.done; it.done=nv; render(); await sb.from(tbl).update({done:nv}).eq("id",id); return; }
+      if(a==="view"){ if(it.inquiry_id) openDetail(it.inquiry_id); return; }
+      if(a==="edit"){ openEdit(tk,id); return; }
+      if(a==="del"){
+        const idx=arr.findIndex(x=>String(x.id)===String(id)); if(idx<0) return;
+        const snap=arr[idx]; arr.splice(idx,1); render();
+        toast(T("taskDeleted"),()=>{ arr.splice(idx,0,snap); render(); },async()=>{ await sb.from(tbl).delete().eq("id",id); });
+        return;
+      }
+      return;
     }
     // drawer actions
     if(detailId && e.target.closest("#drawerBody")){
