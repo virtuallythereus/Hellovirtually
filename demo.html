@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your inquiry form &middot; Hello, virtually!</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#173D35">
+<meta property="og:title" content="Your inquiry form is ready">
+<meta property="og:description" content="Fill it in and watch where it lands.">
+<style>
+@font-face{font-family:'Helvena';src:url('fonts/Helvena-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Helvena';src:url('fonts/Helvena-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Helvena';src:url('fonts/Helvena-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Helvena';src:url('fonts/Helvena-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Helvena';src:url('fonts/Helvena-800.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'SFT Caps';src:url('fonts/SFTCaps-400.woff2') format('woff2');font-weight:400;font-display:swap}
+
+:root{
+  --ink:#173D35; --ink-2:#2d5a4e; --ink-3:rgba(23,61,53,.58); --ink-4:rgba(23,61,53,.40); --ink-deep:#102C26;
+  --paper:#F7F5F0; --paper-2:#EEECEA; --white:#fff;
+  --coral:#F45145; --coral-pale:#FDEFEC;
+  --lav:#B9A7FF; --lav-pale:#EEE9FF;
+  --blue:#C9E7F5; --blue-pale:#E8F5FC;
+  --mint:#DCEBE8;
+  --line:rgba(23,61,53,.12); --line-2:rgba(23,61,53,.06);
+  --shadow:0 1px 2px rgba(23,61,53,.04),0 4px 16px rgba(23,61,53,.05);
+  --shadow-md:0 2px 4px rgba(23,61,53,.05),0 8px 26px rgba(23,61,53,.07);
+  --shadow-lg:0 20px 60px rgba(23,61,53,.16);
+  --radius:16px; --radius-sm:10px; --radius-pill:50px;
+  --anim:.18s cubic-bezier(.22,.61,.36,1);
+  --brand:#F45145; --brand-pale:#FDEFEC; --brand-ink:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Helvena','Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-weight:600;line-height:1.1;letter-spacing:-.4px}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line-2)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:10px}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.tb-name{font-weight:600;font-size:14.5px;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-tag{margin-left:auto;font-family:'SFT Caps',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 40px}
+.eyebrow{display:inline-block;font-family:'SFT Caps',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
+.hero h1{font-size:clamp(31px,7vw,52px);font-weight:800;letter-spacing:-1.4px}
+.hl{color:var(--coral)}
+.lead{font-size:clamp(15.5px,2.2vw,18px);color:var(--ink-3);max-width:56ch;margin-top:18px;line-height:1.55}
+.cue{margin-top:26px;display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink-3)}
+.cue .arw{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:12px;flex:none}
+
+/* ---------- device / form ---------- */
+.stage{padding:14px 0 64px}
+.device{max-width:430px;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);overflow:hidden}
+.device-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--paper-2);border-bottom:1px solid var(--line-2)}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(23,61,53,.16)}
+.device-url{margin-left:8px;font-size:11px;color:var(--ink-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbody{padding:26px 22px 24px}
+.fhead{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.fhead .mark{width:34px;height:34px;font-size:15px}
+.fhead b{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.fsub{font-size:13.5px;color:var(--ink-3);margin-bottom:20px}
+.prog{display:flex;gap:5px;margin-bottom:22px}
+.prog i{height:3px;flex:1;border-radius:2px;background:var(--line);transition:background var(--anim)}
+.prog i.on{background:var(--brand)}
+.q{font-size:17px;font-weight:600;margin-bottom:4px;letter-spacing:-.3px}
+.qh{font-size:13px;color:var(--ink-4);margin-bottom:16px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--white);font:inherit;font-size:14.5px;color:var(--ink);cursor:pointer;transition:var(--anim)}
+.opt:hover{border-color:var(--brand);background:var(--brand-pale)}
+.opt.sel{border-color:var(--brand);background:var(--brand-pale);font-weight:600}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-family:'SFT Caps',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.fld input,.fld textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--white);font:inherit;font-size:15px;color:var(--ink)}
+.fld textarea{min-height:78px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--brand)}
+.btn{display:inline-block;padding:13px 24px;border-radius:var(--radius-pill);border:1px solid transparent;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;transition:var(--anim);text-decoration:none}
+.btn-brand{background:var(--brand);color:var(--brand-ink);width:100%}
+.btn-brand:hover{filter:brightness(.93)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--ink-deep)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.back{margin-top:12px;background:none;border:none;font:inherit;font-size:13px;color:var(--ink-4);cursor:pointer;padding:4px}
+.done{text-align:center;padding:14px 0 6px}
+.done .tick{width:46px;height:46px;border-radius:50%;background:var(--brand-pale);color:var(--brand);display:grid;place-items:center;margin:0 auto 14px;font-size:22px}
+.done h3{font-size:19px;margin-bottom:7px}
+.done p{font-size:14px;color:var(--ink-3);max-width:30ch;margin:0 auto}
+
+/* ---------- handoff ---------- */
+.handoff{max-width:430px;margin:22px auto 0;text-align:center}
+.handoff p{font-size:14px;color:var(--ink-3);margin-bottom:14px}
+
+/* ---------- workspace ---------- */
+.ws-sec{padding:64px 0 72px;border-top:1px solid var(--line-2);background:var(--white)}
+.ws-sec h2{font-size:clamp(26px,4.6vw,38px);font-weight:800;letter-spacing:-1px}
+.ws-sec .lead{margin-bottom:30px}
+.portal{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);background:var(--paper);display:grid;grid-template-columns:196px 1fr;min-height:430px}
+.sb{background:var(--ink);padding:16px 12px;display:flex;flex-direction:column;gap:3px}
+.sb-brand{font-weight:800;font-size:14px;color:var(--paper);padding:4px 10px 16px;letter-spacing:-.3px}
+.nv{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;border:none;background:none;font:inherit;font-size:13.5px;color:rgba(247,245,240,.66);cursor:pointer;text-align:left;transition:var(--anim);width:100%}
+.nv:hover{background:rgba(247,245,240,.08);color:var(--paper)}
+.nv.on{background:rgba(247,245,240,.13);color:var(--paper);font-weight:600}
+.nv .bdg{margin-left:auto;background:var(--coral);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px}
+.nv svg{width:15px;height:15px;flex:none}
+.pane{padding:20px 22px 26px;min-width:0}
+.pane-h{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.pane-h h3{font-size:20px;font-weight:700}
+.pane-h span{font-size:12.5px;color:var(--ink-4)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}
+.kpi{background:var(--white);border:1px solid var(--line-2);border-radius:12px;padding:12px 13px}
+.kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.6px;line-height:1.1}
+.kpi span{font-family:'SFT Caps',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.row{display:flex;align-items:center;gap:11px;padding:12px 13px;background:var(--white);border:1px solid var(--line-2);border-radius:12px;margin-bottom:7px}
+.row.fresh{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-pale)}
+.av{width:30px;height:30px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.row-m{min-width:0;flex:1}
+.row-m b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-m span{font-size:12.5px;color:var(--ink-3);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap;flex:none;letter-spacing:.02em}
+.p-new{background:var(--coral-pale);color:var(--coral)}
+.p-con{background:var(--blue-pale);color:#1d6a8c}
+.p-est{background:var(--lav-pale);color:#6a52c9}
+.p-fol{background:#FDF4E3;color:#a06d18}
+.p-hir{background:var(--mint);color:var(--ink-2)}
+.p-no{background:var(--paper-2);color:var(--ink-4)}
+.tline{font-size:11.5px;color:var(--ink-4);margin:16px 0 8px;font-family:'SFT Caps',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.empty{padding:28px 4px;font-size:14px;color:var(--ink-3);max-width:44ch}
+.empty b{display:block;font-size:15px;color:var(--ink);margin-bottom:6px}
+.chip{display:inline-block;font-size:12px;padding:5px 11px;border-radius:20px;background:var(--paper);border:1px solid var(--line);margin:0 5px 5px 0}
+.qa{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.qa button{padding:8px 14px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);font:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;transition:var(--anim)}
+.qa button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.bar-wrap{display:flex;align-items:flex-end;gap:10px;height:120px;padding:8px 0 0}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+.bar i{width:100%;max-width:44px;background:var(--mint);border-radius:6px 6px 0 0;display:block}
+.bar i.hot{background:var(--coral)}
+.bar span{font-size:11px;color:var(--ink-4)}
+
+/* ---------- cta ---------- */
+.cta{padding:66px 0 80px;text-align:center}
+.cta h2{font-size:clamp(27px,5vw,42px);font-weight:800;letter-spacing:-1.1px}
+.cta .lead{margin:16px auto 0}
+.price{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0 24px}
+.price div{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:13px 18px;min-width:150px}
+.price b{display:block;font-size:19px;font-weight:800}
+.price span{font-size:12px;color:var(--ink-3)}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.fine{margin-top:22px;font-size:12.5px;color:var(--ink-4)}
+footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-size:12.5px;color:var(--ink-4)}
+
+@media(max-width:760px){
+  .hero{padding:42px 0 30px}
+  .portal{grid-template-columns:1fr;min-height:0}
+  .sb{flex-direction:row;overflow-x:auto;gap:5px;padding:10px;scrollbar-width:none}
+  .sb::-webkit-scrollbar{display:none}
+  .sb-brand{display:none}
+  .nv{width:auto;white-space:nowrap;padding:8px 12px}
+  .nv svg{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .pane{padding:16px 14px 22px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <div class="mark" id="tbMark">B</div>
+    <div class="tb-name" id="tbName">Your business</div>
+    <div class="tb-tag">Private preview</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Built for you, not a template</span>
+    <h1 id="heroH">This is <span class="hl" id="heroBiz">your</span> inquiry form.</h1>
+    <p class="lead" id="heroLead">It asks the questions you would normally have to call back for. Fill it in like one of your customers would, then scroll down and see exactly where it lands.</p>
+    <div class="cue"><span class="arw">&darr;</span> Takes about 30 seconds</div>
+  </div>
+</section>
+
+<section class="stage">
+  <div class="wrap">
+    <div class="device">
+      <div class="device-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="device-url" id="devUrl">form.itshellovirtually.com</span>
+      </div>
+      <div class="fbody">
+        <div class="fhead"><div class="mark" id="fMark">B</div><b id="fName">Your business</b></div>
+        <div class="fsub" id="fSub">Request an estimate</div>
+        <div class="prog"><i class="on"></i><i></i><i></i></div>
+        <div id="fStage"></div>
+      </div>
+    </div>
+    <div class="handoff" id="handoff" style="display:none">
+      <p>That inquiry is now in the workspace below.</p>
+      <a class="btn btn-ink" href="#ws">See where it landed</a>
+    </div>
+  </div>
+</section>
+
+<section class="ws-sec" id="ws">
+  <div class="wrap">
+    <span class="eyebrow">Your workspace</span>
+    <h2>Every inquiry lands here,<br>already <span class="hl">organized</span>.</h2>
+    <p class="lead">No app to learn. It opens on what needs you today: who came in, who is still waiting on a number, and what you promised to send.</p>
+
+    <div class="portal">
+      <aside class="sb">
+        <div class="sb-brand" id="sbBrand">Your business</div>
+        <button class="nv on" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Today</button>
+        <button class="nv" data-v="inquiries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Inquiries<span class="bdg" id="bdgInq">3</span></button>
+        <button class="nv" data-v="schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M7 14l1.6 1.6L12 12"/></svg>Schedule</button>
+        <button class="nv" data-v="form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/></svg>My form</button>
+        <button class="nv" data-v="results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Results</button>
+      </aside>
+      <div class="pane" id="pane"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <span class="eyebrow">If it fits</span>
+    <h2 id="ctaH">We can have this live<br>in <span class="hl">five days</span>.</h2>
+    <p class="lead">We build the form around how you actually quote, connect it to your workspace, and hand you the link and QR code. You do not set anything up.</p>
+    <div class="price">
+      <div><b>$750</b><span>one-time setup</span></div>
+      <div><b>$149<small>/mo</small></b><span>three-month minimum</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-ink" id="ctaMail" href="#">Start the conversation</a>
+      <a class="btn btn-ghost" href="https://itshellovirtually.com" target="_blank" rel="noopener">See how it works</a>
+    </div>
+    <p class="fine">Not a CRM. Not project management. Just inquiries, organized.</p>
+  </div>
+</section>
+
+<footer>Hello, virtually! &middot; itshellovirtually.com</footer>
+
+<script src="trades.js"></script>
+<script>
+/* ============ CONFIG ============ */
+var CONTACT = "hello@itshellovirtually.com";  // cambia aqui si usas otro
+var CONTACT_TEL = "";                          // opcional: "17875550100" para WhatsApp
+
+/* ============ TRADES (desde trades.js) ============ */
+var TRADES = window.HV_TRADES;
+
+/* ============ URL PARAMS ============ */
+function qs(k,d){ try{ var v=new URLSearchParams(location.search).get(k); return v?v.trim():d; }catch(e){ return d; } }
+var BIZ = qs("biz","Your business");
+var TRADE = (qs("trade","roofing")||"").toLowerCase();
+if(!TRADES[TRADE]) TRADE = "roofing";
+var T = TRADES[TRADE];
+var COLOR = qs("color","#F45145");
+if(!/^#?[0-9a-fA-F]{6}$/.test(COLOR)) COLOR = "#F45145";
+if(COLOR[0] !== "#") COLOR = "#" + COLOR;
+var CITY = qs("city","");
+
+/* contraste del texto sobre el color de marca */
+function lum(hex){
+  var r=parseInt(hex.substr(1,2),16)/255,g=parseInt(hex.substr(3,2),16)/255,b=parseInt(hex.substr(5,2),16)/255;
+  function f(c){return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);}
+  return .2126*f(r)+.7152*f(g)+.0722*f(b);
+}
+function pale(hex){
+  var r=parseInt(hex.substr(1,2),16),g=parseInt(hex.substr(3,2),16),b=parseInt(hex.substr(5,2),16);
+  return "rgba("+r+","+g+","+b+",.10)";
+}
+var root = document.documentElement.style;
+root.setProperty("--brand", COLOR);
+root.setProperty("--brand-pale", pale(COLOR));
+root.setProperty("--brand-ink", lum(COLOR) > .55 ? "#173D35" : "#ffffff");
+
+function initials(s){
+  var p = s.replace(/[^A-Za-z0-9 ]/g,"").split(/\s+/).filter(Boolean);
+  return ((p[0]||"B")[0] + (p[1]?p[1][0]:"")).toUpperCase();
+}
+
+document.title = BIZ + " \u00b7 Your inquiry form";
+document.getElementById("tbName").textContent = BIZ;
+document.getElementById("tbMark").textContent = initials(BIZ);
+document.getElementById("fMark").textContent = initials(BIZ);
+document.getElementById("fName").textContent = BIZ;
+document.getElementById("fSub").textContent = T.sub;
+document.getElementById("sbBrand").textContent = BIZ;
+document.getElementById("heroBiz").textContent = BIZ + "'s";
+document.getElementById("devUrl").textContent =
+  BIZ.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,26) + ".itshellovirtually.com";
+document.getElementById("heroLead").textContent =
+  "It asks the questions a " + T.label.toLowerCase() + " job actually needs before you can quote it. Fill it in like one of your customers would, then scroll down and see exactly where it lands.";
+
+var mail = document.getElementById("ctaMail");
+mail.href = "mailto:" + CONTACT + "?subject=" + encodeURIComponent(BIZ + " - inquiry form") +
+  "&body=" + encodeURIComponent("Hi, I looked at the demo for " + BIZ + ". Tell me more.");
+
+/* ============ FORM FLOW ============ */
+var answers = {}, step = 0;
+var stage = document.getElementById("fStage");
+var prog = document.querySelectorAll(".prog i");
+
+function setProg(n){ prog.forEach(function(el,i){ el.classList.toggle("on", i <= n); }); }
+
+function stepQ(key, cfg, next){
+  var html = '<div class="q">' + cfg.q + '</div>';
+  if(cfg.h) html += '<div class="qh">' + cfg.h + '</div>';
+  html += '<div class="opts">';
+  cfg.o.forEach(function(o,i){ html += '<button class="opt" data-i="' + i + '">' + o + '</button>'; });
+  html += '</div>';
+  if(step > 0) html += '<button class="back">Back</button>';
+  stage.innerHTML = html;
+  stage.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){
+      answers[key] = cfg.o[+b.dataset.i];
+      step++; setProg(step); next();
+    });
+  });
+  var bk = stage.querySelector(".back");
+  if(bk) bk.addEventListener("click", function(){ step--; setProg(step); render(); });
+}
+
+function stepDetails(){
+  stage.innerHTML =
+    '<div class="q">Last part.</div>' +
+    '<div class="qh">So we can put a real number on it.</div>' +
+    '<div class="fld"><label>Your name</label><input id="iName" type="text" placeholder="Maria Lopez"></div>' +
+    '<div class="fld"><label>Phone</label><input id="iPhone" type="tel" placeholder="(407) 555-0142"></div>' +
+    '<div class="fld"><label>Anything else we should know</label><textarea id="iNote" placeholder="Optional"></textarea></div>' +
+    '<button class="btn btn-brand" id="iSend">Send my request</button>' +
+    '<button class="back">Back</button>';
+  stage.querySelector(".back").addEventListener("click", function(){ step--; setProg(step); render(); });
+  stage.querySelector("#iSend").addEventListener("click", function(){
+    var n = stage.querySelector("#iName").value.trim();
+    answers.name = n || "You";
+    answers.phone = stage.querySelector("#iPhone").value.trim() || "(407) 555-0142";
+    answers.note = stage.querySelector("#iNote").value.trim();
+    submitted = true;
+    step = 4; setProg(3);
+    stage.innerHTML =
+      '<div class="done"><div class="tick">&#10003;</div><h3>Got it, ' + esc(answers.name.split(" ")[0]) + '.</h3>' +
+      '<p>' + esc(BIZ) + ' has everything needed to price this. No callback just to ask the basics.</p></div>';
+    document.getElementById("handoff").style.display = "block";
+    document.getElementById("bdgInq").textContent = "4";
+    renderPane(activeView);
+  });
+}
+
+function render(){
+  if(step === 0) stepQ("a1", T.q1, function(){ render(); });
+  else if(step === 1) stepQ("a2", T.q2, function(){ render(); });
+  else if(step === 2) stepQ("a3", T.q3, function(){ render(); });
+  else stepDetails();
+}
+setProg(0); render();
+
+/* ============ WORKSPACE ============ */
+var submitted = false, activeView = "today";
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function ini(n){ var p = n.split(" "); return ((p[0]||"?")[0] + (p[1]?p[1][0]:"")).toUpperCase(); }
+var LBL = {new:"New",con:"Contacted",est:"Estimate sent",hir:"Hired",no:"Not hired"};
+
+function yourRow(fresh){
+  var msg = [answers.a1, answers.a2, answers.a3].filter(Boolean).join(" \u00b7 ");
+  if(answers.note) msg += " \u00b7 " + answers.note;
+  return '<div class="row' + (fresh ? ' fresh' : '') + '">' +
+    '<div class="av">' + esc(ini(answers.name || "You")) + '</div>' +
+    '<div class="row-m"><b>' + esc(answers.name || "You") + '</b><span>' + esc(msg) + '</span></div>' +
+    '<span class="pill p-new">New</span></div>';
+}
+function seedRow(s){
+  return '<div class="row"><div class="av">' + ini(s.n) + '</div>' +
+    '<div class="row-m"><b>' + s.n + '</b><span>' + s.m + '</span></div>' +
+    '<span class="pill p-' + s.s + '">' + LBL[s.s] + '</span></div>';
+}
+
+var VIEWS = {
+  today: function(){
+    var hr = new Date().getHours();
+    var greet = hr < 12 ? "Good morning" : (hr < 18 ? "Good afternoon" : "Good evening");
+    var h = '<div class="pane-h"><h3>' + greet + '</h3><span>Here\'s what needs your attention today.</span></div>';
+    h += '<div class="kpis">' +
+      '<div class="kpi"><b>' + (submitted ? 2 : 1) + '</b><span>New inquiries</span></div>' +
+      '<div class="kpi"><b>1</b><span>Follow-ups due</span></div>' +
+      '<div class="kpi"><b>$4,200</b><span>Awaiting reply</span></div></div>';
+    h += '<div class="tline">New inquiries</div>';
+    if(submitted) h += yourRow(true);
+    h += seedRow(T.seed[2]);
+    h += '<div class="tline">Today\'s actions</div>';
+    h += '<div class="row"><div class="av">' + ini(T.seed[1].n) + '</div><div class="row-m"><b>' +
+      T.task + '</b><span>' + T.seed[1].t + '</span></div><span class="pill p-fol">Follow-up</span></div>';
+    h += '<div class="qa"><button>Start my day</button><button>Reply on WhatsApp</button><button>Text</button></div>';
+    return h;
+  },
+  inquiries: function(){
+    var h = '<div class="pane-h"><h3>Inquiries</h3><span>New &rarr; Contacted &rarr; Estimate sent &rarr; Hired or not</span></div>';
+    h += '<div class="kpis">' +
+      '<div class="kpi"><b>' + (submitted ? 2 : 1) + '</b><span>New</span></div>' +
+      '<div class="kpi"><b>1</b><span>Pending estimate</span></div>' +
+      '<div class="kpi"><b>2</b><span>Awaiting reply</span></div></div>';
+    if(submitted) h += yourRow(true);
+    h += T.seed.map(seedRow).join("");
+    h += '<div class="row"><div class="av">JW</div><div class="row-m"><b>Janet Wu</b>' +
+      '<span>Booked last week, work starts Monday</span></div><span class="pill p-hir">Hired</span></div>';
+    h += '<div class="row"><div class="av">PO</div><div class="row-m"><b>Paul Osei</b>' +
+      '<span>Went with someone cheaper</span></div><span class="pill p-no">Not hired</span></div>';
+    return h;
+  },
+  schedule: function(){
+    var h = '<div class="pane-h"><h3>Schedule</h3><span>Visits, estimates, and what you promised</span></div>';
+    h += '<div class="tline">Today</div>';
+    h += '<div class="row"><div class="av">' + ini(T.seed[1].n) + '</div><div class="row-m"><b>' +
+      T.task + '</b><span>Due by 5:00 PM</span></div><span class="pill p-fol">Task</span></div>';
+    if(submitted) h += '<div class="row fresh"><div class="av">' + esc(ini(answers.name || "You")) +
+      '</div><div class="row-m"><b>Call ' + esc(answers.name || "You") + '</b><span>Suggested: within the hour</span></div>' +
+      '<span class="pill p-new">Suggested</span></div>';
+    h += '<div class="tline">Tomorrow</div>';
+    h += '<div class="row"><div class="av">' + ini(T.seed[0].n) + '</div><div class="row-m"><b>On-site visit, ' +
+      T.seed[0].n + '</b><span>9:30 AM</span></div><span class="pill p-est">Visit</span></div>';
+    return h;
+  },
+  form: function(){
+    var slug = BIZ.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,26);
+    return '<div class="pane-h"><h3>My form</h3><span>Your link, ready to share</span></div>' +
+      '<div class="empty"><b>' + esc(slug) + '.itshellovirtually.com</b>' +
+      'Put it in your Instagram bio, your Google listing, your truck, your business card. ' +
+      'The QR code lives here too, so you can print it once and stop re-explaining what you need.</div>' +
+      '<div style="margin-top:14px">' +
+      '<span class="chip">' + esc(T.q1.q) + '</span><span class="chip">' + esc(T.q2.q) + '</span>' +
+      '<span class="chip">' + esc(T.q3.q) + '</span><span class="chip">Name and phone</span></div>' +
+      '<div class="qa"><button>Copy link</button><button>Download QR</button><button>Edit questions</button></div>';
+  },
+  results: function(){
+    var bars = [["Mar",40],["Apr",58],["May",52],["Jun",74],["Jul",88]];
+    var h = '<div class="pane-h"><h3>Results</h3><span>What turned into work</span></div>';
+    h += '<div class="kpis"><div class="kpi"><b>31</b><span>Inquiries, 90 days</span></div>' +
+      '<div class="kpi"><b>12</b><span>Jobs booked</span></div>' +
+      '<div class="kpi"><b>38%</b><span>Close rate</span></div></div>';
+    h += '<div class="bar-wrap">' + bars.map(function(b,i){
+      return '<div class="bar"><i class="' + (i === bars.length - 1 ? "hot" : "") + '" style="height:' + b[1] + '%"></i><span>' + b[0] + '</span></div>';
+    }).join("") + '</div>';
+    h += '<p style="margin-top:14px;font-size:13.5px;color:var(--ink-3)">Inquiries per month. The point is not the chart, it is knowing which ones you never answered.</p>';
+    return h;
+  }
+};
+
+var pane = document.getElementById("pane");
+function renderPane(v){ activeView = v; pane.innerHTML = VIEWS[v](); }
+document.querySelectorAll(".nv").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll(".nv").forEach(function(x){ x.classList.remove("on"); });
+    b.classList.add("on");
+    renderPane(b.dataset.v);
+  });
+});
+renderPane("today");
+</script>
+</body>
+</html>
