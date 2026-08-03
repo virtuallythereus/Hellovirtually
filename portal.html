@@ -57,68 +57,58 @@ button{font-family:inherit;cursor:pointer;}
 .btn-block{width:100%;}
 
 /* ===== SHELL ===== */
-.shell{display:flex;min-height:100vh;}
+.shell{display:flex;flex-direction:column;min-height:100vh;}
 
 /* ===== SIDEBAR ===== */
-.sidebar{
-  width:var(--sidebar);flex-shrink:0;background:var(--ink-deep);color:var(--paper);
-  display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;
+/* ===== TOP NAV ===== */
+.topnav{
+  position:sticky;top:0;z-index:50;display:flex;align-items:stretch;gap:22px;
+  height:56px;padding:0 24px;background:rgba(247,245,240,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
-.sb-brand{
-  padding:30px 22px 26px;display:flex;align-items:center;gap:0;
-  font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:600;font-size:var(--t-04);color:var(--paper);
-  letter-spacing:-.02em;line-height:1;
+.tn-brand{
+  display:flex;align-items:center;flex-shrink:0;
+  font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:600;font-size:var(--t-04);
+  color:var(--ink);letter-spacing:-.02em;line-height:1;white-space:nowrap;
 }
-.sb-brand .dot{width:6px;height:6px;border-radius:50%;background:var(--coral);display:inline-block;margin-left:3px;margin-bottom:8px;}
-.sb-nav{flex:1;padding:0 22px;display:flex;flex-direction:column;gap:1px;}
+.tn-brand .dot{width:5px;height:5px;border-radius:50%;background:var(--coral);display:inline-block;margin-left:3px;align-self:center;margin-bottom:9px;}
+.tn-nav{flex:1;min-width:0;display:flex;align-items:stretch;gap:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tn-nav::-webkit-scrollbar{display:none;}
 .nav-item{
-  display:flex;align-items:center;gap:12px;min-height:48px;padding:0;
-  color:rgba(247,245,240,.58);font-weight:500;font-size:var(--t-04);letter-spacing:-.005em;
-  cursor:pointer;transition:color var(--anim);border:none;background:none;text-align:left;width:100%;position:relative;
+  display:flex;align-items:center;padding:0;border:none;background:none;cursor:pointer;
+  font-family:inherit;font-size:var(--t-03);font-weight:500;color:var(--ink-3);letter-spacing:-.005em;
+  white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color var(--anim),border-color var(--anim);
 }
-.nav-item::before{
-  content:"";position:absolute;left:-22px;top:50%;width:3px;height:17px;border-radius:0 3px 3px 0;
-  background:var(--coral);transform:translateY(-50%) scaleY(0);transform-origin:center;
-  transition:transform var(--anim-slow);
-}
-.nav-item:hover{color:rgba(247,245,240,.75);}
-.nav-item.active{color:var(--paper);font-weight:600;}
-.nav-item.active::before{transform:translateY(-50%) scaleY(1);}
-.nav-item .ic{width:17px;height:17px;flex-shrink:0;}
-.nav-item .nv-badge{
-  margin-left:auto;background:var(--coral);color:#fff;font-size:var(--t-01);font-weight:700;
-  min-width:17px;height:17px;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:center;padding:0 5px;
-}
-.sb-foot{
-  margin:0;padding:18px 22px 22px;background:none;border-radius:0;
-  border-top:1px solid rgba(247,245,240,.10);display:flex;align-items:center;gap:10px;
-}
+.nav-item:hover{color:var(--ink);}
+.nav-item.active{color:var(--ink);font-weight:600;border-bottom-color:var(--ink);}
+.tn-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tn-acct{position:relative;display:flex;align-items:center;}
 .sb-avatar{
-  width:27px;height:27px;border-radius:50%;background:rgba(247,245,240,.12);color:var(--paper);
-  display:flex;align-items:center;justify-content:center;font-weight:600;font-size:var(--t-02);flex-shrink:0;
+  width:30px;height:30px;border-radius:50%;background:var(--mint);color:var(--ink);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-family:inherit;font-weight:600;font-size:var(--t-02);flex-shrink:0;
 }
-.sb-user{flex:1;min-width:0;}
-.sb-user .e{font-size:var(--t-03);font-weight:500;color:rgba(247,245,240,.82);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sb-user .r{display:none;}
-.sb-ico{
-  background:none;border:none;color:rgba(247,245,240,.51);
-  width:26px;height:26px;border-radius:var(--radius-xs);font-size:var(--t-03);font-weight:600;
-  display:flex;align-items:center;justify-content:center;transition:color var(--anim),background var(--anim);
+.acct-menu{
+  display:none;position:absolute;right:0;top:calc(100% + 9px);min-width:196px;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);
+  box-shadow:0 8px 24px rgba(23,61,53,.14);padding:6px;z-index:60;
 }
-.sb-ico:hover{background:rgba(247,245,240,.08);color:var(--paper);}
+.acct-menu.open{display:block;}
+.acct-hd{padding:9px 10px 10px;border-bottom:1px solid var(--line-2);margin-bottom:5px;}
+.acct-hd .e{font-size:var(--t-03);font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.acct-hd .r{font-size:var(--t-01);letter-spacing:.06em;color:var(--ink-4);margin-top:3px;}
+.acct-it{
+  display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  font-family:inherit;font-size:var(--t-03);color:var(--ink-3);padding:10px;border-radius:var(--radius-xs);
+  transition:background var(--anim),color var(--anim);
+}
+.acct-it:hover{background:var(--paper);color:var(--ink);}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 
 /* ===== MAIN ===== */
-.main{flex:1;margin-left:var(--sidebar);min-width:0;display:flex;flex-direction:column;}
-.topbar{
-  position:sticky;top:0;z-index:40;background:rgba(247,245,240,.86);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:none;padding:18px 28px 6px;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-}
-.topbar h1{display:none;}
-@media(max-width:900px){.topbar h1{display:block;font-size:var(--t-05);font-weight:600;color:var(--ink);}}
-.topbar h1 em{font-style:italic;color:var(--coral);}
-.tb-actions{display:flex;align-items:center;gap:8px;}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+
 .bell{
   position:relative;background:none;border:none;
   width:34px;height:34px;border-radius:var(--radius-sm);
@@ -133,9 +123,9 @@ button{font-family:inherit;cursor:pointer;}
   border-radius:var(--radius-pill);background:var(--coral);color:var(--white);font-size:var(--t-01);font-weight:600;
   display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);
 }
-.content{padding:30px 34px 90px;max-width:1200px;width:100%;}
+.content{padding:30px 34px 90px;max-width:1200px;width:100%;margin:0 auto;}
 .view-today .main{justify-content:stretch;}
-.view-today .content{max-width:1120px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex:1;padding:26px 28px 60px;}
+.view-today .content{max-width:1240px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex:1;padding:26px 28px 60px;}
 .view-today .greet-row{text-align:left;margin-bottom:18px;}
 .view-today .td-card,.view-today .focus-card{width:100%;}
 @media(max-width:900px){.view-today .content{padding:16px 18px 60px;}}
@@ -213,6 +203,8 @@ button{font-family:inherit;cursor:pointer;}
 .ag-w{font-size:var(--t-03);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
 .ag-it.over .ag-w{color:var(--coral);font-weight:600;}
 @media(min-width:1024px){.tgrid>.ag-card{margin-top:0;}}
+/* notificaciones fuera de la interfaz */
+.bell,.notif-panel,.notif-panel.open{display:none !important;}
 @media(max-width:760px){
   .hrow{padding:14px 15px;gap:11px;}
   .hsub{white-space:normal;}
@@ -828,25 +820,18 @@ button{font-family:inherit;cursor:pointer;}
 .gate .alt{margin-top:16px;font-size:var(--t-03);color:var(--ink-3);}
 
 /* ===== MOBILE ===== */
-.hamburger{
-  display:none;background:var(--white);border:1px solid var(--line);
-  width:36px;height:36px;border-radius:var(--radius-sm);
-  font-size:var(--t-05);align-items:center;justify-content:center;
-}
 @media(max-width:900px){
-  .sidebar{transform:translateX(-100%);transition:transform var(--anim-slow);width:262px;}
-  .sidebar.open{transform:translateX(0);}
-  .main{margin-left:0;}
-  .hamburger{display:inline-flex;}
+  .topnav{gap:14px;padding:0 16px;}
   .cl-summary{grid-template-columns:1fr;}
   .content{padding:18px 16px 70px;}
-  .topbar{padding:12px 16px;}
   .filter-pills{flex-wrap:nowrap;overflow-x:auto;}
   .onboard{flex-direction:column;gap:14px;}
 }
-.sb-scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:45;}
-.sb-scrim.open{display:block;}
-@media(min-width:901px){.sb-scrim{display:none!important;}}
+@media(max-width:620px){
+  .topnav{height:auto;flex-wrap:wrap;padding:10px 14px 0;gap:10px;}
+  .tn-nav{order:3;width:100%;gap:16px;}
+  .tn-actions{margin-left:auto;}
+}
 </style>
 <style>
 @font-face{font-family:'Helvena';src:url('fonts/Helvena-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
@@ -876,36 +861,31 @@ button{font-family:inherit;cursor:pointer;}
 
 <!-- APP -->
 <div class="shell" id="shell" style="display:none">
-  <aside class="sidebar" id="sidebar">
-    <div class="sb-brand">Hello, Virtually<span class="dot"></span></div>
-    <nav class="sb-nav" id="sbNav">
-      <button class="nav-item active" data-view="today"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><circle cx="12" cy="15" r="2.2" fill="currentColor" stroke="none"/></svg></span><span data-t="navToday">Today</span></button>
-      <button class="nav-item" data-view="inquiries"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span data-t="navInq">Inquiries</span><span class="nv-badge" id="nbInq" style="display:none">0</span></button>
-      <button class="nav-item" data-view="schedule"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M7 14l1.6 1.6L12 12"/><path d="M14 14h4M14 18h4"/></svg></span><span data-t="navSched">Schedule</span><span class="nv-badge" id="nbTasks" style="display:none">0</span></button>
-      <button class="nav-item" data-view="form"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg></span><span data-t="navForm">My form</span></button>
-      <button class="nav-item" data-view="results"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-t="navResults">Results</span></button>
-      <button class="nav-item" data-view="clients" id="navClients" style="display:none"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6M18 14.6c2.2.5 3.8 2.4 3.8 5"/></svg></span><span data-t="navClients">Clients</span></button>
+  <header class="topnav">
+    <div class="tn-brand">Hello, Virtually<span class="dot"></span></div>
+    <nav class="tn-nav" id="sbNav">
+      <button class="nav-item active" data-view="today"><span data-t="navToday">Today</span></button>
+      <button class="nav-item" data-view="inquiries"><span data-t="navInq">Inquiries</span></button>
+      <button class="nav-item" data-view="schedule"><span data-t="navSched">Agenda</span></button>
+      <button class="nav-item" data-view="form"><span data-t="navForm">My form</span></button>
+      <button class="nav-item" data-view="results"><span data-t="navResults">Results</span></button>
+      <button class="nav-item" data-view="clients" id="navClients" style="display:none"><span data-t="navClients">Clients</span></button>
     </nav>
-    <div class="sb-foot">
-      <div class="sb-avatar" id="sbAvatar">H</div>
-      <div class="sb-user"><div class="e" id="sbName"></div><div class="r" id="sbRole">CLIENT</div></div>
-      <button class="sb-ico" id="langToggle">ES</button>
-      <button class="sb-ico" id="logoutBtn" title="Log out">&#8594;]</button>
+    <div class="tn-actions">
+      <button class="btn btn-primary btn-sm" id="quickAddBtn" data-t="quickAddInq">+ New inquiry</button>
+      <div class="tn-acct">
+        <button class="sb-avatar" id="sbAvatar" aria-haspopup="true" aria-expanded="false">H</button>
+        <div class="acct-menu" id="acctMenu">
+          <div class="acct-hd"><div class="e" id="sbName"></div><div class="r" id="sbRole">CLIENT</div></div>
+          <button class="acct-it" id="langToggle">ES</button>
+          <button class="acct-it" id="logoutBtn" data-t="logout">Log out</button>
+        </div>
+      </div>
     </div>
-  </aside>
-  <div class="sb-scrim" id="sbScrim"></div>
+  </header>
 
   <main class="main">
-    <div class="topbar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="hamburger" id="hamburger">&#9776;</button>
-        <h1 id="viewTitle">Today</h1>
-      </div>
-      <div class="tb-actions">
-        <button class="btn btn-primary btn-sm" id="quickAddBtn" data-t="quickAddInq">+ New inquiry</button>
-        <button class="bell" id="bellBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-badge" id="bellBadge" style="display:none">0</span></button>
-      </div>
-    </div>
+    <h1 id="viewTitle" class="sr-only">Today</h1>
     <div class="content" id="content"></div>
   </main>
 </div>
@@ -1027,7 +1007,7 @@ button{font-family:inherit;cursor:pointer;}
   };
 
   const EN={
-    navToday:"Today",navInq:"Inquiries",navSched:"Schedule",navClients:"Clients",
+    navToday:"Today",navInq:"Inquiries",navSched:"Agenda",navClients:"Clients",
     quickAdd:"+ New",quickAddInq:"+ New inquiry",addTask:"Add task",copyLink:"Copy form link",greetSub:"Here's what needs your attention today.",advanceTo:"Mark",addFollowup:"Add follow-up",followShort:"Follow-up",copyContact:"Copy contact",copyShort:"Copy",contactCopied:"Copied",addInquiry:"Add inquiry",onbTitle:"Ready to collect your first inquiry?",onbText:"Share your inquiry form or add a request manually to start organizing customer interest.",linkCopied:"Link copied",reviewInq:"Review",addStep:"Add next step",markDone:"Mark complete",followUp:"Follow up",thisWeek:"this week",received:"received",nothingDue:"Nothing due today",overdueCount:"overdue",allInquiries:"View inquiries",noActionsSub:"Add a follow-up or task to keep your day organized.",caughtUpSub:"No inquiries or follow-ups need your attention right now.",activitySub:"New inquiries and updates will appear here.", logout:"Log out",
     gateTitle:"Your <em>workspace</em>",gateSub:"Log in to see everything we've handled for you.",
     email:"Email",password:"Password",login:"Log in",noAccount:"No account yet?",goSite:"Create one on our site",
@@ -1339,7 +1319,7 @@ button{font-family:inherit;cursor:pointer;}
 
   function applyLang(){
     document.documentElement.lang=lang;
-    $("langToggle").textContent=lang==="es"?"EN":"ES";
+    $("langToggle").textContent=lang==="es"?"English":"Espa\u00f1ol";
     document.querySelectorAll("[data-t]").forEach(el=>{ const k=el.getAttribute("data-t"); if(EN[k]!=null) el.textContent=T(k); });
     $("gateTitle").innerHTML=T("gateTitle"); $("gateSub").textContent=T("gateSub");
     $("lblEmail").textContent=T("email"); $("lblPass").textContent=T("password"); $("gLogin").textContent=T("login");
@@ -1389,9 +1369,7 @@ button{font-family:inherit;cursor:pointer;}
   function updateNavBadges(){
     const nNew=inquiries.filter(r=>stOf(r)==="new"&&!r.archived).length;
     const openTasks=tasks.filter(t=>!t.done).length + reminders.filter(r=>!r.done).length;
-    const bi=$("nbInq"),bt=$("nbTasks");
-    if(nNew>0){ bi.style.display="flex"; bi.textContent=nNew; } else bi.style.display="none";
-    if(openTasks>0){ bt.style.display="flex"; bt.textContent=openTasks>9?"9+":openTasks; } else bt.style.display="none";
+    void nNew; void openTasks; /* badges de navegacion eliminados a peticion */
   }
 
   // ===== view routing =====
@@ -2269,7 +2247,7 @@ button{font-family:inherit;cursor:pointer;}
       const d=e.target.closest('[data-cnact="del"]'); if(d){ const id=d.closest("[data-cnid]").getAttribute("data-cnid"); if(confirm(lang==="es"?"\u00bfBorrar?":"Delete?")){ await sb.from("client_notes").delete().eq("id",id); clientNotes[email]=(clientNotes[email]||[]).filter(n=>String(n.id)!==String(id)); renderClients(); } return; }
       const ed=e.target.closest('[data-cnact="edit"]'); if(ed){ const id=ed.closest("[data-cnid]").getAttribute("data-cnid"); const note=(clientNotes[email]||[]).find(n=>String(n.id)===String(id)); if(note){ const nv=prompt(lang==="es"?"Editar:":"Edit:",note.body); if(nv!=null&&nv.trim()){ await sb.from("client_notes").update({body:nv.trim()}).eq("id",id); note.body=nv.trim(); renderClients(); } } return; }
     }
-    if(!e.target.closest("#notifPanel")&&!e.target.closest("#bellBtn")) $("notifPanel").classList.remove("open");
+    if(!e.target.closest("#acctMenu")&&!e.target.closest("#sbAvatar")) closeAcct();
   });
   document.addEventListener("change",async e=>{
     if(e.target&&e.target.id==="estFile"&&detailId){
@@ -2382,7 +2360,7 @@ button{font-family:inherit;cursor:pointer;}
     updateBadge();
   }
   function isUnread(n){ return !notifRead[n.id]; }
-  function updateBadge(){ const u=notifs.filter(isUnread).length; const b=$("bellBadge"); if(u>0){ b.style.display="flex"; b.textContent=u>9?"9+":u; } else b.style.display="none"; }
+  function updateBadge(){ /* badge de campana eliminado */ }
   function saveNotifState(){ try{ localStorage.setItem("hv_nread_"+user.id,JSON.stringify(notifRead)); localStorage.setItem("hv_ndel_"+user.id,JSON.stringify(notifDeleted)); }catch(e){} }
   function dayLabel(ts){
     const d=new Date(ts), n=new Date();
@@ -2408,7 +2386,6 @@ button{font-family:inherit;cursor:pointer;}
     });
     list.innerHTML=html;
   }
-  $("bellBtn").addEventListener("click",()=>{ const p=$("notifPanel"); p.classList.toggle("open"); if(p.classList.contains("open")){ renderNotifs(); renderPushCard(); } });
 
   // ===== PWA + Web Push (alertas de leads nuevos) =====
   const VAPID_PUBLIC="BKnLHh7rYG3aVN_k80Ih_kKrmJlNR2sixxDsC5YLz9Wv0N7HUg7dWgqsIX0v-zYIJfdPJe7owoP8uYPjvl5fc04";
@@ -2459,9 +2436,13 @@ button{font-family:inherit;cursor:pointer;}
   // ===== misc =====
   $("langToggle").addEventListener("click",()=>{ lang=lang==="es"?"en":"es"; applyLang(); });
   $("logoutBtn").addEventListener("click", async ()=>{ await sb.auth.signOut(); location.reload(); });
-  $("hamburger").addEventListener("click",()=>{ $("sidebar").classList.add("open"); $("sbScrim").classList.add("open"); });
-  $("sbScrim").addEventListener("click",closeSidebar);
-  function closeSidebar(){ $("sidebar").classList.remove("open"); $("sbScrim").classList.remove("open"); }
+  function closeAcct(){ const m=$("acctMenu"); if(m){ m.classList.remove("open"); $("sbAvatar").setAttribute("aria-expanded","false"); } }
+  function closeSidebar(){ closeAcct(); }
+  $("sbAvatar").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    const m=$("acctMenu"), open=!m.classList.contains("open");
+    m.classList.toggle("open",open); $("sbAvatar").setAttribute("aria-expanded",open?"true":"false");
+  });
   $("gLogin").addEventListener("click", async ()=>{ const email=$("gEmail").value.trim(),pass=$("gPass").value; $("gErr").textContent=""; if(!email||!pass){ $("gErr").textContent=lang==="es"?"Escribe correo y contrase\u00f1a.":"Enter email and password."; return; } const {error}=await sb.auth.signInWithPassword({email,password:pass}); if(error){ $("gErr").textContent=lang==="es"?"No pudimos iniciar sesi\u00f3n. Revisa tus datos.":"We couldn't log you in. Check your details."; return; } location.reload(); });
   $("gPass").addEventListener("keydown",e=>{ if(e.key==="Enter")$("gLogin").click(); });
 
