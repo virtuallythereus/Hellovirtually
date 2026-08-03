@@ -135,10 +135,10 @@ button{font-family:inherit;cursor:pointer;}
 }
 .content{padding:30px 34px 90px;max-width:1200px;width:100%;}
 .view-today .main{justify-content:stretch;}
-.view-today .content{max-width:none;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:0 28px 60px;}
-.view-today .greet-row{text-align:center;margin-bottom:20px;}
+.view-today .content{max-width:1120px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex:1;padding:26px 28px 60px;}
+.view-today .greet-row{text-align:left;margin-bottom:18px;}
 .view-today .td-card,.view-today .focus-card{width:100%;}
-@media(max-width:900px){.view-today .content{justify-content:flex-start;padding-top:8px;}}
+@media(max-width:900px){.view-today .content{padding:16px 18px 60px;}}
 
 /* ===== TODAY ===== */
 .greet-row{margin-bottom:22px;}
@@ -155,9 +155,10 @@ button{font-family:inherit;cursor:pointer;}
 .sec-head .sec-all:hover{color:var(--ink);}
 @media(min-width:1024px){
   .tgrid{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;align-items:start;}
-  .tgrid>.greet-row,.tgrid>.ws-strip{grid-column:1/-1;}
-  .tgrid>.focus-card,.tgrid>.td-card,.tgrid>.sec-leads{grid-column:1;}
+  .tgrid>.greet-row,.tgrid>.ws-strip,.tgrid>.qbar{grid-column:1/-1;}
+  .tgrid>.focus-card,.tgrid>.td-card,.tgrid>.sec-leads,.tgrid>.hlist{grid-column:1;}
   .tgrid>.sec-agenda{grid-column:2;grid-row:3/span 2;margin-top:0;align-self:start;}
+  .tgrid>.ag-card{grid-column:2;align-self:start;}
 }
 .ws-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 13px;cursor:pointer;transition:border-color var(--anim),background var(--anim);box-shadow:var(--shadow);}
 .ws-cell:hover{border-color:var(--ink);}
@@ -172,6 +173,49 @@ button{font-family:inherit;cursor:pointer;}
   .ws-cell{padding:11px 11px 10px;border-radius:var(--radius-sm);}
   .ws-n{font-size:var(--t-07);}
   .ws-l{font-size:var(--t-01);}
+}
+
+/* ===== HOME v2: lista accionable ===== */
+.view-today .greet-row .hi{font-size:var(--t-06);color:var(--ink);}
+.qbar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.qpill{display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:var(--t-03);font-weight:500;color:var(--ink-3);background:var(--white);border:1px solid var(--line);border-radius:var(--radius-pill);padding:9px 16px;min-height:40px;cursor:pointer;transition:background var(--anim),border-color var(--anim),color var(--anim);}
+.qpill:hover{border-color:var(--ink);color:var(--ink);}
+.qpill b{font-weight:600;color:var(--ink-4);font-variant-numeric:tabular-nums;}
+.qpill.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.qpill.on b{color:rgba(247,245,240,.62);}
+.qpill.zero{background:transparent;color:var(--ink-4);border-color:var(--line-2);}
+.qpill.zero b{color:var(--ink-4);}
+.hlist{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.hrow{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border-top:1px solid var(--line-2);transition:background var(--anim);}
+.hlist>.hrow:first-child{border-top:0;}
+.hrow[data-open]{cursor:pointer;}
+.hrow[data-open]:hover{background:rgba(23,61,53,.025);}
+.hav{width:38px;height:38px;border-radius:50%;background:var(--mint);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:var(--t-03);font-weight:600;flex-shrink:0;letter-spacing:.01em;}
+.hbody{flex:1;min-width:0;}
+.htop{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.hname{font-size:var(--t-04);font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.hwait{font-size:var(--t-02);color:var(--ink-3);white-space:nowrap;}
+.hwait.late{color:var(--coral);font-weight:600;}
+.hsub{font-size:var(--t-03);color:var(--ink-3);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hchev{color:var(--ink-4);font-size:var(--t-05);line-height:1;flex-shrink:0;align-self:center;}
+.hmsg-l{font-size:var(--t-01);font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-4);margin:14px 0 7px;}
+.hrow .composer{margin-top:0;}
+.hrow .msg-body{background:var(--paper);border-color:transparent;}
+.hfoot{margin-top:12px;}
+.hempty{padding:28px 18px;text-align:center;color:var(--ink-3);font-size:var(--t-03);}
+.ag-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 18px;margin-top:14px;}
+.ag-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.ag-h h2{font-size:var(--t-03);font-weight:600;color:var(--ink);}
+.ag-it{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid var(--line-2);cursor:pointer;}
+.ag-it .ag-t{font-size:var(--t-03);color:var(--ink);}
+.ag-it .ag-t.is-done{color:var(--ink-3);text-decoration:line-through;}
+.ag-it .ag-k{font-size:var(--t-02);color:var(--ink-3);margin-top:2px;}
+.ag-w{font-size:var(--t-03);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ag-it.over .ag-w{color:var(--coral);font-weight:600;}
+@media(min-width:1024px){.tgrid>.ag-card{margin-top:0;}}
+@media(max-width:760px){
+  .hrow{padding:14px 15px;gap:11px;}
+  .hsub{white-space:normal;}
 }
 .panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .panel-h h3{font-size:var(--t-04);font-weight:700;color:var(--ink);letter-spacing:.01em;}
@@ -1007,6 +1051,9 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",
+    hvFltNew:"Not contacted",hvFltPend:"Estimate not sent",hvFltAwait:"No reply yet",
+    hvWait0:"Nobody is waiting on you",hvWait1:"1 person is waiting on you",hvWaitN:"people are waiting on you",
+    hvMsgReady:"Message ready to send",hvOpen:"Open inquiry",hvEmptyF:"Nothing in this list right now.",
     replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",andWord:"and",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
     tpl_initial:"Got your request",tpl_estimate:"Estimate sent",tpl_followup:"Follow-up",tpl_lastcall:"Last check-in",tpl_thanks:"Thank you / hired",
     cmpTitle:"Message to",
@@ -1085,6 +1132,9 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",
+    hvFltNew:"Sin contestar",hvFltPend:"Falta enviar estimado",hvFltAwait:"Sin respuesta",
+    hvWait0:"Nadie est\u00e1 esperando por ti",hvWait1:"1 persona espera por ti",hvWaitN:"personas esperan por ti",
+    hvMsgReady:"Mensaje listo para enviar",hvOpen:"Ver consulta",hvEmptyF:"No hay nada en esta lista ahora.",
     replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",andWord:"y",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
     tpl_initial:"Recibimos tu solicitud",tpl_estimate:"Estimado enviado",tpl_followup:"Seguimiento",tpl_lastcall:"\u00daltimo intento",tpl_thanks:"Gracias / contratado",
     cmpTitle:"Mensaje para",
@@ -1452,7 +1502,10 @@ button{font-family:inherit;cursor:pointer;}
     const hr=now.getHours();
     const greetKey=hr<12?"greetAM":(hr<18?"greetPM":"greetEve");
 
-    let html='<div class="greet-row"><div class="hi">'+esc(T(greetKey))+'</div><div class="date">'+esc(dateStr.charAt(0).toUpperCase()+dateStr.slice(1))+'</div></div>';
+    const greetTxt=T(greetKey)+(myBizName?", "+myBizName:"");
+    const dateTxt=dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
+    const greetHTML=function(w){ return '<div class="greet-row"><div class="hi">'+esc(greetTxt)+'</div><div class="date">'+esc(dateTxt+(w?" \u00b7 "+w:""))+'</div></div>'; };
+    let html=greetHTML("");
 
     if(!realInq.length && !openTasks){
       html+='<div class="onboard"><div class="onboard-ic">'+icoInq()+'</div><div class="onboard-main"><div class="onboard-t">'+esc(T("onbTitle"))+'</div><div class="onboard-s">'+esc(T("onbText"))+'</div><div class="onboard-actions"><button class="btn btn-primary btn-sm" data-act="copylink">'+esc(T("copyLink"))+'</button><button class="btn btn-ghost btn-sm" data-go-add="1">'+esc(T("addInquiry"))+'</button></div></div><div class="onboard-link">'+esc(formLink().replace(/^https?:\/\//,""))+'</div></div>';
@@ -1490,103 +1543,70 @@ button{font-family:inherit;cursor:pointer;}
       TF[todayFilt].forEach(r=>day.push({kind:"grp",r:r}));
       if(todayIdx>=day.length) todayIdx=0;
     }
-    const wsCells=[
-      {n:newInq.length,l:T("live_new"),hot:newInq.length>0,k:"new"},
-      {n:wsPend,l:T("live_pending"),hot:wsPend>0,k:"pending"},
-      {n:wsEstOut,l:T("live_awaiting"),sub:estSum>0?fmtMoney(estSum):"",k:"awaiting"},
-      {n:wsVisits,l:T("wsVisits"),attr:'data-go="schedule"'}
-    ];
-    html+='<div class="ws-strip">'+wsCells.map(x=>'<button class="ws-cell'+(x.n?'':' zero')+(x.hot?' hot':'')+(x.k&&x.k===todayFilt?' on':'')+'" '+(x.attr||('data-tfilt="'+x.k+'"'))+'><span class="ws-n">'+x.n+'</span><span class="ws-l">'+esc(x.l)+'</span>'+(x.sub?'<span class="ws-s">'+esc(x.sub)+'</span>':'')+'</button>').join("")+'</div>';
+    const FLT=[{k:"new",l:T("hvFltNew")},{k:"pending",l:T("hvFltPend")},{k:"awaiting",l:T("hvFltAwait")}];
+    const totalWait=TF.new.length+TF.pending.length+TF.awaiting.length;
+    const waitLine=totalWait===0?T("hvWait0"):(totalWait===1?T("hvWait1"):totalWait+" "+T("hvWaitN"));
+    html=greetHTML(waitLine);
+    html+='<div class="qbar">'+FLT.map(function(x){
+      const n=TF[x.k].length;
+      return '<button type="button" class="qpill'+(n?'':' zero')+(x.k===todayFilt?' on':'')+'" data-tfilt="'+x.k+'">'+esc(x.l)+' <b>'+n+'</b></button>';
+    }).join("")+'</div>';
 
-    if(!day.length||todayIdx>=day.length){
-      const hayLeads=tfOrder.some(k=>TF[k]&&TF[k].length);
-      if(hayLeads){
-        html+='<div class="day-line">\u2713 '+esc(T("noneScheduled"))+
-          (day.length?' <button class="sec-all" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+'</div>';
-        c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>'; return;
-      }
-      html+='<div class="panel focus-card"><div class="focus-done"><span class="attn-check big">\u2713</span>'+
-        '<div class="focus-done-t">'+esc(T("focusDoneT"))+'</div>'+
-        '<div class="focus-done-s">'+esc(T("focusDoneS"))+'</div>'+
-        (day.length?'<button class="btn btn-ghost btn-sm" data-treset="1">'+esc(T("yourDay"))+'</button>':'')+
-      '</div></div>';
-      c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>'; return;
-    }
-
-    const a=day[todayIdx];
-    const pos=String(todayIdx+1).padStart(2,"0")+' <span class="td-sep">/</span> '+String(day.length).padStart(2,"0");
-    html+='<div class="td-card">';
-    if(a.kind==="stale"||a.kind==="nostep"||a.kind==="grp"){
-      const r=inquiries.find(x=>String(x.id)===String(a.r.id))||a.r;
-      const days=r.created_at?Math.floor((now-new Date(r.created_at))/dayMs):0;
-      const late=a.kind==="stale";
-      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("stuckLbl"):(a.kind==="grp"&&TFL[todayFilt]?T(TFL[todayFilt]):T("addStep")))+'</span>'+(isAsap(r)?'<span class="asap-tag">'+esc(T("asapLbl"))+'</span>':'')+'<span class="td-count">'+pos+'</span></div>';
-      html+='<div class="td-name">'+esc(r.customer_name||"\u2014")+'</div>';
-      html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(stLbl(stOf(r)))+'</b>'+
-        (r.channel?'<span class="td-x">\u00b7</span>'+esc(r.channel):'')+
-        '<span class="td-x">\u00b7</span><span class="'+(late||urgency(r.created_at)>=2?'td-late':(urgency(r.created_at)===1?'td-warm':''))+'">'+esc(agoShort(r.created_at))+' '+esc(T("agoWaiting"))+'</span></div>';
-      const fdc=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
-      const svcC=svcList(r);
-      if(svcC.length) html+='<div class="td-svc">'+esc(svcC.join(" \u00b7 "))+'</div>';
-      const SKIPK=/^(address|photos|email|e_?mail|correo|phone|tel|telefono|mobile|cell|contact|contact_?name|customer_?name|full_?name|name|first_?name|last_?name|business_?name|company|company_?name|message|notes?|comments?|source|referrer|utm.*|consent|terms|id|client_?email)$/i;
-      const chips=Object.entries(fdc).filter(([k,v])=>v!==null&&v!==""&&!Array.isArray(v)&&typeof v!=="object"&&!SKIPK.test(String(k).replace(/\s+/g,"_"))&&String(v).length<60).slice(0,3);
-      if(chips.length) html+='<div class="td-chips">'+chips.map(([k,v])=>'<span class="td-chip"><b>'+esc(String(k).replace(/([a-z0-9])([A-Z])/g,"$1 $2").replace(/_/g," "))+'</b>'+esc(String(v).slice(0,42))+'</span>').join("")+'</div>';
-      const addrC=String(fdc.address||"").trim();
-      if(addrC) html+='<a class="td-addr" href="https://maps.google.com/?q='+encodeURIComponent(addrC)+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+esc(addrC)+'</a>';
-      if(r.message) html+='<div class="td-ask">'+esc(r.message.slice(0,180))+'</div>';
-      const phC=Array.isArray(fdc.photos)?fdc.photos.filter(u=>typeof u==="string"&&u):[];
-      if(phC.length) html+='<div class="td-ph">'+phC.slice(0,6).map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="" loading="lazy"></a>').join("")+'</div>';
-      html+=composerHTML(r,"panel");
-      html+='<div class="td-foot"><button class="td-link" data-open="'+r.id+'">'+esc(T("reviewInq"))+'</button>'+
-        '<button class="td-link" data-tskip="1">'+esc(T("nextInq"))+' \u2192</button></div>';
-    } else {
-      const o=a.o;
-      const linked=o.inquiry_id?inquiries.find(x=>String(x.id)===String(o.inquiry_id)):null;
-      const late=a.kind==="od";
-      html+='<div class="td-top"><span class="td-why'+(late?' late':'')+'">'+esc(late?T("overdueLbl"):T("dueTodayLbl"))+'</span><span class="td-count">'+pos+'</span></div>';
-      html+='<div class="td-name">'+esc(o.title||"\u2014")+'</div>';
-      html+='<div class="td-meta"><span class="td-dot"></span><b>'+esc(fmtWhen(o.due_at))+'</b>'+(linked?'<span class="td-x">\u00b7</span>'+esc(linked.customer_name||""):'')+'</div>';
-      html+='<div class="td-foot">'+(linked?'<button class="td-link" data-open="'+linked.id+'">'+esc(T("reviewInq"))+'</button>':'<span></span>')+
-        '<span class="td-acts"><button class="td-link" data-tskip="1">'+esc(T("focusSkip"))+'</button>'+
-        '<button class="mini-btn send" data-donerem="'+o.id+'" data-kind="'+(o.priority!==undefined?"task":"rem")+'">'+esc(T("markDone"))+'</button></span></div>';
-    }
+    const rows=(todayFilt&&TF[todayFilt])?TF[todayFilt]:[];
+    html+='<div class="hlist">';
+    html+=rows.length?rows.map(function(r,i){ return homeRow(r,i===0); }).join(""):'<div class="hempty">'+esc(T("hvEmptyF"))+'</div>';
     html+='</div>';
 
-    // ---- Lo demas de la cola: visible y accionable sin hacer skip ----
-    c.innerHTML='<div class="tgrid">'+html+todayLists(TF,wsEvsMap,wsKey)+'</div>';
+    c.innerHTML='<div class="tgrid">'+html+todayAgenda(wsEvsMap,wsKey,overdue)+'</div>';
   }
-  function todayLists(TF,evsMap,tkey){
-    let html="";
-    const grp=(todayFilt&&TF[todayFilt])?TF[todayFilt].filter((_,i)=>i!==todayIdx):[];
-    if(grp.length){
-      html+='<div class="sec sec-leads"><div class="sec-head"><h2>'+esc(T(TFL[todayFilt]))+'</h2><span class="sec-c">'+grp.length+'</span>'+
-        '<button class="sec-all" data-go="inquiries" data-filt="'+todayFilt+'">'+esc(T("seeAll"))+'</button></div><div class="inq-list">';
-      html+=grp.map(function(r){
-        const u=urgency(r.created_at);
-        return '<div class="inq-card" data-open="'+r.id+'">'+
-          '<div class="inq-av tick-'+stOf(r)+'"></div>'+
-          '<div class="inq-main"><div class="inq-name">'+esc(r.customer_name||"\u2014")+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+'</div>'+
-          '<div class="inq-svc">'+esc((r.service||r.message||"").slice(0,52)||stLbl(stOf(r)))+'</div></div>'+
-          '<div class="inq-right"><span class="'+(u>=2?"tw-hot":(u===1?"tw-warm":""))+'">'+esc(agoShort(r.created_at))+'</span></div></div>';
-      }).join("");
-      html+='</div></div>';
+  function homeIni(name){
+    const p=String(name||"").trim().split(/\s+/).filter(Boolean).slice(0,2).map(function(w){return w.charAt(0);}).join("");
+    return (p||"?").toUpperCase();
+  }
+  function homeRow(r0,open){
+    const r=inquiries.find(function(x){return String(x.id)===String(r0.id);})||r0;
+    const u=urgency(r.created_at);
+    const fd=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
+    const svc=svcList(r);
+    const addr=String(fd.address||"").trim();
+    const bits=[];
+    if(svc.length) bits.push(svc.join(" \u00b7 ")); else if(r.service) bits.push(r.service);
+    bits.push(addr||stLbl(stOf(r)));
+    let h='<div class="hrow'+(open?' open':'')+'"'+(open?'':' data-open="'+r.id+'"')+'>';
+    h+='<div class="hav">'+esc(homeIni(r.customer_name))+'</div>';
+    h+='<div class="hbody">';
+    h+='<div class="htop"><span class="hname">'+esc(r.customer_name||"\u2014")+(isAsap(r)?'<span class="asap-tag sm">'+esc(T("asapLbl"))+'</span>':'')+'</span>'+
+       '<span class="hwait'+(u>=2?' late':'')+'">'+esc(agoShort(r.created_at)+" "+T("agoWaiting"))+'</span></div>';
+    h+='<div class="hsub">'+esc(bits.filter(Boolean).join(" \u00b7 "))+'</div>';
+    if(open){
+      h+='<div class="hmsg-l">'+esc(T("hvMsgReady"))+'</div>';
+      h+=composerHTML(r,"panel");
+      h+='<div class="hfoot"><button type="button" class="btn btn-ghost btn-sm" data-open="'+r.id+'">'+esc(T("hvOpen"))+'</button></div>';
     }
-    // ---- Lo que hay hoy en la agenda ----
-    const tEvs=(evsMap[tkey]||[]).slice().sort((x,y)=>new Date(x.time)-new Date(y.time));
-    if(tEvs.length){
-      html+='<div class="sec sec-agenda"><div class="sec-head"><h2>'+esc(T("todaySched"))+'</h2><button class="btn btn-sm" data-go="schedule">'+esc(T("seeWeek"))+'</button></div><div class="inq-list">';
-      html+=tEvs.map(function(x){
-        const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
-        const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
-        const lbl=x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
-        return '<div class="inq-card"'+attr+'><div class="inq-main"><div class="inq-name'+(x.done?' is-done':'')+'">'+esc(x.title)+'</div>'+
-          '<div class="inq-svc">'+esc(t)+' \u00b7 '+esc(lbl)+'</div></div>'+
-          (x.done?'<div class="inq-right"><span class="ag-done">\u2713</span></div>':'')+'</div>';
-      }).join("");
-      html+='</div></div>';
-    }
-
-    return html;
+    h+='</div>';
+    if(!open) h+='<span class="hchev">\u203a</span>';
+    return h+'</div>';
+  }
+  function todayAgenda(evsMap,tkey,overdue){
+    const od=(overdue||[]).slice(0,4);
+    const odIds={}; od.forEach(function(o){ odIds[String(o.id)]=1; });
+    const tEvs=(evsMap[tkey]||[]).filter(function(x){ return !(x.eid&&odIds[String(x.eid)]); })
+      .sort(function(x,y){ return new Date(x.time)-new Date(y.time); });
+    if(!tEvs.length&&!od.length) return "";
+    let html='<div class="ag-card"><div class="ag-h"><h2>'+esc(T("todaySched"))+'</h2><button type="button" class="sec-all" data-go="schedule">'+esc(T("seeWeek"))+'</button></div>';
+    html+=od.map(function(o){
+      const kind=(o.priority!==undefined?"task":"rem");
+      return '<div class="ag-it over" data-edit="'+o.id+'" data-ekind="'+kind+'"><div><div class="ag-t">'+esc(o.title||"\u2014")+'</div>'+
+        '<div class="ag-k">'+esc(T("overdueLbl"))+'</div></div><span class="ag-w">'+esc(fmtWhen(o.due_at))+'</span></div>';
+    }).join("");
+    html+=tEvs.map(function(x){
+      const t=new Date(x.time).toLocaleTimeString(locale(),{hour:"numeric",minute:"2-digit"});
+      const attr=x.eid?' data-edit="'+x.eid+'" data-ekind="'+x.ekind+'"':(x.inqId?' data-open="'+x.inqId+'"':'');
+      const lbl=x.type==="booking"?T("evVisit"):(x.ekind==="task"?T("evTask"):T("evReminder"));
+      return '<div class="ag-it"'+attr+'><div><div class="ag-t'+(x.done?' is-done':'')+'">'+esc(x.title)+'</div>'+
+        '<div class="ag-k">'+esc(lbl)+'</div></div><span class="ag-w">'+esc(t)+'</span></div>';
+    }).join("");
+    return html+'</div>';
   }
 
   let toastTimer=null;
