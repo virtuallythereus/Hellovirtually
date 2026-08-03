@@ -29,7 +29,7 @@ body{font-family:'Helvena','Helvetica Neue',Helvetica,Arial,sans-serif;backgroun
 a{color:inherit;text-decoration:none}
 h1,h2{font-weight:800;line-height:1.05;letter-spacing:-1.5px}
 h3{font-weight:800;letter-spacing:-.5px;line-height:1.2}
-.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 .cap{display:inline-block;font-family:'SFT Caps',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
 .say{font-size:clamp(16px,2.1vw,18px);color:var(--ink-3);max-width:53ch;line-height:1.6}
 .coral{color:var(--coral)}
@@ -44,8 +44,18 @@ h2{font-size:clamp(28px,5.2vw,44px)}
 .btn svg{width:16px;height:16px}
 
 /* ---------- top ---------- */
+.promo{background:var(--coral);color:#fff}
+.promo-in{max-width:1120px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.promo-tag{font-family:'SFT Caps',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.22);padding:5px 11px;border-radius:var(--radius-pill);white-space:nowrap}
+.promo-txt{font-size:14.5px;font-weight:600;letter-spacing:-.2px}
+.promo-left{margin-left:auto;font-size:13px;font-weight:700;background:rgba(0,0,0,.16);padding:5px 13px;border-radius:var(--radius-pill);white-space:nowrap;font-variant-numeric:tabular-nums}
+.promo-go{font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;color:#fff}
+@media(max-width:640px){.promo-txt{font-size:13.5px;width:100%;order:3}.promo-left{margin-left:0}}
+.badge{display:inline-flex;align-items:center;gap:9px;font-family:'SFT Caps',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--coral);padding:8px 16px;border-radius:var(--radius-pill);margin-bottom:18px}
+.badge b{font-family:'Helvena','Helvetica Neue',sans-serif;letter-spacing:0;text-transform:none;font-size:12.5px;font-weight:700;background:rgba(0,0,0,.18);padding:2px 9px;border-radius:var(--radius-pill);font-variant-numeric:tabular-nums}
+.incl-tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:#fff;background:var(--coral);padding:5px 12px;border-radius:var(--radius-pill)}
 .top{position:sticky;top:0;z-index:50;background:rgba(247,245,240,.92);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--line-2)}
-.top-in{max-width:1000px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px}
+.top-in{max-width:1120px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px}
 .logo{font-weight:800;font-size:16.5px;letter-spacing:-.5px}
 .logo i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-left:4px;vertical-align:2px;font-style:normal}
 .top-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:14.5px;color:var(--ink-3)}
@@ -76,10 +86,11 @@ h2{font-size:clamp(28px,5.2vw,44px)}
 .act em{font-style:normal;font-size:14px;color:var(--ink-4)}
 
 /* ---------- 2 problem ---------- */
-.dark{background:var(--ink);color:var(--paper);padding:76px 0;margin-top:58px}
+.dark{background:var(--ink);color:var(--paper);padding:76px 0}
 .dark .cap{color:rgba(247,245,240,.42)}
 .dark .say{color:rgba(247,245,240,.62);margin-top:20px}
 .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(198px,1fr));gap:10px;margin-top:38px}
+@media(min-width:900px){.notes{grid-template-columns:repeat(3,1fr)}}
 .note{background:rgba(247,245,240,.06);border:1px solid rgba(247,245,240,.12);border-radius:var(--radius);padding:16px 17px}
 .note b{display:block;font-family:'SFT Caps',sans-serif;font-size:9.5px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;color:rgba(247,245,240,.44);margin-bottom:8px}
 .note span{font-size:14.5px;color:rgba(247,245,240,.88);line-height:1.4}
@@ -88,6 +99,11 @@ h2{font-size:clamp(28px,5.2vw,44px)}
 /* ---------- 3 scope ---------- */
 .sec{padding:78px 0}
 .sec .say{margin-top:18px}
+.duo{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:900px){
+  .duo{grid-template-columns:1.05fr .95fr;gap:48px;align-items:end}
+  .duo .say{margin-top:0;padding-bottom:5px;max-width:44ch}
+}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:14px;margin-top:38px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px}
 .tagline{display:inline-block;font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--mint);padding:5px 12px;border-radius:var(--radius-pill);margin-bottom:14px}
@@ -130,11 +146,21 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 </head>
 <body>
 
+<div class="promo" id="promo" hidden>
+  <div class="promo-in">
+    <span class="promo-tag">Limited time</span>
+    <span class="promo-txt">Your website built into the setup, no extra charge</span>
+    <span class="promo-left" id="promoLeft"></span>
+    <a class="promo-go" href="#offer">See it</a>
+  </div>
+</div>
+
 <div class="top">
   <div class="top-in">
     <a class="logo" href="#top">Hello, virtually<i></i></a>
     <nav class="top-nav">
       <a href="#how">How it works</a>
+      <a href="#offer">Offer</a>
       <a href="#price">Pricing</a>
       <a class="btn btn-ink" href="#start">Get started</a>
     </nav>
@@ -170,8 +196,10 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 <section class="dark">
   <div class="wrap">
     <span class="cap rv">The real problem</span>
-    <h2 class="rv">You are not losing jobs<br>on price. You are losing<br>them on <span class="coral">silence</span>.</h2>
-    <p class="say rv">The estimate is not the hard part. The hard part is that a lead came in on Saturday, you read it while driving, and by Tuesday somebody else already showed up at the house.</p>
+    <div class="duo">
+      <h2 class="rv">You are not losing jobs<br>on price. You are losing<br>them on <span class="coral">silence</span>.</h2>
+      <p class="say rv">The estimate is not the hard part. The hard part is that a lead came in on Saturday, you read it while driving, and by Tuesday somebody else already showed up at the house.</p>
+    </div>
 
     <div class="notes">
       <div class="note rv"><b>WhatsApp &middot; 9:14 AM</b><span>Hi! Do you give free estimates?</span></div>
@@ -189,8 +217,10 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 <section class="sec" id="how">
   <div class="wrap">
     <span class="cap rv">How it works</span>
-    <h2 class="rv">Five days from call<br>to <span class="coral">live</span>.</h2>
-    <p class="say rv">This is not software you sign up for and figure out on a Sunday. We build it around how you already quote, and hand it to you finished.</p>
+    <div class="duo">
+      <h2 class="rv">Five days from call<br>to <span class="coral">live</span>.</h2>
+      <p class="say rv">This is not software you sign up for and figure out on a Sunday. We build it around how you already quote, and hand it to you finished.</p>
+    </div>
 
     <div class="cards">
       <div class="card rv">
@@ -212,8 +242,40 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 
     <div class="strip rv">
       <h3>You never touch the setup</h3>
-      <p>If something needs to change, a new question, a new service, a different price range, you send a message and we change it. You are running a crew, not administering software.</p>
+      <p>A new question, a new service, a different price range: you send a message and we change it on your form and in your workspace. You are running a crew, not administering software.</p>
     </div>
+  </div>
+</section>
+
+<!-- 3.5 OFERTA -->
+<section class="sec" id="offer" style="background:var(--mint);border-top:1px solid var(--line-2)">
+  <div class="wrap">
+    <span class="badge rv">Limited time <b id="badgeLeft"></b></span>
+    <h2 class="rv">We build your website<br>into the setup. <span class="coral">No extra charge</span>.</h2>
+    <p class="say rv" style="color:var(--ink-2)">For the next 30 days, the setup fee covers your website too, not just the form and the workspace. Same price as before. You end up with somewhere to send people and something that captures them once they get there.</p>
+
+    <div class="cards" style="margin-top:34px">
+      <div class="card rv">
+        <span class="tagline">Most take this one</span>
+        <div class="amt" style="margin-bottom:4px"><b>$750</b><span>setup</span></div><span class="incl-tag">Website included</span>
+        <h3 style="margin-top:14px">Website, up to 3 pages</h3>
+        <p>Home, services and contact, built in your name, with your domain covered for the first year. Plus the inquiry form and the workspace.</p>
+      </div>
+      <div class="card rv">
+        <span class="tagline">If you just need a page</span>
+        <div class="amt" style="margin-bottom:4px"><b>$500</b><span>setup</span></div><span class="incl-tag">Website included</span>
+        <h3 style="margin-top:14px">Landing page</h3>
+        <p>One page that does the whole job, with your domain covered for the first year. Plus the inquiry form and the workspace.</p>
+      </div>
+      <div class="card rv">
+        <span class="tagline">Either way</span>
+        <div class="amt" style="margin-bottom:4px"><b>$149</b><span>per month</span></div>
+        <h3 style="margin-top:14px">Hosting included</h3>
+        <p>Three month minimum, then month to month. Your form and workspace stay maintained by us. Website edits are quoted separately.</p>
+      </div>
+    </div>
+
+    <p class="rv" style="margin-top:26px;font-size:14px;color:var(--ink-3)">Offer ends September 2, 2026. <a href="terms.html" style="text-decoration:underline;text-underline-offset:3px">Terms and conditions</a>.</p>
   </div>
 </section>
 
@@ -233,7 +295,7 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
         <ul class="incl">
           <li><s></s>Your branded inquiry form, as many questions as your work needs</li>
           <li><s></s>The workspace where every inquiry lands and moves toward a yes</li>
-          <li><s></s>Changes handled by us, not by you</li>
+          <li><s></s>Form and workspace changes handled by us, not by you</li>
           <li><s></s>Your data stays yours, exportable whenever you ask</li>
         </ul>
       </div>
@@ -263,10 +325,9 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
     <h2 class="rv">Show me what I am<br><span class="coral">missing</span>.</h2>
     <p class="say rv">Tell us what you do and where you work. We will show you what your form would ask, and what the workspace looks like with your jobs in it. If it does not fit, we will say so.</p>
     <div class="act rv">
-      <a class="btn btn-ink" id="mailBtn" href="#">Ask for a walkthrough</a>
-      <a class="btn btn-line" id="smsBtn" href="#">Send a text instead</a>
+      <a class="btn btn-ink" id="mailBtn" href="#">Send us the details</a>
     </div>
-    <p class="fine rv">No signup, no card, no trial to cancel. A conversation first.</p>
+    <p class="fine rv">No signup, no card, no trial to cancel. We read it and write back.</p>
   </div>
 </section>
 
@@ -275,7 +336,30 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 <script src="trades.js"></script>
 <script>
 var CONTACT_EMAIL = "hello@itshellovirtually.com";
-var CONTACT_SMS   = "";
+var OFFER_END = "2026-09-02";   // ultimo dia de la oferta
+
+/* contador real: si la fecha pasa, la oferta desaparece sola */
+(function(){
+  var end  = new Date(OFFER_END + "T23:59:59");
+  var days = Math.ceil((end - new Date()) / 86400000);
+  var live = days > 0;
+
+  var promo = document.getElementById("promo");
+  var badge = document.getElementById("badgeLeft");
+  var left  = document.getElementById("promoLeft");
+  var offer = document.getElementById("offer");
+  var navLink = document.querySelector('.top-nav a[href="#offer"]');
+
+  if(!live){
+    if(offer) offer.hidden = true;
+    if(navLink) navLink.style.display = "none";
+    return;
+  }
+  var txt = days === 1 ? "1 day left" : days + " days left";
+  promo.hidden = false;
+  if(left)  left.textContent  = txt;
+  if(badge) badge.textContent = txt;
+})();
 
 var ASK = window.HV_ASK, TRADES = window.HV_TRADES;
 var cur = "roofing";
@@ -309,12 +393,7 @@ document.getElementById("mailBtn").href = "mailto:" + CONTACT_EMAIL +
   "?subject=" + encodeURIComponent("I want to see what my form would ask") +
   "&body=" + encodeURIComponent("What I do:\nWhere I work:\nHow leads reach me now:\n");
 
-var sms = document.getElementById("smsBtn");
-if(CONTACT_SMS){
-  sms.href = "sms:" + CONTACT_SMS + "?&body=" + encodeURIComponent("Hi, I want to see what my inquiry form would ask.");
-}else{
-  sms.style.display = "none";
-}
+
 
 if("IntersectionObserver" in window){
   var io = new IntersectionObserver(function(es){

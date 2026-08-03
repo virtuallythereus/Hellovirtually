@@ -44,6 +44,18 @@ a{color:inherit}
 .tb-name{font-weight:600;font-size:14.5px;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-tag{margin-left:auto;font-family:'SFT Caps',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap}
 
+/* ---------- oferta ---------- */
+.promo{background:var(--coral);color:#fff}
+.promo-in{max-width:1080px;margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.promo-tag{font-family:'SFT Caps',sans-serif;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.22);padding:4px 10px;border-radius:var(--radius-pill);white-space:nowrap}
+.promo-txt{font-size:14px;font-weight:600;letter-spacing:-.2px}
+.promo-left{margin-left:auto;font-size:12.5px;font-weight:700;background:rgba(0,0,0,.16);padding:4px 12px;border-radius:var(--radius-pill);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:620px){.promo-txt{width:100%;order:3;font-size:13px}.promo-left{margin-left:0}}
+.badge{display:inline-flex;align-items:center;gap:9px;font-family:'SFT Caps',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--coral);padding:7px 15px;border-radius:var(--radius-pill);margin-bottom:16px}
+.badge b{font-family:'Helvena','Helvetica Neue',sans-serif;letter-spacing:0;text-transform:none;font-size:12px;font-weight:700;background:rgba(0,0,0,.18);padding:2px 9px;border-radius:var(--radius-pill);font-variant-numeric:tabular-nums}
+.incl-tag{display:block;margin-top:8px;font-size:11.5px;font-weight:700;color:#fff;background:var(--coral);padding:4px 11px;border-radius:var(--radius-pill)}
+.price div.pick{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-pale)}
+
 /* ---------- hero ---------- */
 .hero{padding:56px 0 40px}
 .eyebrow{display:inline-block;font-family:'SFT Caps',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
@@ -94,46 +106,107 @@ a{color:inherit}
 .handoff{max-width:430px;margin:22px auto 0;text-align:center}
 .handoff p{font-size:14px;color:var(--ink-3);margin-bottom:14px}
 
-/* ---------- workspace ---------- */
+/* ---------- workspace: replica del portal ---------- */
 .ws-sec{padding:64px 0 72px;border-top:1px solid var(--line-2);background:var(--white)}
 .ws-sec h2{font-size:clamp(26px,4.6vw,38px);font-weight:800;letter-spacing:-1px}
 .ws-sec .lead{margin-bottom:30px}
-.portal{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);background:var(--paper);display:grid;grid-template-columns:196px 1fr;min-height:430px}
-.sb{background:var(--ink);padding:16px 12px;display:flex;flex-direction:column;gap:3px}
-.sb-brand{font-weight:800;font-size:14px;color:var(--paper);padding:4px 10px 16px;letter-spacing:-.3px}
-.nv{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;border:none;background:none;font:inherit;font-size:13.5px;color:rgba(247,245,240,.66);cursor:pointer;text-align:left;transition:var(--anim);width:100%}
-.nv:hover{background:rgba(247,245,240,.08);color:var(--paper)}
-.nv.on{background:rgba(247,245,240,.13);color:var(--paper);font-weight:600}
-.nv .bdg{margin-left:auto;background:var(--coral);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px}
-.nv svg{width:15px;height:15px;flex:none}
-.pane{padding:20px 22px 26px;min-width:0}
-.pane-h{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.pane-h h3{font-size:20px;font-weight:700}
-.pane-h span{font-size:12.5px;color:var(--ink-4)}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}
-.kpi{background:var(--white);border:1px solid var(--line-2);border-radius:12px;padding:12px 13px}
-.kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.6px;line-height:1.1}
-.kpi span{font-family:'SFT Caps',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
-.row{display:flex;align-items:center;gap:11px;padding:12px 13px;background:var(--white);border:1px solid var(--line-2);border-radius:12px;margin-bottom:7px}
-.row.fresh{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-pale)}
-.av{width:30px;height:30px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
-.row-m{min-width:0;flex:1}
-.row-m b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row-m span{font-size:12.5px;color:var(--ink-3);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill{font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap;flex:none;letter-spacing:.02em}
-.p-new{background:var(--coral-pale);color:var(--coral)}
-.p-con{background:var(--blue-pale);color:#1d6a8c}
-.p-est{background:var(--lav-pale);color:#6a52c9}
-.p-fol{background:#FDF4E3;color:#a06d18}
-.p-hir{background:var(--mint);color:var(--ink-2)}
-.p-no{background:var(--paper-2);color:var(--ink-4)}
-.tline{font-size:11.5px;color:var(--ink-4);margin:16px 0 8px;font-family:'SFT Caps',sans-serif;letter-spacing:.1em;text-transform:uppercase}
-.empty{padding:28px 4px;font-size:14px;color:var(--ink-3);max-width:44ch}
+.portal{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);background:var(--paper)}
+
+/* nav horizontal */
+.pnav{display:flex;align-items:center;gap:22px;padding:14px 22px;background:var(--paper);border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.pbrand{font-weight:800;font-size:15px;letter-spacing:-.3px;white-space:nowrap}
+.pbrand i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--coral);margin-left:3px;vertical-align:3px;font-style:normal}
+.ptabs{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.nv{background:none;border:none;font:inherit;font-size:14px;color:var(--ink-3);cursor:pointer;padding:4px 0 8px;border-bottom:2px solid transparent;transition:var(--anim)}
+.nv:hover{color:var(--ink)}
+.nv.on{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+.pnew{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pnew .btn-new{background:var(--ink);color:var(--paper);border:none;border-radius:var(--radius-pill);padding:11px 20px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.pav{width:30px;height:30px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+
+.pane{padding:26px 24px 30px}
+
+/* saludo */
+.greet{margin-bottom:20px}
+.greet .hi{font-size:clamp(22px,3.2vw,30px);font-weight:800;letter-spacing:-.9px;color:var(--ink);line-height:1.1}
+.greet .date{color:var(--ink-4);font-size:13.5px;margin-top:6px}
+
+/* pildoras de filtro */
+.fbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}
+.fp{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:var(--anim)}
+.fp .n{color:var(--ink-4);font-weight:700;font-variant-numeric:tabular-nums}
+.fp:hover{border-color:var(--ink-4)}
+.fp.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.fp.on .n{color:rgba(247,245,240,.6)}
+.fp.zero{background:transparent;border-color:var(--line-2);color:var(--ink-4)}
+
+/* rejilla: tarjeta + agenda */
+.tgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:900px){.tgrid{grid-template-columns:1fr}}
+
+/* tarjeta blanca */
+.card-w{background:var(--white);border:1px solid var(--line-2);border-radius:20px;box-shadow:var(--shadow-md);padding:24px 26px 22px}
+.cw-top{display:flex;align-items:flex-start;gap:14px}
+.cw-av{width:46px;height:46px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-size:15px;font-weight:700;flex:none}
+.cw-id{flex:1;min-width:0}
+.cw-name{font-size:19px;font-weight:700;letter-spacing:-.4px;line-height:1.2}
+.cw-sub{font-size:14px;color:var(--ink-3);margin-top:5px;line-height:1.4}
+.cw-wait{font-size:13.5px;font-weight:700;color:var(--coral);white-space:nowrap;flex:none}
+.cw-lbl{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4);margin:22px 0 11px}
+.tpl-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tpl{font:inherit;font-size:13.5px;font-weight:600;padding:11px 19px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;transition:var(--anim)}
+.tpl:hover{border-color:var(--ink-4)}
+.tpl.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.msg-body{width:100%;background:var(--paper-2);border:none;border-radius:14px;padding:18px 20px;font:inherit;font-size:15px;line-height:1.55;color:var(--ink);resize:vertical;min-height:104px}
+.msg-body:focus{outline:none;box-shadow:inset 0 0 0 1px var(--line)}
+.msg-ch{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.mini-btn{font:inherit;font-size:14px;font-weight:600;height:46px;padding:0 22px;border-radius:var(--radius-pill);background:var(--white);border:1px solid var(--line);color:var(--ink);cursor:pointer;transition:var(--anim)}
+.mini-btn:hover{border-color:var(--ink-4)}
+.mini-btn.wa{background:var(--coral);border-color:var(--coral);color:#fff}
+.mini-btn.wa:hover{background:var(--coral-soft,#e03b31);border-color:var(--coral-soft,#e03b31)}
+.cw-foot{display:flex;justify-content:flex-end;margin-top:18px}
+.cw-link{background:none;border:none;font:inherit;font-size:14px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.cw-link:hover{color:var(--ink)}
+
+/* agenda lateral */
+.agenda{background:var(--white);border:1px solid var(--line-2);border-radius:20px;box-shadow:var(--shadow-md);padding:22px 24px}
+.ag-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.ag-top h4{font-size:17px;font-weight:700;letter-spacing:-.35px}
+.ag-week{margin-left:auto;font-size:12px;font-weight:600;color:var(--green-mid);background:var(--blue-pale);padding:5px 12px;border-radius:var(--radius-pill)}
+.ag-row{display:flex;align-items:baseline;gap:12px;padding:15px 0;border-top:1px solid var(--line-2)}
+.ag-m{flex:1;min-width:0}
+.ag-m b{display:block;font-size:15px;font-weight:600;letter-spacing:-.2px}
+.ag-m span{display:block;font-size:13px;color:var(--ink-4);margin-top:3px}
+.ag-when{font-size:13.5px;font-weight:700;color:var(--coral);white-space:nowrap;flex:none;font-variant-numeric:tabular-nums}
+.ag-when.soon{color:var(--ink-3)}
+
+/* listas de las otras vistas */
+.tbl-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;flex:1;min-width:180px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-pill);padding:0 16px;height:44px;color:var(--ink-3)}
+.search input{border:none;outline:none;background:transparent;font:inherit;font-size:13.5px;color:var(--ink);width:100%}
+.inq-list{background:var(--white);border:1px solid var(--line-2);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.inq-group{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 18px 9px;background:var(--paper);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.inq-group:first-child{border-top:none}
+.inq-group-l{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.inq-group.hot .inq-group-l{color:var(--coral)}
+.inq-group-v{font-size:12px;font-weight:600;color:var(--ink)}
+.inq-card{display:flex;align-items:center;gap:13px;padding:15px 18px;border-bottom:1px solid var(--line-2)}
+.inq-card:last-child{border-bottom:none}
+.inq-card.fresh{background:var(--coral-pale)}
+.inq-av{width:32px;height:32px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.inq-main{flex:1;min-width:0}
+.inq-name{font-size:14.5px;font-weight:600;letter-spacing:-.005em;line-height:1.3}
+.inq-sub{font-size:12.5px;color:var(--ink-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inq-amt{flex:none;text-align:right;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.qa-btn{font:inherit;font-size:13px;font-weight:600;height:40px;padding:0 17px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;flex:none;transition:var(--anim)}
+.qa-btn.qa-primary{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.tline{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);padding:12px 18px 9px;background:var(--paper);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.tline.hot{color:var(--coral)}
+.empty{padding:22px 4px;font-size:14px;color:var(--ink-3);max-width:44ch}
 .empty b{display:block;font-size:15px;color:var(--ink);margin-bottom:6px}
 .chip{display:inline-block;font-size:12px;padding:5px 11px;border-radius:20px;background:var(--paper);border:1px solid var(--line);margin:0 5px 5px 0}
-.qa{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
-.qa button{padding:8px 14px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);font:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;transition:var(--anim)}
-.qa button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.qa{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+.qa button{padding:9px 16px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--white);font:inherit;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
 .bar-wrap{display:flex;align-items:flex-end;gap:10px;height:120px;padding:8px 0 0}
 .bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
 .bar i{width:100%;max-width:44px;background:var(--mint);border-radius:6px 6px 0 0;display:block}
@@ -157,15 +230,25 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
   .portal{grid-template-columns:1fr;min-height:0}
   .sb{flex-direction:row;overflow-x:auto;gap:5px;padding:10px;scrollbar-width:none}
   .sb::-webkit-scrollbar{display:none}
-  .sb-brand{display:none}
+  .pnav{gap:14px;padding:12px 16px}
+  .ptabs{gap:14px;order:3;width:100%;overflow-x:auto}
   .nv{width:auto;white-space:nowrap;padding:8px 12px}
   .nv svg{display:none}
-  .kpis{grid-template-columns:1fr 1fr}
+  .card-w,.agenda{padding:18px}
+  .pane{padding:20px 16px 24px}
   .pane{padding:16px 14px 22px}
 }
 </style>
 </head>
 <body>
+
+<div class="promo" id="promo" hidden>
+  <div class="promo-in">
+    <span class="promo-tag">Limited time</span>
+    <span class="promo-txt">Website included in the setup</span>
+    <span class="promo-left" id="promoLeft"></span>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="in">
@@ -212,14 +295,20 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
     <p class="lead">No app to learn. It opens on what needs you today: who came in, who is still waiting on a number, and what you promised to send.</p>
 
     <div class="portal">
-      <aside class="sb">
-        <div class="sb-brand" id="sbBrand">Your business</div>
-        <button class="nv on" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Today</button>
-        <button class="nv" data-v="inquiries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Inquiries<span class="bdg" id="bdgInq">3</span></button>
-        <button class="nv" data-v="schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M7 14l1.6 1.6L12 12"/></svg>Schedule</button>
-        <button class="nv" data-v="form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/></svg>My form</button>
-        <button class="nv" data-v="results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Results</button>
-      </aside>
+      <div class="pnav">
+        <span class="pbrand" id="sbBrand">Your business<i></i></span>
+        <div class="ptabs">
+          <button class="nv on" data-v="today">Today</button>
+          <button class="nv" data-v="inquiries">Inquiries</button>
+          <button class="nv" data-v="schedule">Agenda</button>
+          <button class="nv" data-v="form">My form</button>
+          <button class="nv" data-v="results">Results</button>
+        </div>
+        <div class="pnew">
+          <button class="btn-new">+ New inquiry</button>
+          <span class="pav" id="pavInit">Y</span>
+        </div>
+      </div>
       <div class="pane" id="pane"></div>
     </div>
   </div>
@@ -227,18 +316,19 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 
 <section class="cta">
   <div class="wrap">
-    <span class="eyebrow">If it fits</span>
+    <span class="badge" id="ctaBadge" hidden>Limited time <b id="badgeLeft"></b></span>
     <h2 id="ctaH">We can have this live<br>in <span class="hl">five days</span>.</h2>
-    <p class="lead">We build the form around how you actually quote, connect it to your workspace, and hand you the link and QR code. You do not set anything up.</p>
+    <p class="lead" id="ctaLead">Right now the setup includes your website too, not just the form and the workspace. Same price. You get somewhere to send people and something that captures them once they arrive.</p>
     <div class="price">
-      <div><b>$750</b><span>one-time setup</span></div>
-      <div><b>$149<small>/mo</small></b><span>three-month minimum</span></div>
+      <div class="pick"><b>$750</b><span>setup &middot; website up to 3 pages</span><span class="incl-tag">Website included</span></div>
+      <div><b>$500</b><span>setup &middot; landing page</span><span class="incl-tag">Website included</span></div>
+      <div><b>$149<small>/mo</small></b><span>hosting &middot; three-month minimum</span></div>
     </div>
     <div class="actions">
       <a class="btn btn-ink" id="ctaMail" href="#">Start the conversation</a>
       <a class="btn btn-ghost" href="https://itshellovirtually.com" target="_blank" rel="noopener">See how it works</a>
     </div>
-    <p class="fine">Not a CRM. Not project management. Just inquiries, organized.</p>
+    <p class="fine">Not a CRM. Not project management. Just inquiries, organized.<br><span id="ctaTerms"></span></p>
   </div>
 </section>
 
@@ -248,6 +338,32 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
 <script>
 /* ============ CONFIG ============ */
 var CONTACT = "hello@itshellovirtually.com";  // cambia aqui si usas otro
+var OFFER_END = "2026-09-02";   // ultimo dia de la oferta
+
+/* si la fecha pasa, la oferta desaparece sola del demo */
+(function(){
+  var days = Math.ceil((new Date(OFFER_END + "T23:59:59") - new Date()) / 86400000);
+  var promo = document.getElementById("promo");
+  var badge = document.getElementById("ctaBadge");
+  var bl    = document.getElementById("badgeLeft");
+  var left  = document.getElementById("promoLeft");
+  var terms = document.getElementById("ctaTerms");
+  var lead  = document.getElementById("ctaLead");
+
+  if(days <= 0){
+    document.querySelectorAll(".incl-tag").forEach(function(x){ x.remove(); });
+    var pick = document.querySelector(".price div.pick");
+    if(pick) pick.classList.remove("pick");
+    if(lead) lead.textContent = "We build the form around how you actually quote, connect it to your workspace, and hand you the link and QR code. You do not set anything up.";
+    return;
+  }
+  var txt = days === 1 ? "1 day left" : days + " days left";
+  if(promo) promo.hidden = false;
+  if(left)  left.textContent = txt;
+  if(badge) badge.hidden = false;
+  if(bl)    bl.textContent = txt;
+  if(terms) terms.innerHTML = 'Offer ends September 2, 2026. <a href="https://itshellovirtually.com/terms.html" target="_blank" rel="noopener" style="text-decoration:underline">Terms apply</a>.';
+})();
 var CONTACT_TEL = "";                          // opcional: "17875550100" para WhatsApp
 
 /* ============ TRADES (desde trades.js) ============ */
@@ -290,7 +406,8 @@ document.getElementById("tbMark").textContent = initials(BIZ);
 document.getElementById("fMark").textContent = initials(BIZ);
 document.getElementById("fName").textContent = BIZ;
 document.getElementById("fSub").textContent = T.sub;
-document.getElementById("sbBrand").textContent = BIZ;
+document.getElementById("sbBrand").innerHTML = esc(BIZ) + "<i></i>";
+document.getElementById("pavInit").textContent = initials(BIZ);
 document.getElementById("heroBiz").textContent = BIZ + "'s";
 document.getElementById("devUrl").textContent =
   BIZ.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,26) + ".itshellovirtually.com";
@@ -346,6 +463,7 @@ function stepDetails(){
     stage.innerHTML =
       '<div class="done"><div class="tick">&#10003;</div><h3>Got it, ' + esc(answers.name.split(" ")[0]) + '.</h3>' +
       '<p>' + esc(BIZ) + ' has everything needed to price this. No callback just to ask the basics.</p></div>';
+    activeFilt = "new"; tplIdx = 0;
     document.getElementById("handoff").style.display = "block";
     document.getElementById("bdgInq").textContent = "4";
     renderPane(activeView);
@@ -360,98 +478,224 @@ function render(){
 }
 setProg(0); render();
 
-/* ============ WORKSPACE ============ */
-var submitted = false, activeView = "today";
+/* ============ WORKSPACE (replica del portal) ============ */
+var submitted = false, activeView = "today", tplIdx = 0, activeFilt = "pending";
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
-function ini(n){ var p = n.split(" "); return ((p[0]||"?")[0] + (p[1]?p[1][0]:"")).toUpperCase(); }
+function ini2(n){ var p = String(n).split(" "); return ((p[0]||"?")[0] + (p[1]?p[1][0]:"")).toUpperCase(); }
 var LBL = {new:"New",con:"Contacted",est:"Estimate sent",hir:"Hired",no:"Not hired"};
 
-function yourRow(fresh){
-  var msg = [answers.a1, answers.a2, answers.a3].filter(Boolean).join(" \u00b7 ");
-  if(answers.note) msg += " \u00b7 " + answers.note;
-  return '<div class="row' + (fresh ? ' fresh' : '') + '">' +
-    '<div class="av">' + esc(ini(answers.name || "You")) + '</div>' +
-    '<div class="row-m"><b>' + esc(answers.name || "You") + '</b><span>' + esc(msg) + '</span></div>' +
-    '<span class="pill p-new">New</span></div>';
+function yourName(){ return answers.name || "You"; }
+function yourSvc(){
+  return [answers.a1, answers.a2, answers.a3].filter(Boolean).join(" \u00b7 ");
 }
+
 function seedRow(s){
-  return '<div class="row"><div class="av">' + ini(s.n) + '</div>' +
+  return '<div class="row"><div class="av">' + ini2(s.n) + '</div>' +
     '<div class="row-m"><b>' + s.n + '</b><span>' + s.m + '</span></div>' +
     '<span class="pill p-' + s.s + '">' + LBL[s.s] + '</span></div>';
+}
+function yourRow(fresh){
+  var msg = yourSvc();
+  if(answers.note) msg += " \u00b7 " + answers.note;
+  return '<div class="row' + (fresh ? ' fresh' : '') + '">' +
+    '<div class="av">' + esc(ini2(yourName())) + '</div>' +
+    '<div class="row-m"><b>' + esc(yourName()) + '</b><span>' + esc(msg) + '</span></div>' +
+    '<span class="pill p-new">New</span></div>';
+}
+
+/* plantillas del composer, como en el portal */
+function templates(){
+  var n = esc(String(yourName()).split(" ")[0]);
+  var b = esc(BIZ);
+  return [
+    ["Quick reply", "Hi " + n + ", thanks for reaching out to " + b + ". I have everything I need here. I can get you a number today, and if it helps I can stop by to confirm a couple of things."],
+    ["Book a visit", "Hi " + n + ", " + b + " here. Based on what you sent I would like to take a quick look before I price it. Does tomorrow morning work, or is afternoon better?"],
+    ["Send the number", "Hi " + n + ", thanks for the details. Sending your estimate over now. Anything on it you want me to walk through, just say the word."]
+  ];
 }
 
 var VIEWS = {
   today: function(){
     var hr = new Date().getHours();
     var greet = hr < 12 ? "Good morning" : (hr < 18 ? "Good afternoon" : "Good evening");
-    var h = '<div class="pane-h"><h3>' + greet + '</h3><span>Here\'s what needs your attention today.</span></div>';
-    h += '<div class="kpis">' +
-      '<div class="kpi"><b>' + (submitted ? 2 : 1) + '</b><span>New inquiries</span></div>' +
-      '<div class="kpi"><b>1</b><span>Follow-ups due</span></div>' +
-      '<div class="kpi"><b>$4,200</b><span>Awaiting reply</span></div></div>';
-    h += '<div class="tline">New inquiries</div>';
-    if(submitted) h += yourRow(true);
-    h += seedRow(T.seed[2]);
-    h += '<div class="tline">Today\'s actions</div>';
-    h += '<div class="row"><div class="av">' + ini(T.seed[1].n) + '</div><div class="row-m"><b>' +
-      T.task + '</b><span>' + T.seed[1].t + '</span></div><span class="pill p-fol">Follow-up</span></div>';
-    h += '<div class="qa"><button>Start my day</button><button>Reply on WhatsApp</button><button>Text</button></div>';
+    var d = new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" });
+    var waiting = submitted ? 2 : 1;
+
+    var h = '<div class="greet"><div class="hi">' + greet + ', ' + esc(BIZ) + '</div>' +
+      '<div class="date">' + d + ' \u00b7 ' + waiting + ' ' +
+      (waiting === 1 ? "person is" : "people are") + ' waiting on you</div></div>';
+
+    var nNew = submitted ? 1 : 0;
+    h += '<div class="fbar">' +
+      '<button class="fp' + (nNew ? (activeFilt === "new" ? " on" : "") : " zero") + '" data-f="new">Not contacted <span class="n">' + nNew + '</span></button>' +
+      '<button class="fp' + (activeFilt === "pending" ? " on" : "") + '" data-f="pending">Estimate not sent <span class="n">1</span></button>' +
+      '<button class="fp' + (activeFilt === "awaiting" ? " on" : "") + '" data-f="awaiting">Estimate sent, awaiting reply <span class="n">1</span></button>' +
+      '</div>';
+
+    /* quien va en la tarjeta segun el filtro */
+    var card;
+    if(activeFilt === "new" && submitted){
+      card = { name:yourName(), sub:yourSvc(), wait:"4 min waiting", tpl:templates() };
+    }else if(activeFilt === "awaiting"){
+      var s0 = T.seed[0];
+      card = { name:s0.n, sub:s0.m, wait:"3d waiting", tpl:[
+        ["Follow-up", "Hi " + s0.n.split(" ")[0] + ", circling back on the estimate I sent Friday. Any questions on it? Happy to walk through the numbers."],
+        ["Check in", "Hi " + s0.n.split(" ")[0] + ", just checking in. Still want me to hold that spot on the schedule?"],
+        ["Last try", "Hi " + s0.n.split(" ")[0] + ", I will stop chasing after this one. If the timing changed, no problem at all, just let me know."]
+      ]};
+    }else{
+      var s2 = T.seed[2];
+      card = { name:s2.n, sub:s2.m, wait:"4d waiting", tpl:[
+        ["Got your request", "Hi " + s2.n.split(" ")[0] + ", this is " + BIZ + ". Got your request and we are on it. You will have your estimate soon."],
+        ["Estimate sent", "Hi " + s2.n.split(" ")[0] + ", your estimate is on its way. Take a look and tell me what you think."],
+        ["Follow-up", "Hi " + s2.n.split(" ")[0] + ", following up on this one. Still want a number on it?"]
+      ]};
+    }
+    var idx = Math.min(tplIdx, card.tpl.length - 1);
+
+    h += '<div class="tgrid"><div class="card-w">';
+    h += '<div class="cw-top"><div class="cw-av">' + esc(ini2(card.name)) + '</div>' +
+      '<div class="cw-id"><div class="cw-name">' + esc(card.name) + '</div>' +
+      '<div class="cw-sub">' + esc(card.sub) + '</div></div>' +
+      '<span class="cw-wait">' + card.wait + '</span></div>';
+    h += '<div class="cw-lbl">Message ready to send</div>';
+    h += '<div class="tpl-row">' + card.tpl.map(function(t, i){
+      return '<button class="tpl' + (i === idx ? ' on' : '') + '" data-tpl="' + i + '">' + t[0] + '</button>';
+    }).join("") + '</div>';
+    h += '<textarea class="msg-body" rows="3">' + esc(card.tpl[idx][1]) + '</textarea>';
+    h += '<div class="msg-ch"><button class="mini-btn wa">WhatsApp</button>' +
+      '<button class="mini-btn">SMS</button><button class="mini-btn">Call</button>' +
+      '<button class="mini-btn">Copy</button></div>';
+    h += '<div class="cw-foot"><button class="cw-link">Open inquiry</button></div>';
+    h += '</div>';
+
+    /* agenda lateral */
+    h += '<div class="agenda"><div class="ag-top"><h4>On your schedule today</h4>' +
+      '<span class="ag-week">This week</span></div>';
+    var ag = [
+      { t:"Send estimate \u00b7 " + T.seed[0].n, s:"overdue", w:"Jul 30 \u00b7 10:00 AM", late:true },
+      { t:"Follow-up \u00b7 " + T.seed[1].n, s:"overdue", w:"Aug 1 \u00b7 10:00 AM", late:true },
+      { t:"Follow-up \u00b7 " + T.seed[2].n, s:"overdue", w:"Aug 2 \u00b7 10:00 AM", late:true }
+    ];
+    if(submitted) ag.unshift({ t:"Call \u00b7 " + yourName(), s:"suggested", w:"Today \u00b7 within the hour", late:false });
+    h += ag.map(function(x){
+      return '<div class="ag-row"><div class="ag-m"><b>' + esc(x.t) + '</b><span>' + x.s + '</span></div>' +
+        '<span class="ag-when' + (x.late ? '' : ' soon') + '">' + x.w + '</span></div>';
+    }).join("");
+    h += '</div></div>';
     return h;
   },
+
   inquiries: function(){
-    var h = '<div class="pane-h"><h3>Inquiries</h3><span>New &rarr; Contacted &rarr; Estimate sent &rarr; Hired or not</span></div>';
-    h += '<div class="kpis">' +
-      '<div class="kpi"><b>' + (submitted ? 2 : 1) + '</b><span>New</span></div>' +
-      '<div class="kpi"><b>1</b><span>Pending estimate</span></div>' +
-      '<div class="kpi"><b>2</b><span>Awaiting reply</span></div></div>';
-    if(submitted) h += yourRow(true);
-    h += T.seed.map(seedRow).join("");
-    h += '<div class="row"><div class="av">JW</div><div class="row-m"><b>Janet Wu</b>' +
-      '<span>Booked last week, work starts Monday</span></div><span class="pill p-hir">Hired</span></div>';
-    h += '<div class="row"><div class="av">PO</div><div class="row-m"><b>Paul Osei</b>' +
-      '<span>Went with someone cheaper</span></div><span class="pill p-no">Not hired</span></div>';
+    var LIVE = {new:"Not contacted", pending:"Estimate not sent", awaiting:"Estimate sent, awaiting reply"};
+    var ACT  = {new:"Send intro", pending:"Estimate", awaiting:"Follow up"};
+    var groups = {
+      new:      submitted ? [{n:yourName(), sub:yourSvc(), amt:""}] : [],
+      pending:  [{n:T.seed[2].n, sub:T.seed[2].m, amt:""}],
+      awaiting: [{n:T.seed[0].n, sub:T.seed[0].m, amt:"$4,200"}]
+    };
+    var openCnt = Object.keys(groups).reduce(function(a,k){ return a + groups[k].length; }, 0);
+
+    var h = '<div class="tbl-toolbar"><div class="search">' +
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>' +
+      '<input type="text" placeholder="Search inquiries" readonly></div>' +
+      '<button class="qa-btn qa-primary">All \u00b7 ' + openCnt + '</button>' +
+      '<button class="qa-btn">Closed \u00b7 2</button></div>';
+
+    h += '<div class="inq-list">';
+    ["new","pending","awaiting"].forEach(function(k){
+      var g = groups[k];
+      if(!g.length) return;
+      var hot = (k === "new" || k === "pending");
+      h += '<div class="inq-group' + (hot ? ' hot' : '') + '">' +
+        '<span class="inq-group-l">' + LIVE[k] + ' \u00b7 ' + g.length + '</span></div>';
+      h += g.map(function(x, i){
+        var fresh = (k === "new" && submitted && i === 0);
+        return '<div class="inq-card' + (fresh ? ' fresh' : '') + '">' +
+          '<span class="inq-av">' + esc(ini2(x.n)) + '</span>' +
+          '<div class="inq-main"><div class="inq-name">' + esc(x.n) + '</div>' +
+          '<div class="inq-sub">' + esc(x.sub) + '</div></div>' +
+          (x.amt ? '<span class="inq-amt">' + x.amt + '</span>' : '') +
+          '<button class="qa-btn qa-primary">' + ACT[k] + '</button></div>';
+      }).join("");
+    });
+    h += '<div class="inq-group"><span class="inq-group-l">Closed \u00b7 2</span></div>';
+    h += '<div class="inq-card"><span class="inq-av">JW</span><div class="inq-main">' +
+      '<div class="inq-name">Janet Wu</div><div class="inq-sub">Hired \u00b7 work starts Monday</div></div></div>';
+    h += '<div class="inq-card"><span class="inq-av">PO</span><div class="inq-main">' +
+      '<div class="inq-name">Paul Osei</div><div class="inq-sub">Not hired \u00b7 went with someone cheaper</div></div></div>';
+    h += '</div>';
     return h;
   },
+
   schedule: function(){
-    var h = '<div class="pane-h"><h3>Schedule</h3><span>Visits, estimates, and what you promised</span></div>';
+    var h = '<div class="inq-list">';
+    h += '<div class="tline hot">Overdue</div>';
+    h += '<div class="inq-card"><span class="inq-av">' + ini2(T.seed[1].n) + '</span><div class="inq-main">' +
+      '<div class="inq-name">' + T.task + '</div><div class="inq-sub">Follow-up \u00b7 due yesterday</div></div>' +
+      '<button class="qa-btn qa-primary">Send</button></div>';
     h += '<div class="tline">Today</div>';
-    h += '<div class="row"><div class="av">' + ini(T.seed[1].n) + '</div><div class="row-m"><b>' +
-      T.task + '</b><span>Due by 5:00 PM</span></div><span class="pill p-fol">Task</span></div>';
-    if(submitted) h += '<div class="row fresh"><div class="av">' + esc(ini(answers.name || "You")) +
-      '</div><div class="row-m"><b>Call ' + esc(answers.name || "You") + '</b><span>Suggested: within the hour</span></div>' +
-      '<span class="pill p-new">Suggested</span></div>';
-    h += '<div class="tline">Tomorrow</div>';
-    h += '<div class="row"><div class="av">' + ini(T.seed[0].n) + '</div><div class="row-m"><b>On-site visit, ' +
-      T.seed[0].n + '</b><span>9:30 AM</span></div><span class="pill p-est">Visit</span></div>';
+    if(submitted){
+      h += '<div class="inq-card fresh"><span class="inq-av">' + esc(ini2(yourName())) + '</span><div class="inq-main">' +
+        '<div class="inq-name">Call ' + esc(yourName()) + '</div>' +
+        '<div class="inq-sub">Suggested \u00b7 within the hour</div></div>' +
+        '<button class="qa-btn qa-primary">Call</button></div>';
+    }
+    h += '<div class="inq-card"><span class="inq-av">' + ini2(T.seed[0].n) + '</span><div class="inq-main">' +
+      '<div class="inq-name">On-site visit, ' + T.seed[0].n + '</div><div class="inq-sub">Booking \u00b7 9:30 AM</div></div>' +
+      '<button class="qa-btn">Open</button></div>';
+    h += '<div class="tline">Upcoming</div>';
+    h += '<div class="inq-card"><span class="inq-av">' + ini2(T.seed[2].n) + '</span><div class="inq-main">' +
+      '<div class="inq-name">' + T.seed[2].n + '</div><div class="inq-sub">Estimate due \u00b7 Thursday</div></div>' +
+      '<button class="qa-btn">Open</button></div>';
+    h += '</div>';
     return h;
   },
+
   form: function(){
-    var slug = BIZ.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,26);
-    return '<div class="pane-h"><h3>My form</h3><span>Your link, ready to share</span></div>' +
-      '<div class="empty"><b>' + esc(slug) + '.itshellovirtually.com</b>' +
+    var sl = BIZ.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 26) || "yourbusiness";
+    return '<div class="empty"><b>' + esc(sl) + '.itshellovirtually.com</b>' +
       'Put it in your Instagram bio, your Google listing, your truck, your business card. ' +
-      'The QR code lives here too, so you can print it once and stop re-explaining what you need.</div>' +
-      '<div style="margin-top:14px">' +
+      'The QR code lives here too, so you print it once and stop re-explaining what you need.</div>' +
+      '<div style="margin-top:12px">' +
       '<span class="chip">' + esc(T.q1.q) + '</span><span class="chip">' + esc(T.q2.q) + '</span>' +
       '<span class="chip">' + esc(T.q3.q) + '</span><span class="chip">Name and phone</span></div>' +
       '<div class="qa"><button>Copy link</button><button>Download QR</button><button>Edit questions</button></div>';
   },
+
   results: function(){
     var bars = [["Mar",40],["Apr",58],["May",52],["Jun",74],["Jul",88]];
-    var h = '<div class="pane-h"><h3>Results</h3><span>What turned into work</span></div>';
-    h += '<div class="kpis"><div class="kpi"><b>31</b><span>Inquiries, 90 days</span></div>' +
-      '<div class="kpi"><b>12</b><span>Jobs booked</span></div>' +
-      '<div class="kpi"><b>38%</b><span>Close rate</span></div></div>';
-    h += '<div class="bar-wrap">' + bars.map(function(b,i){
+    var h = '<div class="fbar">' +
+      '<button class="fp">Inquiries, 90 days <span class="n">31</span></button>' +
+      '<button class="fp">Jobs booked <span class="n">12</span></button>' +
+      '<button class="fp">Close rate <span class="n">38%</span></button>' +
+      '<button class="fp">Median reply <span class="n">6m</span></button></div>';
+    h += '<div class="card-w"><div class="bar-wrap">' + bars.map(function(b, i){
       return '<div class="bar"><i class="' + (i === bars.length - 1 ? "hot" : "") + '" style="height:' + b[1] + '%"></i><span>' + b[0] + '</span></div>';
-    }).join("") + '</div>';
-    h += '<p style="margin-top:14px;font-size:13.5px;color:var(--ink-3)">Inquiries per month. The point is not the chart, it is knowing which ones you never answered.</p>';
+    }).join("") + '</div>' +
+    '<p style="margin-top:14px;font-size:13.5px;color:var(--ink-3)">Inquiries per month. The point is not the chart, it is knowing which ones you never answered.</p></div>';
     return h;
   }
 };
 
 var pane = document.getElementById("pane");
-function renderPane(v){ activeView = v; pane.innerHTML = VIEWS[v](); }
+function renderPane(v){
+  activeView = v;
+  pane.innerHTML = VIEWS[v]();
+  pane.querySelectorAll(".tpl[data-tpl]").forEach(function(b){
+    b.addEventListener("click", function(){
+      tplIdx = +b.dataset.tpl;
+      renderPane(activeView);
+    });
+  });
+  pane.querySelectorAll(".fp[data-f]").forEach(function(b){
+    b.addEventListener("click", function(){
+      if(b.classList.contains("zero")) return;
+      activeFilt = b.dataset.f; tplIdx = 0;
+      renderPane(activeView);
+    });
+  });
+}
 document.querySelectorAll(".nv").forEach(function(b){
   b.addEventListener("click", function(){
     document.querySelectorAll(".nv").forEach(function(x){ x.classList.remove("on"); });
