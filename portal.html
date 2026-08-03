@@ -51,6 +51,8 @@ button{font-family:inherit;cursor:pointer;}
 .snz-menu button.pick{border-top:1px solid var(--line);border-radius:0;color:var(--ink-3);margin-top:4px;padding-top:12px;}
 .lr-sub.snz{cursor:pointer;display:inline-block;background:var(--mint);color:var(--ink);padding:4px 12px;border-radius:50px;font-size:.78rem;margin-top:4px;}
 .btn-primary:hover{background:var(--coral-soft);}
+.btn-dark{background:var(--ink);color:var(--paper);}
+.btn-dark:hover{background:var(--ink-deep);}
 .btn-ghost{background:var(--white);border:1px solid var(--line);color:var(--ink);}
 .btn-ghost:hover{border-color:var(--ink);background:var(--paper-2);}
 .btn-sm{min-height:44px;padding:0 18px;font-size:var(--t-03);border-radius:var(--radius-pill);}
@@ -62,11 +64,12 @@ button{font-family:inherit;cursor:pointer;}
 /* ===== SIDEBAR ===== */
 /* ===== TOP NAV ===== */
 .topnav{
-  position:sticky;top:0;z-index:50;display:flex;align-items:stretch;gap:22px;
-  height:56px;padding:0 24px;background:rgba(247,245,240,.92);
+  position:sticky;top:0;z-index:50;display:flex;justify-content:center;
+  background:rgba(247,245,240,.92);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
 }
+.tn-in{display:flex;align-items:stretch;gap:22px;height:56px;width:100%;max-width:1240px;padding:0 34px;}
 .tn-brand{
   display:flex;align-items:center;flex-shrink:0;
   font-family:'Helvena','Helvetica Neue',sans-serif;font-weight:600;font-size:var(--t-04);
@@ -123,12 +126,12 @@ button{font-family:inherit;cursor:pointer;}
   border-radius:var(--radius-pill);background:var(--coral);color:var(--white);font-size:var(--t-01);font-weight:600;
   display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);
 }
-.content{padding:30px 34px 90px;max-width:1200px;width:100%;margin:0 auto;}
+.content{padding:30px 34px 90px;max-width:1240px;width:100%;margin:0 auto;}
 .view-today .main{justify-content:stretch;}
-.view-today .content{max-width:1240px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex:1;padding:26px 28px 60px;}
+.view-today .content{max-width:1240px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex:1;padding:26px 34px 60px;}
 .view-today .greet-row{text-align:left;margin-bottom:18px;}
 .view-today .td-card,.view-today .focus-card{width:100%;}
-@media(max-width:900px){.view-today .content{padding:16px 18px 60px;}}
+@media(max-width:900px){.view-today .content{padding:16px 16px 60px;}.tn-in{padding:0 16px;gap:14px;}}
 
 /* ===== TODAY ===== */
 .greet-row{margin-bottom:22px;}
@@ -191,7 +194,9 @@ button{font-family:inherit;cursor:pointer;}
 .hmsg-l{font-size:var(--t-01);font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-4);margin:14px 0 7px;}
 .hrow .composer{margin-top:0;}
 .hrow .msg-body{background:var(--paper);border-color:transparent;}
-.hfoot{margin-top:12px;}
+.hfoot{margin-top:12px;display:flex;justify-content:flex-end;}
+.hfoot .btn{background:none;border:none;color:var(--ink-3);padding:0;min-height:36px;font-weight:500;text-decoration:underline;text-underline-offset:3px;}
+.hfoot .btn:hover{color:var(--ink);background:none;}
 .hempty{padding:28px 18px;text-align:center;color:var(--ink-3);font-size:var(--t-03);}
 .ag-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 18px;margin-top:14px;}
 .ag-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;}
@@ -479,7 +484,7 @@ button{font-family:inherit;cursor:pointer;}
 .tpl.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
 .msg-body{width:100%;border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;font-family:inherit;font-size:var(--t-04);line-height:1.55;color:var(--ink);background:var(--white);resize:vertical;}
 .msg-body:focus{outline:none;border-color:var(--ink);}
-".msg-ch{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
+.msg-ch{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
 .mini-btn.send{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:600;padding:0 26px;}
 .mini-btn.send:hover{background:var(--coral-soft);border-color:var(--coral-soft);color:#fff;}
 .composer{margin-top:22px;}
@@ -821,14 +826,14 @@ button{font-family:inherit;cursor:pointer;}
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
-  .topnav{gap:14px;padding:0 16px;}
+  .tn-in{gap:14px;padding:0 16px;}
   .cl-summary{grid-template-columns:1fr;}
   .content{padding:18px 16px 70px;}
   .filter-pills{flex-wrap:nowrap;overflow-x:auto;}
   .onboard{flex-direction:column;gap:14px;}
 }
 @media(max-width:620px){
-  .topnav{height:auto;flex-wrap:wrap;padding:10px 14px 0;gap:10px;}
+  .tn-in{height:auto;flex-wrap:wrap;padding:10px 14px 0;gap:10px;}
   .tn-nav{order:3;width:100%;gap:16px;}
   .tn-actions{margin-left:auto;}
 }
@@ -861,7 +866,7 @@ button{font-family:inherit;cursor:pointer;}
 
 <!-- APP -->
 <div class="shell" id="shell" style="display:none">
-  <header class="topnav">
+  <header class="topnav"><div class="tn-in">
     <div class="tn-brand">Hello, Virtually<span class="dot"></span></div>
     <nav class="tn-nav" id="sbNav">
       <button class="nav-item active" data-view="today"><span data-t="navToday">Today</span></button>
@@ -872,7 +877,7 @@ button{font-family:inherit;cursor:pointer;}
       <button class="nav-item" data-view="clients" id="navClients" style="display:none"><span data-t="navClients">Clients</span></button>
     </nav>
     <div class="tn-actions">
-      <button class="btn btn-primary btn-sm" id="quickAddBtn" data-t="quickAddInq">+ New inquiry</button>
+      <button class="btn btn-dark btn-sm" id="quickAddBtn" data-t="quickAddInq">+ New inquiry</button>
       <div class="tn-acct">
         <button class="sb-avatar" id="sbAvatar" aria-haspopup="true" aria-expanded="false">H</button>
         <div class="acct-menu" id="acctMenu">
@@ -882,7 +887,7 @@ button{font-family:inherit;cursor:pointer;}
         </div>
       </div>
     </div>
-  </header>
+  </div></header>
 
   <main class="main">
     <h1 id="viewTitle" class="sr-only">Today</h1>
@@ -1560,7 +1565,7 @@ button{font-family:inherit;cursor:pointer;}
     h+='<div class="hsub">'+esc(bits.filter(Boolean).join(" \u00b7 "))+'</div>';
     if(open){
       h+='<div class="hmsg-l">'+esc(T("hvMsgReady"))+'</div>';
-      h+=composerHTML(r,"panel");
+      h+=composerHTML(r,"row");
       h+='<div class="hfoot"><button type="button" class="btn btn-ghost btn-sm" data-open="'+r.id+'">'+esc(T("hvOpen"))+'</button></div>';
     }
     h+='</div>';
