@@ -1031,7 +1031,7 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"Why wasn't this one hired?",lost_price:"Price",lost_timing:"Timing",lost_other:"Went with someone else",lost_noresp:"No response",lost_skip:"Skip",
     navForm:"My form",navResults:"Results",titleForm:"My form",titleRes:"Results",
     yourDay:"Your day",
-    hvFltNew:"Not contacted",hvFltPend:"Estimate not sent",hvFltAwait:"No reply yet",
+    hvFltNew:"Not contacted",hvFltPend:"Estimate not sent",hvFltAwait:"Estimate sent, awaiting reply",
     hvWait0:"Nobody is waiting on you",hvWait1:"1 person is waiting on you",hvWaitN:"people are waiting on you",
     hvMsgReady:"Message ready to send",hvOpen:"Open inquiry",hvEmptyF:"Nothing in this list right now.",
     replyNow:"Reply",noContact:"No phone or email on this inquiry.",mailSubj:"Following up on your estimate",projFallback:"your project",andWord:"and",qaSendIntro:"Initial Contact",msgPopTitle:"Send a message",
@@ -1112,7 +1112,7 @@ button{font-family:inherit;cursor:pointer;}
     lostTitle:"\u00bfPor qu\u00e9 no te contrataron?",lost_price:"Precio",lost_timing:"Timing",lost_other:"Eligi\u00f3 a otro",lost_noresp:"No respondi\u00f3",lost_skip:"Saltar",
     navForm:"Mi formulario",navResults:"Resultados",titleForm:"Mi formulario",titleRes:"Resultados",
     yourDay:"Tu d\u00eda",
-    hvFltNew:"Sin contestar",hvFltPend:"Falta enviar estimado",hvFltAwait:"Sin respuesta",
+    hvFltNew:"Sin contestar",hvFltPend:"Falta enviar estimado",hvFltAwait:"Estimado enviado, esperando respuesta",
     hvWait0:"Nadie est\u00e1 esperando por ti",hvWait1:"1 persona espera por ti",hvWaitN:"personas esperan por ti",
     hvMsgReady:"Mensaje listo para enviar",hvOpen:"Ver consulta",hvEmptyF:"No hay nada en esta lista ahora.",
     replyNow:"Responder",noContact:"Esta consulta no tiene tel\u00e9fono ni email.",mailSubj:"Seguimiento de tu estimado",projFallback:"tu proyecto",andWord:"y",qaSendIntro:"Contacto inicial",msgPopTitle:"Enviar un mensaje",
@@ -1522,7 +1522,8 @@ button{font-family:inherit;cursor:pointer;}
       if(todayIdx>=day.length) todayIdx=0;
     }
     const FLT=[{k:"new",l:T("hvFltNew")},{k:"pending",l:T("hvFltPend")},{k:"awaiting",l:T("hvFltAwait")}];
-    const totalWait=TF.new.length+TF.pending.length+TF.awaiting.length;
+    // solo cuenta lo que depende de ti; con el estimado enviado la pelota es del cliente
+    const totalWait=TF.new.length+TF.pending.length;
     const waitLine=totalWait===0?T("hvWait0"):(totalWait===1?T("hvWait1"):totalWait+" "+T("hvWaitN"));
     html=greetHTML(waitLine);
     html+='<div class="qbar">'+FLT.map(function(x){
@@ -1543,7 +1544,8 @@ button{font-family:inherit;cursor:pointer;}
   }
   function homeRow(r0,open){
     const r=inquiries.find(function(x){return String(x.id)===String(r0.id);})||r0;
-    const u=urgency(r.created_at);
+    const sent=stOf(r)==="estimate_sent";
+    const u=sent?0:urgency(r.created_at);
     const fd=(r.form_data&&typeof r.form_data==="object")?r.form_data:{};
     const svc=svcList(r);
     const addr=String(fd.address||"").trim();
