@@ -54,9 +54,10 @@ window.HV_TRADES = {
   },
   landscaping: {
     label:"Landscaping", sub:"Request a landscaping estimate",
-    q1:{q:"What do you need done?",h:"Pick the closest one",o:["Irrigation or sprinklers","Sod or new lawn","Design and planting","Cleanup or maintenance"]},
-    q2:{q:"How big is the property?",h:"A rough guess is fine",o:["Under a quarter acre","Quarter to half acre","Half acre to an acre","Over an acre"]},
-    q3:{q:"Is there a system in place already?",h:"",o:["Yes, needs repair","Yes, works fine","No, starting fresh"]},
+    q1:{q:"What do you need done?",h:"Pick the closest one",o:["Irrigation or sprinklers","Sod or new lawn","Design and planting","Cleanup or maintenance"],d:3},
+    q2:{q:"One time, or ongoing?",h:"This changes the price more than anything else",o:["One time job","Weekly","Every two weeks","Monthly"],d:0},
+    q3:{q:"How much of the property?",h:"",o:["Front yard only","Back yard only","Front and back","Whole property, sides included"],d:2},
+    q4:{q:"Is there irrigation on the property?",h:"Good to know before anyone digs",o:["Yes, needs work","Yes, works fine","No system","Not sure"],d:3},
     seed:[
       {n:"Hector Diaz",m:"Two zones not popping up, rest of the system is fine",s:"est",t:"Estimate sent Fri, follow up today"},
       {n:"Karen Whitt",m:"Full sod for the front yard, about 4,000 sq ft",s:"est",t:"Estimate sent Fri, follow up today"},
@@ -85,6 +86,6 @@ window.HV_ASK = {
   remodeling:{noun:"remodel",list:["Which space, exactly","How far along the plan is","What range they are working with","Whether drawings or selections are ready","The property address"]},
   concrete:{noun:"concrete",list:["What is being poured","Roughly what square footage","Whether there is existing concrete to tear out","Whether a truck can reach the pour","The property address"]},
   hvac:{noun:"HVAC",list:["Heating or cooling, and what it is doing","How old the system is","How many units, and what type","How soon they need someone out","The property address"]},
-  landscaping:{noun:"landscaping",list:["What kind of work it is","How big the property is","Whether there is a system already in place","Full install or a repair","The property address"]},
+  landscaping:{noun:"landscaping",list:["What kind of work it is","One time or ongoing service","How much of the property is involved","Whether there is irrigation on site","The property address"]},
   cleaning:{noun:"cleaning",list:["What kind of clean it is","How big the space is","One time or recurring","Any pets or special surfaces","The property address"]}
 };

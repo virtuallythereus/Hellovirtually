@@ -97,6 +97,16 @@ a{color:inherit}
 .btn-ink:hover{background:var(--ink-deep)}
 .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
 .back{margin-top:12px;background:none;border:none;font:inherit;font-size:13px;color:var(--ink-4);cursor:pointer;padding:4px}
+.skip{margin-left:14px;background:none;border:none;font:inherit;font-size:13px;color:var(--ink-4);cursor:pointer;padding:4px;text-decoration:underline;text-underline-offset:3px}
+.files{display:flex;flex-direction:column;gap:8px}
+.file{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--white)}
+.file-ic{flex:none;color:var(--ink-4);display:flex}
+.file-m{flex:1;min-width:0}
+.file-m b{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-m span{font-size:11.5px;color:var(--ink-4)}
+.file-x{flex:none;background:none;border:none;font:inherit;font-size:16px;line-height:1;color:var(--ink-4);cursor:pointer;padding:2px 4px}
+.addf{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px;border:1px dashed var(--line);border-radius:var(--radius-sm);background:none;font:inherit;font-size:14px;color:var(--ink-4);cursor:pointer;width:100%}
+.addf:hover{border-color:var(--brand);color:var(--ink-3)}
 .done{text-align:center;padding:14px 0 6px}
 .done .tick{width:46px;height:46px;border-radius:50%;background:var(--brand-pale);color:var(--brand);display:grid;place-items:center;margin:0 auto 14px;font-size:22px}
 .done h3{font-size:19px;margin-bottom:7px}
@@ -277,7 +287,7 @@ footer{border-top:1px solid var(--line-2);padding:26px 0;text-align:center;font-
       <div class="fbody">
         <div class="fhead"><div class="mark" id="fMark">B</div><b id="fName">Your business</b></div>
         <div class="fsub" id="fSub">Request an estimate</div>
-        <div class="prog"><i class="on"></i><i></i><i></i></div>
+        <div class="prog" id="prog"></div>
         <div id="fStage"></div>
       </div>
     </div>
@@ -421,7 +431,20 @@ mail.href = "mailto:" + CONTACT + "?subject=" + encodeURIComponent(BIZ + " - inq
 /* ============ FORM FLOW ============ */
 var answers = {}, step = 0;
 var stage = document.getElementById("fStage");
-var prog = document.querySelectorAll(".prog i");
+
+/* preguntas del oficio: toma q1..q6, las que existan en trades.js */
+var QS = [];
+for(var qi = 1; qi <= 6; qi++){ if(T["q" + qi]) QS.push(T["q" + qi]); }
+
+/* pasos totales = preguntas + direccion + fotos + contacto */
+var TOTAL = QS.length + 3;
+
+var SAMPLE_ADDR = "1420 Sawgrass Ct, " + (CITY || "Kissimmee FL");
+var SAMPLE_PICS = [["IMG_4021.jpeg","2.1 MB"],["IMG_4022.jpeg","1.8 MB"]];
+
+var progEl = document.getElementById("prog");
+progEl.innerHTML = new Array(TOTAL + 1).join("<i></i>");
+var prog = progEl.querySelectorAll("i");
 
 function setProg(n){ prog.forEach(function(el,i){ el.classList.toggle("on", i <= n); }); }
 
@@ -432,6 +455,7 @@ function stepQ(key, cfg, next){
   cfg.o.forEach(function(o,i){ html += '<button class="opt" data-i="' + i + '">' + o + '</button>'; });
   html += '</div>';
   if(step > 0) html += '<button class="back">Back</button>';
+  html += '<button class="skip">Skip</button>';
   stage.innerHTML = html;
   stage.querySelectorAll(".opt").forEach(function(b){
     b.addEventListener("click", function(){
@@ -441,6 +465,64 @@ function stepQ(key, cfg, next){
   });
   var bk = stage.querySelector(".back");
   if(bk) bk.addEventListener("click", function(){ step--; setProg(step); render(); });
+  stage.querySelector(".skip").addEventListener("click", function(){
+    answers[key] = cfg.o[cfg.d || 0];
+    step++; setProg(step); next();
+  });
+}
+
+function stepAddress(){
+  stage.innerHTML =
+    '<div class="q">Where is the property?</div>' +
+    '<div class="qh">So ' + esc(BIZ) + ' can size it up and know the drive before quoting.</div>' +
+    '<div class="fld"><label>Property address</label><input id="iAddr" type="text" placeholder="' + esc(SAMPLE_ADDR) + '"></div>' +
+    '<button class="btn btn-brand" id="aNext">Next</button>' +
+    '<button class="back">Back</button>';
+  stage.querySelector(".back").addEventListener("click", function(){ step--; setProg(step); render(); });
+  stage.querySelector("#aNext").addEventListener("click", function(){
+    answers.addr = stage.querySelector("#iAddr").value.trim() || SAMPLE_ADDR;
+    step++; setProg(step); render();
+  });
+}
+
+function stepPhotos(){
+  var pics = SAMPLE_PICS.slice();
+  function chips(){
+    return pics.map(function(f,i){
+      return '<div class="file"><span class="file-ic">' +
+        '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5-5-6 6"/></svg></span>' +
+        '<div class="file-m"><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></div>' +
+        '<button class="file-x" data-x="' + i + '" aria-label="Remove">&#215;</button></div>';
+    }).join("");
+  }
+  function paint(){
+    stage.innerHTML =
+      '<div class="q">Add a few photos.</div>' +
+      '<div class="qh">A picture of the area is worth three phone calls.</div>' +
+      '<div class="files">' + chips() +
+      '<button class="addf">+ Add photos</button></div>' +
+      '<input type="file" id="iPick" accept="image/*" multiple style="display:none">' +
+      '<button class="btn btn-brand" id="pNext" style="margin-top:14px">Next</button>' +
+      '<button class="back">Back</button>';
+    stage.querySelector(".back").addEventListener("click", function(){ step--; setProg(step); render(); });
+    stage.querySelectorAll(".file-x").forEach(function(b){
+      b.addEventListener("click", function(){ pics.splice(+b.dataset.x, 1); paint(); });
+    });
+    var pick = stage.querySelector("#iPick");
+    stage.querySelector(".addf").addEventListener("click", function(){ pick.click(); });
+    pick.addEventListener("change", function(){
+      Array.prototype.slice.call(pick.files).forEach(function(f){
+        pics.push([f.name, (f.size / 1048576).toFixed(1) + " MB"]);
+      });
+      paint();
+    });
+    stage.querySelector("#pNext").addEventListener("click", function(){
+      answers.pics = pics.length;
+      step++; setProg(step); render();
+    });
+  }
+  paint();
 }
 
 function stepDetails(){
@@ -459,21 +541,20 @@ function stepDetails(){
     answers.phone = stage.querySelector("#iPhone").value.trim() || "(407) 555-0142";
     answers.note = stage.querySelector("#iNote").value.trim();
     submitted = true;
-    step = 4; setProg(3);
+    step = TOTAL; setProg(TOTAL - 1);
     stage.innerHTML =
       '<div class="done"><div class="tick">&#10003;</div><h3>Got it, ' + esc(answers.name.split(" ")[0]) + '.</h3>' +
       '<p>' + esc(BIZ) + ' has everything needed to price this. No callback just to ask the basics.</p></div>';
     activeFilt = "new"; tplIdx = 0;
     document.getElementById("handoff").style.display = "block";
-    document.getElementById("bdgInq").textContent = "4";
     renderPane(activeView);
   });
 }
 
 function render(){
-  if(step === 0) stepQ("a1", T.q1, function(){ render(); });
-  else if(step === 1) stepQ("a2", T.q2, function(){ render(); });
-  else if(step === 2) stepQ("a3", T.q3, function(){ render(); });
+  if(step < QS.length) stepQ("a" + (step + 1), QS[step], function(){ render(); });
+  else if(step === QS.length) stepAddress();
+  else if(step === QS.length + 1) stepPhotos();
   else stepDetails();
 }
 setProg(0); render();
@@ -486,7 +567,10 @@ var LBL = {new:"New",con:"Contacted",est:"Estimate sent",hir:"Hired",no:"Not hir
 
 function yourName(){ return answers.name || "You"; }
 function yourSvc(){
-  return [answers.a1, answers.a2, answers.a3].filter(Boolean).join(" \u00b7 ");
+  var parts = QS.map(function(_, i){ return answers["a" + (i + 1)]; }).filter(Boolean);
+  if(answers.addr) parts.push(answers.addr);
+  if(answers.pics) parts.push(answers.pics + (answers.pics === 1 ? " photo" : " photos"));
+  return parts.join(" \u00b7 ");
 }
 
 function seedRow(s){
